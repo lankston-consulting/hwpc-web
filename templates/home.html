@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Bulma css CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Fontawesome icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    
+</head>
+
+<header>
+    {% block header %}
+    <section class="hero is-white is-small is-center">
+        <div class="hero-body">
+            <div class="container">
+                <p class="title is-size-1 has-text-weight-bold">Harvested Wood Products</p>
+            </div>
+        </div>
+        <div class="hero-foot">
+            <nav class="tabs is-boxed is-medium">
+                <div class="container has-text-weight-bold herotabs">
+                    <ul class="">
+                        <li class="has-text-white herotab" id="home">
+                            <a>Home</a>
+                        </li>
+                        <li class="" id='about'>
+                            <a>About</a>
+                        </li>
+                        <li class="" id="advanced">
+                            <a>Advanced</a>
+                        </li>
+                        <li class="" id='references'>
+                            <a>References</a>
+                        </li>
+                        <li class="" id='contact'>
+                            <a>Contact</a>
+                        </li>
+                        <li class="" id='files'>
+                            <a>Files</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        </section>
+        {% endblock %}
+</header>
+
+
+<body>
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <!-- Holding frame for tab content-->
+        <iframe class='pagecontent' id="pagecontent" title="pagecontent" style="border:none;" width="100%" height="100%" scrolling="no" src="{{ url_for('homecontent') }}"></iframe>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+</body>
+<script src="{{ url_for('static', filename='homerow.js') }}"></script> 
+</html>
