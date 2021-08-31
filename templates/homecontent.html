@@ -22,27 +22,30 @@
             <p>The user accepts all responsibility for the HWP model results and output. Please read all instructions in the About and Advanced tabs carefully.</p>
             <p class="is-size-4">Steps:</p>
             <a class="has-text-weight-bold">Show optional steps</a>
+            <form name="forms" id="forms">
             <ol>
+                <!-- Input forms for user csv data--> 
                 <li>
                     <p class="is-size-5">Upload yearly harvest data (MBF)</p>
-                    <input type="file" id="yearlyharvestinput" accept=".csv">
+                    <input type="file" id="yearlyharvestinput" name="yearlyharvestinput" accept=".csv">
                 </li>
                 <br>
                 <li>
                     <p class="is-size-5">Upload yearly timber product ratios</p>
-                    <input type="file" id="yearlytimberproductratios" accept=".csv">
+                    <input type="file" id="yearlytimberproductratios" name="yearlytimberproductratios" accept=".csv">
                 </li>
                 <br>
+                <!-- Input form for Region Selection --> 
                 <li>
                     <p class="is-size-5">Upload yearly primary product ratios or choose region for default ratios</p>
                     <p>See a map of regions<a> here</a>.</p>
                     <label for="regionselection">Select a Region:</label>
-                    <select name="regionselection" id="regionseletion">
+                    <select name="regionselection" id="regionselection">
                         <option value="northcentral">North Central</option>
                         <option value="northeast">Northeast</option>
                         <option value="pacificnorthwesteast">Pacific Northwest, East</option>
                         <option value="pacificnorthwestwest">Pacific Northwest, West</option>
-                        <option value="pacific southwest">Pacific Southwest</option>
+                        <option value="pacificsouthwest">Pacific Southwest</option>
                         <option value="rockymountain">Rocky Mountain</option>
                         <option value="southcentral">South Central</option>
                         <option value="southeast">South East</option>
@@ -52,22 +55,26 @@
                     <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput"></p>
                 </li>
                 <br>
+                <!-- Input form for Loss Factor--> 
                 <li>
                     <p class="is-size-5">Enter a loss factor in the range 0-1 (see <a href="/advanced"> Advanced </a> page)</p>
-                    <input type="text" id="lossfactorinput" name="lossfactorinput">
+                    <input type="number" id="lossfactorinput" name="lossfactor">
                 </li>
                 <br>
+                <!-- Input form for Iterations of Monte Carlo Simulation and for Email Submission--> 
                 <li>
                     <p class="is-size-5">Enter number of iterations</p>
                     <p>Any number larger than 1 will result in Monte Carlo simulation and the only output will be a table of confidence intervals around carbon storage for each year.</p>
-                    <p><input type="text" id="iterationinput" name="iterationinput"> Address to send email when done with Monte Carlo: <input type="text" id="emailinput"></p>
+                    <p><input type="number" id="iterationinput" name="iterations"> Address to send email when done with Monte Carlo: <input type="email" id="emailinput" name="email"></p>
                 </li>
                 <br>
                 <li>
                     <p class="is-size-5">Run the model (if you upload a file in Step 3, then you must also enter a custom name to run the model)</p>
-                    <button type="button" id="getproducts">Run</button>
+                    <button type="button" id="getdata">Run</button>
                 </li>
             </ol>
+        </form>
 
         </div>
     </div>
+    <script src="{{ url_for('static', filename='datainput.js') }}"></script> 

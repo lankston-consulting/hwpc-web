@@ -5,9 +5,8 @@ advanced = document.getElementById('advanced');
 references = document.getElementById('references');
 contact = document.getElementById('contact');
 files = document.getElementById('files');
-
-
 pagecontainer = document.getElementById('pagecontent');
+//resizer for page content
 pagecontainer.onload = function(){
     pagecontainer.style.height = pagecontainer.contentWindow.document.body.scrollHeight + 'px';
 }
