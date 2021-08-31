@@ -72,12 +72,13 @@ contact.addEventListener("click", (e) => {
     }
 });
 files.addEventListener("click", (e) => {
-    if(files.classList.contains('herotab')==false){
+    if(files.classList.contains('herotab')==false || document.getElementById('pagecontent').src != '/files'){
         temp = document.getElementsByClassName('herotab');
         temp[0].classList.remove('has-text-white');
         temp[0].classList.remove('herotab');
         files.classList.add('herotab');
         files.classList.add('has-test-white');
         temp = '';
+        document.getElementById('pagecontent').src = "/files";
     }
 });

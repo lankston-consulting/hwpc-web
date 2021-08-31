@@ -29,6 +29,10 @@ def references():
 def contact():
     return render_template('contact.html')
 
+@app.route('/files', methods=['GET'])
+def files():
+    return render_template('files.html')
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
