@@ -7,7 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-
+<div id="wrapper">
 <div class="columns" id="fullcontent">
     <div class="column configureinfo">
         <div class="content">
@@ -21,7 +21,7 @@
         <div class="content">
             <p>The user accepts all responsibility for the HWP model results and output. Please read all instructions in the About and Advanced tabs carefully.</p>
             <p class="is-size-4">Steps:</p>
-            <a class="has-text-weight-bold">Show optional steps</a>
+            <a class="has-text-weight-bold" id="options">Show optional steps</a>
             <form name="forms" id="forms">
             <ol>
                 <!-- Input forms for user csv data--> 
@@ -59,7 +59,47 @@
                     <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput"></p>
                 </li>
                 <br>
-                <!-- Input form for Loss Factor--> 
+                <!-- Optional inputs -->
+                <li class="optional is-hidden">
+                    <p>Upload yearly end use product ratios (optional)</p>
+                    <input type="file" name="EndUseRatiosFilename" id="EndUseRatiosFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload end use product half lives (optional)</p>
+                    <input type="file" name="EndUseHalfLivesFilename" id="EndUseHalfLivesFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload discarded products disposition ratios (optional)</p>
+                    <input type="file" name="DispositionsFilename" id="DispositionsFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload discarded products disposition half lives and landfill fixed ratio (optional)</p>
+                    <input type="file" name="DispositionHalfLivesFilename" id="DispositionHalfLivesFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload distribution parameters (optional and rarely used)</p>
+                    <input type="file" name="DistributionDataFilename" id="DistributionDataFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload proportions for burned with energy capture (optional and rarely used)</p>
+                    <input type="file" name="BurnedRatiosFilename" id="BurnedRatiosFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload MBF to CCF conversion factors (optional)</p>
+                    <input type="file" name="MbfToCcfFilename" id="MbfToCcfFilename"><br>
+                </li>
+                <br class="optional is-hidden">
+                <li class="optional is-hidden">
+                    <p>Upload primary product CCF to metric tons C conversion factors (optional)</p>
+                    <input type="file" name="CcfToMgcFilename" id="CcfToMgcFilename"><br>
+                </li>
+                <!-- Input form for Loss Factor --> 
                 <li>
                     <p class="is-size-5">Enter a loss factor in the range 0-1 (see <a href="/advanced"> Advanced </a> page)</p>
                     <input type="number" id="lossfactorinput" name="lossfactor">
@@ -81,4 +121,5 @@
 
         </div>
     </div>
+</div>
     <script src="{{ url_for('static', filename='datainput.js') }}"></script> 

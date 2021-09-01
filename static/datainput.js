@@ -1,6 +1,10 @@
 // Run button
 getdata = document.getElementById("getdata");
 
+// Optional inputs button
+options = document.getElementById('options');
+
+
 // Event that processes all available input data into JSON format
 getdata.addEventListener("click", (e) => {
 
@@ -29,4 +33,13 @@ getdata.addEventListener("click", (e) => {
           }
           console.log(output);
     }
+});
+
+options.addEventListener("click", (e) => {
+    temp=document.getElementsByClassName("optional");
+    for (let i = 0; i < temp.length; i++) {
+        temp[i].classList.toggle("is-hidden");
+      }
+      body_height = document.getElementById("wrapper").scrollHeight + 'px';
+      window.parent.postMessage(body_height, "*"); 
 });

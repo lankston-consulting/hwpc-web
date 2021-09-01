@@ -8,7 +8,8 @@ files = document.getElementById('files');
 pagecontainer = document.getElementById('pagecontent');
 //resizer for page content
 pagecontainer.onload = function(){
-    pagecontainer.style.height = pagecontainer.contentWindow.document.body.scrollHeight + 'px';
+    console.log(pagecontainer.contentWindow.document.getElementById('wrapper').scrollHeight)
+    pagecontainer.style.height = pagecontainer.contentWindow.document.getElementById('wrapper').scrollHeight + 'px';
 }
 
 // Event listeners for tab variables
@@ -82,3 +83,13 @@ files.addEventListener("click", (e) => {
         document.getElementById('pagecontent').src = "/files";
     }
 });
+
+// Here "addEventListener" is for standards-compliant web browsers and "attachEvent" is for IE Browsers.
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+// Listen to message from child IFrame window
+eventer(messageEvent, function (e) {
+    pagecontainer.style.height = e.data;
+}, false); 
