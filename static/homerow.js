@@ -8,7 +8,6 @@ files = document.getElementById('files');
 pagecontainer = document.getElementById('pagecontent');
 //resizer for page content
 pagecontainer.onload = function(){
-    console.log(pagecontainer.contentWindow.document.getElementById('wrapper').scrollHeight)
     pagecontainer.style.height = pagecontainer.contentWindow.document.getElementById('wrapper').scrollHeight + 'px';
 }
 

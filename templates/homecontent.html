@@ -56,7 +56,7 @@
                         <option value="west">West</option>
                     </select>
                     <p class="has-text-weight-bold">or</p>
-                    <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput"></p>
+                    <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput" name="customfileinput"></p>
                 </li>
                 <br>
                 <!-- Optional inputs -->
@@ -102,7 +102,7 @@
                 <!-- Input form for Loss Factor --> 
                 <li>
                     <p class="is-size-5">Enter a loss factor in the range 0-1 (see <a href="/advanced"> Advanced </a> page)</p>
-                    <input type="number" id="lossfactorinput" name="lossfactor">
+                    <input type="number" id="lossfactorinput" name="lossfactor" step="0.01" min="0" max="1">
                 </li>
                 <br>
                 <!-- Input form for Iterations of Monte Carlo Simulation and for Email Submission--> 

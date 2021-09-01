@@ -6,167 +6,169 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
-<div class="content">
-    <p class="is-size-3 has-text-weight-bold">For Advanced Users.</p>
-    <p>
-        Many of the parameters used to calculate carbon in harvested wood products (HWP) are predetermined by the
-        values used in the IPCC approach and are the default values in the program. However, advanced users have the option
-        to further define the parameters used to calculate carbon stocks and emissions for HWP by including eight additional
-        datasets. These additional datasets, as enumerated on the 
-        <a class="seeme2" href="/homecontent">Home</a> page and discussed in detail below, are:
-    </p>
-    <ol start="4">
-        <li>Yearly end-use product ratios;</li>
-        <li>Products end-use half-lives;</li>
-        <li>Discarded products disposition ratios;</li>
-        <li>Discarded products disposition half-lives and landfill fixed ratios;</li>
-        <li>Distribution parameters;</li>
-        <li>Ratios for wood and paper burned with energy capture;</li>
-        <li>Thousand board feet (MBF) to hundred cubic feet (CCF) conversion factors;</li>
-        <li>Primary product to CCF conversion factors.</li>
-    </ol>
-    <p  class="has-text-danger has-text-weight-bold">
-        It is important to note that the user cannot change the order of any column or row or rename any
-        of the workbook sheets; doing so will yield entirely incorrect results.
-    </p>
-    <p class="is-size-4">Step 4: Yearly end-use product ratios</p>
-    <p>
-        Yearly end-use product ratios are the distribution of primary wood products, such as lumber and non-structural
-        panels, to end-use products, such as single family new housing and furniture manufacturing. All default end-uses for
-        primary products are located in the ‘End Use Ratios’ worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong>
-        Excel workbook and were obtained from
-        <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/fplgtr/fpl_gtr199.pdf" target="_blank">McKeever and Howard, 2011</a>.
-    </p>
-    <p>
-        A portion of each primary product is distributed to end-use products. This is the amount of the primary product carbon
-        that enters the end-use Products in Use pool, and the distribution of each primary product among end-use products must
-        sum to 1.0. The program will only work if each primary products end-use distributions sum to 1.0. The advanced user
-        may adjust the default end-use product ratios and upload the <strong class="has-text-weight-bold">‘End Use Ratios’</strong> file in Step 4.
-    </p>
-    <p class="is-size-4">Step 5: End-use products half-lives</p>
-    <p>
-        End-use product half-life values express the decay rate at which carbon in the products in use category passes
-        into the Discarded Product category. All default end-use half-lives are located in the <strong class="has-text-weight-bold">
-            ‘End Use
-            Half Lives’
-        </strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook and were obtained from
-        <a class="seeme2" href="https://www.nrs.fs.fed.us/pubs/gtr/ne_gtr343.pdf" target="_blank">Smith et al., 2006</a>.
-    </p>
-    <p>
-        The user may choose to change any half-life of the 224 end-use products. The user may alter as few or as many
-        half-lives as desired. Increasing end-use half-lives will result in carbon storage in the Products in Use pool for a
-        longer time period, while decreasing half-lives will pass those end-use products into the Discarded Products pool at
-        a faster rate. The advanced user may adjust the default end-use product half-lives and upload the
-        <strong class="has-text-weight-bold">‘End Use Half Lives’</strong> file in Step 5.
-    </p>
-    <p class="is-size-4">Step 6: Discarded products disposition ratios</p>
-    <p>
-        In any given inventory year wood and paper from every single vintage year passes from the Products in Use pool
-        into the Discarded Products category. Discarded products disposition ratios are the distribution of discarded wood
-        and paper products into the various Discarded Product categories: Recovered (Recycled), Landfills, Dumps, Compost,
-        and Burned Without Energy Capture. All default wood and paper products discarded disposition ratios are located in
-        the <strong class="has-text-weight-bold">‘Discard Ratios’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel
-        workbook and were obtained from
-        <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
-    </p>
-    <p>
-        The distribution of Discarded Products among the categories is the carbon that enters the five Discarded Products
-        categories and must sum to 1.0 each for wood and paper. The program will only work if all wood and paper Discarded
-        Products categories sum to 1.0 each for wood and paper. The advanced user may adjust the default distributions of
-        Discarded Products to and upload the <strong class="has-text-weight-bold">‘Discard Ratios’</strong> file in Step 6.
-    </p>
-    <p class="is-size-4">Step 7: Discarded products disposition half-lives and landfill fixed ratios</p>
-    <p>
-        Discarded products disposition half-lives are the half-lives of wood and paper, which vary between landfills,
-        dumps, and recovered (recycled) products. Default Discarded Products half-lives are located in the
-        <strong class="has-text-weight-bold">‘Discard Half Lives’</strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel
-        workbook. Landfill, dumps, and recovered (recycled) wood and paper half-lives were obtained from
-        <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
-    </p>
-    <p>
-        Landfill fixed ratios are the fractions of solid wood and paper products not subject to decay in landfills and
-        were obtained from
-        <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
-    </p>
-    <p>
-        The user may choose to change any half-life of wood and paper products that are in landfills, dumps, or recovered
-        (recycled) as well as the landfill fixed ratios. The user may alter as few or as many half-lives as desired.
-        Increasing half-lives will result in slower carbon decay and will increase the recalcitrance time of carbon in Solid
-        Waste Disposal Sites (SWDS). Decreasing half-lives will result in faster carbon decay and will decrease the
-        recalcitrance time of carbon in SWDS. The advanced user may adjust the default Discarded Products disposition
-        half-lives and landfill fixed ratios and upload the <strong class="has-text-weight-bold">‘Discard Half Lives’</strong> file in Step
-        7.
-    </p>
-    <p class="is-size-4">Step 8: Distribution parameters</p>
-    <p>
-        The distribution parameters dataset guides the Monte Carlo simulation that determines statistical confidence
-        intervals around specific estimates. Default distribution parameters are located in the
-        <strong class="has-text-weight-bold">‘Parameters’</strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook.
-    </p>
-    <p>
-        Adjusting the minimum, peak, and maximum values for the random variable distributions affects the shape and size
-        of the triangular distribution around each random variable. Additionally, some random variable distributions can be
-        further refined by adjusting the applicable time periods. Adjustments made to the distribution parameters affect
-        only the results of the Monte Carlo simulation, and has influence on single point estimations that occur when the
-        number of iterations is set to one. Default distributions were obtained from
-        <a class="seeme2" href="https://www.fs.fed.us/rm/pubs_other/rmrs_2012_stockmann_k001.pdf" target="_blank">Stockmann et al., 2012</a>.
-    </p>
-    <p>
-        This dataset allows for the insertion of new rows only in which the user can alter time series for Harvest,
-        Timber Product Ratios, and Primary Product Ratios. See the <strong class="has-text-weight-bold">‘Parameters’</strong> worksheet for
-        further information.
-    </p>
-    <p class="is-size-4">Step 9: Proportions for burned with energy capture</p>
-    <p>
-        Some of the HWP discarded into the SWDS may be burned for disposal in a boiler with energy capture (e.g., a trash
-        incinerator). The proportion (values between 0 and 1) of discarded HWP burned with energy capture guides what
-        portion of discarded HWP is burned with energy capture for every year of the time series. There are no default
-        proportions in the model; or rather, the default is 0. Adjustments made to the discarded HWP Burned with Energy
-        Capture worksheet must be between 0 and 1 (e.g. 0.5 = 50% discarded wood and paper into the SWDS is burned with
-        energy capture). Adjusting proportions affect only HWP that have been discarded, and is not related to the fuelwood
-        component of HWP.
-    </p>
-    <p class="is-size-4">Step 10: MBF to CCF conversion factors</p>
-    <p>
-        Factors used to convert thousand board feet (MBF) to hundred cubic feet (CCF) vary by time and place. Annual
-        harvest is uploaded in MBF and is converted to CCF within the program using the default conversion factors located
-        in the <strong class="has-text-weight-bold">‘MBF to CCF’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook
-        and were obtained from
-        <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/journals/pnw_2010_leegan001.pdf" target="_blank">Keegan et al., 2010</a> (1952 – 1989);
-        <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr615.pdf" target="_blank">Morgan et al., 2004</a> (1990 – 2000);
-        <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr866.pdf" target="_blank">Morgan et al., 2012</a> (2001 – 2006).
-        <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr908.pdf" target="_blank">McIver et al., 2015</a> (2007 – 2016).
-        The default conversion factors are specific to the Pacific Southwest region.
-    </p>
-    <p>
-        The user may choose to change MBF to CCF conversion factors if more detailed information is available by region
-        strongning any given time series. This dataset allows for the insertion of new rows only in which the user can alter
-        the start year for an entered conversion factor. The last entered conversion factor will be used in subsequent years
-        until a newer conversion factor is encountered by the program. See the <strong class="has-text-weight-bold">‘MBF to CCF’</strong>
-        worksheet for further information.
-    </p>
-    <p class="is-size-4">Step 11: CCF to metric tons carbon</p>
-    <p>Factors used to convert hundred cubic feet (CCF) to metric tons carbon vary by primary product. Default conversion factors to convert solid wood products from CCF to metric tons are located in the <strong class="has-text-weight-bold">‘CCF to metric tons carbon’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook and were obtained from <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf">Skog 2008</a> and <a class="seeme2" href="https://www.nrs.fs.fed.us/pubs/gtr/ne_gtr343.pdf">Smith et al., 2006</a>.
-        Specific carbon content of wood fiber in solid wood products is 50 percent, and the carbon content of air dry weight paper is 45 percent. Factors to convert each CCF primary product to metric tons of carbon were derived from the carbon mass of the wood fibers.
-    </p>
-    <p class="is-size-4">Step 12: Loss factor</p>
-    <p>
-        The loss factor is the amount of carbon that is removed from the total carbon distributed to the Products in Use
-        pool and was obtained from 
-        <a class="seeme2" href="https://www.fs.fed.us/rm/pubs_other/rmrs_2012_stockmann_k001.pdf" target="_blank"></a>Stockmann et al., 2012</a>. 
-        The loss factor for wood and paper products is adjusted downward by a default factor of 8 percent to reflect a fixed 
-        loss of carbon when wood and paper products enter the Products in Use pool and is entered on the 
-        <a class="seeme2" href="/homecontent">Home page</a> in Step 12 (values must range between 0 and 1). That is, 8 percent of all primary 
-        products are lost to the Discarded Products category when they enter the end-use Products in Use pool.
-    </p>
-    <p>
-        The carbon remaining in HWP in a given inventory year is calculated for each vintage year end use based on a
-        standard decay formula (N<sub>t</sub> = N<sub>0</sub>exp(−<i>t</i>ln(2)/<i>t</i><sub>1/2</sub>)). In the program calculations, the
-        starting amount (N<sub>0</sub>, at n = 0) is assumed to immediately enter the Discarded Products carbon category.
-        This loss in use accounts for waste when primary products (e.g. softwood lumber) are put into specific end uses
-        (e.g. new single family residential housing). The advanced user may adjust the default loss factor in Step 12.
-    </p>
-    <p>For more information see the publications on the 
-        <a class="seeme2" href="/references">References</a> page.
-    </p>
+<div id="wrapper">
+    <div class="content">
+        <p class="is-size-3 has-text-weight-bold">For Advanced Users.</p>
+        <p>
+            Many of the parameters used to calculate carbon in harvested wood products (HWP) are predetermined by the
+            values used in the IPCC approach and are the default values in the program. However, advanced users have the option
+            to further define the parameters used to calculate carbon stocks and emissions for HWP by including eight additional
+            datasets. These additional datasets, as enumerated on the 
+            <a class="seeme2" href="/homecontent">Home</a> page and discussed in detail below, are:
+        </p>
+        <ol start="4">
+            <li>Yearly end-use product ratios;</li>
+            <li>Products end-use half-lives;</li>
+            <li>Discarded products disposition ratios;</li>
+            <li>Discarded products disposition half-lives and landfill fixed ratios;</li>
+            <li>Distribution parameters;</li>
+            <li>Ratios for wood and paper burned with energy capture;</li>
+            <li>Thousand board feet (MBF) to hundred cubic feet (CCF) conversion factors;</li>
+            <li>Primary product to CCF conversion factors.</li>
+        </ol>
+        <p  class="has-text-danger has-text-weight-bold">
+            It is important to note that the user cannot change the order of any column or row or rename any
+            of the workbook sheets; doing so will yield entirely incorrect results.
+        </p>
+        <p class="is-size-4">Step 4: Yearly end-use product ratios</p>
+        <p>
+            Yearly end-use product ratios are the distribution of primary wood products, such as lumber and non-structural
+            panels, to end-use products, such as single family new housing and furniture manufacturing. All default end-uses for
+            primary products are located in the ‘End Use Ratios’ worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong>
+            Excel workbook and were obtained from
+            <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/fplgtr/fpl_gtr199.pdf" target="_blank">McKeever and Howard, 2011</a>.
+        </p>
+        <p>
+            A portion of each primary product is distributed to end-use products. This is the amount of the primary product carbon
+            that enters the end-use Products in Use pool, and the distribution of each primary product among end-use products must
+            sum to 1.0. The program will only work if each primary products end-use distributions sum to 1.0. The advanced user
+            may adjust the default end-use product ratios and upload the <strong class="has-text-weight-bold">‘End Use Ratios’</strong> file in Step 4.
+        </p>
+        <p class="is-size-4">Step 5: End-use products half-lives</p>
+        <p>
+            End-use product half-life values express the decay rate at which carbon in the products in use category passes
+            into the Discarded Product category. All default end-use half-lives are located in the <strong class="has-text-weight-bold">
+                ‘End Use
+                Half Lives’
+            </strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook and were obtained from
+            <a class="seeme2" href="https://www.nrs.fs.fed.us/pubs/gtr/ne_gtr343.pdf" target="_blank">Smith et al., 2006</a>.
+        </p>
+        <p>
+            The user may choose to change any half-life of the 224 end-use products. The user may alter as few or as many
+            half-lives as desired. Increasing end-use half-lives will result in carbon storage in the Products in Use pool for a
+            longer time period, while decreasing half-lives will pass those end-use products into the Discarded Products pool at
+            a faster rate. The advanced user may adjust the default end-use product half-lives and upload the
+            <strong class="has-text-weight-bold">‘End Use Half Lives’</strong> file in Step 5.
+        </p>
+        <p class="is-size-4">Step 6: Discarded products disposition ratios</p>
+        <p>
+            In any given inventory year wood and paper from every single vintage year passes from the Products in Use pool
+            into the Discarded Products category. Discarded products disposition ratios are the distribution of discarded wood
+            and paper products into the various Discarded Product categories: Recovered (Recycled), Landfills, Dumps, Compost,
+            and Burned Without Energy Capture. All default wood and paper products discarded disposition ratios are located in
+            the <strong class="has-text-weight-bold">‘Discard Ratios’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel
+            workbook and were obtained from
+            <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
+        </p>
+        <p>
+            The distribution of Discarded Products among the categories is the carbon that enters the five Discarded Products
+            categories and must sum to 1.0 each for wood and paper. The program will only work if all wood and paper Discarded
+            Products categories sum to 1.0 each for wood and paper. The advanced user may adjust the default distributions of
+            Discarded Products to and upload the <strong class="has-text-weight-bold">‘Discard Ratios’</strong> file in Step 6.
+        </p>
+        <p class="is-size-4">Step 7: Discarded products disposition half-lives and landfill fixed ratios</p>
+        <p>
+            Discarded products disposition half-lives are the half-lives of wood and paper, which vary between landfills,
+            dumps, and recovered (recycled) products. Default Discarded Products half-lives are located in the
+            <strong class="has-text-weight-bold">‘Discard Half Lives’</strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel
+            workbook. Landfill, dumps, and recovered (recycled) wood and paper half-lives were obtained from
+            <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
+        </p>
+        <p>
+            Landfill fixed ratios are the fractions of solid wood and paper products not subject to decay in landfills and
+            were obtained from
+            <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf" target="_blank">Skog 2008</a>.
+        </p>
+        <p>
+            The user may choose to change any half-life of wood and paper products that are in landfills, dumps, or recovered
+            (recycled) as well as the landfill fixed ratios. The user may alter as few or as many half-lives as desired.
+            Increasing half-lives will result in slower carbon decay and will increase the recalcitrance time of carbon in Solid
+            Waste Disposal Sites (SWDS). Decreasing half-lives will result in faster carbon decay and will decrease the
+            recalcitrance time of carbon in SWDS. The advanced user may adjust the default Discarded Products disposition
+            half-lives and landfill fixed ratios and upload the <strong class="has-text-weight-bold">‘Discard Half Lives’</strong> file in Step
+            7.
+        </p>
+        <p class="is-size-4">Step 8: Distribution parameters</p>
+        <p>
+            The distribution parameters dataset guides the Monte Carlo simulation that determines statistical confidence
+            intervals around specific estimates. Default distribution parameters are located in the
+            <strong class="has-text-weight-bold">‘Parameters’</strong> worksheet of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook.
+        </p>
+        <p>
+            Adjusting the minimum, peak, and maximum values for the random variable distributions affects the shape and size
+            of the triangular distribution around each random variable. Additionally, some random variable distributions can be
+            further refined by adjusting the applicable time periods. Adjustments made to the distribution parameters affect
+            only the results of the Monte Carlo simulation, and has influence on single point estimations that occur when the
+            number of iterations is set to one. Default distributions were obtained from
+            <a class="seeme2" href="https://www.fs.fed.us/rm/pubs_other/rmrs_2012_stockmann_k001.pdf" target="_blank">Stockmann et al., 2012</a>.
+        </p>
+        <p>
+            This dataset allows for the insertion of new rows only in which the user can alter time series for Harvest,
+            Timber Product Ratios, and Primary Product Ratios. See the <strong class="has-text-weight-bold">‘Parameters’</strong> worksheet for
+            further information.
+        </p>
+        <p class="is-size-4">Step 9: Proportions for burned with energy capture</p>
+        <p>
+            Some of the HWP discarded into the SWDS may be burned for disposal in a boiler with energy capture (e.g., a trash
+            incinerator). The proportion (values between 0 and 1) of discarded HWP burned with energy capture guides what
+            portion of discarded HWP is burned with energy capture for every year of the time series. There are no default
+            proportions in the model; or rather, the default is 0. Adjustments made to the discarded HWP Burned with Energy
+            Capture worksheet must be between 0 and 1 (e.g. 0.5 = 50% discarded wood and paper into the SWDS is burned with
+            energy capture). Adjusting proportions affect only HWP that have been discarded, and is not related to the fuelwood
+            component of HWP.
+        </p>
+        <p class="is-size-4">Step 10: MBF to CCF conversion factors</p>
+        <p>
+            Factors used to convert thousand board feet (MBF) to hundred cubic feet (CCF) vary by time and place. Annual
+            harvest is uploaded in MBF and is converted to CCF within the program using the default conversion factors located
+            in the <strong class="has-text-weight-bold">‘MBF to CCF’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook
+            and were obtained from
+            <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/journals/pnw_2010_leegan001.pdf" target="_blank">Keegan et al., 2010</a> (1952 – 1989);
+            <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr615.pdf" target="_blank">Morgan et al., 2004</a> (1990 – 2000);
+            <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr866.pdf" target="_blank">Morgan et al., 2012</a> (2001 – 2006).
+            <a class="seeme2" href="https://www.fs.fed.us/pnw/pubs/pnw_gtr908.pdf" target="_blank">McIver et al., 2015</a> (2007 – 2016).
+            The default conversion factors are specific to the Pacific Southwest region.
+        </p>
+        <p>
+            The user may choose to change MBF to CCF conversion factors if more detailed information is available by region
+            strongning any given time series. This dataset allows for the insertion of new rows only in which the user can alter
+            the start year for an entered conversion factor. The last entered conversion factor will be used in subsequent years
+            until a newer conversion factor is encountered by the program. See the <strong class="has-text-weight-bold">‘MBF to CCF’</strong>
+            worksheet for further information.
+        </p>
+        <p class="is-size-4">Step 11: CCF to metric tons carbon</p>
+        <p>Factors used to convert hundred cubic feet (CCF) to metric tons carbon vary by primary product. Default conversion factors to convert solid wood products from CCF to metric tons are located in the <strong class="has-text-weight-bold">‘CCF to metric tons carbon’</strong> page of the <strong class="has-text-weight-bold">‘Templates_Empty’</strong> Excel workbook and were obtained from <a class="seeme2" href="https://www.fpl.fs.fed.us/documnts/pdf2008/fpl_2008_skog001.pdf">Skog 2008</a> and <a class="seeme2" href="https://www.nrs.fs.fed.us/pubs/gtr/ne_gtr343.pdf">Smith et al., 2006</a>.
+            Specific carbon content of wood fiber in solid wood products is 50 percent, and the carbon content of air dry weight paper is 45 percent. Factors to convert each CCF primary product to metric tons of carbon were derived from the carbon mass of the wood fibers.
+        </p>
+        <p class="is-size-4">Step 12: Loss factor</p>
+        <p>
+            The loss factor is the amount of carbon that is removed from the total carbon distributed to the Products in Use
+            pool and was obtained from 
+            <a class="seeme2" href="https://www.fs.fed.us/rm/pubs_other/rmrs_2012_stockmann_k001.pdf" target="_blank"></a>Stockmann et al., 2012</a>. 
+            The loss factor for wood and paper products is adjusted downward by a default factor of 8 percent to reflect a fixed 
+            loss of carbon when wood and paper products enter the Products in Use pool and is entered on the 
+            <a class="seeme2" href="/homecontent">Home page</a> in Step 12 (values must range between 0 and 1). That is, 8 percent of all primary 
+            products are lost to the Discarded Products category when they enter the end-use Products in Use pool.
+        </p>
+        <p>
+            The carbon remaining in HWP in a given inventory year is calculated for each vintage year end use based on a
+            standard decay formula (N<sub>t</sub> = N<sub>0</sub>exp(−<i>t</i>ln(2)/<i>t</i><sub>1/2</sub>)). In the program calculations, the
+            starting amount (N<sub>0</sub>, at n = 0) is assumed to immediately enter the Discarded Products carbon category.
+            This loss in use accounts for waste when primary products (e.g. softwood lumber) are put into specific end uses
+            (e.g. new single family residential housing). The advanced user may adjust the default loss factor in Step 12.
+        </p>
+        <p>For more information see the publications on the 
+            <a class="seeme2" href="/references">References</a> page.
+        </p>
+    </div>
 </div>
