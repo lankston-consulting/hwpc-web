@@ -26,13 +26,26 @@ getdata.addEventListener("click", (e) => {
         const result = getFormJSON(formElement);
         const yearlyharvestinput = [result.yearlyharvestinput].flat().filter((file) => !!file.name);
         const yearlytimberproductratios = [result.yearlytimberproductratios].flat().filter((file) => !!file.name);
-        const output = {
+        const output = 
+            {
             ...result,
             yearlyharvestinput,
             yearlytimberproductratios
-          }
+            }
+        test = "Test"
+          $.get("/upload",
+            {
+                data: JSON.stringify(output),
+                dataType: 'json',
+                processData: false
+            },
+            function()
+            {
+            console.log("done")
+            })
           console.log(output);
     }
+
 });
 
 options.addEventListener("click", (e) => {
