@@ -32,7 +32,6 @@ getdata.addEventListener("click", (e) => {
             yearlyharvestinput,
             yearlytimberproductratios
             }
-        test = "Test"
           $.get("/upload",
             {
                 data: JSON.stringify(output),

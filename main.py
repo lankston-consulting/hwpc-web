@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request
 import tempfile
 import datetime
 from utils.gcs_helper import GcsHelper
+import json
 
 app = Flask(__name__, template_folder="templates")
 
@@ -40,12 +41,14 @@ def files():
 def upload():
 
     data = request.args.get('data')
-    print(data)
+    data = data.encode()
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    user_file_upload = GcsHelper().upload_temp("hwpcarbon-data", data, "hpwc-user-inputs/user_request_" + current_time + ".json")
-    user_file_upload.make_public()
-
-    return 
+    user_file = tempfile.TemporaryFile()
+    user_file.write(data)
+    user_file.seek(0)
+    user_file_upload = GcsHelper().upload_temp("hwpcarbon-data", user_file, "hpwc-user-inputs/user_request_" + current_time + ".json")
+    user_file.close()
+    return "done"
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
