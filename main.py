@@ -1,8 +1,6 @@
 from flask import Flask, redirect, render_template, request
-import tempfile
 import datetime
 from utils.gcs_helper import GcsHelper
-import json
 
 app = Flask(__name__, template_folder="templates")
 
@@ -37,18 +35,55 @@ def contact():
 def files():
     return render_template('files.html')
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['POST'])
 def upload():
 
-    data = request.args.get('data')
-    data = data.encode()
+    # All inputs from the UI are pulled here through with jquery Ajax
+    yearly_harvest_input = request.files['yearlyharvestinput']
+    harvest_data_type = request.form['harvestdatatype']
+    yearly_timber_product_ratios = request.files['yearlytimberproductratios']
+    region_selection = request.form['regionselection']
+    custom_region = request.form['customregion']
+    custom_region_file = request.files['customfileinput']
+    end_use_ratios = request.files['EndUseRatiosFilename']
+    end_use_half_lives = request.files['EndUseHalfLivesFilename']
+    dispositions = request.files['DispositionsFilename']
+    disposition_half_lives = request.files['DispositionHalfLivesFilename']
+    distribution_data = request.files['DistributionDataFilename']
+    burned_ratios = request.files['BurnedRatiosFilename']
+    mbf_to_ccf = request.files['MbfToCcfFilename']
+    ccf_to_mgc = request.files['CcfToMgcFilename']
+    loss_factor = request.form['lossfactor']
+    iterations = request.form['iterations']
+    email = request.form['email']
+
+    # The data is compiled to a dictionary to be processed with the GcsHelper class
+    data = {
+            "yearly_harvest_input":yearly_harvest_input,
+            "harvest_data_type":harvest_data_type,
+            "yearly_timber_product_ratios":yearly_timber_product_ratios,
+            "region_selection":region_selection,
+            "custom_region":custom_region,
+            "custom_region_file":custom_region_file,
+            "end_use_ratios":end_use_ratios,
+            "end_use_half_lives":end_use_half_lives,
+            "dispositions":dispositions,
+            "disposition_half_lives":disposition_half_lives,
+            "distribution_data":distribution_data,
+            "burned_ratios":burned_ratios,
+            "mbf_to_ccf":mbf_to_ccf,
+            "ccf_to_mgc":ccf_to_mgc,
+            "loss_factor":loss_factor,
+            "iterations":iterations,
+            "email":email
+            }
+
+    # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
+    data_type = type(yearly_harvest_input)
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    user_file = tempfile.TemporaryFile()
-    user_file.write(data)
-    user_file.seek(0)
-    user_file_upload = GcsHelper().upload_temp("hwpcarbon-data", user_file, "hpwc-user-inputs/user_request_" + current_time + ".json")
-    user_file.close()
-    return "done"
+    file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
+    GcsHelper().upload_input_group("hwpcarbon-data",file_group,data,data_type)
+    return render_template('homecontent.html')
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

@@ -22,7 +22,7 @@
             <p>The user accepts all responsibility for the HWP model results and output. Please read all instructions in the About and Advanced tabs carefully.</p>
             <p class="is-size-4">Steps:</p>
             <a class="has-text-weight-bold" id="options">Show optional steps</a>
-            <form name="forms" id="forms">
+            <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
             <ol>
                 <!-- Input forms for user csv data--> 
                 <li>
@@ -45,59 +45,59 @@
                     <p>See a map of regions<a> here</a>.</p>
                     <label for="regionselection">Select a Region:</label>
                     <select name="regionselection" id="regionselection">
-                        <option value="northcentral">North Central</option>
-                        <option value="northeast">Northeast</option>
-                        <option value="pacificnorthwesteast">Pacific Northwest, East</option>
-                        <option value="pacificnorthwestwest">Pacific Northwest, West</option>
-                        <option value="pacificsouthwest">Pacific Southwest</option>
-                        <option value="rockymountain">Rocky Mountain</option>
-                        <option value="southcentral">South Central</option>
-                        <option value="southeast">South East</option>
-                        <option value="west">West</option>
+                        <option value="North Central">North Central</option>
+                        <option value="Northeast">Northeast</option>
+                        <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                        <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                        <option value="Pacific Southwest">Pacific Southwest</option>
+                        <option value="Rocky Mountain">Rocky Mountain</option>
+                        <option value="South Central">South Central</option>
+                        <option value="Southeast">South East</option>
+                        <option value="West">West</option>
                     </select>
                     <p class="has-text-weight-bold">or</p>
-                    <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput" name="customfileinput"></p>
+                    <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput" name="customfileinput"  accept=".csv"></p>
                 </li>
                 <br>
                 <!-- Optional inputs -->
                 <li class="optional is-hidden">
                     <p>Upload yearly end use product ratios (optional)</p>
-                    <input type="file" name="EndUseRatiosFilename" id="EndUseRatiosFilename"><br>
+                    <input type="file" name="EndUseRatiosFilename" id="EndUseRatiosFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload end use product half lives (optional)</p>
-                    <input type="file" name="EndUseHalfLivesFilename" id="EndUseHalfLivesFilename"><br>
+                    <input type="file" name="EndUseHalfLivesFilename" id="EndUseHalfLivesFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload discarded products disposition ratios (optional)</p>
-                    <input type="file" name="DispositionsFilename" id="DispositionsFilename"><br>
+                    <input type="file" name="DispositionsFilename" id="DispositionsFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload discarded products disposition half lives and landfill fixed ratio (optional)</p>
-                    <input type="file" name="DispositionHalfLivesFilename" id="DispositionHalfLivesFilename"><br>
+                    <input type="file" name="DispositionHalfLivesFilename" id="DispositionHalfLivesFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload distribution parameters (optional and rarely used)</p>
-                    <input type="file" name="DistributionDataFilename" id="DistributionDataFilename"><br>
+                    <input type="file" name="DistributionDataFilename" id="DistributionDataFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload proportions for burned with energy capture (optional and rarely used)</p>
-                    <input type="file" name="BurnedRatiosFilename" id="BurnedRatiosFilename"><br>
+                    <input type="file" name="BurnedRatiosFilename" id="BurnedRatiosFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload MBF to CCF conversion factors (optional)</p>
-                    <input type="file" name="MbfToCcfFilename" id="MbfToCcfFilename"><br>
+                    <input type="file" name="MbfToCcfFilename" id="MbfToCcfFilename" accept=".csv"><br>
                 </li>
                 <br class="optional is-hidden">
                 <li class="optional is-hidden">
                     <p>Upload primary product CCF to metric tons C conversion factors (optional)</p>
-                    <input type="file" name="CcfToMgcFilename" id="CcfToMgcFilename"><br>
+                    <input type="file" name="CcfToMgcFilename" id="CcfToMgcFilename" accept=".csv"><br>
                 </li>
                 <!-- Input form for Loss Factor --> 
                 <li>
@@ -114,7 +114,7 @@
                 <br>
                 <li>
                     <p class="is-size-5">Run the model (if you upload a file in Step 3, then you must also enter a custom name to run the model)</p>
-                    <button type="button" id="getdata">Run</button>
+                    <button type="submit" id="getdata">Run</button>
                 </li>
             </ol>
         </form>
