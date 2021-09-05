@@ -1,5 +1,12 @@
+// Run button
+getdata = document.getElementById("getdata");
+
 // Optional inputs button
 options = document.getElementById('options');
+
+getdata.addEventListener("click", (e) => {
+  document.getElementById('overlay').classList.toggle("is-hidden");
+});
 
 options.addEventListener("click", (e) => {
     temp=document.getElementsByClassName("optional");
