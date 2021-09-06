@@ -1,11 +1,6 @@
-from google.cloud import storage
-import tempfile
-import datetime
-import json
+from abc import ABC, abstractmethod
 
-from storage_helper import StorageHelper
-
-class GcsHelper(StorageHelper):
+class StorageHelper(ABC):
     """
     Singleton object for working with GCS objects.
     """
@@ -21,16 +16,12 @@ class GcsHelper(StorageHelper):
         :param kwargs:
         """
         if cls._instance is None:
-            cls._instance = super(GcsHelper, cls).__new__(cls)
+            cls._instance = super(StorageHelper, cls).__new__(cls)
 
-            if 'use_service_account' in kwargs:
-                gcs_account = kwargs['use_service_account']
-                cls._client = storage.Client.from_service_account_json(gcs_account['keyfile'])
-            else:
-                cls._client = storage.Client()
         return cls._instance
 
 
+    @abstractmethod
     @staticmethod
     def check_file_exists_on_cloud(bucket, filename):
         """
@@ -40,10 +31,9 @@ class GcsHelper(StorageHelper):
         :param filename: A path and filename to the file in the bucket
         :return: Boolean, exists or not
         """
-        bucket = GcsHelper._client.bucket(bucket)
-        stats = storage.Blob(bucket=bucket, name=filename).exists(GcsHelper._client)
-        return stats
+        return 
 
+    @abstractmethod
     @staticmethod
     def list_blobs(bucket_name, p=''):
         """
@@ -52,9 +42,9 @@ class GcsHelper(StorageHelper):
         :param p:
         :return:
         """
-        blobs = GcsHelper._client.list_blobs(bucket_name, prefix=p)
-        return blobs
+        return 
 
+    @abstractmethod
     @staticmethod
     def list_blobs_names(bucket_name, p=''):
         """
@@ -63,10 +53,9 @@ class GcsHelper(StorageHelper):
         :param p:
         :return:
         """
-        blobs = GcsHelper._client.list_blobs(bucket_name, prefix=p)
-        blobnames = [x.name for x in blobs]
-        return blobnames
+        return 
 
+    @abstractmethod
     @staticmethod
     def download_temp(bucket, remote_path):
         """
@@ -76,15 +65,9 @@ class GcsHelper(StorageHelper):
         :param remote_path:
         :return:
         """
-        bucket = GcsHelper._client.bucket(bucket)
-        blob = bucket.blob(remote_path)
+        return 
 
-        fp = tempfile.NamedTemporaryFile()
-
-        GcsHelper._client.download_blob_to_file(blob, fp)
-        fp.seek(0)
-        return fp
-
+    @abstractmethod
     @staticmethod
     def download_blob(bucket, remote_path, local_path):
         """
@@ -93,10 +76,6 @@ class GcsHelper(StorageHelper):
         :param remote_path:
         :return:
         """
-        bucket = GcsHelper._client.bucket(bucket)
-        blob = bucket.blob(remote_path)
-
-        blob.download_to_filename(local_path)
         return
 
     @staticmethod

@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request
 import datetime
-from utils.gcs_helper import GcsHelper
+
+from config import gch
 
 app = Flask(__name__, template_folder="templates")
 
@@ -82,7 +83,7 @@ def upload():
     data_type = type(yearly_harvest_input)
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
-    GcsHelper().upload_input_group("hwpcarbon-data",file_group,data,data_type)
+    gch.upload_input_group("hwpcarbon-data",file_group,data,data_type)
     return render_template('homecontent.html')
 
 if __name__ == '__main__':
