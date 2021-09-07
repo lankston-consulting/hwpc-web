@@ -4,8 +4,20 @@ getdata = document.getElementById("getdata");
 // Optional inputs button
 options = document.getElementById('options');
 
+customregion = document.getElementById('customregion');
+regionselection = document.getElementById('regionselection');
+customfileinput = document.getElementById('customfileinput');
+
+customregion.addEventListener('click', (e) => {
+  regionselection.value="";
+  customfileinput.setAttribute('required','true');
+
+});
+
 getdata.addEventListener("click", (e) => {
-  document.getElementById('overlay').classList.toggle("is-hidden");
+  if (checkValidity()){
+    document.getElementById('overlay').classList.toggle("is-hidden");
+  }
 });
 
 options.addEventListener("click", (e) => {
@@ -16,3 +28,5 @@ options.addEventListener("click", (e) => {
       body_height = document.getElementById("wrapper").scrollHeight + 'px';
       window.parent.postMessage(body_height, "*"); 
 });
+
+

@@ -3,7 +3,7 @@ import tempfile
 import datetime
 import json
 
-from storage_helper import StorageHelper
+from .storage_helper import StorageHelper
 
 class GcsHelper(StorageHelper):
     """
@@ -164,7 +164,7 @@ class GcsHelper(StorageHelper):
             # If the input type is not a file type, it will write a text file with information and push it up to cloud storage
             if type(value) != data_type:
                 # If the input is not empty, it will make the file and upload. If it is empty, it will be skipped and save memory.
-                if value != "":
+                if (value != ""):
                     path = source_file_name+key
                     temp = value.encode()
                     temp_file = tempfile.TemporaryFile()

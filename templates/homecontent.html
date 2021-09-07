@@ -57,6 +57,7 @@
                             <option value="South Central">South Central</option>
                             <option value="Southeast">South East</option>
                             <option value="West">West</option>
+                            <option value=""></option>
                         </select>
                         <p class="has-text-weight-bold">or</p>
                         <p>Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput" name="customfileinput"  accept=".csv"></p>
@@ -112,7 +113,8 @@
                     <li>
                         <p class="is-size-5">Enter number of iterations</p>
                         <p>Any number larger than 1 will result in Monte Carlo simulation and the only output will be a table of confidence intervals around carbon storage for each year.</p>
-                        <p><input type="number" id="iterationinput" name="iterations"> Address to send email when done with Monte Carlo: <input type="email" id="emailinput" name="email"></p>
+                        <p><input type="number" id="iterationinput" name="iterations"></p>
+                        <p>Address to send email when done with Monte Carlo: <input type="email" id="emailinput" name="email"></p>
                     </li>
                     <br>
                     <li>
