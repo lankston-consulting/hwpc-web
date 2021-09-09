@@ -60,9 +60,9 @@ def upload():
 
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
-            "yearly_harvest_input":yearly_harvest_input,
+            "harvest_data":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "yearly_timber_product_ratios":yearly_timber_product_ratios,
+            "timber_product_data":yearly_timber_product_ratios,
             "region_selection":region_selection,
             "custom_region":custom_region,
             "custom_region_file":custom_region_file,
