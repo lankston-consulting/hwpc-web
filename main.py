@@ -65,7 +65,7 @@ def upload():
             "timber_product_data":yearly_timber_product_ratios,
             "region_selection":region_selection,
             "custom_region":custom_region,
-            "custom_region_file":custom_region_file,
+            "primary_product_data":custom_region_file,
             "end_use_ratios":end_use_ratios,
             "end_use_half_lives":end_use_half_lives,
             "dispositions":dispositions,
