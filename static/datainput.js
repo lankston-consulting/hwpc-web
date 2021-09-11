@@ -14,6 +14,12 @@ customregion.addEventListener('click', (e) => {
 
 });
 
+customfileinput.addEventListener('click', (e) => {
+  regionselection.value="";
+  customregion.setAttribute('required','true');
+
+});
+
 getdata.addEventListener("click", (e) => {
   if ($('#forms')[0].checkValidity()){
     document.getElementById('overlay').classList.toggle("is-hidden");

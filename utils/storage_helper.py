@@ -94,8 +94,6 @@ class StorageHelper(ABC):
     @abstractmethod
     def delete_blob(self, bucket_name, blob_name):
         """Deletes a blob from the bucket."""
-        # bucket_name = "your-bucket-name"
-        # blob_name = "your-object-name"
 
         pass
 
