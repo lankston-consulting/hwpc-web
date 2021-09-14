@@ -44,7 +44,8 @@ def upload():
     harvest_data_type = request.form['harvestdatatype']
     yearly_timber_product_ratios = request.files['yearlytimberproductratios']
     region_selection = request.form['regionselection']
-    custom_region = request.form['customregion']
+    if(region_selection == ""):
+        region_selection = request.form['customregion']
     custom_region_file = request.files['customfileinput']
     end_use_ratios = request.files['EndUseRatiosFilename']
     end_use_half_lives = request.files['EndUseHalfLivesFilename']
@@ -63,8 +64,7 @@ def upload():
             "harvest_data":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
             "timber_product_data":yearly_timber_product_ratios,
-            "region_selection":region_selection,
-            "custom_region":custom_region,
+            "region":region_selection,
             "primary_product_data":custom_region_file,
             "end_use_ratios":end_use_ratios,
             "end_use_half_lives":end_use_half_lives,
