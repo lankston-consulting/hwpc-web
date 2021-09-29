@@ -1,6 +1,6 @@
-from flask import Flask, redirect, render_template, request
 import datetime
-
+import json
+from flask import Flask, redirect, render_template, request
 from config import gch
 
 app = Flask(__name__, template_folder="templates")
@@ -83,7 +83,22 @@ def upload():
     data_type = type(yearly_harvest_input)
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
+    # temporarily commented out to prevent junk data from being uploaded 
     gch.upload_input_group("hwpcarbon-data",file_group,data,data_type)
+    return render_template('homecontent.html')
+
+@app.route('/download', methods=['GET'])
+def download(filepath):
+    #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
+    filepath = "hpwc-user-inputs/user_request_20210927_193455"
+    with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
+                filled = results.read()
+                filled = json.loads(filled)
+    for filled_key,filled_value in filled.items():
+        print("i run")
+        gch.download_temp('hwpcarbon-data', filled_value)
+
+
     return render_template('homecontent.html')
 
 if __name__ == '__main__':
