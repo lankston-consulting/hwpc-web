@@ -6,7 +6,7 @@ from results import Results as r
 class File:
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
-    results_group = r(file_group=file_group)
+    #results_group = r(file_group=file_group)
 
 app = Flask(__name__, template_folder="templates")
 #Routing for html template files
@@ -87,22 +87,22 @@ def upload():
     data_type = type(yearly_harvest_input)
  
     # temporarily commented out to prevent junk data from being uploaded 
-    gch.upload_input_group("hwpcarbon-data",File.file_group,data,data_type)
-    return render_template('homecontent.html')
+    # gch.upload_input_group("hwpcarbon-data",File.file_group,data,data_type)
+    return download(filepath='hpwc-user-inputs/user_request_20210927_193455')
 
 @app.route('/download<filepath>', methods=['GET'])
 def download(filepath):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
-    filepath = "hpwc-user-inputs/user_request_20210927_193455"
-    with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
-                filled = results.read()
-                filled = json.loads(filled)
-    for filled_key,filled_value in filled.items():
-        print("i run")
-        gch.download_temp('hwpcarbon-data', filled_value)
+    #filepath = "hpwc-user-inputs/user_request_20210927_193455"
+    # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
+    #             filled = results.read()
+    #             filled = json.loads(filled)
+    # for filled_key,filled_value in filled.items():
+    #     print("i run")
+    #     gch.download_temp('hwpcarbon-data', filled_value)
 
-
-    return render_template('homecontent.html')
+    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + filepath + "/results/results.zip"
+    return redirect(full_path)
 
 @app.route('/results',methods=['GET'])
 def show_results():
