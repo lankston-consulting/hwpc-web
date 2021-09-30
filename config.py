@@ -9,4 +9,5 @@ GCP_PRIVATE_KEY_FILE = 'hwpc-sa.json'
 ###############################################################################
 #                               Initialization.                               #
 ###############################################################################
-gch = gcs_helper.GcsHelper(use_service_account={'keyfile': GCP_PRIVATE_KEY_FILE})
+# gch = gcs_helper.GcsHelper(use_service_account={'keyfile': GCP_PRIVATE_KEY_FILE})
+gch = gcs_helper.GcsHelper()
