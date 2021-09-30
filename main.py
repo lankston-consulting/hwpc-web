@@ -2,9 +2,13 @@ import datetime
 import json
 from flask import Flask, redirect, render_template, request
 from config import gch
+from results import Results as r
+class File:
+    current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
+    results_group = r(file_group=file_group)
 
 app = Flask(__name__, template_folder="templates")
-
 #Routing for html template files
 @app.route('/')
 @app.route('/index')
@@ -81,13 +85,12 @@ def upload():
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
     data_type = type(yearly_harvest_input)
-    current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
+ 
     # temporarily commented out to prevent junk data from being uploaded 
-    gch.upload_input_group("hwpcarbon-data",file_group,data,data_type)
+    gch.upload_input_group("hwpcarbon-data",File.file_group,data,data_type)
     return render_template('homecontent.html')
 
-@app.route('/download', methods=['GET'])
+@app.route('/download<filepath>', methods=['GET'])
 def download(filepath):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     filepath = "hpwc-user-inputs/user_request_20210927_193455"
@@ -100,6 +103,15 @@ def download(filepath):
 
 
     return render_template('homecontent.html')
+
+@app.route('/results',methods=['GET'])
+def show_results():
+    f_col = File.results_group.file_collection()
+    print(f_col)
+
+    #render_template('downloads.html', data=json.dumps(f_col))
+
+    return "done"
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
