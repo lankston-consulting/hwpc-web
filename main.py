@@ -90,7 +90,7 @@ def upload():
     # gch.upload_input_group("hwpcarbon-data",File.file_group,data,data_type)
     return download(filepath='hpwc-user-inputs/user_request_20210927_193455')
 
-@app.route('/download<filepath>', methods=['GET'])
+@app.route('/download/<filepath>', methods=['GET'])
 def download(filepath):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     #filepath = "hpwc-user-inputs/user_request_20210927_193455"
@@ -102,7 +102,7 @@ def download(filepath):
     #     gch.download_temp('hwpcarbon-data', filled_value)
 
     full_path = "https://storage.googleapis.com/hwpcarbon-data/" + filepath + "/results/results.zip"
-    return redirect(full_path)
+    return render_template('results.html',full_path=full_path)
 
 @app.route('/results',methods=['GET'])
 def show_results():
