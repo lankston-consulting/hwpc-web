@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/python
+FROM gcr.io/google-appengine/python:latest
 
 RUN apt-get update
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.xenial_amd64.deb
@@ -7,7 +7,7 @@ RUN apt-get install --no-install-recommends -y ./wkhtmltox_0.12.6-1.xenial_amd64
 # Create a virtualenv for dependencies. This isolates these packages from
 # system-level packages.
 # Use -p python3 or -p python3.7 to select python version. Default is version 2.
-RUN virtualenv -p python3.7 /env
+RUN virtualenv -p python3 /env
 
 # Setting these environment variables are the same as running
 # source /env/bin/activate.
