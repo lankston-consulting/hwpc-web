@@ -96,7 +96,7 @@ def upload():
 
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
 
-    redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/' + user_data_folder + new_id)
+    redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
     
     return download(file_path = user_data_folder + new_id + '/')
 
