@@ -111,7 +111,7 @@ def download(file_path):
     #     print("i run")
     #     gch.download_temp('hwpcarbon-data', filled_value)
 
-    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "/results/results.zip"
+    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/results.zip"
     return render_template('results.html', full_path=full_path)
 
 # @app.route('/results',methods=['GET'])
