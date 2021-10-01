@@ -1,0 +1,23 @@
+<head>
+    <!-- Bulma css CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Fontawesome icons -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<div id="wrapper">
+    <div id="overlay" class="is-hidden">
+        <div class="loader"></div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="content">
+                <p>The following hyperlink is the download link to your results. Please copy this link to a notefile or word editor of your choosing to keep safe, as once you leave this page you cannot generate this link again.</p>
+                <p>The data may take a few moments to generate. If it does not download on the first try, please wait a few moments before trying again.</p>
+                <a href="{{ full_path }}" target="_blank">{{ full_path }}</a>
+            </div>
+        </div>
+    </div>
+</div>

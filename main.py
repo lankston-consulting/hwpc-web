@@ -85,7 +85,7 @@ def upload():
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
     data_type = type(yearly_harvest_input)
- 
+    
     # temporarily commented out to prevent junk data from being uploaded 
     # gch.upload_input_group("hwpcarbon-data",File.file_group,data,data_type)
     return download(filepath='hpwc-user-inputs/user_request_20210927_193455')
