@@ -5,12 +5,6 @@ from flask import Flask, redirect, render_template, request
 from config import gch
 # from results import Results as r
 
-# class File:
-#     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-#     file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
-#     #results_group = r(file_group=file_group)
-
-
 user_data_folder = 'hpwc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
@@ -24,6 +18,10 @@ def home():
 @app.route('/homecontent', methods=['GET'])
 def homecontent():
     return render_template('homecontent.html')
+
+@app.route('/calculator', methods=['GET'])
+def calculator():
+    return render_template('calculator.html')
 
 @app.route('/about', methods=['GET'])
 def test():
@@ -103,6 +101,7 @@ def upload():
 @app.route('/download/<filepath>', methods=['GET'])
 def download(file_path):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
+    # IDEA FILL ARRAY WITH OBJECTS WHILE RUNNIGN FILLED.ITEMS(): LOOP TO PASS TO RESULTS, NEED TO WAIT UNTIL WE HAVE PUB SUB FUNCTIONALITY.
     #filepath = "hpwc-user-inputs/user_request_20210927_193455"
     # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
     #             filled = results.read()
