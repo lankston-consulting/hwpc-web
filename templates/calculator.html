@@ -1,0 +1,132 @@
+<head>
+        <!-- Bulma css CDN -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <!-- Fontawesome icons -->
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<div id="wrapper">
+    <div id="overlay" class="is-hidden">
+        <div class="loader"></div>
+    </div>
+    <div class="columns" id="fullcontent">
+        <div class="column configureinfo">
+            <div class="content">
+                <p class="is-size-3 has-text-weight-bold has-text-black-bis">Configure a Simulation.</p>
+                <p>Download an Excel macro-enabled workbook that will help create the input data files here. Use the HWP Ribbon to export data in the correct format for this tool or to add a new year. Do NOT change the basic format of any of the worksheets. If you experience difficulties running the HWP model, try a different web browser. Google Chrome is suggested.</p>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="content">
+                <p>The user accepts all responsibility for the HWP model results and output. Please read all instructions in the About and Advanced tabs carefully.</p>
+                <p class="is-size-4 has-text-black-bis">Steps:</p>
+                <a class="has-text-weight-bold" id="options">Show optional steps</a>
+                <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
+                <ol>
+                    <!-- Input forms for user csv data--> 
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Upload yearly harvest data</p>
+                        <input type="file" id="yearlyharvestinput" name="yearlyharvestinput" accept=".csv">
+                        <input type="radio" id="mbf" name="harvestdatatype" value="mbf" checked>
+                        <label for="mbf">MBF</label>
+                        <input type="radio" id="ccf" name="harvestdatatype" value="ccf">
+                        <label for="ccf">CCF</label>
+                    </li>
+                    <br>
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Upload yearly timber product ratios</p>
+                        <input type="file" id="yearlytimberproductratios" name="yearlytimberproductratios" accept=".csv">
+                    </li>
+                    <br>
+                    <!-- Input form for Region Selection --> 
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Upload yearly primary product ratios or choose region for default ratios</p>
+                        <p class="has-text-black-bis">See a map of regions<a target="_blank" class ="has-text-weight-bold" href="{{ url_for('static', filename='images/regions_map.png') }}"> here</a>.</p>
+                        <label for="regionselection">Select a Region:</label>
+                        <select name="regionselection" id="regionselection">
+                            <option value="North Central">North Central</option>
+                            <option value="Northeast">Northeast</option>
+                            <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                            <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                            <option value="Pacific Southwest">Pacific Southwest</option>
+                            <option value="Rocky Mountain">Rocky Mountain</option>
+                            <option value="South Central">South Central</option>
+                            <option value="Southeast">South East</option>
+                            <option value="West">West</option>
+                            <option value=""></option>
+                        </select>
+                        <p class="has-text-weight-bold has-text-black-bis">or</p>
+                        <p class="has-text-black-bis">Enter custom name <input type="text" id="customregion" name="customregion"> and <input type="file" id="customfileinput" name="customfileinput"  accept=".csv"></p>
+                    </li>
+                    <br>
+                    <!-- Optional inputs -->
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload yearly end use product ratios (optional)</p>
+                        <input type="file" name="EndUseRatiosFilename" id="EndUseRatiosFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload end use product half lives (optional)</p>
+                        <input type="file" name="EndUseHalfLivesFilename" id="EndUseHalfLivesFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload discarded products disposition ratios (optional)</p>
+                        <input type="file" name="DispositionsFilename" id="DispositionsFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload discarded products disposition half lives and landfill fixed ratio (optional)</p>
+                        <input type="file" name="DispositionHalfLivesFilename" id="DispositionHalfLivesFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload distribution parameters (optional and rarely used)</p>
+                        <input type="file" name="DistributionDataFilename" id="DistributionDataFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload proportions for burned with energy capture (optional and rarely used)</p>
+                        <input type="file" name="BurnedRatiosFilename" id="BurnedRatiosFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload MBF to CCF conversion factors (optional)</p>
+                        <input type="file" name="MbfToCcfFilename" id="MbfToCcfFilename" accept=".csv"><br>
+                    </li>
+                    <br class="optional is-hidden">
+                    <li class="optional is-hidden">
+                        <p class="has-text-black-bis">Upload primary product CCF to metric tons C conversion factors (optional)</p>
+                        <input type="file" name="CcfToMgcFilename" id="CcfToMgcFilename" accept=".csv"><br>
+                    </li>
+                    <!-- Input form for Loss Factor --> 
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Enter a loss factor in the range 0-1 (see <a href="/advanced"> Advanced </a> page)</p>
+                        <input type="number" id="lossfactorinput" name="lossfactor" step="0.01" min="0" max="1" value="0.08">
+                    </li>
+                    <br>
+                    <!-- Input form for Iterations of Monte Carlo Simulation and for Email Submission--> 
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Enter number of iterations</p>
+                        <p class="has-text-black-bis">Any number larger than 1 will result in Monte Carlo simulation and the only output will be a table of confidence intervals around carbon storage for each year.</p>
+                        <p><input type="number" id="iterationinput" name="iterations" value="1"></p>
+                        <p class="has-text-black-bis">Address to send email when done with Monte Carlo: <input type="email" id="emailinput" name="email"></p>
+                    </li>
+                    <br>
+                    <li>
+                        <p class="is-size-5 has-text-black-bis">Run the model (if you upload a file in Step 3, then you must also enter a custom name to run the model)</p>
+                        <button type="submit" id="getdata" class="has-text-black-bis">Run</button>
+                        <button type="button" id="results" class="has-text-black-bis">Show Results</button>
+                    </li>
+                </ol>
+            </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="{{ url_for('static', filename='datainput.js') }}"></script> 
