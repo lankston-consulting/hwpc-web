@@ -96,12 +96,12 @@ def upload():
 
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
 
-    redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
+    # redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
     
-    return download(file_path = user_data_folder + new_id + '/')
+    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
 
 @app.route('/download/<filepath>', methods=['GET'])
-def download(file_path):
+def download(file_path, run_path):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     #filepath = "hpwc-user-inputs/user_request_20210927_193455"
     # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
@@ -112,7 +112,7 @@ def download(file_path):
     #     gch.download_temp('hwpcarbon-data', filled_value)
 
     full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/results.zip"
-    return render_template('results.html', full_path=full_path)
+    return render_template('results.html', full_path=full_path, run_path=run_path)
 
 # @app.route('/results',methods=['GET'])
 # def show_results():

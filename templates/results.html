@@ -17,6 +17,7 @@
                 <p>The following hyperlink is the download link to your results. Please copy this link to a notefile or word editor of your choosing to keep safe, as once you leave this page you cannot generate this link again.</p>
                 <p>The data may take a few moments to generate. If it does not download on the first try, please wait a few moments before trying again.</p>
                 <a href="{{ full_path }}" target="_blank">{{ full_path }}</a>
+                <script>$.get('{{ run_path }}')</script>
             </div>
         </div>
     </div>
