@@ -67,6 +67,7 @@ def upload():
     loss_factor = request.form['lossfactor']
     iterations = request.form['iterations']
     email = request.form['email']
+    run_name = request.form['runname']
 
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
@@ -85,7 +86,8 @@ def upload():
             "ccf_to_mgc":ccf_to_mgc,
             "loss_factor":loss_factor,
             "iterations":iterations,
-            "email":email
+            "email":email,
+            "run_name":run_name
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
@@ -98,10 +100,10 @@ def upload():
 
     # redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
     
-    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
+    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name,run_name=run_name)
 
 @app.route('/download/<filepath>', methods=['GET'])
-def download(file_path, run_path):
+def download(file_path, run_path,run_name):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     #filepath = "hpwc-user-inputs/user_request_20210927_193455"
     # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
@@ -111,7 +113,7 @@ def download(file_path, run_path):
     #     print("i run")
     #     gch.download_temp('hwpcarbon-data', filled_value)
 
-    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/results.zip"
+    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
     return render_template('results.html', full_path=full_path, run_path=run_path)
 
 # @app.route('/results',methods=['GET'])
