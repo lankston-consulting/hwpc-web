@@ -2,12 +2,15 @@ import datetime
 import json
 import uuid
 from flask import Flask, redirect, render_template, request
+from flask_cors import CORS
 from config import gch
 # from results import Results as r
 
 user_data_folder = 'hpwc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
+CORS(app)
+
 #Routing for html template files
 @app.route('/')
 @app.route('/index')
@@ -94,12 +97,12 @@ def upload():
 
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
 
-    redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
+    # redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
     
-    return download(file_path = user_data_folder + new_id + '/')
+    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
 
 @app.route('/download/<filepath>', methods=['GET'])
-def download(file_path):
+def download(file_path, run_path):
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     # IDEA FILL ARRAY WITH OBJECTS WHILE RUNNIGN FILLED.ITEMS(): LOOP TO PASS TO RESULTS, NEED TO WAIT UNTIL WE HAVE PUB SUB FUNCTIONALITY.
     #filepath = "hpwc-user-inputs/user_request_20210927_193455"
@@ -111,7 +114,7 @@ def download(file_path):
     #     gch.download_temp('hwpcarbon-data', filled_value)
 
     full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/results.zip"
-    return render_template('results.html', full_path=full_path)
+    return render_template('results.html', full_path=full_path, run_path=run_path)
 
 # @app.route('/results',methods=['GET'])
 # def show_results():
