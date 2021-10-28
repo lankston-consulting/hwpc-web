@@ -1,9 +1,9 @@
 import datetime
 import json
 import uuid
+import time
 from flask import Flask, redirect, render_template, request
 from config import gch
-# from results import Results as r
 
 user_data_folder = 'hpwc-user-inputs/'
 
@@ -66,62 +66,49 @@ def upload():
     loss_factor = request.form['lossfactor']
     iterations = request.form['iterations']
     email = request.form['email']
+    run_name = request.form['runname']
 
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
-            "harvest_data":yearly_harvest_input,
+            "harvest_data.csv":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "timber_product_data":yearly_timber_product_ratios,
+            "timber_product_data.csv":yearly_timber_product_ratios,
             "region":region_selection,
-            "primary_product_data":custom_region_file,
-            "end_use_ratios":end_use_ratios,
-            "end_use_half_lives":end_use_half_lives,
-            "dispositions":dispositions,
-            "disposition_half_lives":disposition_half_lives,
-            "distribution_data":distribution_data,
-            "burned_ratios":burned_ratios,
-            "mbf_to_ccf":mbf_to_ccf,
-            "ccf_to_mgc":ccf_to_mgc,
+            "primary_product_data.csv":custom_region_file,
+            "end_use_ratios.csv":end_use_ratios,
+            "end_use_half_lives.csv":end_use_half_lives,
+            "dispositions.csv":dispositions,
+            "disposition_half_lives.csv":disposition_half_lives,
+            "distribution_data.csv":distribution_data,
+            "burned_ratios.csv":burned_ratios,
+            "mbf_to_ccf.csv":mbf_to_ccf,
+            "ccf_to_mgc.csv":ccf_to_mgc,
             "loss_factor":loss_factor,
             "iterations":iterations,
-            "email":email
+            "email":email,
+            "run_name":run_name
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
     data_type = type(yearly_harvest_input)
-    
-    # temporarily commented out to prevent junk data from being uploaded 
     new_id = str(uuid.uuid4())
 
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
+    return render_template('results.html', file_path = user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name)
 
-    # redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
-    
-    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
-
-@app.route('/download/<filepath>', methods=['GET'])
-def download(file_path, run_path):
+@app.route('/download', methods=['GET','POST'])
+def download():
+    file_path = request.form['file_path']
+    run_name = request.form['run_name']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
-    # IDEA FILL ARRAY WITH OBJECTS WHILE RUNNIGN FILLED.ITEMS(): LOOP TO PASS TO RESULTS, NEED TO WAIT UNTIL WE HAVE PUB SUB FUNCTIONALITY.
-    #filepath = "hpwc-user-inputs/user_request_20210927_193455"
-    # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
-    #             filled = results.read()
-    #             filled = json.loads(filled)
-    # for filled_key,filled_value in filled.items():
-    #     print("i run")
-    #     gch.download_temp('hwpcarbon-data', filled_value)
+    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False:
+        print("Its not loaded yet")
+        time.sleep(5)
+    print("Its loaded")
 
-    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/results.zip"
-    return render_template('results.html', full_path=full_path, run_path=run_path)
-
-# @app.route('/results',methods=['GET'])
-# def show_results():
-#     f_col = File.results_group.file_collection()
-#     print(f_col)
-
-#     #render_template('downloads.html', data=json.dumps(f_col))
-
-#     return "done"
+    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
+    # return render_template('results.html', full_path=full_path, run_path=run_path)
+    return redirect(full_path)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

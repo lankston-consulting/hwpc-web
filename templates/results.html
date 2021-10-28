@@ -5,20 +5,26 @@
     <!-- Fontawesome icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>$.get('{{ run_path }}')</script>
 </head>
 
 <div id="wrapper">
-    <div id="overlay" class="is-hidden">
-        <div class="loader"></div>
-    </div>
     <div class="columns">
         <div class="column">
             <div class="content">
-                <p>The following hyperlink is the download link to your results. Please copy this link to a notefile or word editor of your choosing to keep safe, as once you leave this page you cannot generate this link again.</p>
-                <p>The data may take a few moments to generate. If it does not download on the first try, please wait a few moments before trying again.</p>
-                <a href="{{ full_path }}" target="_blank">{{ full_path }}</a>
-                <script>$.get('{{ run_path }}')</script>
+                <form  name="forms" id="forms" action="{{ url_for('download') }}" method="POST">
+                    <input type="text" id="file_path" name="file_path" class="is-hidden" value = "{{ file_path }}">
+                    <input type="text" id="run_name" name="run_name"  class="is-hidden" value = "{{ run_name }}">
+                    <input type="text" id="run_path"  name="run_path" class="is-hidden" value = "{{ run_path }}">
+                    <p>Your data has been queried to the database.</p>
+                    <p>To download the results, please press the button below.</p>
+                    <button type="submit" id="downloaddata">Download</button>
+            </form> 
             </div>
         </div>
     </div>
+    <div id="overlay" class="is-hidden">
+    </div>
+    
 </div>
+<script src="{{ url_for('static', filename='download.js') }}"></script> 
