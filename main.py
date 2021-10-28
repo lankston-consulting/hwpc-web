@@ -1,19 +1,15 @@
 import datetime
 import json
 import uuid
+import time
 from flask import Flask, redirect, render_template, request
+from flask_cors import CORS, cross_origin
 from config import gch
-# from results import Results as r
-
-# class File:
-#     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-#     file_group = "hpwc-user-inputs/user_request_" + current_time + "/"
-#     #results_group = r(file_group=file_group)
-
 
 user_data_folder = 'hpwc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 #Routing for html template files
 @app.route('/')
 @app.route('/index')
@@ -71,19 +67,19 @@ def upload():
 
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
-            "harvest_data":yearly_harvest_input,
+            "harvest_data.csv":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "timber_product_data":yearly_timber_product_ratios,
+            "timber_product_data.csv":yearly_timber_product_ratios,
             "region":region_selection,
-            "primary_product_data":custom_region_file,
-            "end_use_ratios":end_use_ratios,
-            "end_use_half_lives":end_use_half_lives,
-            "dispositions":dispositions,
-            "disposition_half_lives":disposition_half_lives,
-            "distribution_data":distribution_data,
-            "burned_ratios":burned_ratios,
-            "mbf_to_ccf":mbf_to_ccf,
-            "ccf_to_mgc":ccf_to_mgc,
+            "primary_product_data.csv":custom_region_file,
+            "end_use_ratios.csv":end_use_ratios,
+            "end_use_half_lives.csv":end_use_half_lives,
+            "dispositions.csv":dispositions,
+            "disposition_half_lives.csv":disposition_half_lives,
+            "distribution_data.csv":distribution_data,
+            "burned_ratios.csv":burned_ratios,
+            "mbf_to_ccf.csv":mbf_to_ccf,
+            "ccf_to_mgc.csv":ccf_to_mgc,
             "loss_factor":loss_factor,
             "iterations":iterations,
             "email":email,
@@ -92,29 +88,26 @@ def upload():
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
     data_type = type(yearly_harvest_input)
-    
-    # temporarily commented out to prevent junk data from being uploaded 
     new_id = str(uuid.uuid4())
 
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
+    return render_template('results.html', file_path = user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name)
 
-    # redirect('https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id)
-    
-    return download(file_path=user_data_folder + new_id + '/', run_path='https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name,run_name=run_name)
-
-@app.route('/download/<filepath>', methods=['GET'])
-def download(file_path, run_path,run_name):
+@app.route('/download', methods=['GET'])
+@cross_origin()
+def download():
+    file_path = request.args['file_path']
+    run_name = request.args['run_name']
+    run_path = request.args['run_path']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
-    #filepath = "hpwc-user-inputs/user_request_20210927_193455"
-    # with (gch.download_temp('hwpcarbon-data', filepath +"/results/results.json")) as results:
-    #             filled = results.read()
-    #             filled = json.loads(filled)
-    # for filled_key,filled_value in filled.items():
-    #     print("i run")
-    #     gch.download_temp('hwpcarbon-data', filled_value)
+    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False:
+        print("Its not loaded yet")
+        time.sleep(5)
+    print("Its loaded")
 
     full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
-    return render_template('results.html', full_path=full_path, run_path=run_path)
+    # return render_template('results.html', full_path=full_path, run_path=run_path)
+    return redirect(full_path)
 
 # @app.route('/results',methods=['GET'])
 # def show_results():
