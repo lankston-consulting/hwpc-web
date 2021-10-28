@@ -3,13 +3,11 @@ import json
 import uuid
 import time
 from flask import Flask, redirect, render_template, request
-from flask_cors import CORS, cross_origin
 from config import gch
 
 user_data_folder = 'hpwc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
-CORS(app, resources={r"/api/*": {"origins": "*"}})
 #Routing for html template files
 @app.route('/')
 @app.route('/index')
@@ -93,29 +91,19 @@ def upload():
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
     return render_template('results.html', file_path = user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name)
 
-@app.route('/download', methods=['GET'])
-def download(file_path,run_name):
-    # file_path = request.args[file_path']
-    # run_name = request.args['run_name']
-    # run_path = request.args['run_path']
+@app.route('/download', methods=['GET','POST'])
+def download():
+    file_path = request.form['file_path']
+    run_name = request.form['run_name']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False:
         print("Its not loaded yet")
         time.sleep(5)
     print("Its loaded")
 
-    full_path = "https://storage.cloud.google.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
+    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
     # return render_template('results.html', full_path=full_path, run_path=run_path)
     return redirect(full_path)
-
-# @app.route('/results',methods=['GET'])
-# def show_results():
-#     f_col = File.results_group.file_collection()
-#     print(f_col)
-
-#     #render_template('downloads.html', data=json.dumps(f_col))
-
-#     return "done"
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

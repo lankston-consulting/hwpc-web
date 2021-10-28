@@ -9,22 +9,22 @@
 </head>
 
 <div id="wrapper">
-    <div id="overlay" class="is-hidden">
-        <div class="loader"></div>
-    </div>
-    <!-- <input type="text" id="file_path" class="is-hidden" value = "{{ file_path }}">
-    <input type="text" id="run_name" class="is-hidden" value = "{{ run_name }}">
-    <input type="text" id="run_path" class="is-hidden" value = "{{ run_path }}"> -->
     <div class="columns">
         <div class="column">
             <div class="content">
-                <form  name="forms" id="forms" action="{{ url_for('download({{ file_path }},{{ run_name }})') }}" method="get">
-                <p>Your data has been queried to the database. To download the results, please press the button below.</p>
-                <button type="submit" id="downloaddata">Download</button>
-            </form>
-                <!-- <a href="{{ full_path }}" target="_blank">{{ full_path }}</a> -->
-                
+                <form  name="forms" id="forms" action="{{ url_for('download') }}" method="POST">
+                    <input type="text" id="file_path" name="file_path" class="is-hidden" value = "{{ file_path }}">
+                    <input type="text" id="run_name" name="run_name"  class="is-hidden" value = "{{ run_name }}">
+                    <input type="text" id="run_path"  name="run_path" class="is-hidden" value = "{{ run_path }}">
+                    <p>Your data has been queried to the database.</p>
+                    <p>To download the results, please press the button below.</p>
+                    <button type="submit" id="downloaddata">Download</button>
+            </form> 
             </div>
         </div>
     </div>
+    <div id="overlay" class="is-hidden">
+    </div>
+    
 </div>
+<script src="{{ url_for('static', filename='download.js') }}"></script> 
