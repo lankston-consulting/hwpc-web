@@ -2,6 +2,7 @@ import datetime
 import json
 import uuid
 from flask import Flask, redirect, render_template, request
+from flask_cors import CORS
 from config import gch
 # from results import Results as r
 
@@ -14,6 +15,8 @@ from config import gch
 user_data_folder = 'hpwc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
+CORS(app)
+
 #Routing for html template files
 @app.route('/')
 @app.route('/index')
