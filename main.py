@@ -94,18 +94,17 @@ def upload():
     return render_template('results.html', file_path = user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id+","+run_name)
 
 @app.route('/download', methods=['GET'])
-@cross_origin()
-def download():
-    file_path = request.args['file_path']
-    run_name = request.args['run_name']
-    run_path = request.args['run_path']
+def download(file_path,run_name):
+    # file_path = request.args[file_path']
+    # run_name = request.args['run_name']
+    # run_path = request.args['run_path']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
     while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False:
         print("Its not loaded yet")
         time.sleep(5)
     print("Its loaded")
 
-    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
+    full_path = "https://storage.cloud.google.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
     # return render_template('results.html', full_path=full_path, run_path=run_path)
     return redirect(full_path)
 
