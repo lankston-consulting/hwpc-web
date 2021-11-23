@@ -21,10 +21,6 @@ def home():
 def homecontent():
     return render_template('homecontent.html')
 
-@app.route('/calculator', methods=['GET'])
-def calculator():
-    return render_template('calculator.html')
-
 @app.route('/about', methods=['GET'])
 def test():
     return render_template('about.html')
@@ -45,7 +41,7 @@ def contact():
 def files():
     return render_template('files.html')
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET','POST'])
 def upload():
 
     # All inputs from the UI are pulled here through with jquery Ajax

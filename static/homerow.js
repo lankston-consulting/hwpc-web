@@ -101,20 +101,6 @@ files.addEventListener("click", (e) => {
     }
 });
 
-calculator.addEventListener("click", (e) => {
-    if(files.classList.contains('herotab')==false ){
-        temp = document.getElementsByClassName('herotab');
-        temp[0].setAttribute("aria-selected", false);
-        temp[0].classList.remove('has-text-black-bis');
-        temp[0].classList.remove('herotab');
-        calculator.classList.add('herotab');
-        calculator.classList.add('has-text-black-bis');
-        calculator.setAttribute("aria-selected", true);
-        temp = '';
-        document.getElementById('pagecontent').src = "/calculator";
-    }
-});
-
 // Here "addEventListener" is for standards-compliant web browsers and "attachEvent" is for IE Browsers.
 var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
 var eventer = window[eventMethod];
