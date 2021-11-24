@@ -15,10 +15,7 @@ pagecontainer.onload = function(){
 // Event listeners for tab variables
 
 home.addEventListener("click", (e) => {
-    console.log(home.classList.contains('herotab'))
-    console.log(document.getElementById('pagecontent').src)
-    if(home.classList.contains('herotab')==false){
-        console.log("I make it in here")
+    if(home.classList.contains('herotab')==false || document.getElementById('pagecontent').src!="/homecontent"){
         temp = document.getElementsByClassName('herotab');
         temp[0].setAttribute("aria-selected", false);
         temp[0].classList.remove('has-text-black-bis');
@@ -34,8 +31,6 @@ home.addEventListener("click", (e) => {
 about.addEventListener("click", (e) => {
     if(about.classList.contains('herotab')==false ){
         temp = document.getElementsByClassName('herotab');
-        console.log(temp[0])
-        console.log(temp[0].ariaSelected)
         temp[0].setAttribute("aria-selected", false);
         temp[0].classList.remove('has-text-black-bis');
         temp[0].classList.remove('herotab');
