@@ -95,12 +95,14 @@ def upload():
 
 @app.route('/download', methods=['GET','POST'])
 def download():
+    timeout_counter = 0
     file_path = request.form['file_path']
     run_name = request.form['run_name']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
-    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False:
+    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False or timeout_counter < 15:
         print("Its not loaded yet")
         time.sleep(5)
+        timeout_counter += 1
     print("Its loaded")
 
     full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
