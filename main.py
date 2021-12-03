@@ -95,19 +95,32 @@ def upload():
 
 @app.route('/download', methods=['GET','POST'])
 def download():
-    timeout_counter = 0
+    
     file_path = request.form['file_path']
     run_name = request.form['run_name']
     #TEST DEFAULT PATH = hpwc-user-inputs/user_request_20210927_193455
-    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False or timeout_counter < 15:
+    download_zip(file_path,run_name)
+    time.sleep(5)
+    
+    return render_template('home.html')
+
+def download_zip(file_path, run_name):
+    timeout_counter = 0
+    while gch.check_file_exists_on_cloud('hwpcarbon-data',file_path + "results/"+run_name+".zip") is False :
         print("Its not loaded yet")
         time.sleep(5)
         timeout_counter += 1
+        if(timeout_counter >=15):
+            print("Error loading Data")
+            break
     print("Its loaded")
 
-    full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
+    gch.download_blob('hwpcarbon-data',file_path + "results/"+run_name+".zip",run_name+".zip")
+
+    #full_path = "https://storage.googleapis.com/hwpcarbon-data/" + file_path + "results/"+run_name+".zip"
     # return render_template('results.html', full_path=full_path, run_path=run_path)
-    return redirect(full_path)
+    return 
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
