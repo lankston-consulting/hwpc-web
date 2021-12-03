@@ -102,7 +102,7 @@ def download():
     download_zip(file_path,run_name)
     time.sleep(5)
     
-    return render_template('home.html')
+    return render_template('homecontent.html')
 
 def download_zip(file_path, run_name):
     timeout_counter = 0
