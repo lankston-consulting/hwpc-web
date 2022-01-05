@@ -110,7 +110,7 @@ def download_zip(file_path, run_name):
         print("Its not loaded yet")
         time.sleep(5)
         timeout_counter += 1
-        if(timeout_counter >=15):
+        if(timeout_counter >=50):
             print("Error loading Data")
             break
     print("Its loaded")
