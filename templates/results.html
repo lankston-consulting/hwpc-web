@@ -12,14 +12,9 @@
     <div class="columns">
         <div class="column">
             <div class="content">
-                <form  name="forms" id="forms" action="{{ url_for('download') }}" method="POST">
-                    <input type="text" id="file_path" name="file_path" class="is-hidden" value = "{{ file_path }}">
-                    <input type="text" id="run_name" name="run_name"  class="is-hidden" value = "{{ run_name }}">
-                    <input type="text" id="run_path"  name="run_path" class="is-hidden" value = "{{ run_path }}">
+                
                     <p>Your data has been queried to the database.</p>
-                    <p>To download the results, please press the button below.</p>
-                    <button type="submit" id="downloaddata">Download</button>
-            </form> 
+                    <p>You will be emailed the results using the address you had provided. You are free to leave this page.</p>
             </div>
         </div>
     </div>
