@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+google-cloud-storage = {version = "*", index = "pypi"}
+gunicorn = {version = "*", index = "pypi"}
+Flask = {version = "*", index = "pypi"}
+lcutils = {ref = "main", git = "https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_REPO}.git"}
+
+[dev-packages]
+pytest = {version = "*", index = "pypi"}
+
+[requires]
+python_version = "3.8"
