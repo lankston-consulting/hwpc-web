@@ -1,0 +1,24 @@
+version: "3.9"  
+services:
+  fcapp:
+    build: 
+      context: .
+      args:
+        - GITHUB_USER
+        - GITHUB_PAT
+        - GITHUB_REPO
+        - GITHUB_REF
+        - PY_VERSION
+    image: fcapp
+    container_name: fcapp
+    environment:
+      - PORT=${PORT}
+      - PY_VERSION=${PY_VERSION}
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
