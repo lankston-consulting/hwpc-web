@@ -15,11 +15,11 @@ app = Flask(__name__, template_folder="templates")
 @app.route('/index')
 @app.route('/home', methods=['GET'])
 def home():
-    return render_template('home.html')
+    return render_template('pages/home.html')
 
-@app.route('/homecontent', methods=['GET'])
-def homecontent():
-    return render_template('homecontent.html')
+@app.route('/calculator', methods=['GET'])
+def calculator():
+    return render_template('pages/calculator.html')
 
 @app.route('/about', methods=['GET'])
 def test():
