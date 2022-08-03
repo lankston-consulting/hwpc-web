@@ -12,13 +12,18 @@
   --stone-black: #121212;
   --dark-gray: #6b6b6b;
   --content-width: 1300px;
+
+  --montserrat:'Montserrat', sans-serif;
+  --opensans:'Open Sans', sans-serif;
+
   color: var(--dark-gray);
   background-color: #e6e6e6;
   overflow-x: hidden;
+  font-size: 62.5%;
 }
 
 body {
-	font-family: 'Montserrat', sans-serif;
+	font-family: var(--montserrat);
 	line-height: 1.6;
 	/* margin: 0; */
 	/* min-height: 100vh; */
@@ -47,6 +52,7 @@ h2,
 h3,
 a {
 	color: var(--light-green);
+  
 }
 
 a {
@@ -75,7 +81,7 @@ a {
 
 .main-nav a {
 	color: #34495e;
-	font-size: .99em;
+	font-size: 1.6rem;
 }
 
 
@@ -192,6 +198,11 @@ a {
 }
 
 /* Landing Page */
+.home-container {
+  display: flex;
+  height: 90vh;
+  width: 100%;
+}
 
 .info-container {
   background-color: #f1f1f1;
@@ -202,14 +213,20 @@ a {
   padding: 42px 35px;
   margin: auto;
   text-align: center;
-  margin-top: 200px;
+  /* margin-top: 200px; */
   border-radius: 4px;
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
   box-shadow: rgba(18, 209, 31, 0.669) 0px 0px 0px 2px, rgba(13, 140, 6, 0.65) 0px 4px 6px -1px, rgba(168, 215, 12, 0.842) 0px 1px 0px inset;
+  align-self: center;
+}
+
+.info-container h1 {
+  font-size: 3rem;
 }
 
 .info-container p {
   margin-top: 2em;
+  font-size: 1.8rem;
 }
 .info-container button{
  margin-top: 2em;
@@ -226,44 +243,87 @@ a {
 .calc-config-container {
 
   background-color: white;
-  min-height: 320px;
+  min-height: fit-content;
   height: fit-content;
   max-width: 1080px;
   width: 80%;
   padding: 42px 35px;
   margin: auto;
   margin-top: 50px;
-  border: #3E3E3E solid 2px;
+  box-shadow: rgba(18, 209, 31, 0.669) 0px 0px 0px 2px, rgba(13, 140, 6, 0.65) 0px 4px 6px -1px, rgba(168, 215, 12, 0.842) 0px 1px 0px inset;
+  border-radius: 4px;
 }
 .calc-config-container h1 {
-  font-size: 40px;
-}
-.calc-config-container p {
-  font-size: 24px;
+  font-size: 2.4rem;
 }
 
+.calc-config-container p {
+  font-size: 1.8rem;
+}
+
+.calc-config-container button {
+  margin-top: 25px;
+  color: #6b6b6b !important;
+  border: 2px solid #6b6b6b !important;
+  width: fit-content;
+  position: relative;
+  z-index: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 2.5em;
+  background: transparent;
+  cursor: pointer;
+  padding: 14px 30px;
+  font-weight: 700;
+}
+
+.calc-config-container button:hover {
+  color: var(--dark-green) !important;
+  border: 2px solid var(--dark-green) !important;
+}
 
 .accordion {
   max-width: 1080px;
   width: 80%;
   margin: 20px auto;
+  
+  
 }
 .accordion h1, h2, h3, h4 {
   cursor: pointer;
 }
 .accordion h2, h3, h4 {
-  font-family: "News Cycle";
+  font-family: var(--montserrat);
+  padding: 20px 40px;
 }
 .accordion h1 {
-  padding: 15px 20px;
-  background-color: #CAD2C5;
-  font-family: OpenSans;
-  font-size: 1.5rem;
+  padding: 30px 20px;
+  background-color: white;
+  
+  font-family: var(--montserrat);
+  font-size: 2.4rem;
   font-weight: normal;
   color: #2F3E46;
+  display: flex;
 }
+
+.accordion h1 span {
+  margin-right: 27px;
+}
+
+.accordion h1 i {
+align-self:center;
+
+margin-left: auto;
+}
+
 .accordion h1:hover {
-  color: #4afcdc;
+  color: #46B551;
 }
 .accordion h1:first-child {
   border-radius: 10px 10px 0 0;
@@ -272,10 +332,12 @@ a {
   border-radius: 0 0 10px 10px;
 }
 .accordion h1:not(:last-of-type) {
-  border-bottom: 1px dotted #1abc9c;
+  border-bottom: 1px dotted #46B551;
 }
 .accordion div, .accordion p {
   display: none;
+  background-color: #ABD694;
+  padding: 30px 80px;
 }
 .accordion h2 {
   padding: 5px 25px;
@@ -315,6 +377,29 @@ a {
 .accordion .opened-for-codepen {
   display: block;
 }
+
+ a.block-item-green {
+
+  background-color: var(--dark-green);
+  color: var(--stone-black);
+  font-family: var(--montserrat);
+  font-weight: 700;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: auto;
+  margin-top: 2em;
+  overflow: hidden;
+  text-align: center;
+  /* float: left; */
+  font-weight: normal;
+  box-shadow: 0 0 30px rgba(0,0,0,.1);
+  border-radius: 3px;
+  text-transform: capitalize;
+  display: inline-block;
+  font-size: 18px;
+  padding: 20px;
+  cursor: pointer;
+}
 /* Contact */
 .contact-container {
   width: 100%;
@@ -350,6 +435,7 @@ a {
 
 #footer p {
   margin-left: 2rem;
+  font-size: 1.6rem;
 }
 
 #footer a {

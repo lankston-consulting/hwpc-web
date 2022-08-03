@@ -1,4 +1,3 @@
- <!-- Accordion -->
  <div class="accordion">
      <!-- <h1>00 Download a Template</h1>
     <div>
@@ -10,48 +9,128 @@
         </h2>
         
     </div> -->
+     <form action="">
+         <h1 role="button" tabindex="0"><span>01</span>Upload yearly harvest data<i class="fa-solid fa-circle-info"></i>
+         </h1>
+         <div>
+             <label for="file-upload" class="custom-file-upload">
+                 Custom Upload
+             </label>
+             <input id="file-upload" type="file" accept=".csv" required="true" aria-required="true" />
+             <br>
+             <legend>
+                 Select the units for calculated results
+             </legend>
+             <label for="ccf">CCF</label>
+             <input type="radio" id="ccf" name="ccf-toggle" value="ccf" checked>
+             <label for="mbf">MBF</label>
+             <input type="radio" id="mbf" name="ccf-toggle" value="mbf">
+             <button>Next</button>
+         </div>
 
-     <h1>01 Upload yearly harvest data</h1>
-     <div>
+         <h1 role="button" tabindex="0"><span>02</span>Upload yearly timber product ratios</h1>
+         <div>
+             <label for="file-upload" class="custom-file-upload">
+                 Custom Upload
+             </label>
+             <input id="file-upload" type="file" accept=".csv" />
+             <button>Back</button><button>Next</button>
+         </div>
 
-     </div>
+         <h1 role="button" tabindex="0"><span>03</span>Upload Yearly primary product ratios or choose region for default
+             ratios</h1>
+         <div>
+             <label for="file-upload" class="custom-file-upload">
+                 Custom Upload
+             </label>
+             <input id="file-upload" type="file" accept=".csv" />
+         </div>
 
-     <h1>02 Upload yearly timber product ratios</h1>
-     <div>
-     </div>
+         <h1 role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
+         <div>
+             <h2 role="button" tabindex="0">Upload yearly end use product ratios</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload end use product half lives</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload discarded products disposition ratios</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
+             </h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload Distribution parameters</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+             <h2 role="button" tabindex="0">Upload product CCF to metric tons C conversion factors</h2>
+             <div>
+                 <label for="file-upload" class="custom-file-upload">
+                     Custom Upload
+                 </label>
+                 <input id="file-upload" type="file" />
+             </div>
+         </div>
+         <h1 role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
+         <div>
+             <label for="loss-factor">Enter number between 0 and 1</label>
+             <input id="loss-factor" type="number" name="loss-factor" min="0" max="1">
+         </div>
+         <h1 role="button" tabindex="0"><span>06</span>Enter number of iterations</h1>
+         <div>
+             <label for="monte-carlo-sim">
+                 Monte Carlo Simulation
+             </label>
+             <input id="monte-carlo-sim" type="number" name="monte-carlo-sim" min="1" max="100" />
+         </div>
 
-     <h1>03 Upload Yearly primary product ratios or choose region for default ratios</h1>
-     <div></div>
+         <h1 role="button" tabindex="0"><span>07</span>Enter email address to send results</h1>
+         <div>
+             <label for="email-address">
+                 Email
+             </label>
+             <input id="email-address" type="text">
+         </div>
 
-     <h1>04 Upload custom ratios (optional)</h1>
-     <div>
-         <h2>Upload yearly end use product ratios</h2>
-         <div></div>
-         <h2>Upload end use product half lives</h2>
-         <div></div>
-         <h2>Upload discarded products disposition ratios</h2>
-         <div></div>
-         <h2>Upload Discarded products disposition half lives and land fill fixed ratios</h2>
-         <div></div>
-         <h2>Upload Distribution parameters</h2>
-         <div></div>
-         <h2>Upload Proportions for burned with energy capture</h2>
-         <div></div>
-         <h2>Upload product CCF to metric tons C conversion factors</h2>
-         <div></div>
-     </div>
+         <h1 role="button" tabindex="0"><span>08</span> Name your Run</h1>
+         <div>
+             <label for="run-name">
+                 Name
+             </label>
+             <input id="run-name" type="text">
+         </div>
 
-     <h1>06 Enter number of iterations</h1>
-     <div></div>
-
-     <h1>07 Enter email address to send results</h1>
-     <div></div>
-
-     <h1>08 Name your Run</h1>
-     <div></div>
-
-     <h1>Preview Data</h1>
-     <div></div>
 
  </div>
+ <!-- <a class="block-item-green" role="button" type="submit" tabindex="0">Preview Data</a> -->
+ <button type="submit">Submit</button>
+ </form>
  </div>
