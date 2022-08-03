@@ -2,8 +2,14 @@ var headers = ["H1","H2","H3","H4","H5","H6"];
 
 
 function toggleAccordion(e) {
+  if(e.type != undefined){
     var target = e.target,
     name = target.nodeName.toUpperCase();
+  }
+  else{
+    var target = e
+    name = target.nodeName.toUpperCase();
+  }
 
 if($.inArray(name,headers) > -1) {
   var subItem = $(target).next();
@@ -26,6 +32,7 @@ if($.inArray(name,headers) > -1) {
 }
 
 $(".accordion").click(function(e) {
+  // console.log(e.target)
     toggleAccordion(e);
 });
 
@@ -36,5 +43,21 @@ $(".accordion").keydown(function (event) {
 })
 
 $(".nextbtn").click(function (e) {
-    $(selector).next(filter)
+  var valid = true;
+    for(i=0;i<$(e.target).siblings().length;i++){
+      if($(e.target).siblings()[i].localName=="input"){
+        if($(e.target).siblings()[i].validity.valid == false){
+          valid = false
+        }
+      }
+    }
+    if(valid==true){
+      toggleAccordion($(e.target).parent()[0].previousElementSibling)
+      toggleAccordion($(e.target).parent()[0].nextElementSibling)
+    }
+})
+
+$(".backbtn").click(function (e) {
+    toggleAccordion($(e.target).parent()[0].previousElementSibling)
+    toggleAccordion($(e.target).parent()[0].previousElementSibling.previousElementSibling.previousElementSibling)
 })
