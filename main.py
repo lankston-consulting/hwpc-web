@@ -51,8 +51,7 @@ def upload():
     yearly_timber_product_ratios = request.files['yearlytimberproductratios']
     region_selection = request.form['regionselection']
     if(region_selection == "Custom"):
-        region_selection = request.form['customregion']
-    custom_region_file = request.files['customfileinput']
+        custom_region_file = request.files['customregion']
     end_use_ratios = request.files['EndUseRatiosFilename']
     end_use_half_lives = request.files['EndUseHalfLivesFilename']
     dispositions = request.files['DispositionsFilename']
@@ -93,7 +92,7 @@ def upload():
     new_id = str(uuid.uuid4())
 
     #gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
-    return "hello"
+    return "This is a test to view the submitted data"
     #return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
 
 # @app.route('/download', methods=['GET','POST'])
