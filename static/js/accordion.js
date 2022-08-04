@@ -45,20 +45,17 @@ $(".accordion").keydown(function (event) {
 $(".nextbtn").click(function (e) {
     var valid = true;
     class_list = $(e.target).attr("class").split(/\s+/)
-    console.log($(e.target).siblings())
     for (i = 0; i < $(e.target).siblings().length; i++) {
       if($(e.target).siblings()[i].localName == "span"){
         for(j = 0; j < $(e.target).siblings()[i].children.length;j++){
           if ($(e.target).siblings()[i].children[j].localName == "input" && $(e.target).siblings()[i].type != "radio") {
             if($(e.target).siblings()[i].children[j].validity.valid == false){
-              console.log("here")
               valid = false
             }
           }
         }
       }
       if ($(e.target).siblings()[i].localName == "input" && $(e.target).siblings()[i].type != "radio") {
-        console.log("hello")
           if ($(e.target).siblings()[i].validity.valid == false) {
               valid = false
           }
