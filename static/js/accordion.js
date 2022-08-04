@@ -43,30 +43,10 @@ $(".accordion").keydown(function (event) {
 });
 
 $(".nextbtn").click(function (e) {
-    var valid = true;
     class_list = $(e.target).attr("class").split(/\s+/)
-    for (i = 0; i < $(e.target).siblings().length; i++) {
-      if($(e.target).siblings()[i].localName == "span"){
-        for(j = 0; j < $(e.target).siblings()[i].children.length;j++){
-          if ($(e.target).siblings()[i].children[j].localName == "input" && $(e.target).siblings()[i].type != "radio") {
-            if($(e.target).siblings()[i].children[j].validity.valid == false){
-              valid = false
-            }
-          }
-        }
-      }
-      if ($(e.target).siblings()[i].localName == "input" && $(e.target).siblings()[i].type != "radio") {
-          if ($(e.target).siblings()[i].validity.valid == false) {
-              valid = false
-          }
-        }
-    }
-    console.log(valid)
-    if (valid == true) {
         id_split = class_list[1].split("-")
         toggleAccordion($("#"+class_list[1])[0])
         toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) + 1))[0])
-    }
 });
 
 $(".backbtn").click(function (e) {
