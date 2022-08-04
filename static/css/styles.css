@@ -332,11 +332,11 @@ margin-left: auto;
   border-radius: 0 0 10px 10px;
 }
 .accordion h1:not(:last-of-type) {
-  border-bottom: 1px dotted #46B551;
+  border-bottom: 1px dotted #a8a8a8;
 }
 .accordion div{
   display: none;
-  background-color: #ABD694;
+  background-color: #f1f1f1;
   padding: 30px 80px;
 }
 .accordion h2 {
@@ -366,16 +366,15 @@ margin-left: auto;
 .accordion h4:hover {
   background-color: #e0b040;
 }
-/* .accordion p {
-  padding: 15px 35px;
-  background-color: #ddd;
-  font-family: var(--opensans);
-  font-size: .8rem;
-  color: #333;
-  line-height: 1.3rem;
-} */
+.accordion p {
+ font-family: var(--montserrat);
+ font-size: 1.8rem;
+}
 
-
+.accordion label {
+  font-family: var(--montserrat);
+  font-size: 1.8rem;
+}
  a.block-item-green {
 
   background-color: var(--dark-green);
@@ -398,6 +397,36 @@ margin-left: auto;
   padding: 20px;
   cursor: pointer;
 }
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.custom-file-input:active::after{
+  font-size: 1.8rem;
+}
+
 /* Contact */
 .contact-container {
   width: 100%;
