@@ -14,7 +14,7 @@
         </h2>
         
     </div> -->
-    <form action="">
+    <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
         <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload yearly harvest data</h1>
         <div>
             <span>
@@ -23,7 +23,7 @@
                         Upload File
                     </span>
                 </label>
-                <input type="file" class="fileupload filename1" id="fu-yearly-harvest" accept=".csv" required="true"
+                <input name='yearlyharvestinput' type="file" class="fileupload filename1" id="fu-yearly-harvest" accept=".csv" required="true"
                     aria-required="true">
                 <label for="filename" class="hide">
                     uploaded file
@@ -39,7 +39,7 @@
                         Upload File
                     </span>
                 </label>
-                <input type="file" id="fu-mbftoccf-conversion" class="fileupload filename2">
+                <input name='MbfToCcfFilename' type="file" id="fu-mbftoccf-conversion" class="fileupload filename2">
                 <label for="filename" class="hide">
                     uploaded file
                 </label>
@@ -47,14 +47,15 @@
                 <br>
 
                 <label for="ccf">CCF</label>
-                <input type="radio" id="ccf" name="ccf-toggle" value="ccf" checked>
+                <input type="radio" id="ccf" name="harvestdatatype" value="ccf" checked>
                 <label for="mbf">MBF</label>
-                <input type="radio" id="mbf" name="ccf-toggle" value="mbf">
+                <input type="radio" id="mbf" name="harvestdatatype" value="mbf">
                 <br>
                 <span>
                     <!-- <label for="fu-mbftoccf-conversion">Use Defaults or Use custom MBF to CCF conversion
                         factors?</label>
                     <input type="file" id="fu-mbftoccf-conversions" accept=".csv" /> -->
+                    <input type="file" id="fu-mbftoccf-conversions" name='MbfToCcfFilename' accept=".csv" />
                 </span>
             </span>
             </span>
@@ -71,11 +72,11 @@
             <input type="radio" id="customRatio" name="default-custom-toggle" value="customRatio">
             <label for="customRatio">Upload Custom Data</label>
             <br>
-            <span id="custom-file-upload" class="custom-file-upload">
+            <span id="custom-file-upload" class="custom-file-upload" style="display:none">
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" accept=".csv" required="true" aria-required="true" />
+                <input name='yearlytimberproductratios' id="file-upload" type="file" accept=".csv" aria-required="true" />
             </span>
             <br>
             <br>
@@ -98,12 +99,12 @@
                 <option value="South Central">South Central</option>
                 <option value="Southeast">South East</option>
                 <option value="West">West</option>
-                <option value=""></option>
+                <option value="Custom">Custom</option>
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
                 <p> or </p>
-                <input id="file-upload" type="file" accept=".csv" />
+                <input name='customregion' id="file-upload" type="file" accept=".csv" />
                 <button type="button" class="backbtn acc-03">Back</button><button type="button"
                     class="nextbtn acc-03">Next</button>
         </div>
@@ -116,7 +117,7 @@
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='EndUseRatiosFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload end use product half lives</h2>
             <div style="display: flex;">
@@ -124,14 +125,14 @@
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='EndUseHalfLivesFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='DispositionsFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
             </h2>
@@ -139,28 +140,28 @@
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='DispositionHalfLivesFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload Distribution parameters</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='DistributionDataFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='BurnedRatiosFilename' id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload product CCF to metric tons C conversion factors</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input id="file-upload" type="file" />
+                <input name='CcfToMgcFilename' id="file-upload" type="file" />
             </div>
             <button type="button" class="backbtn acc-04">Back</button><button type="button"
                 class="nextbtn acc-04">Next</button>
@@ -168,7 +169,7 @@
         <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
         <div>
             <label for="loss-factor">Enter number between 0 and 1</label>
-            <input id="loss-factor" type="number" name="loss-factor" min="0" max="1">
+            <input id="loss-factor" type="number" name="lossfactor" min="0" max="1" value="0.08">
             <button type="button" class="backbtn acc-05">Back</button><button type="button"
                 class="nextbtn acc-05">Next</button>
         </div>
@@ -177,7 +178,7 @@
             <label for="monte-carlo-sim">
                 Monte Carlo Simulation
             </label>
-            <input id="monte-carlo-sim" type="number" name="monte-carlo-sim" min="1" max="100" />
+            <input id="monte-carlo-sim" type="number" name='iterations' min="1" max="100" />
             <button type="button" class="backbtn acc-06">Back</button><button type="button"
                 class="nextbtn acc-06">Next</button>
         </div>
@@ -188,7 +189,7 @@
             <label for="email-address">
                 Email
             </label>
-            <input id="email-address" type="text">
+            <input name='email' id="email-address" type="email">
             <button type="button" class="backbtn acc-07">Back</button><button type="button"
                 class="nextbtn acc-07">Next</button>
         </div>
@@ -198,13 +199,13 @@
             <label for="run-name">
                 Name
             </label>
-            <input id="run-name" type="text">
+            <input name='runname' id="run-name" type="text">
             <button type="button" class="backbtn acc-08">Back</button> <button type="submit">Submit</button>
         </div>
 
 
 </div>
-<!-- <a class="block-item-green" role="button" type="submit" tabindex="0">Preview Data</a> -->
+<a class="block-item-green" id="getdata" role="button" type="submit" tabindex="0">Preview Data</a>
 
 </form>
 </div>

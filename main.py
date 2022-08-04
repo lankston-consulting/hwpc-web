@@ -43,13 +43,14 @@ def files():
 
 @app.route('/upload', methods=['GET','POST'])
 def upload():
-
+    
     # All inputs from the UI are pulled here through with jquery Ajax
     yearly_harvest_input = request.files['yearlyharvestinput']
     harvest_data_type = request.form['harvestdatatype']
+    custom_timber = request.form['default-custom-toggle']
     yearly_timber_product_ratios = request.files['yearlytimberproductratios']
     region_selection = request.form['regionselection']
-    if(region_selection == ""):
+    if(region_selection == "Custom"):
         region_selection = request.form['customregion']
     custom_region_file = request.files['customfileinput']
     end_use_ratios = request.files['EndUseRatiosFilename']
@@ -85,13 +86,15 @@ def upload():
             "email":email,
             "run_name":run_name
             }
+    print(data)
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
     data_type = type(yearly_harvest_input)
     new_id = str(uuid.uuid4())
 
-    gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
-    return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+    #gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
+    return "hello"
+    #return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
 
 # @app.route('/download', methods=['GET','POST'])
 # def download():
