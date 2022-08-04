@@ -334,7 +334,7 @@ margin-left: auto;
 .accordion h1:not(:last-of-type) {
   border-bottom: 1px dotted #46B551;
 }
-.accordion div, .accordion p {
+.accordion div{
   display: none;
   background-color: #ABD694;
   padding: 30px 80px;
@@ -366,17 +366,15 @@ margin-left: auto;
 .accordion h4:hover {
   background-color: #e0b040;
 }
-.accordion p {
+/* .accordion p {
   padding: 15px 35px;
   background-color: #ddd;
-  font-family: "Georgia";
+  font-family: var(--opensans);
   font-size: .8rem;
   color: #333;
   line-height: 1.3rem;
-}
-.accordion .opened-for-codepen {
-  display: block;
-}
+} */
+
 
  a.block-item-green {
 

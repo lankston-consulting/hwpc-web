@@ -19,7 +19,7 @@
         <div>
             <span>
                 <label for="fu-yearly-harvest" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="fu-yearly-harvest" type="file" accept=".csv" required="true" aria-required="true" />
                 <br>
@@ -32,20 +32,11 @@
                 <input type="radio" id="mbf" name="ccf-toggle" value="mbf">
                 <br>
                 <span>
-                    <p>Use custom MBF to CCF conversion factors?</p>
-                    <label for="custom-conversion-yes">Yes</label>
-                    <input type="radio" id="custom-conversion-yes" name="conversion-toggle"
-                        value="custom-conversion-yes">
-                    <label for="custom-conversion-no">No</label>
-                    <input type="radio" id="custom-conversion-no" name="conversion-toggle" value="custom-conversion-no"
-                        checked>
-                    <br>
-                    <span>
-                        <label for="fu-mbftoccf-conversions" class="custom-file-upload">Custom Upload</label>
-                        <input type="file" id="fu-mbftoccf-conversions" accept=".csv" required="true"
-                            aria-required="true" />
-                    </span>
+                    <label for="fu-mbftoccf-conversion">Use Defaults or Use custom MBF to CCF conversion
+                        factors?</label>
+                    <input type="file" id="fu-mbftoccf-conversions" accept=".csv" />
                 </span>
+            </span>
             </span>
             <i class="fa-solid fa-circle-info"></i>
             <br>
@@ -60,48 +51,64 @@
             <input type="radio" id="customRatio" name="default-custom-toggle" value="customRatio">
             <label for="customRatio">Upload Custom Data</label>
             <br>
-            <span id="custom-file-upload" class="custom-file-upload" >
+            <span id="custom-file-upload" class="custom-file-upload">
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" accept=".csv" required="true" aria-required="true" />
             </span>
             <br>
             <br>
-            <button type="button" class="backbtn acc-02">Back</button><button type="button" class="nextbtn acc-02">Next</button>
+            <button type="button" class="backbtn acc-02">Back</button><button type="button"
+                class="nextbtn acc-02">Next</button>
         </div>
 
         <h1 id="acc-03" class="acc-h1" role="button" tabindex="0"><span>03</span>Upload Yearly primary product ratios or
             choose region for default
             ratios</h1>
         <div>
-            <label for="file-upload" class="custom-file-upload">
-                Custom Upload
-            </label>
-            <input id="file-upload" type="file" accept=".csv" />
-            <button type="button" class="backbtn acc-03">Back</button><button type="button" class="nextbtn acc-03">Next</button>
+            <label for="regionselection">Select a Region</label>
+            <select name="regionselection" id="regionselection">
+                <option value="North Central">North Central</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                <option value="Pacific Southwest">Pacific Southwest</option>
+                <option value="Rocky Mountain">Rocky Mountain</option>
+                <option value="South Central">South Central</option>
+                <option value="Southeast">South East</option>
+                <option value="West">West</option>
+                <option value=""></option>
+                <label for="file-upload" class="custom-file-upload">
+                    Upload Custom File
+                </label>
+                <p> or </p>
+                <input id="file-upload" type="file" accept=".csv" />
+                <button type="button" class="backbtn">Back</button><button type="button" class="nextbtn">Next</button>
         </div>
 
         <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
         <div>
             <h2 role="button" tabindex="0">Upload yearly end use product ratios</h2>
-            <div>
+            <div style="display: flex;">
+                <p style="margin-right: 0.3em">Use Default or</p>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload end use product half lives</h2>
-            <div>
+            <div style="display: flex;">
+                <p style="margin-right: 0.3em">Use Default or</p>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
@@ -109,38 +116,40 @@
             </h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload Distribution parameters</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
             <h2 role="button" tabindex="0">Upload product CCF to metric tons C conversion factors</h2>
             <div>
                 <label for="file-upload" class="custom-file-upload">
-                    Custom Upload
+                    Upload Custom File
                 </label>
                 <input id="file-upload" type="file" />
             </div>
-            <button type="button" class="backbtn acc-04">Back</button><button type="button" class="nextbtn acc-04">Next</button>
+            <button type="button" class="backbtn acc-04">Back</button><button type="button"
+                class="nextbtn acc-04">Next</button>
         </div>
         <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
         <div>
             <label for="loss-factor">Enter number between 0 and 1</label>
             <input id="loss-factor" type="number" name="loss-factor" min="0" max="1">
-            <button type="button" class="backbtn acc-05">Back</button><button type="button" class="nextbtn acc-05">Next</button>
+            <button type="button" class="backbtn acc-05">Back</button><button type="button"
+                class="nextbtn acc-05">Next</button>
         </div>
         <h1 id="acc-06" class="acc-h1" role="button" tabindex="0"><span>06</span>Enter number of iterations</h1>
         <div>
@@ -148,7 +157,8 @@
                 Monte Carlo Simulation
             </label>
             <input id="monte-carlo-sim" type="number" name="monte-carlo-sim" min="1" max="100" />
-            <button type="button" class="backbtn acc-06">Back</button><button type="button" class="nextbtn acc-06">Next</button>
+            <button type="button" class="backbtn acc-06">Back</button><button type="button"
+                class="nextbtn acc-06">Next</button>
         </div>
 
         <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span>Enter email address to send results
@@ -158,7 +168,8 @@
                 Email
             </label>
             <input id="email-address" type="text">
-            <button type="button" class="backbtn acc-07">Back</button><button type="button" class="nextbtn acc-07">Next</button>
+            <button type="button" class="backbtn acc-07">Back</button><button type="button"
+                class="nextbtn acc-07">Next</button>
         </div>
 
         <h1 id="acc-08" class="acc-h1" role="button" tabindex="0"><span>08</span> Name your Run</h1>
