@@ -67,3 +67,24 @@ $(document).ready(function () {
         }
     });
 });
+
+// trigger upload on space & enter
+// = standard button functionality
+$('#buttonlabel span[role=button]').bind('keypress keyup', function(e) {
+  if(e.which === 32 || e.which === 13){
+    e.preventDefault();
+    $('.fileupload').click();
+  }    
+});
+
+// return chosen filename to additional input
+$('.fileupload').change(function (e) {
+  class_list = $(e.target).attr("class").split(/\s+/)
+  id = class_list[1]
+  console.log(id)
+  var filename = $('.'+id).val().split('\\').pop();
+  $("#"+id).val(filename);
+  $("#"+id).attr('placeholder', filename);
+  $("#"+id).focus();
+});
+

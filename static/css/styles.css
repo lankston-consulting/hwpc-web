@@ -398,6 +398,62 @@ margin-left: auto;
   cursor: pointer;
 }
 
+
+.fileupload {
+  display: none;
+}
+
+span[role=button] {
+  display: table-cell;
+  font-family: var(--montserrat);
+  font-size: 1.6rem;
+  padding: 8px 8px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 1px solid var(--dark-green); 
+  color: Var(--stone-black);
+  cursor: pointer;
+  background-color: var(--dark-green);
+  outline: none;
+}
+span[role=button]:hover,
+span[role=button]:focus {
+  box-shadow: 0 0 5px #595959;
+  background-color: var(--light-green);
+  border-color: var(--light-green);
+  outline: 2px solid transparent;
+}
+.hide {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+input[type=text] {
+  display: table-cell;
+  margin-left: -5px;
+  width: 40rem;
+  font-family: var(--montserrat);
+  font-size: 1.6rem;
+  padding: 9.75px 9px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 2px solid var(--dark-green);;  
+  color: #000000;
+  background-color: #ffffff;
+}
+input[type=text]:focus {
+  box-shadow: 0 0 5px #595959;
+  border-color: var(--dark-green);;
+  outline: 2px solid transparent;
+}
+
+
+/* 
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
@@ -425,7 +481,7 @@ margin-left: auto;
 
 .custom-file-input:active::after{
   font-size: 1.8rem;
-}
+} */
 
 /* Contact */
 .contact-container {

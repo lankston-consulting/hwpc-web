@@ -18,22 +18,43 @@
         <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload yearly harvest data</h1>
         <div>
             <span>
-                <label for="fu-yearly-harvest" class="custom-file-upload">
-                    Upload Custom File
+                <label for="fu-yearly-harvest" id="buttonlabel">
+                    <span role="button" aria-controls="filename" tabindex="0">
+                        Upload File
+                    </span>
                 </label>
-                <input id="fu-yearly-harvest" class="custom-file-input" type="file" accept=".csv" required="true"
-                    aria-required="true" />
+                <input type="file" class="fileupload filename1" id="fu-yearly-harvest" accept=".csv" required="true"
+                    aria-required="true">
+                <label for="filename" class="hide">
+                    uploaded file
+                </label>
+                <input type="text" id="filename1" autocomplete="off" readonly placeholder="no file uploaded">
                 <br>
+                <br>
+
+
                 <p>Select the units for calculated results</p>
+                <label for="fu-mbftoccf-conversion" id="buttonlabel">
+                    <span role="button" aria-controls="filename" tabindex="0">
+                        Upload File
+                    </span>
+                </label>
+                <input type="file" id="fu-mbftoccf-conversion" class="fileupload filename2">
+                <label for="filename" class="hide">
+                    uploaded file
+                </label>
+                <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
+                <br>
+
                 <label for="ccf">CCF</label>
                 <input type="radio" id="ccf" name="ccf-toggle" value="ccf" checked>
                 <label for="mbf">MBF</label>
                 <input type="radio" id="mbf" name="ccf-toggle" value="mbf">
                 <br>
                 <span>
-                    <label for="fu-mbftoccf-conversion">Use Defaults or Use custom MBF to CCF conversion
+                    <!-- <label for="fu-mbftoccf-conversion">Use Defaults or Use custom MBF to CCF conversion
                         factors?</label>
-                    <input type="file" id="fu-mbftoccf-conversions" accept=".csv" />
+                    <input type="file" id="fu-mbftoccf-conversions" accept=".csv" /> -->
                 </span>
             </span>
             </span>
