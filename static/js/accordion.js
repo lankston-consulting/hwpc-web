@@ -27,8 +27,9 @@ if($.inArray(name,headers) > -1) {
 }
   //slideToggle target content and adjust bottom border if necessary
   subItem.slideToggle("fast",function() {
-      $(".accordion :visible:last").css("border-radius","0 0 10px 10px");
+    $(".accordion :visible:last");
   });
+  // $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
 }
 }
 
@@ -142,5 +143,4 @@ $('#email-address').on('input', function() {
 	if(is_email){input.removeClass("invalid").addClass("valid");}
 	else{input.removeClass("valid").addClass("invalid");}
 });
-
 
