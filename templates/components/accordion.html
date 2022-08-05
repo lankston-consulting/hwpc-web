@@ -4,70 +4,74 @@
     <input type="radio" id="edit-mode" name="accordion-toggle" value="edit-mode"><label for="edit-mode">Edit</label>
 </span>
 <div class="accordion">
-    <!-- <h1>00 Download a Template</h1>
-    <div>
-        <h2>It is important to note that the input files containing yearly data must all have the same years, in
-            descending order from top to bottom, or left to right. If all workbook sheets are not populated with the
-            same years the model will generate an error.
-
-
-        </h2>
-        
-    </div> -->
     <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
         <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload yearly harvest data</h1>
         <div>
-            <span>
-                <label for="fu-yearly-harvest" id="buttonlabel">
-                    <span role="button" aria-controls="filename" tabindex="0">
-                        Upload File
+            <span style="display: flex;">
+                <span style="width: 100%;">
+                    <label for="fu-yearly-harvest" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='yearlyharvestinput' type="file" class="fileupload filename1" id="fu-yearly-harvest"
+                        accept=".csv" required="true" aria-required="true">
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename1" autocomplete="off" readonly placeholder="no file uploaded">
+                    <br>
+                    <br>
+                    <p>Select the units for calculated results</p>
+                    <input type="radio" id="ccf" name="harvestdatatype" value="ccf" class="custom-radio-btn" checked>
+                    <label id="ccf-label" for="ccf">CCF</label>
+                    <input type="radio" id="mbf" name="harvestdatatype" value="mbf" class="custom-radio-btn">
+                    <label id="mbf-label" for="mbf">MBF</label>
+                    <br>
+                    <span id="mbftoccf-custom-fu" class="custom-file-upload" style="display:none;">
+                        <br>
+                        <p>Use Default Ratios or Upload Custom MBF to CCF Ratios </p>
+                        <label for="fu-mbftoccf-conversion" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='MbfToCcfFilename' type="file" id="fu-mbftoccf-conversion" accept=".csv"
+                            class="fileupload filename2">
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
                     </span>
-                </label>
-                <input name='yearlyharvestinput' type="file" class="fileupload filename1" id="fu-yearly-harvest" accept=".csv" required="true"
-                    aria-required="true">
-                <label for="filename" class="hide">
-                    uploaded file
-                </label>
-                <input type="text" id="filename1" autocomplete="off" readonly placeholder="no file uploaded">
-                <br>
-                <br>
-
-
-                <p>Select the units for calculated results</p>
-                <label for="fu-mbftoccf-conversion" id="buttonlabel">
-                    <span role="button" aria-controls="filename" tabindex="0">
-                        Upload File
-                    </span>
-                </label>
-                <input name='MbfToCcfFilename' type="file" id="fu-mbftoccf-conversion" class="fileupload filename2">
-                <label for="filename" class="hide">
-                    uploaded file
-                </label>
-                <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
-                <br>
-
-                <label for="ccf">CCF</label>
-                <input type="radio" id="ccf" name="harvestdatatype" value="ccf" checked>
-                <label for="mbf">MBF</label>
-                <input type="radio" id="mbf" name="harvestdatatype" value="mbf">
-                <br>
-                <span>
-                    <!-- <label for="fu-mbftoccf-conversion">Use Defaults or Use custom MBF to CCF conversion
-                        factors?</label>
-                    <input type="file" id="fu-mbftoccf-conversions" accept=".csv" /> -->
-                    <input type="file" id="fu-mbftoccf-conversions" name='MbfToCcfFilename' accept=".csv" />
                 </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </span>
-            </span>
-            <i class="fa-solid fa-circle-info"></i>
-            <br>
-            <button type="button" class="nextbtn acc-01">Next</button>
+            <span class="nextbackbtn-container"><button type="button" class="nextbtn  acc-01">Next</button></span>
+
         </div>
 
         <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload yearly timber product ratios
         </h1>
         <div>
-            <input type="radio" id="defaultRatio" name="default-custom-toggle" value="defaultRatio" checked>
+            <span style="display: flex;">
+                <span style="width: 100%;">
+                    <label for="yearlytimberproductratios" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='yearlytimberproductratios' type="file" class="fileupload filename3"
+                        id="yearlytimberproductratios" accept=".csv" required="true" aria-required="true">
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename3" autocomplete="off" readonly placeholder="no file uploaded">
+                    <br>
+                    <br>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
+            <!-- <input type="radio" id="defaultRatio" name="default-custom-toggle" value="defaultRatio" checked>
             <label for="defaultRatio">Use Default Ratios</label>
             <input type="radio" id="customRatio" name="default-custom-toggle" value="customRatio">
             <label for="customRatio">Upload Custom Data</label>
@@ -76,37 +80,66 @@
                 <label for="file-upload" class="custom-file-upload">
                     Upload Custom File
                 </label>
-                <input name='yearlytimberproductratios' id="file-upload" type="file" accept=".csv" aria-required="true" />
+                <input name='yearlytimberproductratios' id="file-upload" type="file" accept=".csv"
+                    aria-required="true" />
             </span>
             <br>
-            <br>
-            <button type="button" class="backbtn acc-02">Back</button><button type="button"
-                class="nextbtn acc-02">Next</button>
+            <br> -->
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-02">Back</button><button type="button"
+                    class="nextbtn acc-02">Next</button>
+            </span>
         </div>
 
         <h1 id="acc-03" class="acc-h1" role="button" tabindex="0"><span>03</span>Upload Yearly primary product ratios or
             choose region for default
             ratios</h1>
         <div>
-            <label for="regionselection">Select a Region</label>
-            <select name="regionselection" id="regionselection">
-                <option value="North Central">North Central</option>
-                <option value="Northeast">Northeast</option>
-                <option value="Pacific Northwest, East">Pacific Northwest, East</option>
-                <option value="Pacific Northwest, West">Pacific Northwest, West</option>
-                <option value="Pacific Southwest">Pacific Southwest</option>
-                <option value="Rocky Mountain">Rocky Mountain</option>
-                <option value="South Central">South Central</option>
-                <option value="Southeast">South East</option>
-                <option value="West">West</option>
-                <option value="Custom">Custom</option>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
+            <span style="display: flex;">
+                <label for="regionselection">Select a Region</label>
+                <span class="select-dropdown">
+                    <select name="regionselection" id="regionselection">
+                        <option value="North Central">North Central</option>
+                        <option value="Northeast">Northeast</option>
+                        <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                        <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                        <option value="Pacific Southwest">Pacific Southwest</option>
+                        <option value="Rocky Mountain">Rocky Mountain</option>
+                        <option value="South Central">South Central</option>
+                        <option value="Southeast">South East</option>
+                        <option value="West">West</option>
+                        <!-- TODO: Set to custom if user has uploaded file -->
+                        <option value="Custom">Custom</option>
+                    </select>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
+            <p> Or </p>
+            <br>
+            <span style="width: 100%">
+                <label for="customregion" id="buttonlabel">
+                    <span role="button" aria-controls="filename" tabindex="0">
+                        Upload Custom Region
+                    </span>
                 </label>
-                <p> or </p>
-                <input name='customregion' id="file-upload" type="file" accept=".csv" />
+                <input name='customregion' type="file" class="fileupload filename4" id="customregion" accept=".csv"
+                    required="true" aria-required="true">
+                <label for="filename" class="hide">
+                    uploaded file
+                </label>
+                <input type="text" id="filename4" autocomplete="off" readonly placeholder="no file uploaded">
+                <br>
+                <br>
+            </span>
+            <!-- <label for="file-upload" class="custom-file-upload">
+                Upload Custom File
+            </label>
+            <input name='customregion' id="file-upload" type="file" accept=".csv" /> -->
+
+            <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-03">Back</button><button type="button"
                     class="nextbtn acc-03">Next</button>
+            </span>
         </div>
 
         <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
@@ -163,15 +196,19 @@
                 </label>
                 <input name='CcfToMgcFilename' id="file-upload" type="file" />
             </div>
-            <button type="button" class="backbtn acc-04">Back</button><button type="button"
-                class="nextbtn acc-04">Next</button>
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-04">Back</button><button type="button"
+                    class="nextbtn acc-04">Next</button>
+            </span>
         </div>
         <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
         <div>
             <label for="loss-factor">Enter number between 0 and 1</label>
             <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08">
-            <button type="button" class="backbtn acc-05">Back</button><button type="button"
-                class="nextbtn acc-05">Next</button>
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-05">Back</button><button type="button"
+                    class="nextbtn acc-05">Next</button>
+            </span>
         </div>
         <h1 id="acc-06" class="acc-h1" role="button" tabindex="0"><span>06</span>Enter number of iterations</h1>
         <div>
@@ -179,8 +216,10 @@
                 Monte Carlo Simulation
             </label>
             <input id="monte-carlo-sim" type="number" name='iterations' min="1" max="100" />
-            <button type="button" class="backbtn acc-06">Back</button><button type="button"
-                class="nextbtn acc-06">Next</button>
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-06">Back</button><button type="button"
+                    class="nextbtn acc-06">Next</button>
+            </span>
         </div>
 
         <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span>Enter email address to send results
@@ -190,8 +229,10 @@
                 Email
             </label>
             <input name='email' id="email-address" type="email">
-            <button type="button" class="backbtn acc-07">Back</button><button type="button"
-                class="nextbtn acc-07">Next</button>
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-07">Back</button><button type="button"
+                    class="nextbtn acc-07">Next</button>
+            </span>
         </div>
 
         <h1 id="acc-08" class="acc-h1" role="button" tabindex="0"><span>08</span> Name your Run</h1>
@@ -200,7 +241,9 @@
                 Name
             </label>
             <input name='runname' id="run-name" type="text">
-            <button type="button" class="backbtn acc-08">Back</button> <button type="submit">Submit</button>
+            <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-08">Back</button><button type="submit">Submit</button>
+            </span>
         </div>
 
 

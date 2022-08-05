@@ -71,6 +71,18 @@ $("#default-mode").change(function(e){
     }
   }
 })
+//mbf to ccf toggle
+$(document).ready(function () {
+  $('input[type="radio"]').click(function() {
+      if($(this).attr('id') == 'mbf') {
+           $('#mbftoccf-custom-fu').show();           
+      }
+
+      else {
+           $('#mbftoccf-custom-fu').hide();   
+      }
+  });
+});
 
 $(document).ready(function () {
     $('input[type="radio"]').click(function() {
