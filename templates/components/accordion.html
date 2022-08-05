@@ -1,7 +1,8 @@
-<span>
-    <p>Change Mode:</p><input type="radio" id="default-mode" name="accordion-toggle" value="default-mode" checked><label
-        for="default-mode">Default Mode</label>
-    <input type="radio" id="edit-mode" name="accordion-toggle" value="edit-mode"><label for="edit-mode">Edit</label>
+<span class="acc-change-toggle">
+    <p>Change Mode:</p><input type="radio" class="custom-radio-btn" id="default-mode" name="accordion-toggle"
+        value="default-mode" checked><label style="margin-right:0.5em;" for="default-mode">Default Mode</label>
+    <input type="radio" class="custom-radio-btn" id="edit-mode" name="accordion-toggle" value="edit-mode"><label
+        for="edit-mode">Edit</label>
 </span>
 <div class="accordion">
     <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
@@ -54,10 +55,14 @@
         </h1>
         <div>
             <span style="display: flex;">
+                <p>Use Default Data</p><a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
+            <p> Or </p>
+            <span style="display: flex;">
                 <span style="width: 100%;">
                     <label for="yearlytimberproductratios" id="buttonlabel">
                         <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
+                            Upload Custom File
                         </span>
                     </label>
                     <input name='yearlytimberproductratios' type="file" class="fileupload filename3"
@@ -66,10 +71,11 @@
                         uploaded file
                     </label>
                     <input type="text" id="filename3" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     <br>
                     <br>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+
             </span>
             <!-- <input type="radio" id="defaultRatio" name="default-custom-toggle" value="defaultRatio" checked>
             <label for="defaultRatio">Use Default Ratios</label>
@@ -108,7 +114,6 @@
                         <option value="South Central">South Central</option>
                         <option value="Southeast">South East</option>
                         <option value="West">West</option>
-                        <!-- TODO: Set to custom if user has uploaded file -->
                         <option value="Custom">Custom</option>
                     </select>
                 </span>
@@ -132,11 +137,6 @@
                 <br>
                 <br>
             </span>
-            <!-- <label for="file-upload" class="custom-file-upload">
-                Upload Custom File
-            </label>
-            <input name='customregion' id="file-upload" type="file" accept=".csv" /> -->
-
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-03">Back</button><button type="button"
                     class="nextbtn acc-03">Next</button>
