@@ -1,7 +1,7 @@
 var headers = ["H1","H2","H3","H4","H5","H6"];
 
 
-function toggleAccordion(e) {
+function toggleAccordion(e,edit_mode=false) {
   if(e.type != undefined){
     var target = e.target,
     name = target.nodeName.toUpperCase();
@@ -15,6 +15,7 @@ if($.inArray(name,headers) > -1) {
   var subItem = $(target).next();
   
   //slideUp all elements (except target) at current depth or greater
+  if(edit_mode == false){
   var depth = $(subItem).parents().length;
   var allAtDepth = $(".accordion div").filter(function() {
     if($(this).parents().length >= depth && this !== subItem.get(0)) {
@@ -22,7 +23,7 @@ if($.inArray(name,headers) > -1) {
     }
   });
   $(allAtDepth).slideUp("fast");
-  
+}
   //slideToggle target content and adjust bottom border if necessary
   subItem.slideToggle("fast",function() {
       $(".accordion :visible:last").css("border-radius","0 0 10px 10px");
@@ -32,7 +33,7 @@ if($.inArray(name,headers) > -1) {
 }
 
 $(".accordion").click(function(e) {
-  // console.log(e.target)
+  $("#default-mode").prop("checked", true)
     toggleAccordion(e);
 });
 
@@ -56,12 +57,26 @@ $(".backbtn").click(function (e) {
     toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) - 1))[0])
 });
 
+$("#edit-mode").change(function(e){
+  for(i=0;i<$(".acc-h1").length;i++){
+    if($(".acc-h1")[i].nextSibling.nextSibling.style.display != "block"){
+      toggleAccordion($(".acc-h1")[i],true)
+    }
+  }
+})
+$("#default-mode").change(function(e){
+  for(i=0;i<$(".acc-h1").length;i++){
+    if($(".acc-h1")[i].nextSibling.nextSibling.style.display == "block"){
+      toggleAccordion($(".acc-h1")[i],true)
+    }
+  }
+})
+
 $(document).ready(function () {
     $('input[type="radio"]').click(function() {
         if($(this).attr('id') == 'customRatio') {
              $('#custom-file-upload').show();           
         }
- 
         else {
              $('#custom-file-upload').hide();   
         }
@@ -81,7 +96,6 @@ $('#buttonlabel span[role=button]').bind('keypress keyup', function(e) {
 $('.fileupload').change(function (e) {
   class_list = $(e.target).attr("class").split(/\s+/)
   id = class_list[1]
-  console.log(id)
   var filename = $('.'+id).val().split('\\').pop();
   $("#"+id).val(filename);
   $("#"+id).attr('placeholder', filename);
