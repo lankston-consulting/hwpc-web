@@ -126,3 +126,9 @@ $(".cancel-upload-btn").click(function (e){
   $(e.target)[0].previousElementSibling.placeholder = "no file uploaded"
   $('#regionselection').val("North Central").change()
 });
+
+$("#getdata").click(function (e){
+  console.log("hello")
+  inputs = $(":input").serializeArray()
+  console.log(inputs)
+})
