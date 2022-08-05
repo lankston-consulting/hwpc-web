@@ -2,6 +2,7 @@ var headers = ["H1","H2","H3","H4","H5","H6"];
 
 
 function toggleAccordion(e,edit_mode=false) {
+  console.log(e)
   if(e.type != undefined){
     var target = e.target,
     name = target.nodeName.toUpperCase();
@@ -32,12 +33,19 @@ if($.inArray(name,headers) > -1) {
 }
 }
 
-$(".accordion").click(function(e) {
+$(".acc-h1").click(function(e) {
   $("#default-mode").prop("checked", true)
+  console.log(e)
     toggleAccordion(e);
+    if(e.target.id == "acc-08"){
+      toggleAccordion($("#acc-01")[0],true)
+      toggleAccordion($("#acc-05")[0],true)
+      toggleAccordion($("#acc-06")[0],true)
+      toggleAccordion($("#acc-07")[0],true)
+    }
 });
 
-$(".accordion").keydown(function (event) {
+$(".acc-h1").keydown(function (event) {
     if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
         toggleAccordion(event);
     }
@@ -119,4 +127,20 @@ $('.fileupload').change(function (e) {
 
 // Set upload file input to null if user clicks on the delete btn
 
-document.getElementById("myInputFileID").value=null; 
+// document.getElementById("myInputFileID").value=null; 
+$(".cancel-upload-btn").click(function (e){
+  console.log($(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling)
+  $(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.value=null
+  $(e.target)[0].previousElementSibling.value = null
+  $(e.target)[0].previousElementSibling.placeholder = "no file uploaded"
+  $('#regionselection').val("North Central").change()
+});
+
+$('#email-address').on('input', function() {
+	var input=$(this);
+	var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+	var is_email=re.test(input.val());
+	if(is_email){input.removeClass("invalid").addClass("valid");}
+	else{input.removeClass("valid").addClass("invalid");}
+});
+

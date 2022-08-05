@@ -38,6 +38,15 @@ body {
   /* padding-bottom: 135px; */
 }
 
+
+input.invalid, textarea.invalid{
+	border: 2px solid red;
+}
+
+input.valid, textarea.valid{
+	border: 2px solid green;
+}
+
 #page-contiainer {
   min-height: 100%;
 }
@@ -435,7 +444,8 @@ color: var(--dark-gray);
 
 
 .fileupload {
-  display: none;
+  opacity:0%;
+  position: absolute;
 }
 
 span[role=button] {
