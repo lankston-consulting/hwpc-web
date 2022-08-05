@@ -112,5 +112,8 @@ $('.fileupload').change(function (e) {
   $("#"+id).val(filename);
   $("#"+id).attr('placeholder', filename);
   $("#"+id).focus();
+  if(class_list[1]=="filename4"){
+    $('#regionselection').val("Custom").change()
+  }
 });
 
