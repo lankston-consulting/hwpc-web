@@ -605,7 +605,15 @@ input[type="radio"]:after{
 	border-left: 5px solid transparent;
 }
 
+.cancel-upload-btn {
+  cursor: pointer;
+  margin-left: 0.5em;
+  transform: translateY(3px);
+}
 
+.cancel-upload-btn:hover {
+  color: darkred;
+}
 
 
 /* Contact */

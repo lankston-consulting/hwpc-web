@@ -117,3 +117,6 @@ $('.fileupload').change(function (e) {
   }
 });
 
+// Set upload file input to null if user clicks on the delete btn
+
+document.getElementById("myInputFileID").value=null; 
