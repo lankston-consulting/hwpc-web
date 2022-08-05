@@ -26,8 +26,9 @@ if($.inArray(name,headers) > -1) {
 }
   //slideToggle target content and adjust bottom border if necessary
   subItem.slideToggle("fast",function() {
-      $(".accordion :visible:last").css("border-radius","0 0 10px 10px");
+    $(".accordion :visible:last");
   });
+  // $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
 }
 }
 
@@ -118,11 +119,4 @@ $('.fileupload').change(function (e) {
 
 // Set upload file input to null if user clicks on the delete btn
 
-// document.getElementById("myInputFileID").value=null; 
-$(".cancel-upload-btn").click(function (e){
-  console.log($(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling)
-  $(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.value=null
-  $(e.target)[0].previousElementSibling.value = null
-  $(e.target)[0].previousElementSibling.placeholder = "no file uploaded"
-  $('#regionselection').val("North Central").change()
-});
+document.getElementById("myInputFileID").value=null; 
