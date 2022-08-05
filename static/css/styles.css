@@ -400,6 +400,7 @@ color: var(--dark-gray);
 .accordion .info-circle {
   justify-self: flex-end;
   margin-left: auto;
+  float: right;
 }
 
  a.block-item-green {
@@ -460,20 +461,29 @@ span[role=button]:focus {
   clip: rect(0,0,0,0);
   border: 0;
 }
-input[type=text] {
+input[type=text],
+input[type="number"],
+input[type="email"] {
   display: inline-block;
   margin-left: -5px;
-  width: 70%;
+  width: 50%;
   min-width: 10rem;
   font-family: var(--montserrat);
   font-size: 1.6rem;
   padding: 9.75px 9px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: 2px solid var(--dark-green);;  
-  color: #000000;
+  border-radius: 3px;;
+  border: 2px solid var(--dark-gray);;  
+  color: var(--stone-black);
   background-color: #ffffff;
 }
+
+input[type="number"] {
+  min-width: 2rem;
+  width: 150px;
+
+}
+
+
 input[type=text]:focus {
   box-shadow: 0 0 5px #595959;
   border-color: var(--dark-green);;
@@ -504,6 +514,8 @@ input[type="radio"]:after{
   transition: all .1s;
 }
 
+
+
 .custom-radio-btn{
   border: 2px solid var(--dark-green);
 }
@@ -519,6 +531,10 @@ input[type="radio"]:after{
 
 #ccf-label {
   margin-right: 0.5em;
+}
+
+.h2defaultlabel{
+ transform: translateY(5px);
 }
 
 /* next & back btns */
@@ -631,6 +647,13 @@ input[type="radio"]:after{
 .cancel-upload-btn:hover {
   color: darkred;
 }
+
+.h2-cancel {
+  transform: translateY(8px) !important;
+}
+
+
+
 
 
 /* Contact */

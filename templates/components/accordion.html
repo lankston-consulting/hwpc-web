@@ -145,56 +145,120 @@
         <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
         <div>
             <h2 role="button" tabindex="0">Upload yearly end use product ratios</h2>
+
             <div style="display: flex;">
-                <p style="margin-right: 0.3em">Use Default or</p>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='EndUseRatiosFilename' id="file-upload" type="file" />
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="EndUseRatiosFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
+                        id="EndUseRatiosFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename5" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 role="button" tabindex="0">Upload end use product half lives</h2>
             <div style="display: flex;">
-                <p style="margin-right: 0.3em">Use Default or</p>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='EndUseHalfLivesFilename' id="file-upload" type="file" />
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="EndUseHalfLivesFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='EndUseHalfLivesFilename' type="file" class="fileupload filename6"
+                        id="EndUseHalfLivesFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename6" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 role="button" tabindex="0">Upload discarded products disposition ratios</h2>
-            <div>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='DispositionsFilename' id="file-upload" type="file" />
+            <div style="display: flex;">
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="DispositionsFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='DispositionsFilename' type="file" class="fileupload filename7"
+                        id="DispositionsFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
             </h2>
-            <div>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='DispositionHalfLivesFilename' id="file-upload" type="file" />
+            <div style="display: flex;">
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="DispositionHalfLivesFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='DispositionHalfLivesFilename' type="file" class="fileupload filename8"
+                        id="DispositionHalfLivesFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 role="button" tabindex="0">Upload Distribution parameters</h2>
-            <div>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='DistributionDataFilename' id="file-upload" type="file" />
+            <div style="display: flex;">
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="DistributionDataFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='DistributionDataFilename' type="file" class="fileupload filename9"
+                        id="DistributionDataFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
-            <div>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='BurnedRatiosFilename' id="file-upload" type="file" />
-            </div>
-            <h2 role="button" tabindex="0">Upload product CCF to metric tons C conversion factors</h2>
-            <div>
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='CcfToMgcFilename' id="file-upload" type="file" />
+            <div style="display: flex;">
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="BurnedRatiosFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='BurnedRatiosFilename' type="file" class="fileupload filename10"
+                        id="BurnedRatiosFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-04">Back</button><button type="button"
@@ -203,19 +267,27 @@
         </div>
         <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
         <div>
-            <label for="loss-factor">Enter number between 0 and 1</label>
-            <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08">
+            <span style=" width: 100%;">
+                <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
+                <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08" />
+            </span>
+            <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-05">Back</button><button type="button"
                     class="nextbtn acc-05">Next</button>
             </span>
+
         </div>
         <h1 id="acc-06" class="acc-h1" role="button" tabindex="0"><span>06</span>Enter number of iterations</h1>
         <div>
-            <label for="monte-carlo-sim">
-                Monte Carlo Simulation
-            </label>
-            <input id="monte-carlo-sim" type="number" name='iterations' min="1" max="100" />
+            <span style="width: 100%;">
+                <label style="margin-right: 0.5em;" for="monte-carlo-sim">
+                    Monte Carlo Simulation
+                </label>
+                <input id="monte-carlo-sim" type="number" name='iterations' step="1" min="1" max="100" value="1" />
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-06">Back</button><button type="button"
                     class="nextbtn acc-06">Next</button>
@@ -225,10 +297,13 @@
         <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span>Enter email address to send results
         </h1>
         <div>
-            <label for="email-address">
-                Email
-            </label>
-            <input name='email' id="email-address" type="email">
+            <span style="width: 100%;">
+                <label style="margin-right: 0.5em;" for="email-address">
+                    Email
+                </label>
+                <input name='email' id="email-address" type="email">
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-07">Back</button><button type="button"
                     class="nextbtn acc-07">Next</button>
@@ -237,10 +312,13 @@
 
         <h1 id="acc-08" class="acc-h1" role="button" tabindex="0"><span>08</span> Name your Run</h1>
         <div>
-            <label for="run-name">
-                Name
-            </label>
-            <input name='runname' id="run-name" type="text">
+            <span style="width: 100%;">
+                <label style="margin-right: 0.5em;" for="run-name">
+                    Name
+                </label>
+                <input name='runname' id="run-name" type="text">
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-08">Back</button><button type="submit">Submit</button>
             </span>
@@ -248,7 +326,7 @@
 
 
 </div>
-<a class="block-item-green" id="getdata" role="button" type="submit" tabindex="0">Preview Data</a>
+<!-- <a class="block-item-green" id="getdata" role="button" type="submit" tabindex="0">Preview Data</a> -->
 
 </form>
 </div>
