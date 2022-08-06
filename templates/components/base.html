@@ -28,7 +28,7 @@
         0
     </script>
     <div id="page-container">
-        <main id="content">{% block content%}{% endblock content %}</main>
+        <main id="content">{% include "components/navigation.html" %}{% block content%}{% endblock content %}</main>
     </div>
     <footer id="footer">{% include "components/footer.html" %}</footer>
 </body>
