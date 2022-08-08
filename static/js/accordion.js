@@ -2,7 +2,6 @@ var headers = ["H1","H2","H3","H4","H5","H6"];
 
 
 function toggleAccordion(e,edit_mode=false) {
-  console.log(e)
   if(e.type != undefined){
     var target = e.target,
     name = target.nodeName.toUpperCase();
@@ -33,9 +32,8 @@ if($.inArray(name,headers) > -1) {
 }
 }
 
-$(".acc-h1").click(function(e) {
+$(".acc-h1, .acc-h2").click(function(e) {
   $("#default-mode").prop("checked", true)
-  console.log(e)
     toggleAccordion(e);
     if(e.target.id == "acc-08"){
       toggleAccordion($("#acc-01")[0],true)
@@ -45,7 +43,7 @@ $(".acc-h1").click(function(e) {
     }
 });
 
-$(".acc-h1").keydown(function (event) {
+$(".acc-h1, .acc-h2").keydown(function (event) {
     if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
         toggleAccordion(event);
     }
@@ -129,7 +127,6 @@ $('.fileupload').change(function (e) {
 
 // document.getElementById("myInputFileID").value=null; 
 $(".cancel-upload-btn").click(function (e){
-  console.log($(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling)
   $(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.value=null
   $(e.target)[0].previousElementSibling.value = null
   $(e.target)[0].previousElementSibling.placeholder = "no file uploaded"

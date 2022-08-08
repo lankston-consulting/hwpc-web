@@ -144,7 +144,7 @@
 
         <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
         <div>
-            <h2 role="button" tabindex="0">Upload yearly end use product ratios</h2>
+            <h2 class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
@@ -164,7 +164,7 @@
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 role="button" tabindex="0">Upload end use product half lives</h2>
+            <h2 class="acc-h2" role="button" tabindex="0">Upload end use product half lives</h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -183,7 +183,7 @@
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 role="button" tabindex="0">Upload discarded products disposition ratios</h2>
+            <h2 class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -202,7 +202,7 @@
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
+            <h2 class="acc-h2" role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
             </h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
@@ -222,7 +222,7 @@
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 role="button" tabindex="0">Upload Distribution parameters</h2>
+            <h2 class="acc-h2" role="button" tabindex="0">Upload Distribution parameters</h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -241,7 +241,7 @@
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
+            <h2 class="acc-h2" role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -256,6 +256,29 @@
                         uploaded file
                     </label>
                     <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                </span>
+                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            </div>
+            <!-- <span class="nextbackbtn-container">
+                <button type="button" class="backbtn acc-04">Back</button><button type="button"
+                    class="nextbtn acc-04">Next</button>
+            </span> -->
+            <h2 class="acc-h2" role="button" tabindex="0">Upload Custom CCF to MGC Ratios </h2>
+            <div style="display: flex;">
+                <span style="display: flex; width: 100%;">
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                    <label for="CcfToMgcFilename" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='CcfToMgcFilename' type="file" class="fileupload filename11"
+                        id="CcfToMgcFilename" accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename11" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
                 <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
