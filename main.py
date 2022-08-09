@@ -97,7 +97,7 @@ def upload():
     data_type = type(yearly_harvest_input)
     new_id = str(uuid.uuid4())
     # print(new_id)
-    # gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
+    gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
     return "This is a test to view the submitted data"
     #return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
 

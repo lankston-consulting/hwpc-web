@@ -141,3 +141,7 @@ $('#email-address').on('input', function() {
 	else{input.removeClass("valid").addClass("invalid");}
 });
 
+$('.info-circle').click(function (e){
+  console.log($(e.target))
+})
+
