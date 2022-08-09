@@ -5,7 +5,7 @@ var drawConnector = function () {
     var arrowcurve = document.querySelector("#arrowcurve");
     var posnALeft = {
         x: divA.offsetLeft - 8,
-        y: divA.offsetTop  + divA.offsetHeight / 2
+        y: divA.offsetTop  - divA.offsetHeight / 2
     };
     
       var posnBLeft = {
@@ -14,12 +14,13 @@ var drawConnector = function () {
       };
       var dStrLeft =
           "M" +
-          (posnALeft.x      ) + "," + (posnALeft.y) + " " +
+          (posnALeft.x      ) + "," + (posnALeft.y - 1000) + " " +
           "C" +
-          (posnALeft.x - 100) + "," + (posnALeft.y) + " " +
-          (posnBLeft.x - 100) + "," + (posnBLeft.y) + " " +
-          (posnBLeft.x      ) + "," + (posnBLeft.y);
+          (posnALeft.x - 100) + "," + (posnALeft.y - 1000) + " " +
+          (posnBLeft.x - 100) + "," + (posnBLeft.y- 1000) + " " +
+          (posnBLeft.x      ) + "," + (posnBLeft.y- 1000);
     arrowcurve.setAttribute("d", dStrLeft);
+    console.log(arrowcurve)
     
     console.log(posnALeft)
 };
