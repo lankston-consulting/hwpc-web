@@ -21,11 +21,6 @@ def home():
 def calculator():
     return render_template('pages/calculator.html')
 
-@app.route('/how-it-works', methods=['GET'])
-def howitworks():
-    return render_template('pages/how-it-works.html')
-
-
 @app.route('/about', methods=['GET'])
 def test():
     return render_template('about.html')

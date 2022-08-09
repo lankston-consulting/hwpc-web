@@ -66,14 +66,6 @@ ul {
   list-style: none;
 }
 
-
-h2,
-h3,
-a {
-	color: var(--light-green);
-  
-}
-
 a {
 	text-decoration: none;
 }
@@ -313,10 +305,15 @@ a {
 .accordion h1, h2, h3, h4 {
   cursor: pointer;
 }
-.accordion h2, h3, h4 {
+h2 .accordion, 
+h3 .accordion,
+h4 .accordion {
   font-family: var(--montserrat);
   padding: 20px 40px;
 }
+
+
+
 .accordion h1 {
   padding: 30px 20px;
   background-color: white;
@@ -728,33 +725,43 @@ input[type="radio"]:after{
   text-align: center;
 }
 .container__inputs{
-  background-color: #d6d6d6;
+  /* background-color: #d6d6d6; */
+  background-color: #E4CCFF;
+}
+
+.graphic-container h4 {
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 .container__calculator {
- 
-  height: 210px;
-  width: 360px;
-  transform: translateX(-40px) skew(-20deg);
+  display: flex;
+  height: 110px;
+  width: 260px;
+  /* transform: translateX(-40px) skew(-20deg); */
   background: #BDE3FF;
   border-radius: 6px;
   margin: auto;
-  margin-top: 5em;
+  margin-top: 2em;
   padding: 25px;
   box-shadow: var(--card-shadow);
+  align-items: center;
+  justify-content: center;
 }
+
 
 .container__calculator>h3 {
   display: block;
-  transform: skew(20deg);
+  /* transform: skew(20deg); */
 }
+
 
 .container-bg {
   margin: auto;
   width: fit-content;
   padding: 25px;
   border-radius: 10px;
-  margin-top: 5em;
+  margin-top: 2em;
 }
 
 .container__outputs {
@@ -769,35 +776,73 @@ input[type="radio"]:after{
   background-color: white;
   border-radius: 3px;
   box-shadow: var(--card-shadow);
-  padding: 25px;
+  padding: 20px !important;
   margin: 10px;
 
 }
 
+#how-it-works{
+  color: var(--dark-gray);
+}
+
+#how-it-works h3 {
+ font: var(--montserrat);
+ font-weight: 600;
+ font-size: 1.6rem;
+ text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.arrow-tagline {
+  align-self:center; 
+  margin-left: 1em; 
+  font-size: 1.4rem;
+  width: 150px;
+}
+
+
 .graphic-card:hover{
-  transform:scale(1.1,1.1);
+  /* transform:scale(1.1,1.1);
     -webkit-transform:scale(1.1,1.1);
     -moz-transform:scale(1.1,1.1);
-    margin: 15px;
+    margin: 15px; */
+    border: 2px solid blue;
     cursor: pointer;
 }
 .inputs, .results  {
-  height: 150px;
-  width: 260px;
+  /* height: 150px; */
+  height: fit-content;
+  width: 260px; 
 }
+
+
 
 .output-lg {
   height: 100px;
   width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.output {
+  height: fit-content;
 }
 
 .recycled {
   transform: translateX(-100px);
+  height: 70px;
 }
 
 .recycled:hover{
-  transform: translateX(-100px) scale(1.1,1.1);
+  /* transform: translateX(-100px) scale(1.1,1.1); */
+  border: 2px solid blue;
 }
+
 
 
 /* Contact */
