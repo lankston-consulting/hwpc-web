@@ -47,7 +47,7 @@ def upload():
     # All inputs from the UI are pulled here through with jquery Ajax
     yearly_harvest_input = request.files['yearlyharvestinput']
     harvest_data_type = request.form['harvestdatatype']
-    yearly_timber_product_ratios = request.files['yearlytimberproductratios']
+    timber_product_ratios = request.files['yearlytimberproductratios']
     region_selection = request.form['regionselection']
     if(region_selection == "Custom"):
         custom_region_file = request.files['customregion']
@@ -60,7 +60,6 @@ def upload():
     distribution_data = request.files['DistributionDataFilename']
     burned_ratios = request.files['BurnedRatiosFilename']
     mbf_to_ccf = request.files['MbfToCcfFilename']
-    ccf_to_mgc = request.files['CcfToMgcFilename']
     loss_factor = request.form['lossfactor']
     iterations = request.form['iterations']
     email = request.form['email']
@@ -70,7 +69,7 @@ def upload():
     data = {
             "harvest_data.csv":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "timber_product_ratios.csv":yearly_timber_product_ratios,
+            "timber_product_ratios.csv":timber_product_ratios,
             "region":region_selection,
             "primary_product_ratios.csv":custom_region_file,
             "end_use_product_ratios.csv":end_use_product_ratios,
@@ -79,7 +78,6 @@ def upload():
             "distribution_data.csv":distribution_data,
             "burned_ratios.csv":burned_ratios,
             "mbf_to_ccf.csv":mbf_to_ccf,
-            "ccf_to_mgc.csv":ccf_to_mgc,
             "loss_factor":loss_factor,
             "iterations":iterations,
             "email":email,

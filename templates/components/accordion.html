@@ -45,27 +45,16 @@
                         <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
                     </span>
                 </span>
-                <a class="info-circle" ><i class="fa-solid fa-circle-info" role="button" type="button"></i></a>
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Some text in the Modal..</p>
-                    </div>
-                
-                </div>
+                <a class="info-circle"><i id="modal1" class="fa-solid fa-circle-info" role="button" type="button"></i></a>     
             </span>
             <span class="nextbackbtn-container"><button type="button" class="nextbtn  acc-01">Next</button></span>
 
         </div>
-
         <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload yearly timber product ratios
         </h1>
         <div>
             <span style="display: flex;">
-                <p>Use Default Data</p><a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <p>Use Default Data</p><a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
             </span>
             <p> Or </p>
             <span style="display: flex;">
@@ -127,7 +116,7 @@
                         <option value="Custom">Custom</option>
                     </select>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal3" class="fa-solid fa-circle-info"></i></a>
             </span>
             <p> Or </p>
             <br>
@@ -172,7 +161,7 @@
                     <input type="text" id="filename5" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal4" class="fa-solid fa-circle-info"></i></a>
             </div>
             <!-- <h2 class="acc-h2" role="button" tabindex="0">Upload end use product half lives</h2>
             <div style="display: flex;">
@@ -210,7 +199,7 @@
                     <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" ><i id="modal5" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 class="acc-h2" role="button" tabindex="0">Upload Discarded products disposition half lives and land fill fixed ratios
             </h2>
@@ -230,7 +219,7 @@
                     <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal6" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 class="acc-h2" role="button" tabindex="0">Upload Distribution parameters</h2>
             <div style="display: flex;">
@@ -249,7 +238,7 @@
                     <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal7" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 class="acc-h2" role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
             <div style="display: flex;">
@@ -268,13 +257,13 @@
                     <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal8" class="fa-solid fa-circle-info"></i></a>
             </div>
             <!-- <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-04">Back</button><button type="button"
                     class="nextbtn acc-04">Next</button>
             </span> -->
-            <h2 class="acc-h2" role="button" tabindex="0">Upload Custom CCF to MGC Ratios </h2>
+            <!-- <h2 class="acc-h2" role="button" tabindex="0">Upload Custom CCF to MGC Ratios </h2>
             <div style="display: flex;">
                 <span style="display: flex; width: 100%;">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -291,8 +280,8 @@
                     <input type="text" id="filename11" autocomplete="off" readonly placeholder="no file uploaded">
                     <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
-            </div>
+                <a class="info-circle"><i id="modal9" class="fa-solid fa-circle-info"></i></a>
+            </div> -->
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-04">Back</button><button type="button"
                     class="nextbtn acc-04">Next</button>
@@ -304,7 +293,7 @@
                 <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
                 <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08" required />
             </span>
-            <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+            <a class="info-circle"><i id="modal10" class="fa-solid fa-circle-info"></i></a>
 
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-05">Back</button><button type="button"
@@ -319,7 +308,7 @@
                     Monte Carlo Simulation
                 </label>
                 <input id="monte-carlo-sim" type="number" name='iterations' step="1" min="1" max="100" value="1" required/>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal11" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-06">Back</button><button type="button"
@@ -335,7 +324,7 @@
                     Email
                 </label>
                 <input name='email' id="email-address" type="email" required>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal12" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-07">Back</button><button type="button"
@@ -350,17 +339,36 @@
                     Name
                 </label>
                 <input name='runname' id="run-name" type="text" required>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal13" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-08">Back</button><button class="previewbtn"
-                    type="submit">Preview Data</button>
+                <button type="button" class="backbtn acc-08">Back</button>
             </span>
         </div>
 
 
 </div>
-<button class="block-item-green" id="getdata" role="button" type="submit" tabindex="0">Preview Data</button>
+<button class="previewbtn" id="previewbtn" type="button">Preview Data</button>
+<button class="block-item-green" id="getdata" role="button" type="submit" tabindex="0">Submit Data</button>
 
 </form>
+
+</div>
+    <!-- The Modal -->
+<div id="modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-content">Some text in the Modal..</p>
+    </div>
+</div>
+<!-- The Modal -->
+<div id="preview-modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="preview-modal-title">Inputs</p>
+        <br>
+        <p id="preview-modal-content">Some text in the Modal..</p>
+    </div>
 </div>
