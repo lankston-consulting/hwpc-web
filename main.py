@@ -57,8 +57,8 @@ def upload():
         custom_region_file = request.files['customregion']
     else:
         custom_region_file = ""
-    end_use_ratios = request.files['EndUseRatiosFilename']
-    end_use_half_lives = request.files['EndUseHalfLivesFilename']
+    end_use_product_ratios = request.files['EndUseRatiosFilename']
+    # end_use_half_lives = request.files['EndUseHalfLivesFilename']
     dispositions = request.files['DispositionsFilename']
     disposition_half_lives = request.files['DispositionHalfLivesFilename']
     distribution_data = request.files['DistributionDataFilename']
@@ -74,11 +74,10 @@ def upload():
     data = {
             "harvest_data.csv":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "timber_product_data.csv":yearly_timber_product_ratios,
+            "timber_product_ratios.csv":yearly_timber_product_ratios,
             "region":region_selection,
-            "primary_product_data.csv":custom_region_file,
-            "end_use_ratios.csv":end_use_ratios,
-            "end_use_half_lives.csv":end_use_half_lives,
+            "primary_product_ratios.csv":custom_region_file,
+            "end_use_product_ratios.csv":end_use_product_ratios,
             "dispositions.csv":dispositions,
             "disposition_half_lives.csv":disposition_half_lives,
             "distribution_data.csv":distribution_data,

@@ -142,6 +142,7 @@ $('#email-address').on('input', function() {
 });
 
 $('.info-circle').click(function (e){
-  console.log($(e.target))
+  console.log( $(e.target)[0].parentElement.nextElementSibling)
+  $(e.target)[0].parentElement.nextElementSibling.style.display = "block";
 })
 
