@@ -28,13 +28,17 @@
         0
     </script>
     <div id="page-container">
-        <main id="content">{% include "components/navigation.html" %}{% block content%}{% endblock content %}</main>
+        <main id="content">
+            {% include "components/navigation.html" %}
+            {% block content%}{% endblock content %}
+        </main>
     </div>
     <footer id="footer">{% include "components/footer.html" %}</footer>
 </body>
 {% block scripts %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/accordion.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/curvedarrow.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/homeflowchart.js') }}"></script>
 {% endblock scripts %}
 
 </html>

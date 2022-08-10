@@ -22,7 +22,7 @@ var drawConnector = function () {
     arrowcurve.setAttribute("d", dStrLeft);
     console.log(arrowcurve)
     
-    console.log(posnALeft)
+    console.log(arrowcurve)
 };
 
 
