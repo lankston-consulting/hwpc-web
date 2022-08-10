@@ -21,7 +21,7 @@ var drawConnector = function () {
           (posnBLeft.x      ) + "," + (posnBLeft.y);
     arrowcurve.setAttribute("d", dStrLeft);
     
-    console.log(posnALeft)
+    console.log(arrowcurve)
 };
 
 

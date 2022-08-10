@@ -21,6 +21,10 @@ def home():
 def calculator():
     return render_template('pages/calculator.html')
 
+@app.route('/output', methods=['GET'])
+def output():
+    return render_template('pages/output.html')
+
 @app.route('/about', methods=['GET'])
 def test():
     return render_template('about.html')
