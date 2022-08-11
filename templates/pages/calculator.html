@@ -2,14 +2,19 @@
 
 {% block content %}
 <div id="calc-page">
-    <div class="calc-config-container">
-        <h1>Configure a Simulation</h1>
-        <p><b>Download an Excel macro-enabled workbook that will help create the input data files here. Use the HWP
-                Ribbon to export data in the correct format for this tool or to add a new year. Do NOT change the basic
-                format of any of the worksheets. If you experience difficulties running the HWP model, try a different
-                web browser. Google Chrome is suggested.</b></p>
-        <button>Download Excel Workbook</button>
-    </div>
+    <div style="margin-bottom: 15rem;">
+        <div class="calc-config-container">
+            <h1>Configure a Simulation</h1>
+            <p><b>Download an Excel macro-enabled workbook that will help create the input data files here. Use the HWP
+                    Ribbon to export data in the correct format for this tool or to add a new year. Do NOT change the
+                    basic
+                    format of any of the worksheets. If you experience difficulties running the HWP model, try a
+                    different
+                    web browser. Google Chrome is suggested.</b></p>
+            <button>Download Excel Workbook</button>
+        </div>
 
-    {% include "components/accordion.html" %}
+        {% include "components/accordion.html" %}
+
+    </div>
     {% endblock content %}

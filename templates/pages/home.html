@@ -2,18 +2,21 @@
 
 {% block content %}
 <div id="home-page" class="bg">
-    <div class="home-container">
-        <div tabindex="0" class="info-container">
-            <h1>Harvested Wood Products <br> Carbon Calculator</h1>
-            <p>This web-based carbon accounting tool calculates cumulative carbon stocks and emissions through time for
-                harvested wood products (HWP) using the Tier 3 Production Approach carbon accounting guidelines
-                developed by
-                the Intergovernmental Panel on Climate Change (IPCC).</p>
-            <a href="/calculator"><button class="custom-btn btn-calc">Calculator</button></a>
+    <div style="padding-bottom: 15rem;">
+        <div class="home-container">
+            <div tabindex="0" class="info-container">
+                <h1>Harvested Wood Products <br> Carbon Calculator</h1>
+                <p>This web-based carbon accounting tool calculates cumulative carbon stocks and emissions through time
+                    for
+                    harvested wood products (HWP) using the Tier 3 Production Approach carbon accounting guidelines
+                    developed by
+                    the Intergovernmental Panel on Climate Change (IPCC).</p>
+                <a href="/calculator"><button class="custom-btn btn-calc">Calculator</button></a>
+            </div>
         </div>
+        {% include "components/how-it-works.html" %}
     </div>
-    {% include "components/how-it-works.html" %}
-    {% include "components/contact.html" %}
+    <!-- {% include "components/contact.html" %} -->
 
 </div>
 {% endblock content %}
