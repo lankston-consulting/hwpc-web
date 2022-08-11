@@ -10,6 +10,9 @@
 <p>Current total Dispositions</p>
 <p>Future Dispositions</p>
 
-
+<script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
+<script async>
+    output.initialize(JSON.parse('{{data_dict | tojson}}'));  
+</script>
 
 {% endblock content %}

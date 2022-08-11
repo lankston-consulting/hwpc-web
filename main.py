@@ -2,7 +2,9 @@ import datetime
 import json
 import uuid
 import time
+import io
 import os
+import zipfile
 from flask import Flask, redirect, render_template, request
 from config import gch
 
@@ -21,9 +23,9 @@ def home():
 def calculator():
     return render_template('pages/calculator.html')
 
-@app.route('/output', methods=['GET'])
-def output():
-    return render_template('pages/output.html')
+# @app.route('/output', methods=['GET'])
+# def output():
+#     return render_template('pages/output.html')
 
 @app.route('/about', methods=['GET'])
 def test():
@@ -96,7 +98,28 @@ def upload():
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
     return "This is a test to view the submitted data"
     #return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+@app.route('/submit')
+def submit():
+    return render_template("pages/submit.html")
 
+@app.route('/output', methods=['GET'])
+def output():
+    p = request.args.get("p")
+    print(p)
+    user_zip = gch.download_temp("hwpcarbon-data","hpwc-user-inputs/"+p+"/results/test.zip")
+    with open('/tmp/zip_folder.zip', 'wb') as f:
+        f.write(user_zip.read())
+    file = zipfile.ZipFile('/tmp/zip_folder.zip')
+    file.extractall(path='/tmp/zip_folder')
+    files = os.listdir('/tmp/zip_folder')
+    data_dict = {}
+    for file in files:
+        if ".csv" in file:
+            print(file[:-4])
+            with open("/tmp/zip_folder/"+file,"rb") as temp:
+                data_dict[file[:-4]] = temp.read()
+
+    return render_template("pages/output.html",data_dict=data_dict.decode("utf-8"))
 # @app.route('/download', methods=['GET','POST'])
 # def download():
     
