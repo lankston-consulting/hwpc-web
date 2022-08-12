@@ -654,13 +654,14 @@ input[type="radio"]:after{
   display: flex;
   width: 100%;
   flex-direction: row;
-  margin-top: 1em;
+  margin-top: 3em;
   justify-content: flex-end;
   
 }
 
 .nextbtn,
-.previewbtn {
+.previewbtn, 
+.submitbtn {
   background-color: var(--dark-green);
   border: none;
   color: var(--stone-black);
@@ -676,8 +677,17 @@ input[type="radio"]:after{
   outline: none;
 }
 
-.nextbtn:hover,
+.previewbtn {
+  background-color: #f8aa18;
+}
+
 .previewbtn:hover {
+  background-color:#f7cc7e;
+}
+
+.nextbtn:hover,
+
+.submitbtn:hover {
   background-color: var(--light-green);
 }
 
