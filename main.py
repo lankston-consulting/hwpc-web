@@ -129,9 +129,9 @@ def output():
     print(data_dict)
     # print(data_json)
     data_json=json.dumps(data_dict)
-    print(data_json)
-    for key,value in data_json.items():
-        data_json[key] = value.strip()
+    # print(data_json)
+    # for key,value in data_json.items():
+    #     data_json[key] = value.strip()
 
     print(data_json)
     return render_template("pages/output.html",data_json=data_json)

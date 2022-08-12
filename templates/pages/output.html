@@ -12,7 +12,7 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize(JSON.parse('{{data_json | safe}}'));  
+    output.initialize('{{data_json | safe}}');  
 </script>
 
 {% endblock content %}
