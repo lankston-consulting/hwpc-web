@@ -10,6 +10,9 @@
 <p>Current total Dispositions</p>
 <p>Future Dispositions</p>
 
-
+<script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
+<script async>
+    output.initialize('{{data_json | safe}}');  
+</script>
 
 {% endblock content %}

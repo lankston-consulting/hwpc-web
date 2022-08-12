@@ -2,8 +2,11 @@ import datetime
 import json
 import uuid
 import time
+import io
 import os
-from flask import Flask, redirect, render_template, request
+import csv
+import zipfile
+from flask import Flask, redirect, render_template, request, jsonify
 from config import gch
 
 user_data_folder = 'hpwc-user-inputs/'
@@ -21,9 +24,9 @@ def home():
 def calculator():
     return render_template('pages/calculator.html')
 
-@app.route('/output', methods=['GET'])
-def output():
-    return render_template('pages/output.html')
+# @app.route('/output', methods=['GET'])
+# def output():
+#     return render_template('pages/output.html')
 
 @app.route('/about', methods=['GET'])
 def test():
@@ -94,9 +97,44 @@ def upload():
     new_id = str(uuid.uuid4())
     # print(new_id)
     gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
-    return "This is a test to view the submitted data"
-    #return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+    #return "This is a test to view the submitted data"   
+    # return render_template('pages/submit.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+    return render_template('pages/submit.html')
+@app.route('/submit')
+def submit():
+    return render_template("pages/submit.html")
 
+@app.route('/output', methods=['GET'])
+def output():
+    p = request.args.get("p")
+    print(p)
+    user_zip = gch.download_temp("hwpcarbon-data","hpwc-user-inputs/"+p+"/results/test.zip")
+    with open('/tmp/zip_folder.zip', 'wb') as f:
+        f.write(user_zip.read())
+    file = zipfile.ZipFile('/tmp/zip_folder.zip')
+    file.extractall(path='/tmp/zip_folder')
+    files = os.listdir('/tmp/zip_folder')
+    data_dict = {}
+    for file in files:
+        if ".csv" in file:
+            print(file[:-4])
+            with open("/tmp/zip_folder/"+file,"r") as temp:
+                # csv_file = csv.reader(temp,delimiter=',')
+                # parsed=''
+                # for i in csv_file:
+                #     parsed = parsed + i +','
+                data_dict[file[:-4]] = temp.read()
+                
+    # data_json =  json.dumps(data_dict)
+    print(data_dict)
+    # print(data_json)
+    data_json=json.dumps(data_dict)
+    # print(data_json)
+    # for key,value in data_json.items():
+    #     data_json[key] = value.strip()
+
+    print(data_json)
+    return render_template("pages/output.html",data_json=data_json)
 # @app.route('/download', methods=['GET','POST'])
 # def download():
     
