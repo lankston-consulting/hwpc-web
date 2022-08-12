@@ -24,6 +24,9 @@
   font-size: 62.5%;
 }
 
+/* * {
+  border: 1px solid red;
+} */
 
 html, body {
   height: 100%;
@@ -513,6 +516,10 @@ color: var(--dark-gray);
   cursor: pointer;
 }
 
+.region-select {
+  display: flex;
+  flex-direction: row;
+}
 
 .fileupload {
   opacity:0%;
@@ -602,6 +609,12 @@ input[type="radio"]:after{
   transition: all .1s;
 }
 
+.file-input-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 
 
 .custom-radio-btn{
@@ -624,6 +637,7 @@ input[type="radio"]:after{
 .h2defaultlabel{
  transform: translateY(5px);
 }
+
 
 /* next & back btns */
 
@@ -752,6 +766,61 @@ input[type="radio"]:after{
   transform: translateY(8px) !important;
 }
 
+@media only screen and (max-width: 600px) {
+  .accordion h1 {
+    font-size: 1.8rem;
+  }
+
+  .accordion div {
+    padding: 20px;
+  }
+
+  .accordion label, 
+  .accordion p {
+    font-size: 1.6rem;
+  }
+
+  input[type="text"], input[type="number"] {
+    max-width: 58%;
+  }
+
+  input[type="email"] {
+    width: 60%;
+  }
+  .cancel-upload-btn {
+    transform: translateX(2px);
+  }
+
+  .region-select {
+    flex-direction: column;
+  }
+
+  .select-dropdown {
+    width: 75%;
+  }
+  .file-input-container {
+    flex-direction: column;
+  }
+
+  .file-input-container a {
+    margin-bottom: auto;
+  }
+
+  .file-input-container p {
+    margin-bottom: 0.5em;
+  }
+
+  #run-name {
+    width: 75%;
+  }
+  .nextbtn,
+  .previewbtn, 
+  .submitbtn {
+    padding: 5px;
+    width: 97px;
+  }
+}
+
 /* Modal styling */
 
 /* The Modal (background) */
@@ -783,7 +852,14 @@ input[type="radio"]:after{
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
+  max-width: 700px;
+  border-radius: 5px;
+}
+
+.modal-content p {
+  font-family: var(--opensans);
+  font-size: 1.8rem;
 }
 
 /* The Close Button */
@@ -800,6 +876,14 @@ input[type="radio"]:after{
   text-decoration: none;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+ .modal-content {
+  width: 80%;
+  margin: 30% auto;
+ }
+}
+
 
 /* How it works Graphic */
 
