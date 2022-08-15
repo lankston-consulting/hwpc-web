@@ -34,6 +34,8 @@ if($.inArray(name,headers) > -1) {
 
 $(".acc-h1, .acc-h2").click(function(e) {
   $("#default-mode").prop("checked", true)
+
+  console.log($("#"+e.target.id).offset().top)
     toggleAccordion(e);
     if(e.target.id == "acc-08"){
       toggleAccordion($("#acc-01")[0],true)
@@ -314,10 +316,20 @@ $('#previewbtn').click(function (e){
     console.log(class_list)
     $("#preview-modal").css("display","none")
     console.log($("#"+class_list[1])[0])
+    $("#"+class_list[1]).get(0).scrollIntoView({behavior: "smooth", block: "center"});
     toggleAccordion($("#"+class_list[1])[0])
-    $([document.documentElement, document.body]).animate({
-      scrollTop: $("#"+class_list[1]).offset().top - 30
-  }, 200);
+    if(class_list[1]=="acc-01" || class_list[1] == "acc-05" || class_list[1]=="acc-06" || class_list[1]=="acc-07"){
+      toggleAccordion($("#"+class_list[1])[0])
+    }
+    // toggleAccordion($("#acc-01")[0],true)
+    // toggleAccordion($("#acc-05")[0],true)
+    // toggleAccordion($("#acc-06")[0],true)
+    // toggleAccordion($("#acc-07")[0],true)
+    console.log($("#"+class_list[1]).offset().top)
+    
+  //   $([document.documentElement, document.body]).animate({
+  //     scrollTop: $("#"+class_list[1]).offset().top
+  // }, 500);
   });
 })
 
