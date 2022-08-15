@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 google-cloud-storage = {version = "*", index = "pypi"}
 gunicorn = {version = "*", index = "pypi"}
+pandas = "*"
 Flask = {version = "*", index = "pypi"}
 lcutils = {ref = "main", git = "https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_REPO}.git"}
 
