@@ -48,21 +48,21 @@
                 <a class="info-circle"><i id="modal1" class="fa-solid fa-circle-info" role="button"
                         type="button"></i></a>
             </span>
-            <span class="nextbackbtn-container"><button type="button" class="nextbtn  acc-01">Next</button></span>
+            <span class="nextbackbtn-container"><button type="button" style="height: 46px;"
+                    class="nextbtn  acc-01">Next</button></span>
 
         </div>
         <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload yearly timber product ratios
         </h1>
         <div>
             <span style="display: flex;">
-                <p>Use Default Data</p><a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
+                <p>Use Default Data or</p><a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
             </span>
-            <p> Or </p>
             <span style="display: flex;">
                 <span style="width: 100%;">
                     <label for="yearlytimberproductratios" id="buttonlabel">
                         <span role="button" aria-controls="filename" tabindex="0">
-                            Upload Custom File
+                            Upload File
                         </span>
                     </label>
                     <input name='yearlytimberproductratios' type="file" class="fileupload filename3"
@@ -77,20 +77,6 @@
                 </span>
 
             </span>
-            <!-- <input type="radio" id="defaultRatio" name="default-custom-toggle" value="defaultRatio" checked>
-            <label for="defaultRatio">Use Default Ratios</label>
-            <input type="radio" id="customRatio" name="default-custom-toggle" value="customRatio">
-            <label for="customRatio">Upload Custom Data</label>
-            <br>
-            <span id="custom-file-upload" class="custom-file-upload" style="display:none">
-                <label for="file-upload" class="custom-file-upload">
-                    Upload Custom File
-                </label>
-                <input name='yearlytimberproductratios' id="file-upload" type="file" accept=".csv"
-                    aria-required="true" />
-            </span>
-            <br>
-            <br> -->
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-02">Back</button><button type="button"
                     class="nextbtn acc-02">Next</button>
@@ -101,30 +87,32 @@
             choose region for default
             ratios</h1>
         <div>
-            <span style="display: flex;">
+            <span class="region-select">
                 <label for="regionselection">Select a Region</label>
-                <span class="select-dropdown">
-                    <select name="regionselection" id="regionselection">
-                        <option value="North Central">North Central</option>
-                        <option value="Northeast">Northeast</option>
-                        <option value="Pacific Northwest, East">Pacific Northwest, East</option>
-                        <option value="Pacific Northwest, West">Pacific Northwest, West</option>
-                        <option value="Pacific Southwest">Pacific Southwest</option>
-                        <option value="Rocky Mountain">Rocky Mountain</option>
-                        <option value="South Central">South Central</option>
-                        <option value="Southeast">South East</option>
-                        <option value="West">West</option>
-                        <option value="Custom">Custom</option>
-                    </select>
+                <span style="display: flex;">
+                    <span class="select-dropdown">
+                        <select name="regionselection" id="regionselection">
+                            <option value="North Central">North Central</option>
+                            <option value="Northeast">Northeast</option>
+                            <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                            <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                            <option value="Pacific Southwest">Pacific Southwest</option>
+                            <option value="Rocky Mountain">Rocky Mountain</option>
+                            <option value="South Central">South Central</option>
+                            <option value="Southeast">South East</option>
+                            <option value="West">West</option>
+                            <option value="Custom">Custom</option>
+                        </select>
+                    </span>
+                    <a class="info-circle"><i id="modal3" class="fa-solid fa-circle-info"></i></a>
                 </span>
-                <a class="info-circle"><i id="modal3" class="fa-solid fa-circle-info"></i></a>
             </span>
-            <p> Or </p>
             <br>
+            <p> Or Upload Custom Region</p>
             <span style="width: 100%">
                 <label for="customregion" id="buttonlabel">
                     <span role="button" aria-controls="filename" tabindex="0">
-                        Upload Custom Region
+                        Upload File
                     </span>
                 </label>
                 <input name='customregion' type="file" class="fileupload filename4" id="customregion" accept=".csv" />
@@ -147,58 +135,44 @@
             <h2 class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
             <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
+                <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="EndUseRatiosFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
-                        id="EndUseRatiosFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename5" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <span style="display: flex;">
+                        <label for="EndUseRatiosFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
+                            id="EndUseRatiosFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename5" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
+
                 </span>
                 <a class="info-circle"><i id="modal4" class="fa-solid fa-circle-info"></i></a>
             </div>
-            <!-- <h2 class="acc-h2" role="button" tabindex="0">Upload end use product half lives</h2>
-            <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="EndUseHalfLivesFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='EndUseHalfLivesFilename' type="file" class="fileupload filename6"
-                        id="EndUseHalfLivesFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename6" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
-                </span>
-                <a class="info-circle" href="#"><i class="fa-solid fa-circle-info"></i></a>
-            </div> -->
             <h2 class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
+                <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="DispositionsFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='DispositionsFilename' type="file" class="fileupload filename7"
-                        id="DispositionsFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <span style="display: flex;">
+                        <label for="DispositionsFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='DispositionsFilename' type="file" class="fileupload filename7"
+                            id="DispositionsFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
                 </span>
                 <a class="info-circle"><i id="modal5" class="fa-solid fa-circle-info"></i></a>
             </div>
@@ -206,84 +180,67 @@
                 fixed ratios
             </h2>
             <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
+                <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="DispositionHalfLivesFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='DispositionHalfLivesFilename' type="file" class="fileupload filename8"
-                        id="DispositionHalfLivesFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <span style="display: flex;">
+                        <label for="DispositionHalfLivesFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='DispositionHalfLivesFilename' type="file" class="fileupload filename8"
+                            id="DispositionHalfLivesFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
                 </span>
                 <a class="info-circle"><i id="modal6" class="fa-solid fa-circle-info"></i></a>
             </div> -->
             <h2 class="acc-h2" role="button" tabindex="0">Upload Distribution parameters</h2>
             <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
+                <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="DistributionDataFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='DistributionDataFilename' type="file" class="fileupload filename9"
-                        id="DistributionDataFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <span style="display: flex;">
+                        <label for="DistributionDataFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='DistributionDataFilename' type="file" class="fileupload filename9"
+                            id="DistributionDataFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
                 </span>
                 <a class="info-circle"><i id="modal7" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 class="acc-h2" role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
             <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
+                <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="BurnedRatiosFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='BurnedRatiosFilename' type="file" class="fileupload filename10"
-                        id="BurnedRatiosFilename" accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <span style="display: flex;">
+                        <label for="BurnedRatiosFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='BurnedRatiosFilename' type="file" class="fileupload filename10"
+                            id="BurnedRatiosFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
                 </span>
                 <a class="info-circle"><i id="modal8" class="fa-solid fa-circle-info"></i></a>
             </div>
-            <!-- <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-04">Back</button><button type="button"
-                    class="nextbtn acc-04">Next</button>
-            </span> -->
-            <!-- <h2 class="acc-h2" role="button" tabindex="0">Upload Custom CCF to MGC Ratios </h2>
-            <div style="display: flex;">
-                <span style="display: flex; width: 100%;">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <label for="CcfToMgcFilename" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='CcfToMgcFilename' type="file" class="fileupload filename11" id="CcfToMgcFilename"
-                        accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input type="text" id="filename11" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
-                </span>
-                <a class="info-circle"><i id="modal9" class="fa-solid fa-circle-info"></i></a>
-            </div> -->
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-04">Back</button><button type="button"
                     class="nextbtn acc-04">Next</button>
