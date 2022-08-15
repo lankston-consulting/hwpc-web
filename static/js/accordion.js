@@ -313,23 +313,12 @@ $('#previewbtn').click(function (e){
   $("#preview-modal-content").html(harvest + mbf_to_ccf + timber_product_ratios + region + end_use_ratios + discard_dispostions + discard_dispostions_half_lives + distribution + burned + loss_factor + iterations + email + runname)
   $(".modal-input-data").click(function (e) {
     class_list = $(e.target).attr("class").split(/\s+/)
-    console.log(class_list)
     $("#preview-modal").css("display","none")
-    console.log($("#"+class_list[1])[0])
     $("#"+class_list[1]).get(0).scrollIntoView({behavior: "smooth", block: "center"});
     toggleAccordion($("#"+class_list[1])[0])
     if(class_list[1]=="acc-01" || class_list[1] == "acc-05" || class_list[1]=="acc-06" || class_list[1]=="acc-07"){
       toggleAccordion($("#"+class_list[1])[0])
     }
-    // toggleAccordion($("#acc-01")[0],true)
-    // toggleAccordion($("#acc-05")[0],true)
-    // toggleAccordion($("#acc-06")[0],true)
-    // toggleAccordion($("#acc-07")[0],true)
-    console.log($("#"+class_list[1]).offset().top)
-    
-  //   $([document.documentElement, document.body]).animate({
-  //     scrollTop: $("#"+class_list[1]).offset().top
-  // }, 500);
   });
 })
 
