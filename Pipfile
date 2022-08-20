@@ -9,6 +9,7 @@ gunicorn = {version = "*", index = "pypi"}
 pandas = "*"
 Flask = {version = "*", index = "pypi"}
 lcutils = {ref = "main", git = "https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_REPO}.git"}
+boto3 = {extras = ["crt"], version = "*"}
 
 [dev-packages]
 pytest = {version = "*", index = "pypi"}
