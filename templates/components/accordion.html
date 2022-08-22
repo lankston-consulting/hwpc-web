@@ -6,10 +6,11 @@
 </span>
 <div class="accordion">
     <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
-        <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload yearly harvest data</h1>
+        <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload annual harvest data</h1>
         <div>
             <span style="display: flex;">
                 <span style="width: 100%;">
+                    <i class="required-alert fa-solid fa-circle-exclamation"></i>
                     <label for="fu-yearly-harvest" id="buttonlabel">
                         <span role="button" aria-controls="filename" tabindex="0">
                             Upload File
@@ -52,14 +53,12 @@
                     class="nextbtn  acc-01">Next</button></span>
 
         </div>
-        <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload yearly timber product ratios
+        <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload annual timber product ratios
         </h1>
         <div>
             <span style="display: flex;">
-                <p>Use Default Data or</p><a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
-            </span>
-            <span style="display: flex;">
                 <span style="width: 100%;">
+                    <i class="required-alert fa-solid fa-circle-exclamation"></i>
                     <label for="yearlytimberproductratios" id="buttonlabel">
                         <span role="button" aria-controls="filename" tabindex="0">
                             Upload File
@@ -71,11 +70,11 @@
                         uploaded file
                     </label>
                     <input type="text" id="filename3" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <!-- <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i> -->
                     <br>
                     <br>
                 </span>
-
+                <a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-02">Back</button><button type="button"
@@ -83,56 +82,51 @@
             </span>
         </div>
 
-        <h1 id="acc-03" class="acc-h1" role="button" tabindex="0"><span>03</span>Upload Yearly primary product ratios or
-            choose region for default
-            ratios</h1>
+        <h1 id="acc-03" class="acc-h2" role="button" tabindex="0"><span>03</span>Upload custom ratios (optional)</h1>
         <div>
-            <span class="region-select">
-                <label for="regionselection">Select a Region</label>
-                <span style="display: flex;">
-                    <span class="select-dropdown">
-                        <select name="regionselection" id="regionselection">
-                            <option value="North Central">North Central</option>
-                            <option value="Northeast">Northeast</option>
-                            <option value="Pacific Northwest, East">Pacific Northwest, East</option>
-                            <option value="Pacific Northwest, West">Pacific Northwest, West</option>
-                            <option value="Pacific Southwest">Pacific Southwest</option>
-                            <option value="Rocky Mountain">Rocky Mountain</option>
-                            <option value="South Central">South Central</option>
-                            <option value="Southeast">South East</option>
-                            <option value="West">West</option>
-                            <option value="Custom">Custom</option>
-                        </select>
+            <h2 id="acc-03a" class="acc-h2" role="button" tabindex="0">Upload yearly primary product
+                ratios or
+                choose region for default
+                ratios</h2>
+            <div>
+                <span style="width: 100%" class="region-select">
+                    <label for="regionselection">Select a Region</label>
+                    <span style="display: flex;">
+                        <span class="select-dropdown">
+                            <select name="regionselection" id="regionselection">
+                                <option value="North Central">North Central</option>
+                                <option value="Northeast">Northeast</option>
+                                <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                                <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                                <option value="Pacific Southwest">Pacific Southwest</option>
+                                <option value="Rocky Mountain">Rocky Mountain</option>
+                                <option value="South Central">South Central</option>
+                                <option value="Southeast">South East</option>
+                                <option value="West">West</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                        </span>
+
                     </span>
                     <a class="info-circle"><i id="modal3" class="fa-solid fa-circle-info"></i></a>
                 </span>
-            </span>
-            <br>
-            <p> Or Upload Custom Region</p>
-            <span style="width: 100%">
-                <label for="customregion" id="buttonlabel">
-                    <span role="button" aria-controls="filename" tabindex="0">
-                        Upload File
-                    </span>
-                </label>
-                <input name='customregion' type="file" class="fileupload filename4" id="customregion" accept=".csv" />
-                <label for="filename" class="hide">
-                    uploaded file
-                </label>
-                <input type="text" id="filename4" autocomplete="off" readonly placeholder="no file uploaded">
-                <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
                 <br>
-                <br>
-            </span>
-            <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-03">Back</button><button type="button"
-                    class="nextbtn acc-03">Next</button>
-            </span>
-        </div>
-
-        <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
-        <div>
-            <h2 class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
+                <p> Or Upload Custom Region</p>
+                <span style="width: 100%">
+                    <label for="customregion" id="buttonlabel">
+                        <span role="button" aria-controls="filename" tabindex="0">
+                            Upload File
+                        </span>
+                    </label>
+                    <input name='customregion' type="file" class="fileupload filename4" id="customregion"
+                        accept=".csv" />
+                    <label for="filename" class="hide">
+                        uploaded file
+                    </label>
+                    <input type="text" id="filename4" autocomplete="off" readonly placeholder="no file uploaded">
+                    <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
+            </div>
+            <h2 id="acc-03b" class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
             <div style="display: flex;">
                 <span class="file-input-container">
@@ -155,7 +149,7 @@
                 </span>
                 <a class="info-circle"><i id="modal4" class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
+            <h2 id="acc-03c" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div style="display: flex;">
                 <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -176,7 +170,8 @@
                 </span>
                 <a class="info-circle"><i id="modal5" class="fa-solid fa-circle-info"></i></a>
             </div>
-            <!-- <h2 class="acc-h2" role="button" tabindex="0">Upload Discarded products disposition half lives and land fill
+            <h2 id="acc-03d" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
+                and land fill
                 fixed ratios
             </h2>
             <div style="display: flex;">
@@ -198,29 +193,10 @@
                     </span>
                 </span>
                 <a class="info-circle"><i id="modal6" class="fa-solid fa-circle-info"></i></a>
-            </div> -->
-            <h2 class="acc-h2" role="button" tabindex="0">Upload Distribution parameters</h2>
-            <div style="display: flex;">
-                <span class="file-input-container">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <span style="display: flex;">
-                        <label for="DistributionDataFilename" id="buttonlabel">
-                            <span role="button" aria-controls="filename" tabindex="0">
-                                Upload File
-                            </span>
-                        </label>
-                        <input name='DistributionDataFilename' type="file" class="fileupload filename9"
-                            id="DistributionDataFilename" accept=".csv" />
-                        <label for="filename" class="hide">
-                            uploaded file
-                        </label>
-                        <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
-                    </span>
-                </span>
-                <a class="info-circle"><i id="modal7" class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 class="acc-h2" role="button" tabindex="0">Upload Proportions for burned with energy capture</h2>
+
+            <h2 id="acc-03e" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
+            </h2>
             <div style="display: flex;">
                 <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -239,21 +215,23 @@
                         <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i id="modal8" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal7" class="fa-solid fa-circle-info"></i></a>
             </div>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-04">Back</button><button type="button"
-                    class="nextbtn acc-04">Next</button>
+                <button type="button" class="backbtn acc-03">Back</button><button type="button"
+                    class="nextbtn acc-03">Next</button>
             </span>
         </div>
-        <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter a loss factor 0-1</h1>
+        <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Enter a wood product end use loss
+            factor</h1>
         <div>
             <span style=" width: 100%;">
+                <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
                 <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08"
                     required />
             </span>
-            <a class="info-circle"><i id="modal10" class="fa-solid fa-circle-info"></i></a>
+            <a class="info-circle"><i id="modal8" class="fa-solid fa-circle-info"></i></a>
 
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-05">Back</button><button type="button"
@@ -261,15 +239,40 @@
             </span>
 
         </div>
-        <h1 id="acc-06" class="acc-h1" role="button" tabindex="0"><span>06</span>Enter number of iterations</h1>
+        <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter number of Monte Carlo iterations
+        </h1>
         <div>
             <span style="width: 100%;">
+                <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label style="margin-right: 0.5em;" for="monte-carlo-sim">
                     Monte Carlo Simulation
                 </label>
                 <input id="monte-carlo-sim" type="number" name='iterations' step="1" min="1" max="100" value="1"
                     required />
-                <a class="info-circle"><i id="modal11" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal9" class="fa-solid fa-circle-info"></i></a>
+            </span>
+            <br>
+            <br>
+            <span style="display: flex;">
+                <span class="file-input-container">
+                    <i class="required-alert fa-solid fa-circle-exclamation"></i>
+                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or upload distribution parameters
+                    </p>
+                    <span style="display: flex;">
+                        <label for="DistributionDataFilename" id="buttonlabel">
+                            <span role="button" aria-controls="filename" tabindex="0">
+                                Upload File
+                            </span>
+                        </label>
+                        <input name='DistributionDataFilename' type="file" class="fileupload filename9"
+                            id="DistributionDataFilename" accept=".csv" />
+                        <label for="filename" class="hide">
+                            uploaded file
+                        </label>
+                        <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
+                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    </span>
+                </span>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-06">Back</button><button type="button"
@@ -277,15 +280,16 @@
             </span>
         </div>
 
-        <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span>Enter email address to send results
+        <h1 id="acc-06" class="acc-h1" role="button" tabindex="0"><span>06</span>Enter email address to send results
         </h1>
         <div>
             <span style="width: 100%;">
+                <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label style="margin-right: 0.5em;" for="email-address">
                     Email
                 </label>
                 <input name='email' id="email-address" type="email" required>
-                <a class="info-circle"><i id="modal12" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal10" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-07">Back</button><button type="button"
@@ -293,14 +297,15 @@
             </span>
         </div>
 
-        <h1 id="acc-08" class="acc-h1" role="button" tabindex="0"><span>08</span> Name your Run</h1>
+        <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span> Name your run</h1>
         <div>
             <span style="width: 100%;">
+                <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label style="margin-right: 0.5em;" for="run-name">
                     Name
                 </label>
                 <input name='runname' id="run-name" type="text" required>
-                <a class="info-circle"><i id="modal13" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i id="modal11" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-08">Back</button>

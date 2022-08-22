@@ -2,17 +2,26 @@
 
 {% block content %}
 
-<h1>Output</h1>
+<div class="output-page">
+    <aside>
+        <h1>Output</h1>
 
-<p>Converting between units</p>
-<p>Single harvest year</p>
-<p>Selected Harvest yearlyharvestinput</p>
-<p>Current total Dispositions</p>
-<p>Future Dispositions</p>
+        <p>Converting between units</p>
+        <p>Single harvest year</p>
+        <p>Selected Harvest yearlyharvest input</p>
+        <p>Current total Dispositions</p>
+        <p>Future Dispositions</p>
+    </aside>
+    <section>
+        <h1>Results</h1>
+
+    </section>
+
+</div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}');  
+    output.initialize('{{data_json | safe}}');
 </script>
 
 {% endblock content %}

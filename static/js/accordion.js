@@ -1,5 +1,6 @@
-var headers = ["H1","H2","H3","H4","H5","H6"];
+var headers = ["H1","H2","H3","H4","H5","H6"]; //We only use h1 and h2
 
+$(".required-alert").hide();
 
 function toggleAccordion(e,edit_mode=false) {
   if(e.type != undefined){
@@ -37,11 +38,14 @@ $(".acc-h1, .acc-h2").click(function(e) {
 
   console.log($("#"+e.target.id).offset().top)
     toggleAccordion(e);
-    if(e.target.id == "acc-08"){
+    if(e.target.id == "acc-07"){
       toggleAccordion($("#acc-01")[0],true)
+      toggleAccordion($("#acc-02")[0],true)
+      toggleAccordion($("#acc-04")[0],true)
       toggleAccordion($("#acc-05")[0],true)
-      toggleAccordion($("#acc-06")[0],true)
-      toggleAccordion($("#acc-07")[0],true)
+      toggleAccordion($("#acc-06")[0], true)
+      
+      $(".required-alert").show();
     }
 });
 
@@ -163,10 +167,10 @@ $('#previewbtn').click(function (e){
   if(input_harvest != ""){
     input_harvest = input_harvest.split("\\")
     input_harvest = input_harvest[input_harvest.length-1]
-    harvest = "<p class=\"modal-input-data acc-01\">Yearly Harvest Data: " + input_harvest + "</p><br>"
+    harvest = "<p class=\"modal-input-data acc-01\">Annual Harvest Data: " + input_harvest + "</p><br>"
   }
   else{
-    harvest = "<p class=\"modal-input-data acc-01\">Yearly Harvest Data: MISSING REQUIRED DATA</p><br>"
+    harvest = "<p class=\"modal-input-data acc-01\">Annual Harvest Data: MISSING REQUIRED DATA</p><br>"
   }
 
   input_mbf_to_ccf = $("[name='MbfToCcfFilename']").val()
@@ -231,21 +235,12 @@ $('#previewbtn').click(function (e){
   if(input_discard_dispostions_half_lives != ""){
     input_discard_dispostions_half_lives = input_discard_dispostions_half_lives.split("\\")
     input_discard_dispostions_half_lives = input_discard_dispostions_half_lives[input_discard_dispostions_half_lives.length-1]
-    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives: " + input_discard_dispostions_half_lives + "</p><br>"
+    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives Ratios: " + input_discard_dispostions_half_lives + "</p><br>"
   }
   else{
-    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives: Using Default</p><br>"
+    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives Ratios: Using Default</p><br>"
   }
 
-  input_distribution = $("[name='DistributionDataFilename']").val()
-  if(input_distribution != ""){
-    input_distribution = input_distribution.split("\\")
-    input_distribution = input_distribution[input_distribution.length-1]
-    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: " + input_distribution + "</p><br>"
-  }
-  else{
-    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: Using Default</p><br>"
-  }
 
   input_burned = $("[name='BurnedRatiosFilename']").val()
   if(input_burned != ""){
@@ -285,6 +280,16 @@ $('#previewbtn').click(function (e){
   }
   else{
     iterations = "<p class=\"modal-input-data acc-06\">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>"
+  }
+
+  input_distribution = $("[name='DistributionDataFilename']").val()
+  if(input_distribution != ""){
+    input_distribution = input_distribution.split("\\")
+    input_distribution = input_distribution[input_distribution.length-1]
+    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: " + input_distribution + "</p><br>"
+  }
+  else{
+    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: Using Default</p><br>"
   }
 
   input_email = $("[name='email']").val()
@@ -330,11 +335,10 @@ var modal_dict = {
   modal4 : "A .csv file containing the ratios which primary products are converted to end use products.<br />Should be formatted as follows:<br /><table><tr><th>EndUseID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
   modal5 : "A .csv file containing the ratios in which products are discarded into their destination dispositions.<br />Should be formatted as follows:<br /><table><tr><th>DiscardTypeID,</th><th>DiscardDestinationID,</th><th>Year,</th><th>DiscardDestinationRatio</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
   modal6 : "A .csv file containing the half-life decay ratios of the discarded disposition destinations. ",
-  modal7 : "",
-  modal8 : "",
-  modal9 : "",
-  modal10 : "",
-  modal11 : "",
-  modal12 : "",
-  modal13 : ""
+  modal7 : "A .csv file containing the proportions for burned with energy capture.",
+  modal8 : "Enter a number between 0 and 1 of how much wood product end-use loss.",
+  modal9 : "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
+  modal10 : "Email is required to send you the zip file and link of simulation once complete.",
+  modal11 : "Name of Run to label zip file."
+
 }
