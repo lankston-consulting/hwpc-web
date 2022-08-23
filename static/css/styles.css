@@ -772,6 +772,7 @@ input[type="radio"]:after{
 }
 
 .required-alert {
+  display:none;
   color: red;
   transform: translateY(3px);
   margin-right: 3px;
