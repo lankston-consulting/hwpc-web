@@ -1,8 +1,10 @@
-<span class="acc-change-toggle">
+<span tabindex="0" class="acc-change-toggle">
     <p>Change Mode:</p><input type="radio" class="custom-radio-btn" id="default-mode" name="accordion-toggle"
-        value="default-mode" checked><label style="margin-right:0.5em;" for="default-mode">Default Mode</label>
-    <input type="radio" class="custom-radio-btn" id="edit-mode" name="accordion-toggle" value="edit-mode"><label
-        for="edit-mode">Edit</label>
+        value="default-mode" checked><label tabindex="0" class="default-mode" style="margin-right:0.5em;"
+        for="default-mode">Default
+        Mode</label>
+    <input type="radio" class="custom-radio-btn" id="edit-mode" name="accordion-toggle" value="edit-mode">
+    <label tabindex="0" class="edit-mode" for="edit-mode">Edit</label>
 </span>
 <div class="accordion">
     <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
@@ -26,9 +28,9 @@
                     <br>
                     <p>Select the units for calculated results</p>
                     <input type="radio" id="ccf" name="harvestdatatype" value="ccf" class="custom-radio-btn" checked>
-                    <label id="ccf-label" for="ccf">CCF</label>
+                    <label tabindex="0" id="ccf-label" for="ccf">CCF</label>
                     <input type="radio" id="mbf" name="harvestdatatype" value="mbf" class="custom-radio-btn">
-                    <label id="mbf-label" for="mbf">MBF</label>
+                    <label tabindex="0" id="mbf-label" for="mbf">MBF</label>
                     <br>
                     <span id="mbftoccf-custom-fu" class="custom-file-upload" style="display:none;">
                         <br>
@@ -46,11 +48,11 @@
                         <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
                     </span>
                 </span>
-                <a class="info-circle"><i id="modal1" class="fa-solid fa-circle-info" role="button"
+                <a class="info-circle"><i tabindex="0" id="modal1" class="fa-solid fa-circle-info" role="button"
                         type="button"></i></a>
             </span>
-            <span class="nextbackbtn-container"><button type="button" style="height: 46px;"
-                    class="nextbtn  acc-01">Next</button></span>
+            <span class="nextbackbtn-container"><button type="button" style="height: 46px;" class="nextbtn acc-01"
+                    tabindex="0">Next</button></span>
 
         </div>
         <h1 id="acc-02" class="acc-h1" role="button" tabindex="0"><span>02</span>Upload annual timber product ratios
@@ -70,11 +72,11 @@
                         uploaded file
                     </label>
                     <input type="text" id="filename3" autocomplete="off" readonly placeholder="no file uploaded">
-                    <!-- <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i> -->
+                    <!-- <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i> -->
                     <br>
                     <br>
                 </span>
-                <a class="info-circle"><i id="modal2" class="fa-solid fa-circle-info"></i></a>
+                <a tabindex="0" class="info-circle"><i tabindex="0" id="modal2" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-02">Back</button><button type="button"
@@ -108,7 +110,7 @@
                         </span>
 
                     </span>
-                    <a class="info-circle"><i id="modal3" class="fa-solid fa-circle-info"></i></a>
+                    <a class="info-circle"><i tabindex="0" id="modal3" class="fa-solid fa-circle-info"></i></a>
                 </span>
                 <br>
                 <p> Or Upload Custom Region</p>
@@ -124,7 +126,7 @@
                         uploaded file
                     </label>
                     <input type="text" id="filename4" autocomplete="off" readonly placeholder="no file uploaded">
-                    <i class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                    <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
             </div>
             <h2 id="acc-03b" class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
@@ -147,7 +149,7 @@
                     </span>
 
                 </span>
-                <a class="info-circle"><i id="modal4" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal4" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 id="acc-03c" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div style="display: flex;">
@@ -165,10 +167,10 @@
                             uploaded file
                         </label>
                         <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i id="modal5" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal5" class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 id="acc-03d" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
                 and land fill
@@ -189,10 +191,10 @@
                             uploaded file
                         </label>
                         <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i id="modal6" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal6" class="fa-solid fa-circle-info"></i></a>
             </div>
 
             <h2 id="acc-03e" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
@@ -212,10 +214,10 @@
                             uploaded file
                         </label>
                         <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i id="modal7" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal7" class="fa-solid fa-circle-info"></i></a>
             </div>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-03">Back</button><button type="button"
@@ -231,11 +233,11 @@
                 <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08"
                     required />
             </span>
-            <a class="info-circle"><i id="modal8" class="fa-solid fa-circle-info"></i></a>
+            <a class="info-circle"><i tabindex="0" id="modal8" class="fa-solid fa-circle-info"></i></a>
 
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-05">Back</button><button type="button"
-                    class="nextbtn acc-05">Next</button>
+                <button type="button" class="backbtn acc-04">Back</button><button type="button"
+                    class="nextbtn acc-04">Next</button>
             </span>
 
         </div>
@@ -249,7 +251,7 @@
                 </label>
                 <input id="monte-carlo-sim" type="number" name='iterations' step="1" min="1" max="100" value="1"
                     required />
-                <a class="info-circle"><i id="modal9" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal9" class="fa-solid fa-circle-info"></i></a>
             </span>
             <br>
             <br>
@@ -270,13 +272,13 @@
                             uploaded file
                         </label>
                         <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
             </span>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-06">Back</button><button type="button"
-                    class="nextbtn acc-06">Next</button>
+                <button type="button" class="backbtn acc-05">Back</button><button type="button"
+                    class="nextbtn acc-05">Next</button>
             </span>
         </div>
 
@@ -289,10 +291,10 @@
                     Email
                 </label>
                 <input name='email' id="email-address" type="email" required>
-                <a class="info-circle"><i id="modal10" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal10" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-07">Back</button><button type="button"
+                <button type="button" class="backbtn acc-06">Back</button><button type="button"
                     class="nextbtn acc-07">Next</button>
             </span>
         </div>
@@ -305,10 +307,10 @@
                     Name
                 </label>
                 <input name='runname' id="run-name" type="text" required>
-                <a class="info-circle"><i id="modal11" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle"><i tabindex="0" id="modal11" class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-08">Back</button>
+                <button type="button" class="backbtn acc-07">Back</button>
                 <button style="margin-right:10px;" class="previewbtn" id="previewbtn" type="button">Preview
                     Data</button>
                 <button class="submitbtn" id="getdata" role="button" type="submit" tabindex="0">Submit
@@ -330,7 +332,7 @@
 <div id="modal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span tabindex="0" class="close">&times;</span>
         <p id="modal-content">Some text in the Modal..</p>
     </div>
 </div>

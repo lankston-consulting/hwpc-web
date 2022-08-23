@@ -28,6 +28,10 @@
   border: 1px solid red;
 } */
 
+*:focus {
+  outline: blue solid 3px !important;
+}
+
 html, body {
   height: 100%;
   overflow-x: hidden;
@@ -758,7 +762,8 @@ input[type="radio"]:after{
   transform: translateY(3px);
 }
 
-.cancel-upload-btn:hover {
+.cancel-upload-btn:hover,
+.cancel-upload-btn:focus {
   color: darkred;
 }
 

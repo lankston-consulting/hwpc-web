@@ -55,18 +55,20 @@ $(".acc-h1, .acc-h2").keydown(function (event) {
     }
 });
 
+
+
 $(".nextbtn").click(function (e) {
     class_list = $(e.target).attr("class").split(/\s+/)
         id_split = class_list[1].split("-")
         toggleAccordion($("#"+class_list[1])[0])
-        toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) + 1))[0])
+        toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) + 1))[0],true)
 });
 
 $(".backbtn").click(function (e) {
     class_list = $(e.target).attr("class").split(/\s+/)
     id_split = class_list[1].split("-")
     toggleAccordion($("#"+class_list[1])[0])
-    toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) - 1))[0])
+    toggleAccordion($("#" + id_split[0] + "-0" + (parseInt(id_split[1]) - 1))[0],true)
 });
 
 $("#edit-mode").change(function(e){
@@ -76,6 +78,7 @@ $("#edit-mode").change(function(e){
     }
   }
 })
+
 $("#default-mode").change(function(e){
   for(i=0;i<$(".acc-h1").length;i++){
     if($(".acc-h1")[i].nextSibling.nextSibling.style.display == "block"){
@@ -83,6 +86,27 @@ $("#default-mode").change(function(e){
     }
   }
 })
+
+$(".edit-mode").keydown(function (event) {
+  if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
+    $("#edit-mode").prop("checked", true);
+    for(i=0;i<$(".acc-h1").length;i++){
+      if($(".acc-h1")[i].nextSibling.nextSibling.style.display != "block"){
+        toggleAccordion($(".acc-h1")[i],true)
+      }
+    }
+  }
+});
+$(".default-mode").keydown(function (event) {
+  if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
+    $("#default-mode").prop("checked", true);
+    for(i=0;i<$(".acc-h1").length;i++){
+      if($(".acc-h1")[i].nextSibling.nextSibling.style.display == "block"){
+        toggleAccordion($(".acc-h1")[i],true)
+      }
+    }
+  }
+});
 //mbf to ccf toggle
 $(document).ready(function () {
   $('input[type="radio"]').click(function() {
@@ -106,6 +130,23 @@ $(document).ready(function () {
         }
     });
 });
+
+$("#ccf-label").keydown(function (event) {
+  if (event.which === 32 || event.which === 13) {
+    $("#ccf").prop("checked", true);
+      $('#mbftoccf-custom-fu').hide();           
+  }
+})
+
+$("#mbf-label").keydown(function (event) {
+  if (event.which === 32 || event.which === 13) {
+    $("#mbf").prop("checked", true);
+      $('#mbftoccf-custom-fu').show();           
+  }
+})
+
+
+
 
 // trigger upload on space & enter
 // = standard button functionality
@@ -148,13 +189,32 @@ $('#email-address').on('input', function() {
 });
 
 $('.info-circle').click(function (e){
-  $("#modal").css("display","block")
+  $("#modal").css("display", "block")
+  $(".close").focus()
   $("#modal-content").html(modal_dict[e.target.id])
 })
 
-$(".close").click(function (e){
-  $(".modal").css("display","none")
+$(".info-circle").keydown(function (event) {
+  console.log(event.target);
+  if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
+    $("#modal").css("display", "block")
+    $(".close").focus()
+    $("#modal-content").html(modal_dict[event.target.lastChild.id])
+  }
 });
+
+$(".close").click(function (e){
+  $(".modal").css("display", "none")
+
+});
+
+$(".close").keydown(function (event) {
+  if (event.which === 32 || event.which === 13) { //32 is Space and 13 is Enter
+    $(".modal").css("display", "none")
+    $(".info-circle").focus()
+  }
+});
+
 
 // $(".modal").click(function (e){
 //   $(".modal").css("display","none")
@@ -325,6 +385,7 @@ $('#previewbtn').click(function (e){
       toggleAccordion($("#"+class_list[1])[0])
     }
   });
+  
 })
 
 
