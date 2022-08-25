@@ -941,7 +941,7 @@ input[type="radio"]:after{
   text-align: center;
 }
 .container__inputs{
-  background-color: rgba(214, 214, 214, 0.795);
+  background-color: #C5DDC5;
   /* background-color: #E4CCFF; */
 }
 
@@ -977,14 +977,14 @@ input[type="radio"]:after{
   margin: auto;
   max-width: fit-content;
   width: 90%;
-  padding: 25px;
+  padding: 25px 25px 25px 0;
   border-radius: 10px;
-  margin-top: 2em;
+  height: fit-content;
+ 
 }
 
-.container__outputs {
-  /* background-color: #FFE6C8; */
-  background-color: rgba(214, 214, 214, 0.795);
+.container__dispositions {
+  background-color: #FACC75;
 }
 
 .container__results {
@@ -995,6 +995,8 @@ input[type="radio"]:after{
 .results-content {
   display: flex;
   flex-direction: row;
+  margin-left: 350px;
+  margin-top: 120px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1005,16 +1007,15 @@ input[type="radio"]:after{
 
 
 .graphic-card {
-  background-color: white;
+  /* background-color: white; */
   border-radius: 3px;
   box-shadow: var(--card-shadow);
   padding: 20px !important;
-  margin: 10px;
 
 }
 
 #how-it-works{
-  color: var(--dark-gray);
+  color: var(--stone-black);
 }
 
 #how-it-works h3 {
@@ -1045,14 +1046,25 @@ input[type="radio"]:after{
     border: 2px solid blue;
     cursor: pointer;
 }
+
+.inputs {
+  background-color: #D6E59F;
+}
+
+.inputs.harvest {
+  background-color: #9AD19B;
+}
 .inputs, .results  {
   /* height: 150px; */
   height: fit-content;
   min-width: 260px; 
   max-width: 300px;
+  margin: 10px;
 }
 
-
+.results {
+  background-color: #E9A986;
+}
 
 .output-lg {
   height: 100px;
@@ -1064,6 +1076,8 @@ input[type="radio"]:after{
 
 .output {
   height: fit-content;
+  background-color: #FAE0B1;  
+  margin: 10px;
 }
 
 .recycled {
@@ -1076,6 +1090,87 @@ input[type="radio"]:after{
   border: 2px solid blue;
 }
 
+
+/* Ridiculous css for the graph */
+.prod-in-use-card {
+  min-width: 160px !important;
+  margin-left: auto;
+}
+
+.discarded-card {
+  min-width: 160px !important;
+  height: fit-content;
+  transform: translateX(-30px);
+}
+
+.right-arrow {
+  transform: rotate(-90deg) translateY(-15px);
+  
+}
+
+.up-arrow {
+  transform: rotate(180deg);
+}
+
+.recycled-arrow {
+  display:flex;
+  justify-content: flex-end;
+  margin-right:85px;
+  transform: translateY(-35px);
+}
+
+.discarded-arrow {
+  margin-left: 70px;
+  transform: rotate(15deg) translateY(-50px);
+  
+}
+
+.recycled-card {
+  margin: 0 !important;
+}
+
+.lower-results-cards {
+  min-width:150px !important;
+  max-width: 200px !important ;
+}
+.parent-div {
+  position: relative;
+  width: 600px;
+  margin: auto;
+}
+
+.stacking-content {
+  position:absolute;
+  width:fit-content;
+  height: fit-content;
+
+}
+
+.disposition-to-results {
+  z-index: 999;
+  transform: translateY(145px);
+  position:relative;
+  display:flex; 
+  width: 500px;
+  justify-content: space-around;
+  margin-left: 120px;
+}
+
+.arrow1 {
+ transform: rotate(-10deg) translateY(30px);
+}
+
+.arrow2 {
+  transform: rotate(30deg) translateX(30px) translateY(-15px);
+}
+
+.arrow3 {
+  transform: rotate(10deg) translateX(50px);
+}
+
+.arrow4 {
+  transform: rotate(-20deg) translateX(20px) translateY(12px);
+}
 
 /* Contact */
 .contact-container {
@@ -1148,11 +1243,108 @@ input[type="radio"]:after{
 }
 
 .output-page section {
-  background-color: pink;
+  background-color: white;
   width: 80%;
   height: 90vh;
   margin-bottom: 2em;
 }
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  transition: background ease 0.2s;
+}
+
+.add-graph-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin: 10px 60px;
+}
+
+.temp-graph {
+  max-height: 200px;
+  height: 250px;
+  width: 33%;
+  max-width: 33%;
+  background-color: lightskyblue;
+}
+
+
+.switchUnits input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.switchUnits label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 45px;
+	height: 30px;
+	background: grey;
+	display: block;
+	border-radius: 30px;
+	position: relative;
+}
+
+.switchUnits label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 20px;
+	transition: 0.3s;
+}
+
+.switchUnits input:checked + label {
+	background: #bada55;
+}
+
+..switchUnits input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.switchUnits label:active:after {
+	width: 130px;
+}
+
+
 
 /* Footer */
 

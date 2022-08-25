@@ -3,20 +3,72 @@
 {% block content %}
 
 <div class="output-page">
-    <aside>
+    <aside style="margin-right: 2em;">
         <h1>Output</h1>
 
         <p>Converting between units</p>
+        <div class="switchUnits">
+            <input type="checkbox" id="switchUnits" /><label for="switchUnits">Switch Units</label>
+        </div>
+
         <p>Single harvest year</p>
-        <p>Selected Harvest yearlyharvest input</p>
+
+        <label for="startYear"> Start Year: </label>
+        <input name="startYear" id="startYear" class="date-picker-year" />
+
+        <br>
+        <label for="endYear"> End Year: </label>
+        <input name="endYear" id="endYear" class="date-picker-year" />
+
+        <p>Selected Harvest yearly harvest input</p>
         <p>Current total Dispositions</p>
         <p>Future Dispositions</p>
+        <button>Filter</button>
+
     </aside>
-    <section>
-        <h1>Results</h1>
+    <section style="max-width: 1300px;">
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="defaultOpen">Products in Use</button>
+            <button class="tablinks" onclick="openTab(event, 'burnedContent')">Burned</button>
+            <button class="tablinks" onclick="openTab(event, 'carbonContent')">Carbon in SWDS</button>
+            <button class="tablinks" onclick="openTab(event, 'decayContent')">Emitted from Decay</button>
+            <button class="tablinks" onclick="openTab(event, 'reusedContent')">Reused</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="inUseContent" class="tabcontent">
+            <h1>Annual Harvest</h1>
+            <div id="my_dataviz"></div>
+            <br>
+            <br>
+            <br>
+            <div class="add-graph-container">
+                <div class="temp-graph">Temp Graph</div>
+                <div class="temp-graph">Temp Graph</div>
+                <!-- <div class="temp-graph">Temp Graph</div> -->
+            </div>
+        </div>
+
+        <div id="burnedContent" class="tabcontent">
+            <h1>Burned</h1>
+        </div>
+
+        <div id="carbonContent" class="tabcontent">
+            <h1>Carbon in SWDS</h1>
+        </div>
+        <div id="decayContent" class="tabcontent">
+            <h1>Emitted from Decay</h1>
+        </div>
+        <div id="reusedContent" class="tabcontent">
+            <h1>Reused</h1>
+        </div>
 
     </section>
-
+    <div style="margin-left: 2em; width: 400px;">
+        <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"
+            style="display: flex; margin:auto; margin-top: 150px;">
+    </div>
 </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
