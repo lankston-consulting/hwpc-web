@@ -1,6 +1,6 @@
 var headers = ["H1","H2","H3","H4","H5","H6"]; //We only use h1 and h2
 
-$(".required-alert").hide();
+// $(".required-alert").hide();
 
 function toggleAccordion(e,edit_mode=false) {
   if(e.type != undefined){
@@ -45,7 +45,7 @@ $(".acc-h1, .acc-h2").click(function(e) {
       toggleAccordion($("#acc-05")[0],true)
       toggleAccordion($("#acc-06")[0], true)
       
-      $(".required-alert").show();
+      // $(".required-alert").show();
     }
 });
 
@@ -401,5 +401,20 @@ var modal_dict = {
   modal9 : "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
   modal10 : "Email is required to send you the zip file and link of simulation once complete.",
   modal11 : "Name of Run to label zip file."
-
 }
+
+$("#getdata").click(function(e){ 
+  $(".required-alert").each(function() {
+    temp_alert = $(this)
+    $(this).siblings().each(function(){ 
+      if($(this).is("input") == true){
+        if($(this)[0].validity.valid == false && $(this)[0].required == true ){
+          temp_alert.show();
+        }else if($(this)[0].validity.valid == true && $(this)[0].required == true ){
+          temp_alert.hide();
+        }
+      }
+    })   
+  });
+})
+
