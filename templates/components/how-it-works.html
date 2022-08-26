@@ -1,4 +1,4 @@
-<section id="how-it-works" class="graphic-container">
+<section id="how-it-works" class="graphic-container" style="overflow-x:auto;">
     <!-- <h1>How it Works</h1> -->
     <div class="container-bg graphic-card container__inputs">
         <h2 style=" text-align: center; margin-bottom: 2em;">For each user-provided harvest year</h2>
@@ -10,7 +10,6 @@
         <div class="center">
             <div tabindex="0" class="center">
                 {% include "components/arrow.html" %}
-                <!-- <p class="arrow-tagline">Primary Product Ratios</p> -->
             </div>
         </div>
         <div tabindex="0" class="graphic-card inputs harvest">
@@ -31,7 +30,6 @@
         <div class="center">
             <div tabindex="0" class="center">
                 {% include "components/arrow.html" %}
-                <!-- <p class="arrow-tagline">Conversion Factors</p> -->
             </div>
         </div>
         <div tabindex="0" class="graphic-card inputs">
@@ -42,7 +40,6 @@
         <div class="center">
             <div tabindex="0" class="center">
                 {% include "components/arrow.html" %}
-                <!-- <p class="arrow-tagline">End Use Ratios</p> -->
             </div>
         </div>
         <div tabindex="0" class="graphic-card inputs">
@@ -53,7 +50,6 @@
         <div class="center">
             <div tabindex="0" class="center">
                 {% include "components/arrow.html" %}
-                <!-- <p class="arrow-tagline">Conversion Factors</p> -->
             </div>
         </div>
         <div tabindex="0" class="graphic-card inputs">
@@ -75,9 +71,13 @@
                 <h3>Products in Use <br /> (metric ton C)</h3>
             </div>
         </div>
-
-        <div tabindex="0" class="recycled-arrow">
-            <img width="30px" src="../../static/images/SVG/short.svg" alt="Short Arrow pointing up">
+        <div style="display:flex; justify-content: end;">
+            <div tabindex="0" class="recycled-arrow down-to-disabled-arrow">
+                <img width="30px" src="../../static/images/SVG/short.svg" alt="Short Arrow Pointing Down and Left">
+            </div>
+            <div tabindex="0" class="recycled-arrow">
+                <img width="30px" src="../../static/images/SVG/short.svg" alt="Short Arrow pointing up">
+            </div>
         </div>
         <div style="display: flex; transform: translateY(-35px); margin-top:10px;">
             <div class="graphic-card container__dispositions discarded-card">
