@@ -4,27 +4,63 @@
 
 <div class="output-page">
     <aside style="margin-right: 2em;">
-        <h1>Output</h1>
+        <h1 style="margin-bottom: 1em; font-size: 1.8rem;">Controls</h1>
+        <form action="">
+            <fieldset>
+                <legend>Choose Harvest Year(s)</legend>
+                <ul class="year-controls">
+                    <li>
+                        <input class="control-input" type="radio" id="allYearsBtn" name="harvestYears" checked="checked"
+                            value="3">
+                        <label class="control-label" for="allYearsBtn">All Harvest Years</label>
+                    </li>
+                    <li>
+                        <input class="control-input" type="radio" id="singleYearBtn" name="harvestYears" value="1">
+                        <label class="control-label" for="singleYearBtn">Single Harvest Year</label>
 
-        <p>Converting between units</p>
-        <div class="switchUnits">
-            <input type="checkbox" id="switchUnits" /><label for="switchUnits">Switch Units</label>
-        </div>
+                    </li>
+                    <li id="yearInput-1" class="toHide" style="display:none;">
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="singleYear">Single Year:</label>
+                            <input class="control-num" type="number" id="singleYear" value="1906">
+                        </div>
+                    </li>
+                    <li>
+                        <input class="control-input" type="radio" id="rangeYearBtn" name="harvestYears" pattern="[0-9]"
+                            value="2">
+                        <label class="control-label" for="rangeYearBtn"> Range of Harvest Years</label>
+                    </li>
 
-        <p>Single harvest year</p>
+                    <li id="yearInput-2" class="toHide" style="display:none;">
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="startYear"> Start Year: </label>
+                            <input class="control-num" type="number" id="startYear" pattern="[0-9]">
+                        </div>
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="endYear"> End Year: </label>
+                            <input class="control-num" type="number" id="endYear" pattern="[0-9]">
+                        </div>
+                    </li>
 
-        <label for="startYear"> Start Year: </label>
-        <input name="startYear" id="startYear" class="date-picker-year" />
 
-        <br>
-        <label for="endYear"> End Year: </label>
-        <input name="endYear" id="endYear" class="date-picker-year" />
-
-        <p>Selected Harvest yearly harvest input</p>
-        <p>Current total Dispositions</p>
-        <p>Future Dispositions</p>
-        <button>Filter</button>
-
+                </ul>
+            </fieldset>
+            <br>
+            <br>
+            <!-- <div>
+                <p>Units</p>
+                <input type="radio" id="co2eUnit" name="solidproductsunit" value="co2eUnit" class="custom-radio-btn"
+                    checked>
+                <label tabindex="0" id="co2eUnit-label" for="co2eUnit" class="margin-right: 0.5em;">CO2e</label>
+                <input type="radio" id="mgcUnit" name="solidproductsunit" value="mcgUnit" class="custom-radio-btn">
+                <label tabindex="0" id="mgcUnit-label" for="mgcUnit">MgC</label>
+            </div>
+            <br>
+            <br> -->
+            <div style="width: 100%;">
+                <button class="custom-btn" style="float:right;">Filter</button>
+            </div>
+        </form>
     </aside>
     <section style="max-width: 1300px;">
         <!-- Tab links -->
@@ -39,7 +75,7 @@
         <!-- Tab content -->
         <div id="inUseContent" class="tabcontent">
             <!-- <h1>Annual Harvest</h1> -->
-            <div id="my_dataviz" class="defaultOpen graph active-graph"></div>
+            <div class="defaultOpen graph active-graph"></div>
             <br>
             <br>
             <br>
@@ -68,6 +104,7 @@
             <div class="reused graph active-graph"></div>
         </div>
 
+        <button class="custom-btn">Export</button>
     </section>
     <div style="margin-left: 2em; width: 400px;">
         <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"

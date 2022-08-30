@@ -17,6 +17,8 @@ total_fuelwood_carbon_emitted = ""
 harvest_data = ""
 total_composted_carbon_emitted = ""
 burned_w_energy_capture_emitted = ""
+minDateYear = ""
+maxDateYear = ""
 
 
 output.initialize = function(input_json) {
@@ -46,7 +48,7 @@ output.initialize = function(input_json) {
 
     generate_graph(harvest_data,"defaultOpen",true,1300,800)
     generate_graph(total_end_use_products,"end_use",false,400,300)  
-    
+
 }
 
 $("#defaultOpen").click(function(e){
@@ -76,26 +78,39 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
     console.log(json_data)
     if(is_active == false){
         $("."+graph_class).html("")
-        const margin = {top: 30, right: 60, bottom: 30, left: 60},
-        width = w - margin.left - margin.right,
-        height = h - margin.top - margin.bottom;
-        const svg = d3.select("."+graph_class)
-        .append("svg")
-        .attr("class",graph_class)
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("pointer-events", "none")
-        .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+        // const margin = {top: 30, right: 60, bottom: 30, left: 60},
+        // width = w - margin.left - margin.right,
+        // height = h - margin.top - margin.bottom;
+        // const svg = d3.select("." + graph_class)
+            d3.select("div.end_use")
+            .append("div")
+            .classed("svg-graph-container", true) // Container class to make graphs responsive.
+            .append("svg")
+            //Responsive SVG needs these two attributes and no width and height attr
+            .attr("preserveAspectRatio", "xMinYmin meet")
+            .attr("viewBox", "0 0 600 400")
+            .classed("svg-content-responsive", true)
+            .append("rect")
+            .classed("rect", true)
+        
+        // .attr("class",graph_class)
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        // .attr("pointer-events", "none")
+        // .append("g")
+        //     .attr("transform", `translate(${margin.left},${margin.top})`);
         
         const data = d3.csvParse(json_data,
             function(d){
                 console.log(Object.keys(d)[0])
                     return { date : d3.timeParse("%Y")(d[Object.keys(d)[0]]), value : d[Object.keys(d)[1]]}
                     })
-            console.log(data)
-            console.log("min",data[0].date)
-            console.log("max",data[data.length-1].date)
+            // console.log(data)
+            // console.log("min",data[0].date)
+            // console.log("max",data[data.length-1].date)
+            minDateYear = data[0].date.getFullYear();
+            maxDateYear = data[data.length - 1].date.getFullYear();
+      
                 // Now I can use this dataset:
             // Add X axis --> it is a date format
             const x = d3.scaleTime()
@@ -143,14 +158,27 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
         const margin = {top: 30, right: 60, bottom: 30, left: 60},
         width = w - margin.left - margin.right,
         height = h - margin.top - margin.bottom;
-        const  svg = d3.select("."+graph_class)
-        .append("svg")
-        .attr("class",graph_class)
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("pointer-events", "none")
-        .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+        // const  svg = d3.select("."+graph_class)
+        // .append("svg")
+        // .attr("class",graph_class)
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        // .attr("pointer-events", "none")
+        // .append("g")
+        //     .attr("transform", `translate(${margin.left},${margin.top})`);
+        const svg = d3.select("div.active-graph")
+            .append("div")
+            .classed("svg-graph-container", true) // Container class to make graphs responsive.
+            .append("svg")
+            .attr("class", graph_class)
+            //Responsive SVG needs these two attributes and no width and height attr
+            .attr("preserveAspectRatio", "xMinYmin meet")
+            .attr("viewBox","0 0 " + width + " " + height)
+            .classed("svg-content-responsive", true)
+            // .append("rect")
+            // .classed("rect", true)
+            // .attr("width", 1300)
+            // .attr("height", 800);
 
         const data = d3.csvParse(json_data,
             function(d){
@@ -216,3 +244,34 @@ function swapElements(el1, el2) {
     prev1.after(el2);
     prev2.after(el1);
 }
+
+$(document).ready(function () {
+    $("#singleYear").attr({
+        "min": minDateYear,
+        "max": maxDateYear,
+        "value": minDateYear
+    })
+
+    $("#startYear").attr({
+        "min": minDateYear,
+        "max": maxDateYear,
+        "value": minDateYear
+    })
+
+    $("#endYear").attr({
+        "min": minDateYear,
+        "max": maxDateYear,
+        "value": maxDateYear
+    })
+})
+
+// Harvest Years Controls
+
+$(function () {
+    $("#blk-"+$("[name=harvestYears]:checked").val()).show();
+    $("[name=harvestYears]").click(function(){
+            $('.toHide').hide();
+            $("#yearInput-"+$(this).val()).show('fast');
+    });
+});
+

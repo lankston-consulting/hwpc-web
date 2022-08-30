@@ -393,14 +393,15 @@ var modal_dict = {
   modal1 : "A .csv file containing the yearly harvest amount per year in units of ccf (hundred cubic feet).<br />Should be formatted as follows:<br /><table><tr><th>Year,</th><th>ccf</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
   modal2 : "A .csv file containing the ratios which harvested wood is converted into timber products.<br />Should be formatted as follows:<br /><table><tr><th>TimberProductID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
   modal3 : "A .csv file containing the ratios which a region converts timber products into primary products. Either select a defined region in the drop down, or define a custom region by selecting Custom and inputing a .csv file.<br />Should be formatted as follows:<br /><table><tr><th>PrimaryProductID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
-  modal4 : "A .csv file containing the ratios which primary products are converted to end use products.<br />Should be formatted as follows:<br /><table><tr><th>EndUseID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
-  modal5 : "A .csv file containing the ratios in which products are discarded into their destination dispositions.<br />Should be formatted as follows:<br /><table><tr><th>DiscardTypeID,</th><th>DiscardDestinationID,</th><th>Year,</th><th>DiscardDestinationRatio</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
-  modal6 : "A .csv file containing the half-life decay ratios of the discarded disposition destinations. ",
-  modal7 : "A .csv file containing the proportions for burned with energy capture.",
-  modal8 : "Enter a number between 0 and 1 of how much wood product end-use loss.",
-  modal9 : "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
-  modal10 : "Email is required to send you the zip file and link of simulation once complete.",
-  modal11 : "Name of Run to label zip file."
+  modal4 : "A .csv file for each end use, this gives the rate at which material is discarded. Default rate is in half-life but can alsoo use the Chi parameter.",
+  modal5: "A .csv file containing the ratios which primary products are converted to end use products.<br />Should be formatted as follows:<br /><table><tr><th>EndUseID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
+  modal6 : "A .csv file containing the ratios in which products are discarded into their destination dispositions.<br />Should be formatted as follows:<br /><table><tr><th>DiscardTypeID,</th><th>DiscardDestinationID,</th><th>Year,</th><th>DiscardDestinationRatio</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
+  modal7 : "A .csv file containing the half-life decay ratios of the discarded disposition destinations. ",
+  modal8 : "A .csv file containing the proportions for burned with energy capture.",
+  modal9 : "Enter a number between 0 and 1 of how much wood product end-use loss.",
+  modal10 : "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
+  modal11 : "Email is required to send you the zip file and link of simulation once complete.",
+  modal12 : "Name of Run to label zip file."
 }
 
 $("#getdata").click(function(e){ 

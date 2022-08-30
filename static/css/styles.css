@@ -28,9 +28,9 @@
   border: 1px solid red;
 } */
 
-*:focus {
+/* *:focus {
   outline: blue solid 3px !important;
-}
+} */
 
 html, body {
   height: 100%;
@@ -1248,14 +1248,17 @@ input[type="radio"]:after{
   display: flex;
   width: 90%;
   margin: auto;
+
   
 }
 
 .output-page aside {
-  background-color: var(--light-green);
+  background-color: white;
   width: 20%;
   height: 90vh;
   margin-bottom: 2em;
+  border-radius: 10px;
+  padding: 25px;
 }
 
 .output-page section {
@@ -1263,12 +1266,12 @@ input[type="radio"]:after{
   width: 80%;
   height: 90vh;
   margin-bottom: 2em;
+  border-radius: 10px;
 }
 
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
 
@@ -1302,6 +1305,30 @@ input[type="radio"]:after{
   transition: background ease 0.2s;
 }
 
+.svg-graph-container {
+ display: inline-block;
+ position: relative;
+ width: 100%;
+ padding-bottom: 100%; /* aspect ratio */
+ vertical-align: top;
+ overflow: hidden;
+}
+
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+svg .rect {
+  fill: gold;
+  stroke: steelblue;
+  stroke-width: 5px;
+}
+
+
+
 .add-graph-container {
   display: flex;
   flex-direction: row;
@@ -1317,47 +1344,94 @@ input[type="radio"]:after{
   background-color: lightskyblue;
 }
 
+.year-controls {
+  list-style-type: none;
+  padding:0;
 
-.switchUnits input[type=checkbox]{
-	height: 0;
-	width: 0;
-	visibility: hidden;
 }
 
-.switchUnits label {
-	cursor: pointer;
-	text-indent: -9999px;
-	width: 45px;
-	height: 30px;
-	background: grey;
-	display: block;
-	border-radius: 30px;
-	position: relative;
+fieldset {
+  max-width:500px;
+  padding:16px;	
+  border-radius: 10px;
 }
 
-.switchUnits label:after {
-	content: '';
-	position: absolute;
-	top: 5px;
-	left: 5px;
-	width: 20px;
-	height: 20px;
-	background: #fff;
-	border-radius: 20px;
-	transition: 0.3s;
+fieldset legend{
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
-.switchUnits input:checked + label {
-	background: #bada55;
+ul .year-controls li {
+  border-radius: 10px !important;
 }
 
-.switchUnits input:checked + label:after {
-	left: calc(100% - 5px);
-	transform: translateX(-100%);
+.year-controls li {
+  float: left;
+  margin: 0 5px 0 0;
+  width: 100%;
+  min-height: 40px;
+  height: fit-content;
+
+  position: relative;
+  display: block;
+  
 }
 
-.switchUnits label:active:after {
-	width: 130px;
+
+.year-controls .control-label,
+.year-controls .control-input {
+  display: block;
+  position: absolute;
+  font-size: 1.6rem;
+  font-family: var(--montserrat);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.year-controls .control-label-sub {
+  font-size: 1.6rem;
+  font-family: var(--opensans);
+  max-width: 20ch;
+  min-width:10ch;
+  align-self: center;
+  margin-right: 0.25em;
+  
+}
+
+.year-controls .control-input input[type="radio"] {
+  opacity: 0.01;
+  z-index: 100;
+}
+
+.year-controls input[type="radio"].control-input:checked+label,
+.Checked+label {
+  background: var(--dark-green);
+}
+
+.year-controls .control-label {
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 0.25em;
+  border: 1px solid #CCC;
+  cursor: pointer;
+  z-index: 90;
+  color: var(--stone-black);
+  text-align: center;
+}
+
+.year-controls .control-label:hover {
+  background: #DDD;
+}
+
+.year-controls .control-num {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    /* box-sizing: border-box; */
+    height: 50px;
 }
 
 
