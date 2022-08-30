@@ -184,22 +184,14 @@ def output():
     for file in files:
         if ".csv" in file:
             print(file[:-4])
-            with open("/tmp/zip_folder/"+file,"r") as temp:
-                # csv_file = csv.reader(temp,delimiter=',')
-                # parsed=''
-                # for i in csv_file:
-                #     parsed = parsed + i +','
-                data_dict[file[:-4]] = temp.read()
-                
-    # data_json =  json.dumps(data_dict)
-    print(data_dict)
-    # print(data_json)
-    data_json=json.dumps(data_dict)
-    # print(data_json)
-    # for key,value in data_json.items():
-    #     data_json[key] = value.strip()
+            test = pd.read_csv("/tmp/zip_folder/"+file)
+            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+            data_dict[file[:-4]] = test.to_csv(index=False)
+            last = file[:-4]
 
-    print(data_json)
+    data_json=json.dumps(data_dict)
+    data_json = data_json.replace('\\"',' ')
+
     return render_template("pages/output.html",data_json=data_json)
 
 #FOR TESTING PURPOSES DELETE WHEN DONE

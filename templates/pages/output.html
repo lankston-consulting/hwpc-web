@@ -30,38 +30,42 @@
         <!-- Tab links -->
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="defaultOpen">Products in Use</button>
-            <button class="tablinks" onclick="openTab(event, 'burnedContent')">Burned</button>
-            <button class="tablinks" onclick="openTab(event, 'carbonContent')">Carbon in SWDS</button>
-            <button class="tablinks" onclick="openTab(event, 'decayContent')">Emitted from Decay</button>
-            <button class="tablinks" onclick="openTab(event, 'reusedContent')">Reused</button>
+            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">Burned</button>
+            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">Carbon in SWDS</button>
+            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">Emitted from Decay</button>
+            <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button>
         </div>
 
         <!-- Tab content -->
         <div id="inUseContent" class="tabcontent">
-            <h1>Annual Harvest</h1>
-            <div id="my_dataviz"></div>
+            <!-- <h1>Annual Harvest</h1> -->
+            <div id="my_dataviz" class="defaultOpen graph active-graph"></div>
             <br>
             <br>
             <br>
             <div class="add-graph-container">
-                <div class="temp-graph">Temp Graph</div>
-                <div class="temp-graph">Temp Graph</div>
+                <div class="end_use graph">Temp Graph</div>
+                <div class="temp-graph graph">Temp Graph</div>
                 <!-- <div class="temp-graph">Temp Graph</div> -->
             </div>
         </div>
 
         <div id="burnedContent" class="tabcontent">
             <h1>Burned</h1>
+            <div class="burned graph active-graph"></div>
         </div>
 
         <div id="carbonContent" class="tabcontent">
             <h1>Carbon in SWDS</h1>
+            <div class="swds graph active-graph"></div>
         </div>
         <div id="decayContent" class="tabcontent">
             <h1>Emitted from Decay</h1>
+            <div class="decay graph active-graph"></div>
         </div>
         <div id="reusedContent" class="tabcontent">
             <h1>Reused</h1>
+            <div class="reused graph active-graph"></div>
         </div>
 
     </section>
