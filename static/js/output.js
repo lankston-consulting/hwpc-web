@@ -76,22 +76,23 @@ $(".graph").click(function(e){
 
 generate_graph = function(json_data, graph_class, is_active=false, w, h){
     console.log(json_data)
-    if(is_active == false){
-        $("."+graph_class).html("")
-        // const margin = {top: 30, right: 60, bottom: 30, left: 60},
-        // width = w - margin.left - margin.right,
-        // height = h - margin.top - margin.bottom;
+    if (is_active == false) {
+        $("." + graph_class).html("")
+        const margin = { top: 30, right: 60, bottom: 30, left: 60 },
+            width = w - margin.left - margin.right,
+            height = h - margin.top - margin.bottom;
         // const svg = d3.select("." + graph_class)
-            d3.select("div.end_use")
+        const svg = d3.select("div.end_use")
             .append("div")
             .classed("svg-graph-container", true) // Container class to make graphs responsive.
             .append("svg")
             //Responsive SVG needs these two attributes and no width and height attr
-            .attr("preserveAspectRatio", "xMinYmin meet")
-            .attr("viewBox", "0 0 600 400")
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            // .attr("viewBox", "0 0 " + width + " " + height)
+            .attr("viewBox", "0 0 400 200")
             .classed("svg-content-responsive", true)
-            .append("rect")
-            .classed("rect", true)
+        // .append("rect")
+        // .classed("rect", true)
         
         // .attr("class",graph_class)
         // .attr("width", width + margin.left + margin.right)
@@ -101,136 +102,339 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
         //     .attr("transform", `translate(${margin.left},${margin.top})`);
         
         const data = d3.csvParse(json_data,
-            function(d){
+            function (d) {
                 console.log(Object.keys(d)[0])
-                    return { date : d3.timeParse("%Y")(d[Object.keys(d)[0]]), value : d[Object.keys(d)[1]]}
-                    })
-            // console.log(data)
-            // console.log("min",data[0].date)
-            // console.log("max",data[data.length-1].date)
-            minDateYear = data[0].date.getFullYear();
-            maxDateYear = data[data.length - 1].date.getFullYear();
+                return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+            })
+        // console.log(data)
+        // console.log("min",data[0].date)
+        // console.log("max",data[data.length-1].date)
+        minDateYear = data[0].date.getFullYear();
+        maxDateYear = data[data.length - 1].date.getFullYear();
       
-                // Now I can use this dataset:
-            // Add X axis --> it is a date format
-            const x = d3.scaleTime()
-                .domain(d3.extent(data, function(d) { return d.date; }))
-                .range([ 0, width ]);
-            svg.append("g")
-                .attr("transform", `translate(0, ${height})`)
-                .call(d3.axisBottom(x));
+        // Now I can use this dataset:
+        // Add X axis --> it is a date format
+        const x = d3.scaleTime()
+            .domain(d3.extent(data, function (d) { return d.date; }))
+            .range([0, width]);
+        svg.append("g")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x));
         
-            // Add Y axis
-            const y = d3.scaleLinear()
-                .domain([0, d3.max(data, function(d) { return +d.value; })])
-                .range([ height, 0 ]);
-            svg.append("g")
-                .call(d3.axisLeft(y));
+        // Add Y axis
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, function (d) { return +d.value; })])
+            .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
         
-            // Add the line
-            svg.append("path")
-                .datum(data)
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                .x(function(d) { return x(d.date) })
-                .y(function(d) { return y(d.value) })
-                )
+        // Add the line
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function (d) { return x(d.date) })
+                .y(function (d) { return y(d.value) })
+            )
         
-            svg.append("text")
-                .attr("class", "x label")
-                .attr("text-anchor", "center")
-                .attr("x", width/2)
-                .attr("y", height +20)
-                .text("Years");
+        svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "center")
+            .attr("x", width / 2)
+            .attr("y", height + 20)
+            .text("Years");
             
-            svg.append("text")
-                .attr("class", "y label")
-                .attr("text-anchor", "center")
-                .attr("y", 6)
-                .attr("dy", ".75em")
-                .attr("transform", "rotate(-90)")
-                .text("Co2e");
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "center")
+            .attr("y", 6)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Co2e");
     }
-    else{
-        $("."+graph_class).html("")
-        const margin = {top: 30, right: 60, bottom: 30, left: 60},
-        width = w - margin.left - margin.right,
-        height = h - margin.top - margin.bottom;
-        // const  svg = d3.select("."+graph_class)
-        // .append("svg")
-        // .attr("class",graph_class)
-        // .attr("width", width + margin.left + margin.right)
-        // .attr("height", height + margin.top + margin.bottom)
-        // .attr("pointer-events", "none")
-        // .append("g")
-        //     .attr("transform", `translate(${margin.left},${margin.top})`);
-        const svg = d3.select("div.active-graph")
+    else {
+        $("." + graph_class).html("")
+        
+        const margin = { top: 40, right: 80, bottom: 60, left: 70 },
+            width = w - margin.left - margin.right,
+            height = h - margin.top - margin.bottom;
+                        
+        const x = d3.scaleTime().range([0, width]);
+        const y = d3.scaleLinear().range([height, 0]);
+
+
+        const area = d3
+        .area()
+        .x((d) => { return x(d.date); })
+        .y0(height)
+        .y1((d) => { return y(d.value); })
+
+
+        const valueline = d3
+        .line()
+        .x((d) => { return x(d.date); })
+        .y((d) => { return y(d.value); })
+       
+       
+        const svg = d3
+            .select("div." + graph_class)
             .append("div")
             .classed("svg-graph-container", true) // Container class to make graphs responsive.
             .append("svg")
             .attr("class", graph_class)
-            //Responsive SVG needs these two attributes and no width and height attr
-            .attr("preserveAspectRatio", "xMinYmin meet")
-            .attr("viewBox","0 0 " + width + " " + height)
+            .attr("preserveAspectRatio", "xMinYMid meet")
+            .attr(
+                "viewBox",
+                `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
             .classed("svg-content-responsive", true)
-            // .append("rect")
-            // .classed("rect", true)
-            // .attr("width", 1300)
-            // .attr("height", 800);
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+        svg
+            .append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+        
+        svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+
+        //x axis title
+        svg
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - height / 2)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Carbon Emissions (CO2e)");
+    
+        //y axis title
+        svg
+            .append("text")
+            // .attr("transform", "rotate(-90)")
+            .attr("y", height + 50)
+            .attr("x", width / 2)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Years");
 
         const data = d3.csvParse(json_data,
-            function(d){
-                console.log(Object.keys(d)[0])
-                    return { date : d3.timeParse("%Y")(d[Object.keys(d)[0]]), value : d[Object.keys(d)[1]]}
-                    })
-            console.log(data)
-            console.log("min",data[0].date)
-            console.log("max",data[data.length-1].date)
-                // Now I can use this dataset:
-            // Add X axis --> it is a date format
-            const x = d3.scaleTime()
-                .domain(d3.extent(data, function(d) { return d.date; }))
-                .range([ 0, width ]);
-            svg.append("g")
-                .attr("transform", `translate(0, ${height})`)
-                .call(d3.axisBottom(x));
-        
-            // Add Y axis
-            const y = d3.scaleLinear()
-                .domain([0, d3.max(data, function(d) { return +d.value; })])
-                .range([ height, 0 ]);
-            svg.append("g")
-                .call(d3.axisLeft(y));
-        
-            // Add the line
-            svg.append("path")
-                .datum(data)
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                .x(function(d) { return x(d.date) })
-                .y(function(d) { return y(d.value) })
-                )
-        
-            svg.append("text")
-                .attr("class", "x label")
-                .attr("text-anchor", "center")
-                .attr("x", width/2)
-                .attr("y", height +20)
-                .text("Years");
+            function (d) {
+                d3.selectAll("path.area").remove();
+                d3.selectAll("path.line").remove();
+                d3.selectAll(".title").remove();
+                return { date : d3.timeParse("%Y")(d[Object.keys(d)[0]]), value : d[Object.keys(d)[1]]}
+            })
+
+                // .curve(d3.curveCardinal);
             
-            svg.append("text")
-                .attr("class", "y label")
-                .attr("text-anchor", "center")
-                .attr("y", 6)
-                .attr("dy", ".75em")
-                .attr("transform", "rotate(-90)")
-                .text("Co2e");
+                //     console.log(Object.keys(d)[0])
+                       
+                // console.log(data)
+                // console.log("min",data[0].date)
+                // console.log("max",data[data.length-1].date)
+                
+                // Now I can use this dataset:
+                // Add X axis --> it is a date format
+        
+                // const x = d3.scaleTime()
+                //     .domain(d3.extent(data, function(d) { return d.date; }))
+                //     .range([ 0, width ]);
+                // svg.append("g")
+                //     .attr("transform", `translate(0, ${height})`)
+                //     .call(d3.axisBottom(x));
+        
+                // // Add Y axis
+                // const y = d3.scaleLinear()
+                //     .domain([0, d3.max(data, function(d) { return +d.value; })])
+                //     .range([ height, 0 ]);
+                // svg.append("g")
+                // .call(d3.axisLeft(y));
+                
+                x.domain(
+                    d3.extent(data, (d) => { return d.date; })
+                );
+                y.domain([
+                    0,
+                    d3.max(data, (d) => { return +d.value; })
+                ]);
+
+                svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisBottom(x));
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(y));
+            
+                // const areaPath = svg
+                //     .append("path")
+                //     .datum(data)
+                //     .attr("class", "area")
+                //     .attr("d", area)
+                //     .attr("transform", "translate(0,300)")
+                //     .transition()
+                //     .duration(1000)
+                //     .attr("transform", "translate(0,0)");
+            
+                // Add the line
+                const linePath = svg
+                    .append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 3);
+                //y title
+                svg
+                    .append("text")
+                    .attr("class", "title")
+                    .attr("x", width / 2)
+                    .attr("y", 0 - margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .text("Title");
+            
+        
+                // svg.append("text")
+                //     .attr("class", "x label")
+                //     .attr("text-anchor", "center")
+                //     .attr("x", width/2)
+                //     .attr("y", height +20)
+                //     .text("Years");
+            
+                // svg.append("text")
+                //     .attr("class", "y label")
+                //     .attr("text-anchor", "center")
+                //     .attr("y", 6)
+                //     .attr("dy", ".75em")
+                //     .attr("transform", "rotate(-90)")
+                // .text("Co2e");
+                // const legend = chart.append("g");
+                // legend.append("text")
+                //     .text("Legend")
+                //     .attr("x", margin.left / 2)
+                //     .attr("y", margin.top)
+                //     .attr("class", "legendTitle");
+                    
+                const focus = svg
+                    .append("g")
+                    .attr("class", "focus")
+                    .style("display", "none");
+
+                // append the x line
+                focus
+                    .append("line")
+                    .attr("class", "x")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("y1", 0)
+                    .attr("y2", height);
+
+                // append the y line
+                focus
+                    .append("line")
+                    .attr("class", "y")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("x1", width)
+                    .attr("x2", width);
+
+                // append the circle at the intersection
+                focus
+                    .append("circle")
+                    .attr("class", "y")
+                    .style("fill", "none")
+                    .attr("r", 4); // radius
+
+                // place the value at the intersection
+                focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
+                focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "-.3em");
+
+                // place the date at the intersection
+                focus.append("text").attr("class", "y3").attr("dx", 8).attr("dy", "1em");
+                focus.append("text").attr("class", "y4").attr("dx", 8).attr("dy", "1em");
+
+                        
+                function mouseMove(event) {
+                    // console.log(event, "hello");
+
+                    const bisect = d3.bisector((d) => d.date).left,
+                        x0 = x.invert(d3.pointer(event, this)[0]),
+                        i = bisect(data, x0, 1),
+                        d0 = data[i - 1],
+                        d1 = data[i],
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+
+                    focus
+                        .select("circle.y")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+
+                    focus
+                        .select("text.y1")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(d.value);
+
+                    focus
+                        .select("text.y2")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(d.value);
+
+                    focus
+                        .select("text.y3")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(formatDate(d.value));
+
+                    focus
+                        .select("text.y4")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(formatDate(d.value));
+
+                    focus
+                        .select(".x")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .attr("y2", height - y(d.value));
+
+                    focus
+                        .select(".y")
+                        .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
+                        .attr("x2", width + width);
+                }
+                svg
+                    .append("rect")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", () => {
+                        focus.style("display", null);
+                    })
+                    .on("mouseout", () => {
+                        focus.style("display", "none");
+                    })
+                    .on("touchmove mousemove", mouseMove);
+    
+            }
+        
     }
-}
+
+
+
+
 
 function swapElements(el1, el2) {
     let prev1 = el1.previousSibling;

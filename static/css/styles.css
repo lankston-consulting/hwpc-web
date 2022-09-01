@@ -1305,11 +1305,16 @@ input[type="radio"]:after{
   transition: background ease 0.2s;
 }
 
+/* .active-graph {
+  height: 800px;
+} */
+
 .svg-graph-container {
  display: inline-block;
  position: relative;
  width: 100%;
- padding-bottom: 100%; /* aspect ratio */
+ height: fit-content;
+ padding-bottom: 65%; /* aspect ratio */
  vertical-align: top;
  overflow: hidden;
 }
