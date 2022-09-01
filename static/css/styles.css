@@ -1319,6 +1319,16 @@ input[type="radio"]:after{
  overflow: hidden;
 }
 
+.svg-graph-container-sm {
+  display: inline-block;
+  position: relative;
+  width: 33%;
+  height: fit-content;
+  padding-bottom: 65%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+}
+
 .svg-content-responsive {
   display: inline-block;
   position: absolute;
@@ -1335,11 +1345,12 @@ svg .rect {
 
 
 .add-graph-container {
-  display: flex;
-  flex-direction: row;
-  gap: 2em;
-  margin: 10px 60px;
+  display: grid;
+  /* flex-direction: row; */
+  /* gap: 2em;
+  margin: 10px 60px; */
 }
+
 
 .temp-graph {
   max-height: 200px;

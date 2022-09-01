@@ -53,7 +53,7 @@ output.initialize = function(input_json) {
 
 $("#defaultOpen").click(function(e){
     generate_graph(harvest_data,"defaultOpen",true,1300,800)
-    generate_graph(total_end_use_products,"end_use",false,400,300)
+    generate_graph(total_end_use_products,"end_use",false,400,250)
 })
 $("#burned").click(function(e){
     generate_graph(burned_wo_energy_capture_emit,"burned",true,1300,800) 
@@ -78,7 +78,7 @@ generate_graph = function(json_data, graph_class, is_active, w, h){
     console.log(json_data)
     if (is_active == false) {
         $("." + graph_class).html("")
-        const margin = { top: 10, right: 10, bottom: 10, left: 10 },
+        const margin = { top: 30, right: 10, bottom: 30, left: 60 },
             width = w - margin.left - margin.right,
             height = h - margin.top - margin.bottom;
         
@@ -94,7 +94,7 @@ generate_graph = function(json_data, graph_class, is_active, w, h){
         const svg = d3
             .select("div." + graph_class)
             .append("div")
-            .classed("svg-graph-container", true) // Container class to make graphs responsive.
+            .classed("svg-graph-container-sm", true) // Container class to make graphs responsive.
             .append("svg")
             .attr("class", graph_class)
             .attr("preserveAspectRatio", "xMinYMid meet")
