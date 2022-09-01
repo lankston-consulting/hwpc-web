@@ -46,8 +46,8 @@ output.initialize = function(input_json) {
     burned_w_energy_capture_emitted = final_json.burned_w_energy_capture_emitted
 
 
-    generate_graph(harvest_data,"defaultOpen",true,1300,800)
-    generate_graph(total_end_use_products,"end_use",false,400,300)  
+    // generate_graph(harvest_data,"defaultOpen",true,1300,800)
+    // generate_graph(total_end_use_products,"end_use",false,400,300)  
 
 }
 
@@ -74,85 +74,145 @@ $(".graph").click(function(e){
     
 })
 
-generate_graph = function(json_data, graph_class, is_active=false, w, h){
+generate_graph = function(json_data, graph_class, is_active, w, h){
     console.log(json_data)
     if (is_active == false) {
         $("." + graph_class).html("")
-        const margin = { top: 30, right: 60, bottom: 30, left: 60 },
+        const margin = { top: 10, right: 10, bottom: 10, left: 10 },
             width = w - margin.left - margin.right,
             height = h - margin.top - margin.bottom;
-        // const svg = d3.select("." + graph_class)
-        const svg = d3.select("div.end_use")
+        
+        const x = d3.scaleTime().range([0, width]);
+        const y = d3.scaleLinear().range([height, 0]);
+
+        const valueline = d3
+        .line()
+        .x((d) => { return x(d.date); })
+        .y((d) => { return y(d.value); })   
+       
+       
+        const svg = d3
+            .select("div." + graph_class)
             .append("div")
             .classed("svg-graph-container", true) // Container class to make graphs responsive.
             .append("svg")
-            //Responsive SVG needs these two attributes and no width and height attr
-            .attr("preserveAspectRatio", "xMidYMid meet")
-            // .attr("viewBox", "0 0 " + width + " " + height)
-            .attr("viewBox", "0 0 400 200")
+            .attr("class", graph_class)
+            .attr("preserveAspectRatio", "xMinYMid meet")
+            .attr(
+                "viewBox",
+                `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
             .classed("svg-content-responsive", true)
-        // .append("rect")
-        // .classed("rect", true)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+        svg
+            .append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
         
-        // .attr("class",graph_class)
-        // .attr("width", width + margin.left + margin.right)
-        // .attr("height", height + margin.top + margin.bottom)
-        // .attr("pointer-events", "none")
-        // .append("g")
-        //     .attr("transform", `translate(${margin.left},${margin.top})`);
-        
-        const data = d3.csvParse(json_data,
+        svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+    
+
+           const data = d3.csvParse(json_data,
             function (d) {
-                console.log(Object.keys(d)[0])
-                return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                // d3.selectAll("path.area").remove();
+                // d3.selectAll("path.line").remove();
+                // d3.selectAll(".title").remove();
+                return { date : d3.timeParse("%Y")(d[Object.keys(d)[0]]), value : d[Object.keys(d)[1]]}
             })
         // console.log(data)
         // console.log("min",data[0].date)
         // console.log("max",data[data.length-1].date)
         minDateYear = data[0].date.getFullYear();
         maxDateYear = data[data.length - 1].date.getFullYear();
-      
-        // Now I can use this dataset:
-        // Add X axis --> it is a date format
-        const x = d3.scaleTime()
-            .domain(d3.extent(data, function (d) { return d.date; }))
-            .range([0, width]);
-        svg.append("g")
-            .attr("transform", `translate(0, ${height})`)
+
+        x.domain(
+            d3.extent(data, (d) => { return d.date; })
+        );
+        y.domain([
+            0,
+            d3.max(data, (d) => { return +d.value; })
+        ]);
+
+        svg
+            .select(".x.axis")
+            .transition()
+            .duration(750)
             .call(d3.axisBottom(x));
-        
-        // Add Y axis
-        const y = d3.scaleLinear()
-            .domain([0, d3.max(data, function (d) { return +d.value; })])
-            .range([height, 0]);
-        svg.append("g")
+        svg
+            .select(".y.axis")
+            .transition()
+            .duration(750)
             .call(d3.axisLeft(y));
         
-        // Add the line
-        svg.append("path")
+        const linePath = svg
+            .append("path")
             .datum(data)
+            .attr("class", "line")
             .attr("fill", "none")
             .attr("stroke", "steelblue")
             .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-                .x(function (d) { return x(d.date) })
-                .y(function (d) { return y(d.value) })
-            )
-        
-        svg.append("text")
-            .attr("class", "x label")
-            .attr("text-anchor", "center")
+            .attr("d", valueline)
+        const pathLength = linePath.node().getTotalLength();
+        linePath
+            .attr("stroke-dasharray", pathLength)
+            .attr("stroke-dashoffset", pathLength)
+            .attr("stroke-width", 0)
+            .transition()
+            .duration(1000)
+            .attr("stroke-dashoffset", 0)
+            .attr("stroke-width", 3);
+
+            svg
+            .append("text")
+            .attr("class", "title")
             .attr("x", width / 2)
-            .attr("y", height + 20)
-            .text("Years");
+            .attr("y", 0 - margin.top / 2)
+            .attr("text-anchor", "middle")
+            .text("Title");
+        
+        // // Now I can use this dataset:
+        // // Add X axis --> it is a date format
+        // const x = d3.scaleTime()
+        //     .domain(d3.extent(data, function (d) { return d.date; }))
+        //     .range([0, width]);
+        // svg.append("g")
+        //     .attr("transform", `translate(0, ${height})`)
+        //     .call(d3.axisBottom(x));
+        
+        // // Add Y axis
+        // const y = d3.scaleLinear()
+        //     .domain([0, d3.max(data, function (d) { return +d.value; })])
+        //     .range([height, 0]);
+        // svg.append("g")
+        //     .call(d3.axisLeft(y));
+        
+        // // Add the line
+        // svg.append("path")
+        //     .datum(data)
+        //     .attr("fill", "none")
+        //     .attr("stroke", "steelblue")
+        //     .attr("stroke-width", 1.5)
+        //     .attr("d", d3.line()
+        //         .x(function (d) { return x(d.date) })
+        //         .y(function (d) { return y(d.value) })
+        //     )
+        
+        // svg.append("text")
+        //     .attr("class", "x label")
+        //     .attr("text-anchor", "center")
+        //     .attr("x", width / 2)
+        //     .attr("y", height + 20)
+        //     .text("Years");
             
-        svg.append("text")
-            .attr("class", "y label")
-            .attr("text-anchor", "center")
-            .attr("y", 6)
-            .attr("dy", ".75em")
-            .attr("transform", "rotate(-90)")
-            .text("Co2e");
+        // svg.append("text")
+        //     .attr("class", "y label")
+        //     .attr("text-anchor", "center")
+        //     .attr("y", 6)
+        //     .attr("dy", ".75em")
+        //     .attr("transform", "rotate(-90)")
+        //     .text("Co2e");
     }
     else {
         $("." + graph_class).html("")
@@ -164,18 +224,17 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
         const x = d3.scaleTime().range([0, width]);
         const y = d3.scaleLinear().range([height, 0]);
 
-
-        const area = d3
-        .area()
-        .x((d) => { return x(d.date); })
-        .y0(height)
-        .y1((d) => { return y(d.value); })
+        // const area = d3
+        // .area()
+        // .x((d) => { return x(d.date); })
+        // .y0(height)
+        // .y1((d) => { return y(d.value); })
 
 
         const valueline = d3
         .line()
         .x((d) => { return x(d.date); })
-        .y((d) => { return y(d.value); })
+        .y((d) => { return y(d.value); })   
        
        
         const svg = d3
@@ -213,8 +272,7 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
         //y axis title
         svg
             .append("text")
-            // .attr("transform", "rotate(-90)")
-            .attr("y", height + 50)
+            .attr("y", height + 30)
             .attr("x", width / 2)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
@@ -300,7 +358,7 @@ generate_graph = function(json_data, graph_class, is_active=false, w, h){
                     .duration(1000)
                     .attr("stroke-dashoffset", 0)
                     .attr("stroke-width", 3);
-                //y title
+                //title
                 svg
                     .append("text")
                     .attr("class", "title")
