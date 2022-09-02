@@ -44,6 +44,8 @@ output.initialize = function(input_json) {
     harvest_data = final_json.harvest_data
     total_composted_carbon_emitted = final_json.total_composted_carbon_emitted
     burned_w_energy_capture_emitted = final_json.burned_w_energy_capture_emitted
+    total_cumulative_carbon_stocks_mgc = final_json.total_cumulative_carbon_stocks_mgc
+    total_cumulative_carbon_stocks_co2e = final_json.total_cumulative_carbon_stocks_co2e
 
 }
 
