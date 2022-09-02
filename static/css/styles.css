@@ -1300,7 +1300,7 @@ input[type="radio"]:after{
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-top: none;
   transition: background ease 0.2s;
 }
@@ -1313,8 +1313,8 @@ input[type="radio"]:after{
  display: inline-block;
  position: relative;
  width: 100%;
- height: fit-content;
- padding-bottom: 65%; /* aspect ratio */
+ max-height: fit-content;
+ padding-bottom: 58%; /* aspect ratio */
  vertical-align: top;
  overflow: hidden;
 }
@@ -1322,8 +1322,8 @@ input[type="radio"]:after{
 .svg-graph-container-sm {
   display: inline-block;
   position: relative;
-  width: 33%;
-  height: fit-content;
+  width: 100%;
+  max-height: fit-content;
   padding-bottom: 65%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
@@ -1345,20 +1345,28 @@ svg .rect {
 
 
 .add-graph-container {
-  display: grid;
-  /* flex-direction: row; */
-  /* gap: 2em;
-  margin: 10px 60px; */
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 0px; 
+  width: 100%; */
+  display: flex;
 }
 
+.add-graph-container .graph {
+  flex-grow: 1;
+  max-width: 430px;
+}
 
+/* 
 .temp-graph {
   max-height: 200px;
   height: 250px;
   width: 33%;
   max-width: 33%;
   background-color: lightskyblue;
-}
+} */
 
 .year-controls {
   list-style-type: none;
