@@ -77,6 +77,7 @@ $("#reused").click(function (e) {
 })
 
 $(".graph").click(function(e){
+    console.log(e.target)
     if (e.target.classList.contains("active-graph") == false){
         this_graph = e.target
         active_graph = $(".active-graph")[0]
@@ -520,16 +521,29 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
 
 function swapElements(el1, el2) {
-    let prev1 = el1.previousSibling;
-    let prev2 = el2.previousSibling;
-    first_graph = el1.firstChild;
-    first_graph.setAttribute("width","1300");
-    first_graph.setAttribute("height","700");
-    second_graph = el1.firstChild;
-    second_graph.setAttribute("width","400");
-    second_graph.setAttribute("height","200");
-    prev1.after(el2);
-    prev2.after(el1);
+    
+    let prev1 = el1.parentElement.parentElement.previousElementSibling;
+    let prev2 = el2.parentElement;
+    console.log(prev1)
+    console.log(prev2)
+    // first_graph = el1.firstChild;
+    // first_graph.setAttribute("width","1300");
+    // first_graph.setAttribute("height","700");
+    // second_graph = el1.firstChild;
+    // second_graph.setAttribute("width","400");
+    // second_graph.setAttribute("height","200");
+    if(prev1 != null){
+        prev1.after(el2.parentElement);
+        prev2.after(el1.parentElement.parentElement);
+    }
+    else{
+        prev1=el1.parentElement.parentElement.parentElement
+        console.log(prev1)
+        console.log(el2)
+        prev1.appendChild(el2)
+        prev2.appendChild(el1.parentElement.parentElement);
+    }
+    
 }
 
 $(document).ready(function () {
