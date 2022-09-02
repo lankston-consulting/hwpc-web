@@ -200,9 +200,9 @@ def output():
             if "products_in_use_co2e" in file:
                 products_in_use_co2e = test
     total_cumulative_carbon_stocks_mgc = swds_mgc.merge(products_in_use_mgc, on='Year')
-    data_dict["total_cumulative_carbon_stocks_mgc"] = total_cumulative_carbon_stocks_mgc
+    data_dict["total_cumulative_carbon_stocks_mgc"] = total_cumulative_carbon_stocks_mgc.to_csv(index=False)
     total_cumulative_carbon_stocks_co2e = swds_co2e.merge(products_in_use_co2e, on='Year')
-    data_dict["total_cumulative_carbon_stocks_co2e"] = total_cumulative_carbon_stocks_co2e
+    data_dict["total_cumulative_carbon_stocks_co2e"] = total_cumulative_carbon_stocks_co2e.to_csv(index=False)
     data_json=json.dumps(data_dict)
     data_json = data_json.replace('\\"',' ')
 
