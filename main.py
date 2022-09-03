@@ -30,17 +30,17 @@ def calculator():
 # def output():
 #     return render_template('pages/output.html')
 
-@app.route('/about', methods=['GET'])
+@app.route('/reference', methods=['GET'])
 def test():
-    return render_template('about.html')
+    return render_template('pages/reference.html')
 
-@app.route('/advanced', methods=['GET'])
+@app.route('/privacy', methods=['GET'])
 def advanced():
-    return render_template('advanced.html')
+    return render_template('pages/privacy.html')
 
-@app.route('/references', methods=['GET'])
+@app.route('/terms', methods=['GET'])
 def references():
-    return render_template('references.html')
+    return render_template('pages/terms.html')
 
 @app.route('/contact', methods=['GET'])
 def contact():

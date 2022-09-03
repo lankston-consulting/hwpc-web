@@ -1,4 +1,4 @@
-output={}
+output = {}
 total_landfills_carbon_co2e = ""
 total_landfills_carbon_mgc = ""
 total_landfills_carbon_emitted = ""
@@ -47,6 +47,24 @@ output.initialize = function(input_json) {
     total_cumulative_carbon_stocks_mgc = final_json.total_cumulative_carbon_stocks_mgc
     total_cumulative_carbon_stocks_co2e = final_json.total_cumulative_carbon_stocks_co2e
 
+   
+    // var total_cumulative_carbon_stocks = [];
+    // // var headers = ["Year", "swds", "products_in_use_co2e"].join(",");
+    // // console.log(swds_co2e)
+
+    // d3.csvParse(swds_co2e, function (data2) {
+    //     d3.csvParse(products_in_use_co2e, function (data) {
+    //         for (var i = 0; i < data.length; i++) {
+    //             total_cumulative_carbon_stocks.push({
+    //                 Years: data[i].Year,
+    //                 swds: data[i].SWDS_present_co2e,
+    //                 products_in_use: data2[i].products_in_use_co2e
+    //             });
+    //         }
+
+    //         console.log(total_cumulative_carbon_stocks);
+    //     })
+    // })
 }
 
 $("#defaultOpen").click(function(e){
@@ -63,7 +81,7 @@ $("#burned").click(function(e){
     
 })
 $("#swds").click(function(e){
-    generate_graph(swds_co2e, "swds", true, "Total Cumulative Carbon Stocks", 1300, 700, "stack") 
+    generate_graph(total_cumulative_carbon_stocks, "swds", true, "Total Cumulative Carbon Stocks", 1300, 700, "stack") 
     generate_graph(total_dumps_carbon_co2e, "carbon_dumps_co2e", false,"Total Carbon Present in Dumps", 400, 250, "line")
     generate_graph(total_landfills_carbon_co2e, "carbon_landfill_co2e", false, "Total Cumulative Carbon Stocks", 400, 250, "line")
 })
@@ -78,18 +96,17 @@ $("#reused").click(function (e) {
     // generate_graph(swds_co2e, "swds", true, 1300, 700) 
 })
 
-$(".graph").click(function(e){
-    console.log(e.target)
-    if (e.target.classList.contains("active-graph") == false){
-        this_graph = e.target
-        active_graph = $(".active-graph")[0]
-        active_graph.classList.remove("active-graph")
-        this_graph.classList.add("active-graph")
-        swapElements(this_graph,active_graph)
+// $(".graph").click(function(e){
+//     if (e.target.classList.contains("active-graph") == false){
+//         this_graph = e.target
+//         active_graph = $(".active-graph")[0]
+//         active_graph.classList.remove("active-graph")
+//         this_graph.classList.add("active-graph")
+//         swapElements(this_graph,active_graph)
 
-    }
+//     }
     
-})
+// })
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type){
     console.log(json_data)
@@ -506,47 +523,152 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
         }
     } else if (graph_type == "stack") {
-        // const margin = {top: 30, right: 60, bottom: 30, left: 60},
-        // width = w - margin.left - margin.right,
-        //     height = h - margin.top - margin.bottom;
+        const margin = {top: 30, right: 60, bottom: 30, left: 60},
+        width = w - margin.left - margin.right,
+        height = h - margin.top - margin.bottom;
+        
+        
         console.log("stacked Graph")
+
+        const x = d3.scaleTime().range([0, width]);
+        const y = d3.scaleLinear().range([height, 0]);
+
+        const sumstat = d3.group(data, d => d.date);
+
+        const groups = ["SWDS", "Products"]
+        const group = [1,2]
+        const stackedData = d3.stack()
+            .value(group)
+            .value(function (d, key) {
+            return d[1][key].n
+        })
+            (sumstat)
+        
+            // const valueline = d3
+            //     .line()
+            //     .x((d) => { return x(d.date); })
+            //     .y((d) => { return y(d.value); })
+       
+       
+            const svg = d3
+                .select("div." + graph_class)
+                .append("div")
+                .classed("svg-graph-container-sm", true) // Container class to make graphs responsive.
+                .append("svg")
+                .attr("class", graph_class)
+                .attr("preserveAspectRatio", "xMinYMid meet")
+                .attr(
+                    "viewBox",
+                    `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                .classed("svg-content-responsive", true)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+            svg
+                .append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+        
+            svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+    
+
+            const data = d3.csvParse(json_data,
+                function (d) {
+                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                })
+
+            minDateYear = data[0].date.getFullYear();
+            maxDateYear = data[data.length - 1].date.getFullYear();
+
+            x.domain(
+                d3.extent(data, (d) => { return d.date; })
+            );
+            y.domain([
+                0,
+                d3.max(data, (d) => { return +d.value; })
+            ]);
+
+            svg
+                .select(".x.axis")
+                .transition()
+                .duration(750)
+                .call(d3.axisBottom(x));
+            svg
+                .select(".y.axis")
+                .transition()
+                .duration(750)
+                .call(d3.axisLeft(y));
+        
+            const linePath = svg
+                .append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 1.5)
+                .attr("d", valueline)
+            const pathLength = linePath.node().getTotalLength();
+            linePath
+                .attr("stroke-dasharray", pathLength)
+                .attr("stroke-dashoffset", pathLength)
+                .attr("stroke-width", 0)
+                .transition()
+                .duration(1000)
+                .attr("stroke-dashoffset", 0)
+                .attr("stroke-width", 2);
+
+            svg
+                .append("text")
+                .attr("class", "title")
+                .attr("x", width / 2)
+                .attr("y", 0 - margin.top / 2)
+                .attr("text-anchor", "middle")
+                .text(title);
+        
         
 
     } else {
         console.log("bar graph")
+
     }
         
     }
 
 
 
+$(".non-active").click(function (e) {
+    var non_active_div = $(e.target).parent().parent().closest('div');
 
+    var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
+
+    var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
+
+    current_tabs_active_graph.classList.remove("active-graph");
+    current_tabs_active_graph.classList.add("non-active");
+
+    non_active_div.classList.remove("non-active");
+    non_active_div.classList.add("active-graph");
+
+
+
+
+    console.log(non_active_div);
+    console.log(current_tabs_active_graph);
+
+    // $(e.target.pare).classList.remove(".non-active");
+
+    // $(".active-graph")[0].classList.remove(".active-graph");
+    // $(".active-graph")[0].classList.add(".active-graph");
+    // $(e.target).classList.add("active-graph");
+        
+});
 
 function swapElements(el1, el2) {
     
-    let prev1 = el1.parentElement.parentElement.previousElementSibling;
-    let prev2 = el2.parentElement;
-    console.log(prev1)
-    console.log(prev2)
-    // first_graph = el1.firstChild;
-    // first_graph.setAttribute("width","1300");
-    // first_graph.setAttribute("height","700");
-    // second_graph = el1.firstChild;
-    // second_graph.setAttribute("width","400");
-    // second_graph.setAttribute("height","200");
-    if(prev1 != null){
-        prev1.after(el2.parentElement);
-        prev2.after(el1.parentElement.parentElement);
-    }
-    else{
-        prev1=el1.parentElement.parentElement.parentElement
-        console.log(prev1)
-        console.log(el2)
-        prev1.appendChild(el2)
-        prev2.appendChild(el1.parentElement.parentElement);
-    }
-    
+
 }
+
 
 $(document).ready(function () {
     $("#singleYear").attr({
