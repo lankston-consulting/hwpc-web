@@ -1478,6 +1478,15 @@ font-weight: 400;
   font-weight: 400;
 }
 
+/* Graph Focus Styling */
+
+line.x,
+line.y,
+circle.y {
+  stroke: var(--dark-green);
+}
+    
+
 
 /* Footer */
 
