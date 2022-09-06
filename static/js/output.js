@@ -584,28 +584,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         width = w - margin.left - margin.right,
         height = h - margin.top - margin.bottom;
         
-        
         console.log("stacked Graph")
 
         const x = d3.scaleTime().range([0, width]);
-        const y = d3.scaleLinear().range([height, 0]);
-
-        const sumstat = d3.group(data, d => d.date);
-
-        const groups = ["SWDS", "Products"]
-        const group = [1,2]
-        const stackedData = d3.stack()
-            .value(group)
-            .value(function (d, key) {
-            return d[1][key].n
-        })
-            (sumstat)
-        
-            // const valueline = d3
-            //     .line()
-            //     .x((d) => { return x(d.date); })
-            //     .y((d) => { return y(d.value); })
-       
+        const y = d3.scaleLinear().range([height, 0]);       
        
             const svg = d3
                 .select("div." + graph_class)
@@ -632,8 +614,28 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
             const data = d3.csvParse(json_data,
                 function (d) {
-                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]]}
                 })
+
+                var area = d3.area()
+                    .x(function(d) { return x(d.date); })
+                    .y0(function(d) { return y(d.value1); })
+                    .y1(function(d) { return y(d.value2); })
+                // const valueline = d3
+                // .group(data,d => d.date, d => d.value1,d => d.value2)
+            
+                var keys = data.columns.slice(1)
+                console.log(keys)
+
+                // color palette
+                var color = d3.scaleOrdinal()
+                  .domain(keys)
+                  .range(d3.schemeSet2);
+              
+                //stack the data?
+                var stackedData = d3.stack()
+                  .keys(keys)
+                  (data)
 
             minDateYear = data[0].date.getFullYear();
             maxDateYear = data[data.length - 1].date.getFullYear();
@@ -656,24 +658,33 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .transition()
                 .duration(750)
                 .call(d3.axisLeft(y));
-        
-            const linePath = svg
+
+            areaChart
+                .selectAll("mylayers")
+                .data(stackedData)
+                .enter()
                 .append("path")
-                .datum(data)
-                .attr("class", "line")
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", valueline)
-            const pathLength = linePath.node().getTotalLength();
-            linePath
-                .attr("stroke-dasharray", pathLength)
-                .attr("stroke-dashoffset", pathLength)
-                .attr("stroke-width", 0)
-                .transition()
-                .duration(1000)
-                .attr("stroke-dashoffset", 0)
-                .attr("stroke-width", 2);
+                .attr("class", function(d) { return "myArea " + d.key })
+                .style("fill", function(d) { return color(d.key); })
+                .attr("d", area)
+        
+            // const linePath = svg
+            //     .append("path")
+            //     .datum(data)
+            //     .attr("class", "line")
+            //     .attr("fill", "none")
+            //     .attr("stroke", "steelblue")
+            //     .attr("stroke-width", 1.5)
+            //     .attr("d", valueline)
+            // const pathLength = linePath.node().getTotalLength();
+            // linePath
+            //     .attr("stroke-dasharray", pathLength)
+            //     .attr("stroke-dashoffset", pathLength)
+            //     .attr("stroke-width", 0)
+            //     .transition()
+            //     .duration(1000)
+            //     .attr("stroke-dashoffset", 0)
+            //     .attr("stroke-width", 2);
 
             svg
                 .append("text")
