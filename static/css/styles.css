@@ -1327,6 +1327,7 @@ input[type="radio"]:after{
   padding-bottom: 65%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .svg-content-responsive {

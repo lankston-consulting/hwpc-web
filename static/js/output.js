@@ -721,15 +721,13 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
 
 $(".non-active").click(function (e) {
-    var non_active_div = $(e.target).parent().parent().closest('div');
-    var non_active_div_siblings = $(e.target).parent().parent().siblings()
-    console.log(non_active_div_siblings)
+    var non_active_div = $(e.target);
+    var non_active_div_siblings = $(e.target).siblings()
     var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
 
     var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
     non_active_id = non_active_div[0].classList[non_active_div[0].classList.length-1]
     current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-1]
-    console.log(current_tabs_active_id)
     current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
@@ -744,12 +742,6 @@ $(".non-active").click(function (e) {
         }
     }      
 });
-
-function swapElements(el1, el2) {
-    
-
-}
-
 
 $(document).ready(function () {
     $("#singleYear").attr({
