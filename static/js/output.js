@@ -110,11 +110,22 @@ output.initialize = function(input_json) {
     // })
 }
 
-$("#defaultOpen").click(function(e){
-    generate_graph(data_dict["annual_harvests_output"],"annual_harvests_output",true,title_dict["annual_harvests_output"],1300,700, graph_type_dict["annual_harvests_output"])
-    generate_graph(data_dict["end_use"], "end_use", false,title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
-    generate_graph(data_dict["end_use"], "end_use", false, title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
+$("#defaultOpen").click(function (e) {
+    if (document.getElementsByClassName("annual_harvests_output")[0].classList.contains("active-graph") == true) {
+        generate_graph(data_dict["annual_harvests_output"],"annual_harvests_output",true,title_dict["annual_harvests_output"],1300 , 700, graph_type_dict["annual_harvests_output"])
+        // generate_graph(data_dict["end_use"], "end_use", false,title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
+        generate_graph(data_dict["end_use"], "end_use", false, title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
+    }
+    if (document.getElementsByClassName("end_use")[0].classList.contains("active-graph") == true) {
+        
+    // generate_graph(data_dict["end_use"], "end_use", false,title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
+        generate_graph(data_dict["end_use"], "end_use", true, title_dict["end_use"], 1300, 700, graph_type_dict["end_use"])
+        generate_graph(data_dict["annual_harvests_output"],"annual_harvests_output",false ,title_dict["annual_harvests_output"], 400, 250, graph_type_dict["annual_harvests_output"])
+        
+    }
+    
 
+    
 })
 $("#burned").click(function(e){
     generate_graph(data_dict["burned_wo_energy_capture_emit"], "burned_wo_energy_capture_emit", true, title_dict["burned_wo_energy_capture_emit"], 1300, 700, graph_type_dict["burned_wo_energy_capture_emit"]) 
@@ -199,7 +210,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     // d3.selectAll(".title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                 })
-            // console.log(data)
+            
+            console.log(data)
             // console.log("min",data[0].date)
             // console.log("max",data[data.length-1].date)
             minDateYear = data[0].date.getFullYear();
@@ -244,7 +256,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
             svg
                 .append("text")
-                .attr("class", "title")
+                .attr("class", "graph-title")
                 .attr("x", width / 2)
                 .attr("y", 0 - margin.top / 2)
                 .attr("text-anchor", "middle")
@@ -295,7 +307,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         else {
             $("." + graph_class).html("")
         
-            const margin = { top: 40, right: 80, bottom: 60, left: 70 },
+            const margin = { top: 40, right: 80, bottom: 60, left: 80 },
                 width = w - margin.left - margin.right,
                 height = h - margin.top - margin.bottom;
                         
@@ -337,9 +349,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         
             svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
 
-            //x axis title
+            //y axis title
             svg
                 .append("text")
+                .attr("class", "y-axis-title")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 0 - margin.left)
                 .attr("x", 0 - height / 2)
@@ -347,9 +360,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .style("text-anchor", "middle")
                 .text("Carbon Emissions (CO2e)");
     
-            //y axis title
+            //x axis title
             svg
                 .append("text")
+                .attr("class", "x-axis-title")
                 .attr("y", height + 30)
                 .attr("x", width / 2)
                 .attr("dy", "1em")
@@ -360,7 +374,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 function (d) {
                     d3.selectAll("path.area").remove();
                     d3.selectAll("path.line").remove();
-                    d3.selectAll(".title").remove();
+                    d3.selectAll(".graph-title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                 })
 
@@ -439,7 +453,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             //title
             svg
                 .append("text")
-                .attr("class", "title")
+                .attr("class", "graph-title")
                 .attr("x", width / 2)
                 .attr("y", 0 - margin.top / 2)
                 .attr("text-anchor", "middle")
@@ -663,7 +677,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
             svg
                 .append("text")
-                .attr("class", "title")
+                .attr("class", "graph-title")
                 .attr("x", width / 2)
                 .attr("y", 0 - margin.top / 2)
                 .attr("text-anchor", "middle")

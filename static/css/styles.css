@@ -1458,6 +1458,25 @@ ul .year-controls li {
     height: 50px;
 }
 
+/* Graph Styling */
+
+.graph-title {
+  font-family: var(--montserrat);
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.y-axis-title {
+font-family: var(--montserrat);
+font-size: 1.5rem;
+font-weight: 400;
+}
+
+.x-axis-title {
+  font-family: var(--montserrat);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
 
 
 /* Footer */
