@@ -25,27 +25,71 @@ output.initialize = function(input_json) {
     data_json=input_json;
     data_json = data_json.replace(/\n/g, '\\n')
     final_json = JSON.parse(data_json)
+    data_dict = []
+    title_dict = []
+    graph_type_dict = []
 
-    total_landfills_carbon_co2e = final_json.total_landfills_carbon_co2e
-    total_landfills_carbon_mgc = final_json.total_landfills_carbon_mgc
-    total_landfills_carbon_emitted = final_json.total_landfills_carbon_emitted
-    annual_harvests_output = final_json.annual_harvests_output
-    products_in_use_mgc = final_json.products_in_use_mgc
-    burned_wo_energy_capture_emit = final_json.burned_wo_energy_capture_emit
-    total_in_use = final_json.total_in_use
-    total_dumps_carbon_co2e = final_json.total_dumps_carbon_co2e
-    total_dumps_carbon_emitted = final_json.total_dumps_carbon_emitted
-    total_dumps_carbon_mgc = final_json.total_dumps_carbon_mgc
-    products_in_use_co2e = final_json.products_in_use_co2e
-    swds_mgc = final_json.swds_mgc
-    swds_co2e = final_json.swds_co2e
-    total_end_use_products = final_json.total_end_use_products
-    total_fuelwood_carbon_emitted = final_json.total_fuelwood_carbon_emitted
-    harvest_data = final_json.harvest_data
-    total_composted_carbon_emitted = final_json.total_composted_carbon_emitted
-    burned_w_energy_capture_emitted = final_json.burned_w_energy_capture_emitted
-    total_cumulative_carbon_stocks_mgc = final_json.total_cumulative_carbon_stocks_mgc
-    total_cumulative_carbon_stocks_co2e = final_json.total_cumulative_carbon_stocks_co2e
+    data_dict["total_landfills_carbon_co2e"] = final_json.total_landfills_carbon_co2e
+    title_dict["total_landfills_carbon_co2e"] = "Total Landfills Carbon"
+    graph_type_dict["total_landfills_carbon_co2e"] = "line"
+    data_dict["total_landfills_carbon_mgc"] = final_json.total_landfills_carbon_mgc
+    title_dict["total_landfills_carbon_mgc"] = "Total Landfills Carbon"
+    graph_type_dict["total_landfills_carbon_mgc"] = "line"
+    data_dict["total_landfills_carbon_emitted"] = final_json.total_landfills_carbon_emitted
+    title_dict["total_landfills_carbon_emitted"] = "Total Landfills Carbon Emitted"
+    graph_type_dict["total_landfills_carbon_emitted"] = "line"
+    data_dict["annual_harvests_output"] = final_json.annual_harvests_output
+    title_dict["annual_harvests_output"] = "Total Annual Harvest"
+    graph_type_dict["annual_harvests_output"] = "line"
+    data_dict["products_in_use_mgc"] = final_json.products_in_use_mgc
+    title_dict["products_in_use_mgc"] = "Total Products in Use"
+    graph_type_dict["products_in_use_mgc"] = "line"
+    data_dict["burned_wo_energy_capture_emit"] = final_json.burned_wo_energy_capture_emit
+    title_dict["burned_wo_energy_capture_emit"] = "Total Burned Carbon Emitted Without Energy Capture"
+    graph_type_dict["burned_wo_energy_capture_emit"] = "line"
+    data_dict["total_in_use"] = final_json.total_in_use
+    title_dict["total_in_use"] = "Total Carbon in Use"
+    graph_type_dict["total_in_use"] = "line"
+    data_dict["total_dumps_carbon_co2e"] = final_json.total_dumps_carbon_co2e
+    title_dict["total_dumps_carbon_co2e"] = "Total Carbon in Dumps"
+    graph_type_dict["total_dumps_carbon_co2e"] = "line"
+    data_dict["total_dumps_carbon_emitted"] = final_json.total_dumps_carbon_emitted
+    title_dict["total_dumps_carbon_emitted"] = "Total Carbon in Dumps Emitted"
+    graph_type_dict["total_dumps_carbon_emitted"] = "line"
+    data_dict["total_dumps_carbon_mgc"] = final_json.total_dumps_carbon_mgc
+    title_dict["total_dumps_carbon_mgc"] = "Total Carbon in Dumps"
+    graph_type_dict["total_dumps_carbon_mgc"] = "line"
+    data_dict["products_in_use_co2e"] = final_json.products_in_use_co2e
+    title_dict["products_in_use_co2e"] = "Total Products in Use"
+    graph_type_dict["products_in_use_co2e"] = "line"
+    data_dict["swds_mgc"] = final_json.swds_mgc
+    title_dict["swds_mgc"] = "Total SWDS"
+    graph_type_dict["swds_mgc"] = "line"
+    data_dict["swds_co2e"] = final_json.swds_co2e
+    title_dict["swds_co2e"] = "Total SWDS"
+    graph_type_dict["swds_co2e"] = "line"
+    data_dict["end_use"] = final_json.total_end_use_products
+    title_dict["end_use"] = "Total End Use Products"
+    graph_type_dict["end_use"] = "line"
+    data_dict["total_fuelwood_carbon_emitted"] = final_json.total_fuelwood_carbon_emitted
+    title_dict["total_fuelwood_carbon_emitted"] = "Total Emitted Fuelwood Carbon"
+    graph_type_dict["total_fuelwood_carbon_emitted"] = "line"
+    data_dict["harvest_data"] = final_json.harvest_data
+    title_dict["harvest_data"] = "Total Harvest"
+    graph_type_dict["harvest_data"] = "line"
+    data_dict["total_composted_carbon_emitted"] = final_json.total_composted_carbon_emitted
+    title_dict["total_composted_carbon_emitted"] = "Total Carbon in Compost Emitted"
+    graph_type_dict["total_composted_carbon_emitted"] = "line"
+    data_dict["burned_w_energy_capture_emitted"] = final_json.burned_w_energy_capture_emitted
+    title_dict["burned_w_energy_capture_emitted"] = "Total Carbon Burned With Energy Capture"
+    graph_type_dict["burned_w_energy_capture_emitted"] = "line"
+    data_dict["total_cumulative_carbon_stocks_mgc"] = final_json.total_cumulative_carbon_stocks_mgc
+    title_dict["total_cumulative_carbon_stocks_mgc"] = "Total Cumulative Carbon Stocks"
+    graph_type_dict["total_cumulative_carbon_stocks_mgc"] = "stack"
+    data_dict["total_cumulative_carbon_stocks_co2e"] = final_json.total_cumulative_carbon_stocks_co2e
+    title_dict["total_cumulative_carbon_stocks_co2e"] = "Total Cumulative Carbon Stocks"
+    graph_type_dict["total_cumulative_carbon_stocks_co2e"] = "stack"
+    
 
    
     // var total_cumulative_carbon_stocks = [];
@@ -61,35 +105,34 @@ output.initialize = function(input_json) {
     //                 products_in_use: data2[i].products_in_use_co2e
     //             });
     //         }
-
     //         console.log(total_cumulative_carbon_stocks);
     //     })
     // })
 }
 
 $("#defaultOpen").click(function(e){
-    generate_graph(harvest_data,"annual_harvest",true,"Annual Harvest Output",1300,700, "line")
-    generate_graph(total_end_use_products, "end_use", false,"Annual Net Change Carbon Stocks", 400, 250, "bar")
-    generate_graph(total_end_use_products, "end_use", false, "Total End Use Products", 400, 250, "line")
+    generate_graph(data_dict["annual_harvests_output"],"annual_harvests_output",true,title_dict["annual_harvests_output"],1300,700, graph_type_dict["annual_harvests_output"])
+    generate_graph(data_dict["end_use"], "end_use", false,title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
+    generate_graph(data_dict["end_use"], "end_use", false, title_dict["end_use"], 400, 250, graph_type_dict["end_use"])
 
 })
 $("#burned").click(function(e){
-    generate_graph(burned_wo_energy_capture_emit, "burned_without", true, "Burned Without Energy Capture Emissions", 1300, 700, "line") 
-    generate_graph(burned_w_energy_capture_emitted, "burned_with", false,"Burned With Energy Capture Emissions", 400, 250, "line")
-    generate_graph(total_fuelwood_carbon_emitted, "total_fuelwood", false,"Total Fuelwood Carbon Emitted", 400, 250, "line")
+    generate_graph(data_dict["burned_wo_energy_capture_emit"], "burned_wo_energy_capture_emit", true, title_dict["burned_wo_energy_capture_emit"], 1300, 700, graph_type_dict["burned_wo_energy_capture_emit"]) 
+    generate_graph(data_dict["burned_w_energy_capture_emit"], "burned_w_energy_capture_emit", false, title_dict["burned_w_energy_capture_emit"], 400, 250, graph_type_dict["burned_w_energy_capture_emit"])
+    generate_graph(data_dict["total_fuelwood_carbon_emitted"], "total_fuelwood_carbon_emitted", false,title_dict["total_fuelwood_carbon_emitted"], 400, 250, graph_type_dict["total_fuelwood_carbon_emitted"])
 
     
 })
 $("#swds").click(function(e){
-    generate_graph(total_cumulative_carbon_stocks, "swds", true, "Total Cumulative Carbon Stocks", 1300, 700, "stack") 
-    generate_graph(total_dumps_carbon_co2e, "carbon_dumps_co2e", false,"Total Carbon Present in Dumps", 400, 250, "line")
-    generate_graph(total_landfills_carbon_co2e, "carbon_landfill_co2e", false, "Total Cumulative Carbon Stocks", 400, 250, "line")
+    generate_graph(data_dict["total_cumulative_carbon_stocks_mgc"], "total_cumulative_carbon_stocks_mgc", true, title_dict["total_cumulative_carbon_stocks_mgc"], 1300, 700, graph_type_dict["total_cumulative_carbon_stocks_mgc"]) 
+    generate_graph(data_dict["total_dumps_carbon_co2e"], "total_carbon_dumps_co2e", false, title_dict["total_dumps_carbon_co2e"], 400, 250, graph_type_dict["total_dumps_carbon_co2e"])
+    generate_graph(data_dict["total_landfills_carbon_co2e"], "total_carbon_landfill_co2e", false, title_dict["total_landfills_carbon_co2e"], 400, 250, graph_type_dict["total_landfills_carbon_co2e"])
 })
 
 $("#emitted").click(function(e){
-    generate_graph(total_dumps_carbon_emitted, "total_dumps_carbon_emitted", true, "Total carbon Emitted from Dumps", 1300, 700, "line") 
-    generate_graph(total_composted_carbon_emitted, "total_composted_carbon_emitted", false, "Total Carbon Emitted from Compost", 400, 250, "line")
-    generate_graph( total_landfills_carbon_emitted, "total_landfills_carbon_emitted", false,"Total Carbon Emitted from Landfills", 400, 250, "line")
+    generate_graph(data_dict["total_dumps_carbon_emitted"], "total_dumps_carbon_emitted", true, title_dict["total_dumps_carbon_emitted"], 1300, 700, graph_type_dict["total_dumps_carbon_emitted"]) 
+    generate_graph(data_dict["total_composted_carbon_emitted"], "total_composted_carbon_emitted", false, title_dict["total_composted_carbon_emitted"], 400, 250, graph_type_dict["total_composted_carbon_emitted"])
+    generate_graph(data_dict["total_landfills_carbon_emitted"], "total_landfills_carbon_emitted", false,title_dict["total_landfills_carbon_emitted"], 400, 250, graph_type_dict["total_landfills_carbon_emitted"])
 })
 
 $("#reused").click(function (e) {
@@ -639,29 +682,26 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
 $(".non-active").click(function (e) {
     var non_active_div = $(e.target).parent().parent().closest('div');
-
+    var non_active_div_siblings = $(e.target).parent().parent().siblings()
     var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
 
     var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
-
-    current_tabs_active_graph.classList.remove("active-graph");
-    current_tabs_active_graph.classList.add("non-active");
-
-    non_active_div.classList.remove("non-active");
-    non_active_div.classList.add("active-graph");
-
-
-
-
-    console.log(non_active_div);
-    console.log(current_tabs_active_graph);
-
-    // $(e.target.pare).classList.remove(".non-active");
-
-    // $(".active-graph")[0].classList.remove(".active-graph");
-    // $(".active-graph")[0].classList.add(".active-graph");
-    // $(e.target).classList.add("active-graph");
-        
+    non_active_id = non_active_div[0].classList[non_active_div[0].classList.length-1]
+    current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-1]
+    console.log(current_tabs_active_id)
+    current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
+    current_tabs_active_graph[0].classList.add(non_active_id);
+    non_active_div[0].classList.remove(non_active_id);
+    non_active_div[0].classList.add(current_tabs_active_id);
+    generate_graph(data_dict[non_active_id],non_active_id,true,title_dict[non_active_id],1300,700,graph_type_dict[non_active_id])
+    generate_graph(data_dict[current_tabs_active_id],current_tabs_active_id,false,title_dict[current_tabs_active_id],400,250,graph_type_dict[current_tabs_active_id])
+    
+    if(non_active_div_siblings.length != 0){
+        for(i = 0;i<non_active_div_siblings.length;i++){
+            non_active_div_sibling_id = non_active_div_siblings[i].classList[non_active_div_siblings[i].classList.length-1]
+            generate_graph(data_dict[non_active_div_sibling_id],non_active_div_sibling_id,false,title_dict[non_active_div_sibling_id],400,250,graph_type_dict[non_active_div_sibling_id])
+        }
+    }      
 });
 
 function swapElements(el1, el2) {
