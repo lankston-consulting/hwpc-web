@@ -179,6 +179,7 @@ $("#reused").click(function (e) {
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type){
     console.log(json_data)
+    var parseDate = d3.timeFormat("%Y");
     if (graph_type == "line") {
         if (is_active == false) {
             $("." + graph_class).html("")
@@ -552,22 +553,22 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 focus
                     .select("text.y1")
                     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d.value);
+                    .text(d3.format(",.2~f")(d.value));
 
                 focus
                     .select("text.y2")
                     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d.value);
+                    .text(d3.format(",.2~f")(d.value));
 
                 focus
                     .select("text.y3")
                     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d.date);
+                    .text(parseDate(d.date));
 
                 focus
                     .select("text.y4")
                     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d.date);
+                    .text(parseDate(d.date));
 
                 focus
                     .select(".x")
