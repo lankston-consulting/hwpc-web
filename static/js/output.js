@@ -501,6 +501,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .append("g")
                 .attr("class", "focus")
                 .style("display", "none");
+            
+            // append background rectangle
+
+            // focus
+            //     .append("rect")
+            //     .attr("x", 5)
+            //     .attr("y", -15)
+            //     .attr("width", 100)
+            //     .attr("height", 30)
+            //     .attr("fill", "#e6e6e6");
 
             // append the x line
             focus
@@ -526,14 +536,15 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .attr("class", "y")
                 .style("fill", "none")
                 .attr("r", 4); // radius
+            
 
             // place the value at the intersection
             focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
-            focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "-.3em");
+        
 
             // place the date at the intersection
-            focus.append("text").attr("class", "y3").attr("dx", 8).attr("dy", "1em");
-            focus.append("text").attr("class", "y4").attr("dx", 8).attr("dy", "1em");
+            focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
+
 
                         
             function mouseMove(event) {
@@ -545,6 +556,11 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     d0 = data[i - 1],
                     d1 = data[i],
                     d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                
+                // focus
+                //    .select("rect")
+                //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+                
 
                 focus
                     .select("circle.y")
@@ -558,16 +574,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 focus
                     .select("text.y2")
                     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d3.format(",.2~f")(d.value));
-
-                focus
-                    .select("text.y3")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(parseDate(d.date));
-
-                focus
-                    .select("text.y4")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
                     .text(parseDate(d.date));
 
                 focus
@@ -579,6 +585,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .select(".y")
                     .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
                     .attr("x2", width + width);
+                
+                
             }
             svg
                 .append("rect")

@@ -1481,10 +1481,16 @@ font-weight: 400;
 
 /* Graph Focus Styling */
 
+
 line.x,
 line.y,
 circle.y {
   stroke: var(--dark-green);
+}
+
+.focus text {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
     
 
