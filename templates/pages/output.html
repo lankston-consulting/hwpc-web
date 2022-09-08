@@ -58,7 +58,7 @@
             <br>
             <br> -->
             <div style="width: 100%;">
-                <button class="custom-btn" style="float:right;">Filter</button>
+                <button class="link-1" style="float:right;">Filter</button>
             </div>
         </form>
     </aside>
@@ -113,7 +113,12 @@
             <div class="graph active-graph non-active reused"></div>
         </div>
         <div>
-            <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button>
+            <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
+            <a href="#dl-opened" style="float:right; margin-right: 2em;" class="custom-btn link-1" id="dl-closed">Export
+            </a>
+
+            {% include "components/downloads.html" %}
+
         </div>
     </section>
     <!-- <div style="margin-left: 2em; width: 400px;">

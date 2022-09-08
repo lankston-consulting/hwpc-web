@@ -44,9 +44,10 @@ output.initialize = function(input_json) {
     data_dict["swds_co2e"] = [final_json.swds_co2e, "Total SWDS", "line"]
     data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line"]
     data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line"]
-    data_dict["annual_harvests_output"] = [final_json.harvest_data,"Total Harvest","line"]
+    data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
     data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line"]
     data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emitted, "Total Carbon Burned With Energy Capture", "line"]
+    data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line"]
     data_dict["total_cumulative_carbon_stocks_mgc"] = [final_json.total_cumulative_carbon_stocks_mgc, "Total Cumulative Carbon Stocks", "stack"]
     data_dict["total_cumulative_carbon_stocks_co2e"] = [final_json.total_cumulative_carbon_stocks_co2e, "Total Cumulative Carbon Stocks", "stack"]
     
