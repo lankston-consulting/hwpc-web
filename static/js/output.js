@@ -78,9 +78,9 @@ $("#defaultOpen").click(function (e) {
     for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
         inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,true,data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],false,data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
     }
 })
 $("#burned").click(function(e){
@@ -90,9 +90,9 @@ $("#burned").click(function(e){
     for(i=0;i<$("#burnedContent").children()[1].children.length;i++){
         inactive_ids.push($("#burnedContent").children()[1].children[i].classList[$("#burnedContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,true,data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],false,data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
     }
     
 })
@@ -103,9 +103,9 @@ $("#swds").click(function(e){
     for(i=0;i<$("#carbonContent").children()[1].children.length;i++){
         inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,true,data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],false,data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
     }
 })
 
@@ -116,9 +116,9 @@ $("#emitted").click(function(e){
     for(i=0;i<$("#decayContent").children()[1].children.length;i++){
         inactive_ids.push($("#decayContent").children()[1].children[i].classList[$("#decayContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,true,data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],false,data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
     }
 })
 
@@ -130,7 +130,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     console.log(json_data)
     var parseDate = d3.timeFormat("%Y");
     if (graph_type == "line") {
-        if (is_active == false) {
+        if (is_active == "inactive") {
             $("." + graph_class).html("")
             const margin = { top: 30, right: 10, bottom: 30, left: 60 },
                 width = w - margin.left - margin.right,
@@ -150,6 +150,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .append("div")
                 .classed("svg-graph-container-sm", true) // Container class to make graphs responsive.
                 .append("svg")
+                .attr("id", graph_class)
                 .attr("class", graph_class)
                 .attr("preserveAspectRatio", "xMinYMid meet")
                 .attr(
@@ -268,8 +269,130 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             //     .attr("dy", ".75em")
             //     .attr("transform", "rotate(-90)")
             //     .text("Co2e");
-        }
-        else {
+        } else if (is_active == "hidden") {
+             // hidden graphs
+             $("." + graph_class).html("")
+        
+             const margin = { top: 40, right: 80, bottom: 60, left: 80 },
+                 width = w - margin.left - margin.right,
+                 height = h - margin.top - margin.bottom;
+                         
+             const x = d3.scaleTime().range([0, width]);
+             const y = d3.scaleLinear().range([height, 0]);
+ 
+             // const area = d3
+             // .area()
+             // .x((d) => { return x(d.date); })
+             // .y0(height)
+             // .y1((d) => { return y(d.value); })
+ 
+ 
+             const valueline = d3
+                 .line()
+                 .x((d) => { return x(d.date); })
+                 .y((d) => { return y(d.value); })
+        
+        
+             const svg = d3
+                 .select("div." + graph_class)
+                 .append("div")
+                 .classed("svg-graph-container", true) // Container class to make graphs responsive.
+                 .append("svg")
+                 .attr("id", graph_class)
+                 .attr("class", graph_class)
+                 .attr("preserveAspectRatio", "xMinYMid meet")
+                 .attr(
+                     "viewBox",
+                     `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                 .classed("svg-content-responsive", true)
+                 .append("g")
+                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+             
+             svg
+                 .append("g")
+                 .attr("class", "x axis")
+                 .attr("transform", "translate(0," + height + ")")
+                 .call(d3.axisBottom(x));
+         
+             svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+ 
+             //y axis title
+             svg
+                 .append("text")
+                 .attr("class", "y-axis-title")
+                 .attr("transform", "rotate(-90)")
+                 .attr("y", 0 - margin.left)
+                 .attr("x", 0 - height / 2)
+                 .attr("dy", "1em")
+                 .style("text-anchor", "middle")
+                 .text("Carbon Emissions (CO2e)");
+     
+             //x axis title
+             svg
+                 .append("text")
+                 .attr("class", "x-axis-title")
+                 .attr("y", height + 30)
+                 .attr("x", width / 2)
+                 .attr("dy", "1em")
+                 .style("text-anchor", "middle")
+                 .text("Years");
+ 
+             const data = d3.csvParse(json_data,
+                 function (d) {
+                    //  d3.selectAll("path.area").remove();
+                    //  d3.selectAll("path.line").remove();
+                    //  d3.selectAll(".graph-title").remove();
+                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                 })
+                 
+             x.domain(
+                 d3.extent(data, (d) => { return d.date; })
+             );
+             y.domain([
+                 0,
+                 d3.max(data, (d) => { return +d.value; })
+             ]);
+ 
+             svg
+                 .select(".x.axis")
+                 .transition()
+                 .duration(750)
+                 .call(d3.axisBottom(x));
+             svg
+                 .select(".y.axis")
+                 .transition()
+                 .duration(750)
+                 .call(d3.axisLeft(y));
+ 
+             // Add the line
+             const linePath = svg
+                 .append("path")
+                 .datum(data)
+                 .attr("class", "line")
+                 .attr("fill", "none")
+                 .attr("stroke", "steelblue")
+                 .attr("stroke-width", 1.5)
+                 .attr("d", valueline)
+             const pathLength = linePath.node().getTotalLength();
+             linePath
+                 .attr("stroke-dasharray", pathLength)
+                 .attr("stroke-dashoffset", pathLength)
+                 .attr("stroke-width", 0)
+                 .transition()
+                 .duration(1000)
+                 .attr("stroke-dashoffset", 0)
+                 .attr("stroke-width", 3);
+             //title
+             svg
+                 .append("text")
+                 .attr("class", "graph-title")
+                 .attr("x", width / 2)
+                 .attr("y", 0 - margin.top / 2)
+                 .attr("text-anchor", "middle")
+                .text(title);
+            
+        } else if (is_active == "active") {
+            
             $("." + graph_class).html("")
         
             const margin = { top: 40, right: 80, bottom: 60, left: 80 },
@@ -297,6 +420,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .append("div")
                 .classed("svg-graph-container", true) // Container class to make graphs responsive.
                 .append("svg")
+                .attr("id", graph_class)
                 .attr("class", graph_class)
                 .attr("preserveAspectRatio", "xMinYMid meet")
                 .attr(
@@ -337,9 +461,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
             const data = d3.csvParse(json_data,
                 function (d) {
-                    d3.selectAll("path.area").remove();
-                    d3.selectAll("path.line").remove();
-                    d3.selectAll(".graph-title").remove();
+                    // d3.selectAll("path.area").remove();
+                    // d3.selectAll("path.line").remove();
+                    // d3.selectAll(".graph-title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                 })
 
@@ -551,7 +675,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 })
                 .on("touchmove mousemove", mouseMove);
     
+        } else {
+            console.log("I broke");
         }
+
     } else if (graph_type == "stack") {
         const margin = {top: 30, right: 60, bottom: 30, left: 60},
         width = w - margin.left - margin.right,
@@ -690,13 +817,13 @@ $(".non-active").click(function (e) {
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
     non_active_div[0].classList.add(current_tabs_active_id);
-    generate_graph(data_dict[non_active_id][0],non_active_id,true,data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2])
-    generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,false,data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
+    generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2])
+    generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
     
     if(non_active_div_siblings.length != 0){
         for(i = 0;i<non_active_div_siblings.length;i++){
             non_active_div_sibling_id = non_active_div_siblings[i].classList[non_active_div_siblings[i].classList.length-1]
-            generate_graph(data_dict[non_active_div_sibling_id][0],non_active_div_sibling_id,false,data_dict[non_active_div_sibling_id][1],400,250,data_dict[non_active_div_sibling_id][2])
+            generate_graph(data_dict[non_active_div_sibling_id][0],non_active_div_sibling_id,"inactive",data_dict[non_active_div_sibling_id][1],400,250,data_dict[non_active_div_sibling_id][2])
         }
     }      
 });
@@ -731,3 +858,25 @@ $(function () {
     });
 });
 
+
+d3.select("#dl-closed").on('click', function () {
+    generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
+    generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
+    generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);
+
+
+    generate_graph(data_dict["annual_harvests_output"][0], "annual_harvests_output1", "hidden", data_dict["annual_harvests_output"][1], 1300, 700, data_dict["annual_harvests_output"][2]);
+    generate_graph(data_dict["end_use"][0], "end_use1", "hidden", data_dict["end_use"][1], 1300, 700, data_dict["end_use"][2]);
+  //  generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
+    generate_graph(data_dict["burned_wo_energy_capture_emitted"][0], "burned_wo_energy_capture_emitted1", "hidden", data_dict["burned_wo_energy_capture_emitted"][1], 1300, 700, data_dict["burned_wo_energy_capture_emitted"][2]);
+    generate_graph(data_dict["burned_w_energy_capture_emitted"][0], "burned_w_energy_capture_emitted1", "hidden", data_dict["burned_w_energy_capture_emitted"][1], 1300, 700, data_dict["burned_w_energy_capture_emitted"][2]);
+    generate_graph(data_dict["total_fuelwood_carbon_emitted"][0], "total_fuelwood_carbon_emitted1", "hidden", data_dict["total_fuelwood_carbon_emitted"][1], 1300, 700, data_dict["total_fuelwood_carbon_emitted"][2]);
+
+    // generate_graph(data_dict["total_cumulative_carbon_stocks_co2e"][0], "total_cumulative_carbon_stocks_co2e1", "hidden", data_dict["total_cumulative_carbon_stocks_co2e"][1], 1300, 700, data_dict["total_cumulative_carbon_stocks_co2e"][2]);
+    //generate_graph(data_dict["total_dumps_carbon_co2e"][0], "total_dumps_carbon_co2e1", "hidden", data_dict["total_dumps_carbon_co2e"][1], 1300, 700, data_dict["total_dumps_carbon_co2e"][2]);
+    //generate_graph(data_dict["total_landfills_carbon_co2e"][0], "total_landfills_carbon_co2e1", "hidden", data_dict["total_landfills_carbon_co2e"][1], 1300, 700, data_dict["total_landfills_carbon_co2e"][2]);
+    
+   
+        
+
+})
