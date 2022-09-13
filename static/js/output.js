@@ -51,24 +51,6 @@ output.initialize = function(input_json) {
     data_dict["total_cumulative_carbon_stocks_mgc"] = [final_json.total_cumulative_carbon_stocks_mgc, "Total Cumulative Carbon Stocks", "stack"]
     data_dict["total_cumulative_carbon_stocks_co2e"] = [final_json.total_cumulative_carbon_stocks_co2e, "Total Cumulative Carbon Stocks", "stack"]
     
-
-   
-    // var total_cumulative_carbon_stocks = [];
-    // // var headers = ["Year", "swds", "products_in_use_co2e"].join(",");
-    // // console.log(swds_co2e)
-
-    // d3.csvParse(swds_co2e, function (data2) {
-    //     d3.csvParse(products_in_use_co2e, function (data) {
-    //         for (var i = 0; i < data.length; i++) {
-    //             total_cumulative_carbon_stocks.push({
-    //                 Years: data[i].Year,
-    //                 swds: data[i].SWDS_present_co2e,
-    //                 products_in_use: data2[i].products_in_use_co2e
-    //             });
-    //         }
-    //         console.log(total_cumulative_carbon_stocks);
-    //     })
-    // })
 }
 
 $("#defaultOpen").click(function (e) {
@@ -176,12 +158,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     // d3.selectAll(".title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                 })
-            
-            console.log(data)
-            // console.log("min",data[0].date)
-            // console.log("max",data[data.length-1].date)
-            minDateYear = data[0].date.getFullYear();
-            maxDateYear = data[data.length - 1].date.getFullYear();
 
             x.domain(
                 d3.extent(data, (d) => { return d.date; })
@@ -344,7 +320,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     //  d3.selectAll(".graph-title").remove();
                      return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                  })
-                 
+                
              x.domain(
                  d3.extent(data, (d) => { return d.date; })
              );
@@ -465,6 +441,28 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     // d3.selectAll("path.line").remove();
                     // d3.selectAll(".graph-title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                })
+                
+                console.log(data)
+                minDateYear = data[0].date.getFullYear();
+                maxDateYear = data[data.length - 1].date.getFullYear();
+    
+                $("#singleYear").attr({
+                    "min": minDateYear,
+                    "max": maxDateYear,
+                    "value": minDateYear
+                })
+            
+                $("#startYear").attr({
+                    "min": minDateYear,
+                    "max": maxDateYear,
+                    "value": minDateYear
+                })
+            
+                $("#endYear").attr({
+                    "min": minDateYear,
+                    "max": maxDateYear,
+                    "value": maxDateYear
                 })
 
             // .curve(d3.curveCardinal);

@@ -9,9 +9,10 @@ import zipfile
 import tempfile
 import pandas as pd
 from flask import Flask, redirect, render_template, request, jsonify
-from config import gch
+# from config import gch
+from utils.s3_helper import S3Helper
 
-user_data_folder = 'hpwc-user-inputs/'
+user_data_folder = 'hpwc/'
 
 app = Flask(__name__, template_folder="templates")
 
@@ -167,7 +168,7 @@ def upload():
     data_type = type(harvest_data_type)
     new_id = str(uuid.uuid4())
     # print(new_id)
-    gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
+    S3Helper.upload_input_group("hwpc", user_data_folder + new_id + '/', data , data_type)
     #return "This is a test to view the submitted data"   
     # return render_template('pages/submit.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
     return render_template('pages/submit.html')
