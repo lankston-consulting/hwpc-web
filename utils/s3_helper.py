@@ -11,7 +11,13 @@ class S3Helper(object):
     service_id = os.getenv('AWS_ACCESS_KEY_ID')
     secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 
+    # We use s3_client to upload data to the bucket with our service account
     s3_client = boto3.client('s3',
+    aws_access_key_id=service_id,
+    aws_secret_access_key=secret_key)
+
+    # We use s3_resource to download data from the bucket with our service account
+    s3_resource = boto3.resource('s3',
     aws_access_key_id=service_id,
     aws_secret_access_key=secret_key)
 
@@ -40,8 +46,16 @@ class S3Helper(object):
         return True
 
     @staticmethod
+    def download_file(bucket,file_name):
+        s3_bucket = S3Helper.s3_resource.Bucket(bucket)
+        fp = tempfile.NamedTemporaryFile()
+        s3_bucket.download_fileobj(file_name,fp)
+        fp.seek(0)
+        return fp
+
+    @staticmethod
     def upload_input_group(
-        bucket_name: str, source_file_name: str, data: dict, data_type
+        bucket_name: str, source_file_name: str, data: dict
     ) -> None:
         """[summary]
         This helper function that uploads a data cluster of user inputs to a unique folder, likely named with a user generated hash id.
