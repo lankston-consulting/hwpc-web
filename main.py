@@ -12,7 +12,7 @@ from flask import Flask, redirect, render_template, request, jsonify
 # from config import gch
 from utils.s3_helper import S3Helper
 
-user_data_folder = 'hpwc/'
+user_data_folder = 'hwpc-user-inputs/'
 
 app = Flask(__name__, template_folder="templates")
 
@@ -59,23 +59,13 @@ def upload():
         yearly_harvest_input = pd.read_csv(yearly_harvest_input)
         
         if(yearly_harvest_input.keys()[0] != 'Year' or yearly_harvest_input.keys()[1] != "ccf"):
-            print("data no good")
             yearly_harvest_input = yearly_harvest_input.melt(id_vars="YearID",
                                                                 var_name="Year",
                                                                 value_name="ccf")
             yearly_harvest_input= yearly_harvest_input[yearly_harvest_input['ccf'] != 0]
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
-            print(yearly_harvest_input)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     yearly_harvest_input.to_csv(fp.name, index=False)
-            #     yearly_harvest_input = fp
         else: 
-            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
-            print(yearly_harvest_input)
-            # yearly_harvest_input.to_csv("/tmp/yearly_harvest_data.csv", index=False)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     yearly_harvest_input.to_csv(fp.name, index=False)
-            #     yearly_harvest_input = fp
+            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)     
         
     harvest_data_type = request.form['harvestdatatype']
     timber_product_ratios = request.files['yearlytimberproductratios']
@@ -83,19 +73,13 @@ def upload():
     if(timber_product_ratios.filename != ''):
         timber_product_ratios = pd.read_csv(timber_product_ratios)
         if(timber_product_ratios.keys()[0] != 'TimberProductID' or timber_product_ratios.keys()[1] != "Year" or timber_product_ratios.keys()[2] != "Ratio"):
-            print("no good")
             timber_product_ratios = timber_product_ratios.melt(id_vars="TimberProductID",
                                                                      var_name="Year",
                                                                      value_name="Ratio")
-            timber_product_ratios = timber_product_ratios.to_csv(index=False)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     timber_product_ratios.to_csv(fp.name, index=False)
-            #     timber_product_ratios = fp
+            timber_product_ratios = timber_product_ratios.to_csv(index=False) 
         else:
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     timber_product_ratios.to_csv(fp.name, index=False)
-            #     timber_product_ratios = fp
+            
     region_selection = request.form['regionselection']
     if(region_selection == "Custom"):
         custom_region_file = request.files['customregion']
@@ -106,14 +90,9 @@ def upload():
                                                                         var_name="Year",
                                                                         value_name="Ratio")
                 custom_region_file = custom_region_file.to_csv(index=False)
-                # with tempfile.NamedTemporaryFile() as fp:
-                #     custom_region_file.to_csv(fp.name, index=False)
-                #     custom_region_file = fp
             else:
                 custom_region_file = custom_region_file.to_csv(index=False)
-                # with tempfile.NamedTemporaryFile() as fp:
-                #     custom_region_file.to_csv(fp.name, index=False)
-                #     custom_region_file = fp
+                
     else:
         custom_region_file = ""
     end_use_product_ratios = request.files['EndUseRatiosFilename']
@@ -124,14 +103,9 @@ def upload():
                                                                     var_name="Year",
                                                                     value_name="Ratio")
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     end_use_product_ratios.to_csv(fp.name, index=False)
-            #     end_use_product_ratios = fp
         else:
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
-            # with tempfile.NamedTemporaryFile() as fp:
-            #     custom_region_file.to_csv(fp.name, index=False)
-            #     custom_region_file = fp
+            
     dispositions = request.files['DispositionsFilename']
     disposition_half_lives = request.files['DispositionHalfLivesFilename']
     distribution_data = request.files['DistributionDataFilename']
@@ -141,8 +115,6 @@ def upload():
     iterations = request.form['iterations']
     email = request.form['email']
     run_name = request.form['runname']
-
-    
 
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
@@ -162,13 +134,11 @@ def upload():
             "email":email,
             "run_name":run_name
             }
-    print(data)
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
-    data_type = type(harvest_data_type)
     new_id = str(uuid.uuid4())
     # print(new_id)
-    S3Helper.upload_input_group("hwpc", user_data_folder + new_id + '/', data , data_type)
+    S3Helper.upload_input_group("hwpc", user_data_folder + new_id + '/', data)
     #return "This is a test to view the submitted data"   
     # return render_template('pages/submit.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
     return render_template('pages/submit.html')
@@ -185,7 +155,9 @@ def output():
     products_in_use_co2e=""
     p = request.args.get("p")
     print(p)
-    user_zip = gch.download_temp("hwpcarbon-data","hpwc-user-inputs/"+p+"/results/test.zip")
+    user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/results/test.zip")
+    #user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/harvest_data.csv")
+
     with open('/tmp/zip_folder.zip', 'wb') as f:
         f.write(user_zip.read())
     file = zipfile.ZipFile('/tmp/zip_folder.zip')
