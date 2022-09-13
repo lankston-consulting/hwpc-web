@@ -1,16 +1,10 @@
 version: "3.9"  
 services:
-  fcapp:
+  hwpcweb:
     build: 
       context: .
-      args:
-        - GITHUB_USER
-        - GITHUB_PAT
-        - GITHUB_REPO
-        - GITHUB_REF
-        - PY_VERSION
-    image: fcapp
-    container_name: fcapp
+    image: hwpc-web
+    container_name: hwpc-web-app
     environment:
       - PORT=${PORT}
       - PY_VERSION=${PY_VERSION}

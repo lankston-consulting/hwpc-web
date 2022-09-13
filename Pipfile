@@ -4,15 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-google-cloud-storage = {version = "*", index = "pypi"}
+boto3 = {extras = ["crt"], version = "*"}
 gunicorn = {version = "*", index = "pypi"}
 pandas = "*"
-Flask = {version = "*", index = "pypi"}
-lcutils = {ref = "main", git = "https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_REPO}.git"}
-boto3 = {extras = ["crt"], version = "*"}
+flask = {version = "*", index = "pypi"}
+python-dotenv = "*"
 
 [dev-packages]
 pytest = {version = "*", index = "pypi"}
 
 [requires]
-python_version = "3.8"
+python_version = "3.9.14"

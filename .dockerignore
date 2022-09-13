@@ -1,0 +1,12 @@
+.github
+.idea
+.vscode
+docker-compose.yml
+Dockerfile
+README.md
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
+Pipfile*
