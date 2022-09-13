@@ -2,11 +2,17 @@ import datetime
 import json
 import uuid
 import time
+import io
 import os
-from flask import Flask, redirect, render_template, request
-from config import gch
+import csv
+import zipfile
+import tempfile
+import pandas as pd
+from flask import Flask, redirect, render_template, request, jsonify
+# from config import gch
+from utils.s3_helper import S3Helper
 
-user_data_folder = 'hpwc-user-inputs/'
+user_data_folder = 'hpwc/'
 
 app = Flask(__name__, template_folder="templates")
 
@@ -15,23 +21,27 @@ app = Flask(__name__, template_folder="templates")
 @app.route('/index')
 @app.route('/home', methods=['GET'])
 def home():
-    return render_template('home.html')
+    return render_template('pages/home.html')
 
-@app.route('/homecontent', methods=['GET'])
-def homecontent():
-    return render_template('homecontent.html')
+@app.route('/calculator', methods=['GET'])
+def calculator():
+    return render_template('pages/calculator.html')
 
-@app.route('/about', methods=['GET'])
+# @app.route('/output', methods=['GET'])
+# def output():
+#     return render_template('pages/output.html')
+
+@app.route('/reference', methods=['GET'])
 def test():
-    return render_template('about.html')
+    return render_template('pages/reference.html')
 
-@app.route('/advanced', methods=['GET'])
+@app.route('/privacy', methods=['GET'])
 def advanced():
-    return render_template('advanced.html')
+    return render_template('pages/privacy.html')
 
-@app.route('/references', methods=['GET'])
+@app.route('/terms', methods=['GET'])
 def references():
-    return render_template('references.html')
+    return render_template('pages/terms.html')
 
 @app.route('/contact', methods=['GET'])
 def contact():
@@ -43,55 +53,167 @@ def files():
 
 @app.route('/upload', methods=['GET','POST'])
 def upload():
-
     # All inputs from the UI are pulled here through with jquery Ajax
     yearly_harvest_input = request.files['yearlyharvestinput']
+    if(yearly_harvest_input.filename != ''):
+        yearly_harvest_input = pd.read_csv(yearly_harvest_input)
+        
+        if(yearly_harvest_input.keys()[0] != 'Year' or yearly_harvest_input.keys()[1] != "ccf"):
+            print("data no good")
+            yearly_harvest_input = yearly_harvest_input.melt(id_vars="YearID",
+                                                                var_name="Year",
+                                                                value_name="ccf")
+            yearly_harvest_input= yearly_harvest_input[yearly_harvest_input['ccf'] != 0]
+            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
+            print(yearly_harvest_input)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     yearly_harvest_input.to_csv(fp.name, index=False)
+            #     yearly_harvest_input = fp
+        else: 
+            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
+            print(yearly_harvest_input)
+            # yearly_harvest_input.to_csv("/tmp/yearly_harvest_data.csv", index=False)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     yearly_harvest_input.to_csv(fp.name, index=False)
+            #     yearly_harvest_input = fp
+        
     harvest_data_type = request.form['harvestdatatype']
-    yearly_timber_product_ratios = request.files['yearlytimberproductratios']
+    timber_product_ratios = request.files['yearlytimberproductratios']
+
+    if(timber_product_ratios.filename != ''):
+        timber_product_ratios = pd.read_csv(timber_product_ratios)
+        if(timber_product_ratios.keys()[0] != 'TimberProductID' or timber_product_ratios.keys()[1] != "Year" or timber_product_ratios.keys()[2] != "Ratio"):
+            print("no good")
+            timber_product_ratios = timber_product_ratios.melt(id_vars="TimberProductID",
+                                                                     var_name="Year",
+                                                                     value_name="Ratio")
+            timber_product_ratios = timber_product_ratios.to_csv(index=False)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     timber_product_ratios.to_csv(fp.name, index=False)
+            #     timber_product_ratios = fp
+        else:
+            timber_product_ratios = timber_product_ratios.to_csv(index=False)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     timber_product_ratios.to_csv(fp.name, index=False)
+            #     timber_product_ratios = fp
     region_selection = request.form['regionselection']
-    if(region_selection == ""):
-        region_selection = request.form['customregion']
-    custom_region_file = request.files['customfileinput']
-    end_use_ratios = request.files['EndUseRatiosFilename']
-    end_use_half_lives = request.files['EndUseHalfLivesFilename']
+    if(region_selection == "Custom"):
+        custom_region_file = request.files['customregion']
+        if(custom_region_file.filename != ''):
+            custom_region_file = pd.read_csv(custom_region_file)
+            if(custom_region_file.keys()[0] != 'PrimaryProductID' or custom_region_file.keys()[1] != "Year" or custom_region_file.keys()[2] != "Ratio"):
+                custom_region_file = custom_region_file.melt(id_vars="PrimaryProductID",
+                                                                        var_name="Year",
+                                                                        value_name="Ratio")
+                custom_region_file = custom_region_file.to_csv(index=False)
+                # with tempfile.NamedTemporaryFile() as fp:
+                #     custom_region_file.to_csv(fp.name, index=False)
+                #     custom_region_file = fp
+            else:
+                custom_region_file = custom_region_file.to_csv(index=False)
+                # with tempfile.NamedTemporaryFile() as fp:
+                #     custom_region_file.to_csv(fp.name, index=False)
+                #     custom_region_file = fp
+    else:
+        custom_region_file = ""
+    end_use_product_ratios = request.files['EndUseRatiosFilename']
+    if(end_use_product_ratios.filename != ''):
+        end_use_product_ratios = pd.read_csv(end_use_product_ratios)
+        if(end_use_product_ratios.keys()[0] != 'EndUseID' or end_use_product_ratios.keys()[1] != "Year" or end_use_product_ratios.keys()[2] != "Ratio"):
+            end_use_product_ratios = end_use_product_ratios.melt(id_vars="EndUseID",
+                                                                    var_name="Year",
+                                                                    value_name="Ratio")
+            end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     end_use_product_ratios.to_csv(fp.name, index=False)
+            #     end_use_product_ratios = fp
+        else:
+            end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
+            # with tempfile.NamedTemporaryFile() as fp:
+            #     custom_region_file.to_csv(fp.name, index=False)
+            #     custom_region_file = fp
     dispositions = request.files['DispositionsFilename']
     disposition_half_lives = request.files['DispositionHalfLivesFilename']
     distribution_data = request.files['DistributionDataFilename']
     burned_ratios = request.files['BurnedRatiosFilename']
     mbf_to_ccf = request.files['MbfToCcfFilename']
-    ccf_to_mgc = request.files['CcfToMgcFilename']
     loss_factor = request.form['lossfactor']
     iterations = request.form['iterations']
     email = request.form['email']
     run_name = request.form['runname']
 
+    
+
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
             "harvest_data.csv":yearly_harvest_input,
             "harvest_data_type":harvest_data_type,
-            "timber_product_data.csv":yearly_timber_product_ratios,
+            "timber_product_ratios.csv":timber_product_ratios,
             "region":region_selection,
-            "primary_product_data.csv":custom_region_file,
-            "end_use_ratios.csv":end_use_ratios,
-            "end_use_half_lives.csv":end_use_half_lives,
+            "primary_product_ratios.csv":custom_region_file,
+            "end_use_product_ratios.csv":end_use_product_ratios,
             "dispositions.csv":dispositions,
             "disposition_half_lives.csv":disposition_half_lives,
             "distribution_data.csv":distribution_data,
             "burned_ratios.csv":burned_ratios,
             "mbf_to_ccf.csv":mbf_to_ccf,
-            "ccf_to_mgc.csv":ccf_to_mgc,
             "loss_factor":loss_factor,
             "iterations":iterations,
             "email":email,
             "run_name":run_name
             }
+    print(data)
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
-    data_type = type(yearly_harvest_input)
+    data_type = type(harvest_data_type)
     new_id = str(uuid.uuid4())
+    # print(new_id)
+    S3Helper.upload_input_group("hwpc", user_data_folder + new_id + '/', data , data_type)
+    #return "This is a test to view the submitted data"   
+    # return render_template('pages/submit.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+    return render_template('pages/submit.html')
 
-    gch.upload_input_group("hwpcarbon-data", user_data_folder + new_id + '/', data , data_type)
-    return render_template('results.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
+@app.route('/submit')
+def submit():
+    return render_template("pages/submit.html")
+
+@app.route('/output', methods=['GET'])
+def output():
+    swds_mgc=""
+    sdws_co2e=""
+    products_in_use_mgc=""
+    products_in_use_co2e=""
+    p = request.args.get("p")
+    print(p)
+    user_zip = gch.download_temp("hwpcarbon-data","hpwc-user-inputs/"+p+"/results/test.zip")
+    with open('/tmp/zip_folder.zip', 'wb') as f:
+        f.write(user_zip.read())
+    file = zipfile.ZipFile('/tmp/zip_folder.zip')
+    file.extractall(path='/tmp/zip_folder')
+    files = os.listdir('/tmp/zip_folder')
+    data_dict = {}
+    for file in files:
+        if ".csv" in file:
+            print(file[:-4])
+            test = pd.read_csv("/tmp/zip_folder/"+file)
+            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+            data_dict[file[:-4]] = test.to_csv(index=False)
+            if "swds_mgc" in file:
+                swds_mgc=test
+            if "swds_co2e" in file:
+                swds_co2e=test
+            if "products_in_use_mgc" in file:
+                products_in_use_mgc = test
+            if "products_in_use_co2e" in file:
+                products_in_use_co2e = test
+    total_cumulative_carbon_stocks_mgc = swds_mgc.merge(products_in_use_mgc, on='Year')
+    data_dict["total_cumulative_carbon_stocks_mgc"] = total_cumulative_carbon_stocks_mgc.to_csv(index=False)
+    total_cumulative_carbon_stocks_co2e = swds_co2e.merge(products_in_use_co2e, on='Year')
+    data_dict["total_cumulative_carbon_stocks_co2e"] = total_cumulative_carbon_stocks_co2e.to_csv(index=False)
+    data_json=json.dumps(data_dict)
+    data_json = data_json.replace('\\"',' ')
+
+    return render_template("pages/output.html",data_json=data_json)
 
 # @app.route('/download', methods=['GET','POST'])
 # def download():

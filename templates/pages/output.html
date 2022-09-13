@@ -1,0 +1,154 @@
+{% extends "components/base.html" %}
+
+{% block content %}
+
+<div class="output-page">
+    <aside style="margin-right: 2em;">
+        <h1 style="margin-bottom: 1em; font-size: 1.8rem;">Controls</h1>
+        <form action="">
+            <fieldset>
+                <legend>Choose Harvest Year(s)</legend>
+                <ul class="year-controls">
+                    <li>
+                        <input class="control-input" type="radio" id="allYearsBtn" name="harvestYears" checked="checked"
+                            value="3">
+                        <label class="control-label" for="allYearsBtn">All Harvest Years</label>
+                    </li>
+                    <li>
+                        <input class="control-input" type="radio" id="singleYearBtn" name="harvestYears" value="1">
+                        <label class="control-label" for="singleYearBtn">Single Harvest Year</label>
+
+                    </li>
+                    <li id="yearInput-1" class="toHide" style="display:none;">
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="singleYear">Single Year:</label>
+                            <input class="control-num" type="number" id="singleYear" value="1906">
+                        </div>
+                    </li>
+                    <li>
+                        <input class="control-input" type="radio" id="rangeYearBtn" name="harvestYears" pattern="[0-9]"
+                            value="2">
+                        <label class="control-label" for="rangeYearBtn"> Range of Harvest Years</label>
+                    </li>
+
+                    <li id="yearInput-2" class="toHide" style="display:none;">
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="startYear"> Start Year: </label>
+                            <input class="control-num" type="number" id="startYear" pattern="[0-9]">
+                        </div>
+                        <div style="display:flex;">
+                            <label class="control-label-sub" for="endYear"> End Year: </label>
+                            <input class="control-num" type="number" id="endYear" pattern="[0-9]">
+                        </div>
+                    </li>
+
+
+                </ul>
+            </fieldset>
+            <br>
+            <br>
+            <!-- <div>
+                <p>Units</p>
+                <input type="radio" id="co2eUnit" name="solidproductsunit" value="co2eUnit" class="custom-radio-btn"
+                    checked>
+                <label tabindex="0" id="co2eUnit-label" for="co2eUnit" class="margin-right: 0.5em;">CO2e</label>
+                <input type="radio" id="mgcUnit" name="solidproductsunit" value="mcgUnit" class="custom-radio-btn">
+                <label tabindex="0" id="mgcUnit-label" for="mgcUnit">MgC</label>
+            </div>
+            <br>
+            <br> -->
+            <div style="width: 100%;">
+                <button class="link-1" style="float:right;">Filter</button>
+            </div>
+        </form>
+    </aside>
+    <section style="max-width: 1300px;">
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="defaultOpen">Products in Use</button>
+            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">Burned</button>
+            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">Carbon in SWDS</button>
+            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">Emitted from Decay</button>
+            <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="inUseContent" class="tabcontent">
+            <!-- <h1>Annual Harvest</h1> -->
+            <div class="graph active-graph annual_harvests_output"></div>
+
+            <div class="add-graph-container">
+                <div class="graph non-active end_use"></div>
+                <!-- <div class="temp-graph graph">Temp Graph</div> -->
+                <!-- <div class="temp-graph">Temp Graph</div> -->
+            </div>
+        </div>
+
+        <div id="burnedContent" class="tabcontent">
+            <!-- <h1>Burned</h1> -->
+            <div class="graph active-graph burned_wo_energy_capture_emitted"></div>
+            <div class="add-graph-container">
+                <div class="graph non-active burned_w_energy_capture_emitted"></div>
+                <div class="graph non-active total_fuelwood_carbon_emitted"></div>
+            </div>
+        </div>
+
+        <div id="carbonContent" class="tabcontent">
+            <!-- <h1>Carbon in SWDS</h1> -->
+            <div class="graph active-graph total_cumulative_carbon_stocks_mgc"></div>
+            <div class="add-graph-container">
+                <div class="graph non-active total_carbon_dumps_co2e"></div>
+                <div class="graph non-active total_carbon_landfill_co2e"></div>
+            </div>
+        </div>
+        <div id="decayContent" class="tabcontent">
+            <div class="graph active-graph total_dumps_carbon_emitted"></div>
+            <div class="add-graph-container">
+                <div class="graph non-active total_composted_carbon_emitted"></div>
+                <div class="graph non-active total_landfills_carbon_emitted"></div>
+            </div>
+        </div>
+        <div id="reusedContent" class="tabcontent">
+            <h1>Reused</h1>
+            <div class="graph active-graph non-active reused"></div>
+        </div>
+        <div>
+            <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
+            <a href="#dl-opened" style="float:right; margin-right: 2em;" class="custom-btn link-1" id="dl-closed">Export
+            </a>
+
+            {% include "components/downloads.html" %}
+
+        </div>
+    </section>
+    <!-- <div style="margin-left: 2em; width: 400px;">
+        <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"
+            style="display: flex; margin:auto; margin-top: 150px;">
+    </div> -->
+</div>
+<div id="hidden-graphs" style="display:none;">
+    <div class="graph total_dumps_carbon_emitted1"></div>
+    <div class="graph total_composted_carbon_emitted1"></div>
+    <div class="graph total_landfills_carbon_emitted1"></div>
+
+    <div class="graph  annual_harvests_output1"></div>
+    <div class="graph  end_use1"></div>
+    <!-- <div class="graph  annual_net_change_carbon_stocks1"></div> -->
+    <div class="graph burned_wo_energy_capture_emitted1"></div>
+    <div class="graph burned_w_energy_capture_emitted1"></div>
+    <div class="graph total_fuelwood_carbon_emitted1"></div>
+
+    <div class="graph total_cumulative_carbon_stocks_mgc1"></div>
+    <div class="graph total_carbon_dumps_co2e1"></div>
+    <div class="graph total_carbon_landfill_co2e1"></div>
+
+
+    <!-- <div class="graph active reused"></div> -->
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
+<script async>
+    output.initialize('{{data_json | safe}}');
+</script>
+
+{% endblock content %}
