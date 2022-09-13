@@ -1,0 +1,158 @@
+<section id="how-it-works" class="graphic-container" style="overflow-x:auto;">
+    <!-- <h1>How it Works</h1> -->
+    <div class="container-bg graphic-card container__inputs">
+        <h2 style=" text-align: center; margin-bottom: 2em;">For each user-provided harvest year</h2>
+        <div tabindex="0" class="graphic-card inputs harvest">
+            <h3>
+                Annual harvest
+            </h3>
+        </div>
+        <div class="center">
+            <div tabindex="0" class="center">
+                {% include "components/arrow.html" %}
+            </div>
+        </div>
+        <div tabindex="0" class="graphic-card inputs harvest">
+            <h3>
+                Allocate to timber products (ccf)
+            </h3>
+        </div>
+        <div class="center">
+            <div tabindex="0" class="center">
+                {% include "components/arrow.html" %}
+            </div>
+        </div>
+        <div tabindex="0" class="graphic-card inputs">
+            <h3>
+                Allocate to primary products (ccf)
+            </h3>
+        </div>
+        <div class="center">
+            <div tabindex="0" class="center">
+                {% include "components/arrow.html" %}
+            </div>
+        </div>
+        <div tabindex="0" class="graphic-card inputs">
+            <h3>
+                Allocate to end use products (ccf)
+            </h3>
+        </div>
+        <div class="center">
+            <div tabindex="0" class="center">
+                {% include "components/arrow.html" %}
+            </div>
+        </div>
+        <div tabindex="0" class="graphic-card inputs">
+            <h3>
+                Convert end use ccf to metric tons carbon
+            </h3>
+        </div>
+        <div class="center">
+            <div tabindex="0" class="center">
+                {% include "components/arrow.html" %}
+            </div>
+        </div>
+        <div tabindex="0" class="graphic-card inputs">
+            <h3>
+                Remove Flat end use loss amount from wood products (not paper)
+            </h3>
+        </div>
+    </div>
+
+    <div class="container-bg">
+        <div tabindex="0" style="display:flex; justify-content:right; margin-right: 80px;">
+            {% include "components/arrow.html" %}
+        </div>
+        <div style="display:flex; height: 150px;">
+            <div class="discarded-arrow" tabindex="0" class="center">
+                <img width="30px" src="../../static/images/SVG/extra_long.svg" alt="Long Arrow Pointing Down and Left">
+            </div>
+            <div class="graphic-card results prod-in-use-card">
+                <h3>Products in Use <br /> (metric ton C)</h3>
+            </div>
+        </div>
+        <div style="display:flex; justify-content: end;">
+            <div tabindex="0" class="recycled-arrow down-to-disabled-arrow">
+                <img width="30px" src="../../static/images/SVG/short.svg" alt="Short Arrow Pointing Down and Left">
+            </div>
+            <div tabindex="0" class="recycled-arrow">
+                <img width="30px" src="../../static/images/SVG/short.svg" alt="Short Arrow pointing up">
+            </div>
+        </div>
+        <div style="display: flex; transform: translateY(-35px); margin-top:10px;">
+            <div class="graphic-card container__dispositions discarded-card">
+                <h3>Discarded</h3>
+            </div>
+            <div tabindex="0" class="center right-arrow">
+                {% include "components/arrow.html" %}
+            </div>
+            <div class="graphic-card output recycled-card">
+                <h3>Recylced/Reused</h3>
+            </div>
+        </div>
+        <div tabindex="0" style="margin-left:35px; transform:translateY(-25px);">
+            {% include "components/arrow.html" %}
+        </div>
+
+    </div>
+    <div class="parent-div">
+        <div tabindex="0" style="transform:translateY(-40px);"
+            class="stacking-content container-bg graphic-card container__dispositions">
+            <h2 style="text-align:center;">Dispositions</h2>
+            <span style="display: flex; align-items: center;">
+                <div class="graphic-card results">
+                    <h2 style="text-align:center;">Products in SWDS (MgC)</h2>
+                    <div style="display:flex;">
+                        <div tabindex="0" class="graphic-card output">
+                            <h4>Landfills</h4>
+                        </div>
+                        <div tabindex="0" class="graphic-card output">
+                            <h4>Dumps</h4>
+                        </div>
+                    </div>
+                </div>
+                <div tabindex="0" style="transform:translateY(12px);" class="graphic-card output">
+                    <h4>Compost</h4>
+                </div>
+                <div tabindex="0" style="transform:translateY(12px);" class="graphic-card output">
+                    <h4>Burned</h4>
+                </div>
+            </span>
+
+        </div>
+        <div class="disposition-to-results stacking-content">
+            <div tabindex="0" class="arrow1">
+                <img width="30px" src="../../static/images/SVG/medium.svg" alt="Short Arrow Pointing Down">
+            </div>
+            <div tabindex="0" class="arrow2">
+                <img width="30px" src="../../static/images/SVG/long.svg" alt="Long Arrow Pointing Down">
+            </div>
+            <div tabindex="0" class="arrow3">
+                <img width="30px" src="../../static/images/SVG/long.svg" alt="Long Arrow Pointing Down">
+            </div>
+            <div tabindex="0" class="arrow4">
+                <img width="30px" src="../../static/images/SVG/long.svg" alt="Long Arrow Pointing Down">
+            </div>
+
+        </div>
+    </div>
+    <div class="container-bg">
+        <span class="results-content">
+            <div id="emittedEnergyCapture" tabindex="0" class="graphic-card results lower-results-cards">
+                <h3>
+                    Emitted from decay (Co2e)
+                </h3>
+            </div>
+            <div id="productsInUse" tabindex="0" class="graphic-card results lower-results-cards">
+                <h3>
+                    Emitted without energy capture (Co2e)
+                </h3>
+            </div>
+            <div tabindex="0" class="graphic-card results lower-results-cards">
+                <h3>
+                    Emitted with energy capture (C02e)
+                </h3>
+            </div>
+        </span>
+    </div>
+</section>
