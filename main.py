@@ -165,20 +165,9 @@ def output():
             test = pd.read_csv("/tmp/zip_folder/"+file)
             test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
             data_dict[file[:-4]] = test.to_csv(index=False)
-            # if "swds_mgc" in file:
-            #     swds_mgc=test
-            # if "swds_co2e" in file:
-            #     swds_co2e=test
-            # if "products_in_use_mgc" in file:
-            #     products_in_use_mgc = test
-            # if "products_in_use_co2e" in file:
-            #     products_in_use_co2e = test
-    # total_cumulative_carbon_stocks_mgc = swds_mgc.merge(products_in_use_mgc, on='Year')
-    # data_dict["total_cumulative_carbon_stocks_mgc"] = total_cumulative_carbon_stocks_mgc.to_csv(index=False)
-    # total_cumulative_carbon_stocks_co2e = swds_co2e.merge(products_in_use_co2e, on='Year')
-    # data_dict["total_cumulative_carbon_stocks_co2e"] = total_cumulative_carbon_stocks_co2e.to_csv(index=False)
+    print(data_dict.keys())
     data_json=json.dumps(data_dict)
-    print(data_json)
+    
     data_json = data_json.replace('\\"',' ')
 
     return render_template("pages/output.html",data_json=data_json)

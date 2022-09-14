@@ -1,56 +1,27 @@
 output = {}
-total_landfills_carbon_co2e = ""
-total_landfills_carbon_mgc = ""
-total_landfills_carbon_emitted = ""
-annual_harvests_output = ""
-products_in_use_mgc = ""
-burned_wo_energy_capture_emit = ""
-total_in_use = ""
-total_dumps_carbon_co2e = ""
-total_dumps_carbon_emitted = ""
-total_dumps_carbon_mgc = ""
-products_in_use_co2e = ""
-swds_mgc = ""
-swds_co2e = ""
-total_end_use_products = ""
-total_fuelwood_carbon_emitted = ""
-harvest_data = ""
-total_composted_carbon_emitted = ""
-burned_w_energy_capture_emitted = ""
-minDateYear = ""
-maxDateYear = ""
-
 
 output.initialize = function(input_json) {
     data_json=input_json;
     data_json = data_json.replace(/\n/g, '\\n')
     final_json = JSON.parse(data_json)
     data_dict = []
-
-    data_dict["total_landfills_carbon_co2e"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line"]
-    data_dict["total_landfills_carbon_mgc"] = [final_json.total_landfills_carbon_mgc, "Total Landfills Carbon", "line"]
-    data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line"]
+    data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline"]
     data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar"]
-    // data_dict["annual_harvests_output"] = final_json.annual_harvests_output
-    // data_dict["annual_harvests_output"] = "Total Annual Harvest"
-    // data_dict["annual_harvests_output"] = "line"
-    data_dict["products_in_use_mgc"] = [final_json.products_in_use_mgc, "Total Products in Use", "line"]
-    //data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Burned Carbon Emitted Without Energy Capture", "line"]
-    data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line"]
-    data_dict["total_dumps_carbon_co2e"] = [final_json.total_dumps_carbon, "Total Carbon in Dumps", "line"]
-    data_dict["total_dumps_carbon_emitted"] = [final_json.total_dumps_carbon_emitted, "Total Carbon in Dumps Emitted", "line"]
-    data_dict["total_dumps_carbon_mgc"] = [final_json.total_dumps_carbon_mgc, "Total Carbon in Dumps", "line"]
-    data_dict["products_in_use_co2e"] = [final_json.products_in_use, "Total Products in Use", "line"]
-    data_dict["swds_mgc"] = [final_json.swds_mgc, "Total SWDS", "line"]
-    data_dict["swds_co2e"] = [final_json.swds, "Total SWDS", "line"]
-    data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line"]
-    data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line"]
-    data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
-    data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line"]
+    // data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
     data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line"]
     data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line"]
-    data_dict["total_cumulative_carbon_stocks_mgc"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
-    data_dict["total_cumulative_carbon_stocks_co2e"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
+    data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line"]
+    data_dict["swds"] = [final_json.swds, "Total SWDS", "line"]
+    data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line"]
+    data_dict["total_cumulative_carbon_stocks"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
+    data_dict["total_dumps_carbon"] = [final_json.total_dumps_carbon, "Total Carbon in Dumps", "line"]
+    data_dict["total_dumps_carbon_emitted"] = [final_json.total_dumps_carbon_emitted, "Total Carbon in Dumps Emitted", "line"]
+    data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line"]
+    data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line"]
+    data_dict["total_landfills_carbon"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line"]
+    data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line"]
+    
+    
     
 }
 
