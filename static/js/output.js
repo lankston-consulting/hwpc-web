@@ -482,8 +482,13 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     
                     
     
-                } else {
-                    console.log("graph type is bar")
+                 } else if (graph_type == "multiline") {
+                     console.log("graph type is active multiline")
+
+                     
+                    
+                 } else {
+                    console.log("graph type is active bar")
                 }
                  
               
@@ -740,6 +745,64 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             
                             
                     
+            } else if (graph_type == "multiline") {
+                console.log("graph type is active multiline")
+                
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                    })
+                
+                var keys = ["Value1", "Value2"];
+
+
+                const sumstat = d3.group(data, d => d.value);
+
+
+                // Add X axis --> it is a date format
+                const x = d3.scaleTime()
+
+                .range([ 0, width ]);
+              svg.append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .call(d3.axisBottom(x));
+            
+              // Add Y axis
+              const y = d3.scaleLinear()
+                .range([ height, 0 ]);
+              svg.append("g")
+                    .call(d3.axisLeft(y));
+                
+                
+                    x.domain(
+                        d3.extent(data, (d) => { return d.date; })
+                    );
+                    y.domain([
+                        0,
+                        d3.max(data, (d) => { return +d.value; })
+                    ]);
+            
+              // color palette
+              var res = Array.from(sumstat.keys());
+              var color = d3.scaleOrdinal()
+                .domain(res)
+                .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
+            
+              // Draw the line
+              svg.selectAll(".line")
+                  .data(sumstat)
+                  .join("path")
+                    .attr("fill", "none")
+                    .attr("stroke", function(d){ return color(d[0]) })
+                    .attr("stroke-width", 1.5)
+                    .attr("d", function(d){
+                      return d3.line()
+                        .x(function(d) { return x(d.year); })
+                        .y(function(d) { return y(+d.n); })
+                        (d[1])
+                    })
+                return (svg.node());
+                
             }
             else if (graph_type == "stack") {
                 // console.log("this is a stack")
