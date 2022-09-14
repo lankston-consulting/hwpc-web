@@ -3,45 +3,10 @@
 
 //   //if any checkbox is checked then download files
 //   //if not then do nothing and return a message
-
-//   var chk1 = document.getElementById("annual_harvests_output_chk");
-//   var chk2 = document.getElementById("end_use_chk");
-//   var chk3 = document.getElementById("annual_net_change_carbon_stocks_chk");
-//   var chk4 = document.getElementById("burned_wo_energy_capture_emitted_chk");
-//   var chk5 = document.getElementById("burned_w_energy_capture_emitted_chk");
-//   var chk6 = document.getElementById("total_fuelwood_carbon_emitted_chk");
-//   var chk7 = document.getElementById("total_cumulative_carbon_stocks_co2e_chk");
-//   var chk8 = document.getElementById("total_dumps_carbon_co2e_chk");
-//   var chk9 = document.getElementById("total_landfills_carbon_emitted_chk");
-//   var chk10 = document.getElementById("total_dumps_carbon_emitted_chk");
-//   var chk11 = document.getElementById("total_composted_carbon_emitted_chk");
-//   var chk12 = document.getElementById("total_landfills_carbon_emitted_chk");
-
-//   var filesChecked = '';
-
-//   if (chk1.checked == true) {
-//     chkVal1 = chk1.value;
-//     console.log(chkVal1);
-//   } else if (chk1.checked == true) {
-//     chkVal2
-
-//   }
-  
-//   else {
-//     return document.getElementById("result").innerHTML = "Please select at least one file to download.";
-//   }
-
-
-//     if (document.getElementById('download_files').checked) {
-//         document.getElementById('download_files_form').submit();
-//   }
-  
-
-// }
-
-
-
-
+var canvas = document.createElement("canvas");
+canvas.width = 1000;
+canvas.height = 1000;
+var ctx = canvas.getContext("2d");
 
 d3.select("#download")
 .on('click', function(){
@@ -53,7 +18,32 @@ d3.select("#download")
     console.log(tempChk);
     if(tempChk.checked) {
       console.log(tempChk.value);
-      saveSvgAsPng(document.getElementById(tempChk.value+"1"), tempChk.value +".png", {backgroundColor: "#FFFFFF", width: 1300, height: 700});
+      // saveSvgAsPng(document.getElementById(tempChk.value+"1"), tempChk.value +".png", {backgroundColor: "#FFFFFF", width: 1300, height: 700});
+      var serializer = new XMLSerializer(),
+      svgString = serializer.serializeToString(document.getElementById(tempChk.value+ "1"));
+
+      var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+      var url = URL.createObjectURL(svg);
+      var img = new Image();
+      img.onload = function() {
+        // draw the svg to a canvas
+  
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(function (blob) { // <-- convert the canvas to a png (in a blob)
+
+          var zip = new JSZip();
+          // zip.file("abc.csv", CSV); 
+          zip.file(tempChk.value + ".png", blob); // <-- JSZip v3 accepts blob
+
+          content = zip.generateAsync({type:"blob"}).then(function (blob) {
+            saveAs(blob, "result.zip"); // <-- trigger the download
+          }, function (e) {
+            console.error(e)
+          });
+        }, "image/png");
+      };
+      img.src = url; 
     } else {
       // return document.getElementById("result").innerHTML = "Please select at least one file to download.";
       console.log("No files to download.");

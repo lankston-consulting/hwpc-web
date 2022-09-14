@@ -27,29 +27,30 @@ output.initialize = function(input_json) {
     final_json = JSON.parse(data_json)
     data_dict = []
 
-    data_dict["total_landfills_carbon_co2e"] = [final_json.total_landfills_carbon_co2e, "Total Landfills Carbon", "line"]
+    data_dict["total_landfills_carbon_co2e"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line"]
     data_dict["total_landfills_carbon_mgc"] = [final_json.total_landfills_carbon_mgc, "Total Landfills Carbon", "line"]
     data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line"]
+    data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar"]
     // data_dict["annual_harvests_output"] = final_json.annual_harvests_output
     // data_dict["annual_harvests_output"] = "Total Annual Harvest"
     // data_dict["annual_harvests_output"] = "line"
     data_dict["products_in_use_mgc"] = [final_json.products_in_use_mgc, "Total Products in Use", "line"]
-    data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Burned Carbon Emitted Without Energy Capture", "line"]
+    //data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Burned Carbon Emitted Without Energy Capture", "line"]
     data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line"]
-    data_dict["total_dumps_carbon_co2e"] = [final_json.total_dumps_carbon_co2e, "Total Carbon in Dumps", "line"]
+    data_dict["total_dumps_carbon_co2e"] = [final_json.total_dumps_carbon, "Total Carbon in Dumps", "line"]
     data_dict["total_dumps_carbon_emitted"] = [final_json.total_dumps_carbon_emitted, "Total Carbon in Dumps Emitted", "line"]
     data_dict["total_dumps_carbon_mgc"] = [final_json.total_dumps_carbon_mgc, "Total Carbon in Dumps", "line"]
-    data_dict["products_in_use_co2e"] = [final_json.products_in_use_co2e, "Total Products in Use", "line"]
+    data_dict["products_in_use_co2e"] = [final_json.products_in_use, "Total Products in Use", "line"]
     data_dict["swds_mgc"] = [final_json.swds_mgc, "Total SWDS", "line"]
-    data_dict["swds_co2e"] = [final_json.swds_co2e, "Total SWDS", "line"]
+    data_dict["swds_co2e"] = [final_json.swds, "Total SWDS", "line"]
     data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line"]
     data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line"]
     data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
     data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line"]
-    data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emitted, "Total Carbon Burned With Energy Capture", "line"]
+    data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line"]
     data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line"]
-    data_dict["total_cumulative_carbon_stocks_mgc"] = [final_json.total_cumulative_carbon_stocks_mgc, "Total Cumulative Carbon Stocks", "stack"]
-    data_dict["total_cumulative_carbon_stocks_co2e"] = [final_json.total_cumulative_carbon_stocks_co2e, "Total Cumulative Carbon Stocks", "stack"]
+    data_dict["total_cumulative_carbon_stocks_mgc"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
+    data_dict["total_cumulative_carbon_stocks_co2e"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
     
 }
 
@@ -86,7 +87,8 @@ $("#swds").click(function(e){
         inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
-    for(i=0;i<inactive_ids.length;i++){
+    for (i = 0; i < inactive_ids.length; i++){
+        // console.log(inactive_ids[i])
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
     }
 })
@@ -109,9 +111,9 @@ $("#reused").click(function (e) {
 })
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type){
-    console.log(json_data)
+    // console.log(json_data)
     var parseDate = d3.timeFormat("%Y");
-    if (graph_type == "line") {
+    // if (graph_type == "line") {
         if (is_active == "inactive") {
             $("." + graph_class).html("")
             const margin = { top: 30, right: 10, bottom: 30, left: 60 },
@@ -150,7 +152,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         
             svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
     
+            if (graph_type == "line") {
 
+<<<<<<< Updated upstream
             const data = d3.csvParse(json_data,
                 function (d) {
                     // d3.selectAll("path.area").remove();
@@ -158,52 +162,182 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     // d3.selectAll(".title").remove();
                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                 })
-
-            x.domain(
-                d3.extent(data, (d) => { return d.date; })
-            );
-            y.domain([
-                0,
-                d3.max(data, (d) => { return +d.value; })
-            ]);
-
-            svg
-                .select(".x.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisBottom(x));
-            svg
-                .select(".y.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisLeft(y));
+=======
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        // d3.selectAll("path.area").remove();
+                        // d3.selectAll("path.line").remove();
+                        // d3.selectAll(".title").remove();
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    })
+                
+                    minDateYear = data[0].date.getFullYear();
+                    maxDateYear = data[data.length - 1].date.getFullYear();
         
-            const linePath = svg
-                .append("path")
-                .datum(data)
-                .attr("class", "line")
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", valueline)
-            const pathLength = linePath.node().getTotalLength();
-            linePath
-                .attr("stroke-dasharray", pathLength)
-                .attr("stroke-dashoffset", pathLength)
-                .attr("stroke-width", 0)
-                .transition()
-                .duration(1000)
-                .attr("stroke-dashoffset", 0)
-                .attr("stroke-width", 2);
-
-            svg
-                .append("text")
-                .attr("class", "graph-title")
-                .attr("x", width / 2)
-                .attr("y", 0 - margin.top / 2)
-                .attr("text-anchor", "middle")
-                .text(title);
+                    x.domain(
+                        d3.extent(data, (d) => { return d.date; })
+                    );
+                    y.domain([
+                        0,
+                        d3.max(data, (d) => { return +d.value; })
+                    ]);
+                
+                        
+                    const linePath = svg
+                    .append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 2);
+                
+                    svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisBottom(x));
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(y));
+    
+                svg
+                    .append("text")
+                    .attr("class", "graph-title")
+                    .attr("x", width / 2)
+                    .attr("y", 0 - margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .text(title);
+            
         
+                
+            } else if (graph_type == "stack") {
+                const grp = svg
+                .append("g")
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]]}
+                    })
+                
+                const palette = ['lightgreen', 'lightblue'];
+                const stack = d3.stack().keys(['value1', 'value2']);
+                const stackedValues = stack(data);
+                // console.log(stackedValues)
+                const stackedData = [];
+>>>>>>> Stashed changes
+
+                stackedValues.forEach((layer, index) => {
+                    // console.log(layer)
+                    // console.log(index)
+                    const currentStack = [];
+                    layer.forEach((d, i) => {
+                        // console.log(d)
+                        // console.log(data[i])
+                        // console.log(i)
+                        currentStack.push({
+                            year: data[i].date,
+                            values: d
+                            
+                        });
+                    });
+                    stackedData.push(currentStack);
+                });
+                // console.log(stackedData)
+
+                //create scales
+                const xScale = d3
+                .scaleLinear()
+                .range([0, width])
+                .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
+            
+                const yScale = d3
+                    .scaleLinear()
+                    .range([height, 0])
+                    .domain([0, d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]);
+            
+                const area = d3.area()
+                .x(dataPoint => xScale(parseDate(dataPoint.year)))
+                .y0(dataPoint => yScale(dataPoint.values[0]))
+                .y1(dataPoint => yScale(dataPoint.values[1]));
+                
+        
+                var series = grp
+                    .selectAll(".series")
+                    .data(stackedData)
+                    .enter()
+                    .append("g")
+                    .attr("class", "series");
+        
+                var path = series.append("path")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 1.5)
+                    .style("fill", "white")
+                    .attr("d", d => area(d));
+                
+                
+                path.each(function (d) { d.totalLength = this.getTotalLength(); })
+            
+                path
+                    .attr("stroke-dasharray", function (d) { return d.totalLength + " " + d.totalLength; })
+                    .attr("stroke-dashoffset", function (d) { return d.totalLength; })
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .style("fill", "white")
+                    .transition()
+                    .duration(1000)
+                    .style("fill", (d, i) => palette[i]);;
+                    
+                    
+                    //X axis
+                    svg
+                        .select(".x.axis")
+                        .transition()
+                        .duration(750)
+                        // call the x axis as years
+                        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+                    
+                    //Y axis
+                    svg
+                        .select(".y.axis")
+                        .transition()
+                        .duration(750)
+                        .call(d3.axisLeft(yScale));
+                    
+        
+                    //title
+                    svg
+                        .append("text")
+                        .attr("class", "graph-title")
+                        .attr("x", width / 2)
+                        .attr("y", 0 - margin.top / 2)
+                        .attr("text-anchor", "middle")
+                        .text(title);
+                
+
+            } else {
+                console.log("graph type is bar")
+                
+            }
+            // console.log("min",data[0].date)
+            // console.log("max",data[data.length-1].date)
+          
+     
+       
             // // Now I can use this dataset:
             // // Add X axis --> it is a date format
             // const x = d3.scaleTime()
@@ -313,6 +447,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                  .style("text-anchor", "middle")
                  .text("Years");
  
+<<<<<<< Updated upstream
              const data = d3.csvParse(json_data,
                  function (d) {
                     //  d3.selectAll("path.area").remove();
@@ -329,6 +464,89 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                  d3.max(data, (d) => { return +d.value; })
              ]);
  
+=======
+                 if (graph_type == "line") {
+
+                    const data = d3.csvParse(json_data,
+                        function (d) {
+                            // d3.selectAll("path.area").remove();
+                            // d3.selectAll("path.line").remove();
+                            // d3.selectAll(".title").remove();
+                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                        })
+                     
+                        minDateYear = data[0].date.getFullYear();
+                        maxDateYear = data[data.length - 1].date.getFullYear();
+                     
+                        x.domain(
+                            d3.extent(data, (d) => { return d.date; })
+                        );
+                        y.domain([
+                            0,
+                            d3.max(data, (d) => { return +d.value; })
+                        ]);
+                     
+                                  // Add the line
+                        const linePath = svg
+                        .append("path")
+                        .datum(data)
+                        .attr("class", "line")
+                        .attr("fill", "none")
+                        .attr("stroke", "steelblue")
+                        .attr("stroke-width", 1.5)
+                        .attr("d", valueline)
+                    const pathLength = linePath.node().getTotalLength();
+                    linePath
+                        .attr("stroke-dasharray", pathLength)
+                        .attr("stroke-dashoffset", pathLength)
+                        .attr("stroke-width", 0)
+                        .transition()
+                        .duration(1000)
+                        .attr("stroke-dashoffset", 0)
+                        .attr("stroke-width", 3);
+                        
+                
+                    // console.log(data)
+                } else if (graph_type == "stack") {
+                    console.log("this is a stack")
+                    const data = d3.csvParse(json_data,
+                        function (d) {
+                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]]}
+                        })
+                     
+                        
+        
+                        var area = d3.area()
+                            .x(function(d) { return x(d.date); })
+                            .y0(function(d) { return y(d.value1); })
+                            .y1(function(d) { return y(d.value2); })
+                        // const valueline = d3
+                        // .group(data,d => d.date, d => d.value1,d => d.value2)
+                    
+                        var keys = data.columns.slice(1)
+                    // console.log(keys)
+                    
+        
+                        // // color palette
+                        // var color = d3.scaleOrdinal()
+                        //   .domain(keys)
+                        //   .range(d3.schemeSet2);
+                      
+                        // //stack the data?
+                        // var stackedData = d3.stack()
+                        //   .keys(keys)
+                        // (data)
+                    
+                    
+    
+                } else {
+                    console.log("graph type is bar")
+                }
+                 
+              
+            
+          
+>>>>>>> Stashed changes
              svg
                  .select(".x.axis")
                  .transition()
@@ -340,24 +558,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                  .duration(750)
                  .call(d3.axisLeft(y));
  
-             // Add the line
-             const linePath = svg
-                 .append("path")
-                 .datum(data)
-                 .attr("class", "line")
-                 .attr("fill", "none")
-                 .attr("stroke", "steelblue")
-                 .attr("stroke-width", 1.5)
-                 .attr("d", valueline)
-             const pathLength = linePath.node().getTotalLength();
-             linePath
-                 .attr("stroke-dasharray", pathLength)
-                 .attr("stroke-dashoffset", pathLength)
-                 .attr("stroke-width", 0)
-                 .transition()
-                 .duration(1000)
-                 .attr("stroke-dashoffset", 0)
-                 .attr("stroke-width", 3);
+
              //title
              svg
                  .append("text")
@@ -408,6 +609,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             
             svg
                 .append("g")
+                .text("hello")
+            
+            svg
+                .append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
@@ -435,6 +640,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .style("text-anchor", "middle")
                 .text("Years");
 
+<<<<<<< Updated upstream
             const data = d3.csvParse(json_data,
                 function (d) {
                     // d3.selectAll("path.area").remove();
@@ -464,340 +670,511 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     "max": maxDateYear,
                     "value": maxDateYear
                 })
+=======
+            if (graph_type == "line") {
+>>>>>>> Stashed changes
 
-            // .curve(d3.curveCardinal);
-            
-            //     console.log(Object.keys(d)[0])
-                       
-            // console.log(data)
-            // console.log("min",data[0].date)
-            // console.log("max",data[data.length-1].date)
-                
-            // Now I can use this dataset:
-            // Add X axis --> it is a date format
-        
-            // const x = d3.scaleTime()
-            //     .domain(d3.extent(data, function(d) { return d.date; }))
-            //     .range([ 0, width ]);
-            // svg.append("g")
-            //     .attr("transform", `translate(0, ${height})`)
-            //     .call(d3.axisBottom(x));
-        
-            // // Add Y axis
-            // const y = d3.scaleLinear()
-            //     .domain([0, d3.max(data, function(d) { return +d.value; })])
-            //     .range([ height, 0 ]);
-            // svg.append("g")
-            // .call(d3.axisLeft(y));
-                
-            x.domain(
-                d3.extent(data, (d) => { return d.date; })
-            );
-            y.domain([
-                0,
-                d3.max(data, (d) => { return +d.value; })
-            ]);
-
-            svg
-                .select(".x.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisBottom(x));
-            svg
-                .select(".y.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisLeft(y));
-            
-            // const areaPath = svg
-            //     .append("path")
-            //     .datum(data)
-            //     .attr("class", "area")
-            //     .attr("d", area)
-            //     .attr("transform", "translate(0,300)")
-            //     .transition()
-            //     .duration(1000)
-            //     .attr("transform", "translate(0,0)");
-            
-            // Add the line
-            const linePath = svg
-                .append("path")
-                .datum(data)
-                .attr("class", "line")
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", valueline)
-            const pathLength = linePath.node().getTotalLength();
-            linePath
-                .attr("stroke-dasharray", pathLength)
-                .attr("stroke-dashoffset", pathLength)
-                .attr("stroke-width", 0)
-                .transition()
-                .duration(1000)
-                .attr("stroke-dashoffset", 0)
-                .attr("stroke-width", 3);
-            //title
-            svg
-                .append("text")
-                .attr("class", "graph-title")
-                .attr("x", width / 2)
-                .attr("y", 0 - margin.top / 2)
-                .attr("text-anchor", "middle")
-                .text(title);
-            
-        
-            // svg.append("text")
-            //     .attr("class", "x label")
-            //     .attr("text-anchor", "center")
-            //     .attr("x", width/2)
-            //     .attr("y", height +20)
-            //     .text("Years");
-            
-            // svg.append("text")
-            //     .attr("class", "y label")
-            //     .attr("text-anchor", "center")
-            //     .attr("y", 6)
-            //     .attr("dy", ".75em")
-            //     .attr("transform", "rotate(-90)")
-            // .text("Co2e");
-            // const legend = chart.append("g");
-            // legend.append("text")
-            //     .text("Legend")
-            //     .attr("x", margin.left / 2)
-            //     .attr("y", margin.top)
-            //     .attr("class", "legendTitle");
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        // d3.selectAll("path.area").remove();
+                        // d3.selectAll("path.line").remove();
+                        // d3.selectAll(".title").remove();
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    })
                     
-            const focus = svg
-                .append("g")
-                .attr("class", "focus")
-                .style("display", "none");
-            
-            // append background rectangle
-
-            // focus
-            //     .append("rect")
-            //     .attr("x", 5)
-            //     .attr("y", -15)
-            //     .attr("width", 100)
-            //     .attr("height", 30)
-            //     .attr("fill", "#e6e6e6");
-
-            // append the x line
-            focus
-                .append("line")
-                .attr("class", "x")
-                .style("stroke-dasharray", "3,3")
-                .style("opacity", 0.5)
-                .attr("y1", 0)
-                .attr("y2", height);
-
-            // append the y line
-            focus
-                .append("line")
-                .attr("class", "y")
-                .style("stroke-dasharray", "3,3")
-                .style("opacity", 0.5)
-                .attr("x1", width)
-                .attr("x2", width);
-
-            // append the circle at the intersection
-            focus
-                .append("circle")
-                .attr("class", "y")
-                .style("fill", "none")
-                .attr("r", 4); // radius
-            
-
-            // place the value at the intersection
-            focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
+                minDateYear = data[0].date.getFullYear();
+                maxDateYear = data[data.length - 1].date.getFullYear();
+                                        
+                x.domain(
+                    d3.extent(data, (d) => { return d.date; })
+                );
+                y.domain([
+                    0,
+                    d3.max(data, (d) => { return +d.value; })
+                ]);
+                const linePath = svg
+                    .append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 3);
+                    
+                svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisBottom(x));
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(y));
+                    
         
-
-            // place the date at the intersection
-            focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
-
-
+                //title
+                svg
+                    .append("text")
+                    .attr("class", "graph-title")
+                    .attr("x", width / 2)
+                    .attr("y", 0 - margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .text(title);
+                    
+                function mouseMove(event) {
+                    // console.log(event, "hello");
+            
+                    const bisect = d3.bisector((d) => d.date).left,
+                        x0 = x.invert(d3.pointer(event, this)[0]),
+                        i = bisect(data, x0, 1),
+                        d0 = data[i - 1],
+                        d1 = data[i],
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                    // console.log(i, d0, d1, d) 
+                    // focus
+                    //    .select("rect")
+                    //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+                            
+            
+                    focus
+                        .select("circle.y")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+            
+                    focus
+                        .select("text.y1")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(d3.format(",.2~f")(d.value));
+            
+                    focus
+                        .select("text.y2")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(parseDate(d.date));
+            
+                    focus
+                        .select(".x")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .attr("y2", height - y(d.value));
+            
+                    focus
+                        .select(".y")
+                        .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
+                        .attr("x2", width + width);
+                    
+                }
+                const focus = svg
+                    .append("g")
+                    .attr("class", "focus")
+                    .style("display", "none");
+                            
+                     
+                
+                // append the x line
+                focus
+                    .append("line")
+                    .attr("class", "x")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("y1", 0)
+                    .attr("y2", height);
+                
+                // append the y line
+                focus
+                    .append("line")
+                    .attr("class", "y")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("x1", width)
+                    .attr("x2", width);
+                
+                // append the circle at the intersection
+                focus
+                    .append("circle")
+                    .attr("class", "y")
+                    .style("fill", "none")
+                    .attr("r", 4); // radius
+                            
+                
+                // place the value at the intersection
+                focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
                         
-            function mouseMove(event) {
-                // console.log(event, "hello");
-
-                const bisect = d3.bisector((d) => d.date).left,
-                    x0 = x.invert(d3.pointer(event, this)[0]),
-                    i = bisect(data, x0, 1),
-                    d0 = data[i - 1],
-                    d1 = data[i],
-                    d = x0 - d0.date > d1.date - x0 ? d1 : d0;
                 
-                // focus
-                //    .select("rect")
-                //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-                
-
-                focus
-                    .select("circle.y")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-
-                focus
-                    .select("text.y1")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(d3.format(",.2~f")(d.value));
-
-                focus
-                    .select("text.y2")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .text(parseDate(d.date));
-
-                focus
-                    .select(".x")
-                    .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                    .attr("y2", height - y(d.value));
-
-                focus
-                    .select(".y")
-                    .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
-                    .attr("x2", width + width);
+                // place the date at the intersection
+                focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
                 
                 
+                     
+                            
+                svg
+                    .append("rect")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", () => {
+                        focus.style("display", null);
+                    })
+                    .on("mouseout", () => {
+                        focus.style("display", "none");
+                    })
+                    .on("touchmove mousemove", mouseMove);
+                            
+                            
+                    
             }
-            svg
-                .append("rect")
-                .attr("width", width)
-                .attr("height", height)
-                .style("fill", "none")
-                .style("pointer-events", "all")
-                .on("mouseover", () => {
-                    focus.style("display", null);
-                })
-                .on("mouseout", () => {
-                    focus.style("display", "none");
-                })
-                .on("touchmove mousemove", mouseMove);
+            else if (graph_type == "stack") {
+                // console.log("this is a stack")
+                const grp = svg
+                    .append("g")
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                            
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                    })
+                
+                
+                var keys = ["Products in Use", "SWDS Present"];
+                const palette = ['lightgreen', 'lightblue'];
+                const patterns = ['diagonal-stripe-1', 'circles-8'];
+                const stack = d3.stack().keys(['value1', 'value2']);
+                const stackedValues = stack(data);
+                // console.log(stackedValues)
+                const stackedData = [];
+
     
-        } else {
+                stackedValues.forEach((layer, index) => {
+                    // console.log(layer)
+                    // console.log(index)
+                    const currentStack = [];
+                    layer.forEach((d, i) => {
+                        // console.log(d)
+                        // console.log(data[i])
+                        // console.log(i)
+                        currentStack.push({
+                            year: data[i].date,
+                            values: d
+                                
+                        });
+                    });
+                    stackedData.push(currentStack);
+                });
+                // console.log(stackedData)
+    
+                //create scales
+                const xScale = d3
+                    .scaleLinear()
+                    .range([0, width])
+                    .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
+                    
+                // console.log(xScale)
+                
+                const yScale = d3
+                    .scaleLinear()
+                    .range([height, 0])
+                    .domain([0, d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]);
+                
+                const area = d3.area()
+                    .x(dataPoint => xScale(parseDate(dataPoint.year)))
+                    .y0(dataPoint => yScale(dataPoint.values[0]))
+                    .y1(dataPoint => yScale(dataPoint.values[1]));
+                    
+            
+                var series = grp
+                    .selectAll(".series")
+                    .data(stackedData)
+                    .enter()
+                    .append("g")
+                    .attr("class", "series");
+            
+                var path = series.append("path")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-linejoin", "round")
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-width", 3)
+                    .style("fill", "white")
+                    .attr("d", d => area(d));
+                    
+                    
+                path.each(function (d) { d.totalLength = this.getTotalLength(); })
+                
+                path
+                    .attr("stroke-dasharray", function (d) { return d.totalLength + " " + d.totalLength; })
+                    .attr("stroke-dashoffset", function (d) { return d.totalLength; })
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .style("fill", "white")
+                    .transition()
+                    .duration(1000)
+                    // .style("fill", "url(#hash4_4)");
+                    .style("fill", (d, i) => palette[i]);
+                    
+                         
+                //legend
+
+                var size = 20
+                svg.selectAll("legendrect")
+                    .data(stackedData)
+                    .enter()
+                    .append("rect")
+                    .attr("x", 20)
+                    .attr("y", function (d, i) { return 20 + i * (size + 5) }) 
+                    .attr("width", size)
+                    .attr("height", size)
+                    .style("fill", (d, i) => palette[i])
+                    // .on("mouseover", highlight)
+                    // .on("mouseleave", noHighlight)
+                
+                console.log(stackedData)
+                // Add one dot in the legend for each name.
+                    svg.selectAll("legendlabels")
+                    .data(keys)
+                    .enter()
+                        .append("text")
+                        .attr("font-size", "16px")
+                    .attr("x", 20 + size*1.2)
+                    .attr("y", function(d,i){ return 25 + i*(size+5) + (size/2)}) 
+                    .style("fill", "black")
+                    .text(function(d){ return d})
+                    .attr("text-anchor", "left")
+                    .style("alignment-baseline", "bottom")
+                    // .on("mouseover", highlight)
+                    // .on("mouseleave", noHighlight)
+
+                // var legend = svg.append('g')
+                //     .attr('class', 'legend')
+                //     .attr('transform', 'translate(' + (margin.left + 12) + ', 0)');
+                    
+                // legend.selectAll('rect')
+                //     .data(stack)
+                //     .enter()
+                //     .append('rect')
+                //     .attr('x', 0)
+                //     .attr('y', 18)
+                //     // .attr('y', function(d, i){
+                //     //     return i * 18;
+                //     // })
+                //     .attr('width', 12)
+                //     .attr('height', 12)
+                //     .style("fill", (d, i) => palette[i]);
+                    
+                     
+                // // .attr("fill", "pink");
+                    
+                // legend.selectAll('text')
+                //     .data(stack)
+                //     .enter()
+                //     .append('text')
+                //     .text(function (d) {
+                //         return d;
+                //     })
+                //     .attr('x', 18)
+                //     .attr('y', function (d, i) {
+                //         return i * 18;
+                //     })
+                //     .attr('text-anchor', 'start')
+                //     .attr('alignment-baseline', 'hanging');
+                    
+                // path
+                //fill with pattern
+                        
+                        
+                //X axis
+                svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    // call the x axis as years
+                    .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+                    
+                //Y axis
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(yScale));
+                    
+        
+                //title
+                svg
+                    .append("text")
+                    .attr("class", "graph-title")
+                    .attr("x", width / 2)
+                    .attr("y", 0 - margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .text(title);
+               
+   
+                //focus
+                    
+                    
+       
+                    
+                const focus = svg
+                    .append("g")
+                    .attr("class", "focus")
+                    .style("display", "none");
+                    
+                focus
+                    .append("circle")
+                    .attr("class", "y")
+                    .style("fill", "none")
+                    .attr("r", 4); // radius
+
+                // focus.append("circle")
+                //     .attr("r", 5);
+
+                // focus.append("text")
+                //     .attr("x", 9)
+                //     .attr("dy", ".35em")
+                //     .style("font-size",15);
+                
+                // var focus2 = svg.append("g")
+                //     .attr("class", "focus")
+                //     .style("display", "none");
+
+                // focus2.append("circle")
+                //     .attr("r",5);
+
+                // focus2.append("text")
+                //     .attr("x", 9)
+                //     .attr("dy", ".35em")
+                //     .style("font-size",15);
+                
+                // var focus3 = svg.append("g")
+                //     .attr("class", "focus")
+                //     .style("display", "none");
+
+                // focus3.append("circle")
+                //     .attr("r", 5);
+
+                // focus3.append("text")
+                //     .attr("x", 9)
+                //     .attr("dy", ".35em")
+                //     .style("font-size",15);
+
+                // var focus4 = svg.append("g")
+                //     .attr("class", "focus")
+                //     .style("display", "none");
+
+                // focus4.append("circle")
+                //     .attr("r", 5);
+
+                // focus4.append("text")
+                //     .attr("x", 9)
+                //     .attr("dy", ".5em")
+                //     .style("font-size",15);
+
+                svg.append("rect")
+                    .attr("class", "overlay")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", function () {
+                        focus.style("display", null);
+                        // focus2.style("display", null);
+                        // focus3.style("display", null);
+                        // focus4.style("display", null);
+                    })
+                    .on("mouseout", function () {
+                        focus.style("display", "none");
+                        // focus2.style("display", "none");
+                        // focus3.style("display", "none");
+                        // focus4.style("display", "none");
+                    })
+                    .on("touchmove mousemove", mouseMove);
+
+    
+
+                function mouseMove(event) {
+            	
+                    const bisect = d3.bisector((d) => d.date).left,
+                        x0 = x.invert(d3.pointer(event, this)[0]),
+                        i = bisect(data, x0, 1),
+                        d0 = data[i - 1],
+                        d1 = data[i],
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                    // console.log(x0)
+                    console.log(i, d0, d1, d)
+                    console.log(d.value2)
+
+                    focus
+                        .select("circle.y")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value2) + ")");
+            
+                    focus
+                        .select("text.y1")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
+                        .text(d3.format(",.2~f")(d.value1));
+            
+                    focus
+                        .select("text.y2")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
+                        .text(parseDate(d.date));
+            
+                    focus
+                        .select(".x")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
+                        .attr("y2", height - y(d.value1));
+            
+                    focus
+                        .select(".y")
+                        .attr("transform", "translate(" + width * -1 + "," + y(d.value1) + ")")
+                        .attr("x2", width + width);
+
+                    //   var depl=parseFloat(d['Safari'])+parseFloat(d['Opera'])+parseFloat(d['Firefox']);
+                    //   var depl2=parseFloat(d['Safari'])+parseFloat(d['Opera']);
+                    //   var depl3=parseFloat(d['Safari'])+parseFloat(d['Opera'])+parseFloat(d['Firefox'])+parseFloat(d['Chrome']);
+                    //   var depl4=parseFloat(d['Opera']);
+                    //   focus.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl/100+ ")"); 
+                    //   focus2.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl2/100+ ")");   
+                    //   focus3.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl3/100+ ")");   
+                    //   focus4.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl4/100+ ")");   
+                    //   focus.select("text").text(d3.round(100-depl, 1)+"%");
+                    //   focus2.select("text").text(d3.round(100-depl2, 1)+"%");
+                    //   focus3.select("text").text(d3.round(100-depl3, 1)+"%");
+                    //   focus4.select("text").text(d3.round(100-depl4, 1)+"%");
+                }
+                // svg
+                // .append("rect")
+                // .attr("width", width)
+                // .attr("height", height)
+                // .style("fill", "none")
+                // .style("pointer-events", "all")
+                // .on("mouseover", function() {
+                //     focus.style("display", "none");
+                // })
+                // .on("mouseout", function() {
+                //     focus.style("display", "none");
+                // })
+                // .on("touchmove mousemove", mouseMove);
+       
+ 
+                    
+    
+            }
+            else {
+                console.log("graph type is bar")
+
+
+            }
+            
+            
+           
+    
+            } else {
             console.log("I broke");
         }
-
-    } else if (graph_type == "stack") {
-        const margin = {top: 30, right: 60, bottom: 30, left: 60},
-        width = w - margin.left - margin.right,
-        height = h - margin.top - margin.bottom;
-        
-        console.log("stacked Graph")
-
-        const x = d3.scaleTime().range([0, width]);
-        const y = d3.scaleLinear().range([height, 0]);       
-       
-            const svg = d3
-                .select("div." + graph_class)
-                .append("div")
-                .classed("svg-graph-container-sm", true) // Container class to make graphs responsive.
-                .append("svg")
-                .attr("class", graph_class)
-                .attr("preserveAspectRatio", "xMinYMid meet")
-                .attr(
-                    "viewBox",
-                    `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-                .classed("svg-content-responsive", true)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
-            svg
-                .append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
-        
-            svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
-    
-
-            const data = d3.csvParse(json_data,
-                function (d) {
-                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]]}
-                })
-
-                var area = d3.area()
-                    .x(function(d) { return x(d.date); })
-                    .y0(function(d) { return y(d.value1); })
-                    .y1(function(d) { return y(d.value2); })
-                // const valueline = d3
-                // .group(data,d => d.date, d => d.value1,d => d.value2)
-            
-                var keys = data.columns.slice(1)
-                console.log(keys)
-
-                // color palette
-                var color = d3.scaleOrdinal()
-                  .domain(keys)
-                  .range(d3.schemeSet2);
-              
-                //stack the data?
-                var stackedData = d3.stack()
-                  .keys(keys)
-                  (data)
-
-            minDateYear = data[0].date.getFullYear();
-            maxDateYear = data[data.length - 1].date.getFullYear();
-
-            x.domain(
-                d3.extent(data, (d) => { return d.date; })
-            );
-            y.domain([
-                0,
-                d3.max(data, (d) => { return +d.value; })
-            ]);
-
-            svg
-                .select(".x.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisBottom(x));
-            svg
-                .select(".y.axis")
-                .transition()
-                .duration(750)
-                .call(d3.axisLeft(y));
-
-            areaChart
-                .selectAll("mylayers")
-                .data(stackedData)
-                .enter()
-                .append("path")
-                .attr("class", function(d) { return "myArea " + d.key })
-                .style("fill", function(d) { return color(d.key); })
-                .attr("d", area)
-        
-            // const linePath = svg
-            //     .append("path")
-            //     .datum(data)
-            //     .attr("class", "line")
-            //     .attr("fill", "none")
-            //     .attr("stroke", "steelblue")
-            //     .attr("stroke-width", 1.5)
-            //     .attr("d", valueline)
-            // const pathLength = linePath.node().getTotalLength();
-            // linePath
-            //     .attr("stroke-dasharray", pathLength)
-            //     .attr("stroke-dashoffset", pathLength)
-            //     .attr("stroke-width", 0)
-            //     .transition()
-            //     .duration(1000)
-            //     .attr("stroke-dashoffset", 0)
-            //     .attr("stroke-width", 2);
-
-            svg
-                .append("text")
-                .attr("class", "graph-title")
-                .attr("x", width / 2)
-                .attr("y", 0 - margin.top / 2)
-                .attr("text-anchor", "middle")
-                .text(title);
-        
-        
-
-    } else {
-        console.log("bar graph")
-
-    }
         
     }
 
@@ -865,7 +1242,7 @@ d3.select("#dl-closed").on('click', function () {
 
     generate_graph(data_dict["annual_harvests_output"][0], "annual_harvests_output1", "hidden", data_dict["annual_harvests_output"][1], 1300, 700, data_dict["annual_harvests_output"][2]);
     generate_graph(data_dict["end_use"][0], "end_use1", "hidden", data_dict["end_use"][1], 1300, 700, data_dict["end_use"][2]);
-  //  generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
+     generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
     generate_graph(data_dict["burned_wo_energy_capture_emitted"][0], "burned_wo_energy_capture_emitted1", "hidden", data_dict["burned_wo_energy_capture_emitted"][1], 1300, 700, data_dict["burned_wo_energy_capture_emitted"][2]);
     generate_graph(data_dict["burned_w_energy_capture_emitted"][0], "burned_w_energy_capture_emitted1", "hidden", data_dict["burned_w_energy_capture_emitted"][1], 1300, 700, data_dict["burned_w_energy_capture_emitted"][2]);
     generate_graph(data_dict["total_fuelwood_carbon_emitted"][0], "total_fuelwood_carbon_emitted1", "hidden", data_dict["total_fuelwood_carbon_emitted"][1], 1300, 700, data_dict["total_fuelwood_carbon_emitted"][2]);
