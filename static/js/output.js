@@ -154,15 +154,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
             if (graph_type == "line") {
 
-<<<<<<< Updated upstream
-            const data = d3.csvParse(json_data,
-                function (d) {
-                    // d3.selectAll("path.area").remove();
-                    // d3.selectAll("path.line").remove();
-                    // d3.selectAll(".title").remove();
-                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                })
-=======
                 const data = d3.csvParse(json_data,
                     function (d) {
                         // d3.selectAll("path.area").remove();
@@ -236,7 +227,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 const stackedValues = stack(data);
                 // console.log(stackedValues)
                 const stackedData = [];
->>>>>>> Stashed changes
 
                 stackedValues.forEach((layer, index) => {
                     // console.log(layer)
@@ -447,24 +437,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                  .style("text-anchor", "middle")
                  .text("Years");
  
-<<<<<<< Updated upstream
-             const data = d3.csvParse(json_data,
-                 function (d) {
-                    //  d3.selectAll("path.area").remove();
-                    //  d3.selectAll("path.line").remove();
-                    //  d3.selectAll(".graph-title").remove();
-                     return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                 })
-                
-             x.domain(
-                 d3.extent(data, (d) => { return d.date; })
-             );
-             y.domain([
-                 0,
-                 d3.max(data, (d) => { return +d.value; })
-             ]);
- 
-=======
                  if (graph_type == "line") {
 
                     const data = d3.csvParse(json_data,
@@ -546,7 +518,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
               
             
           
->>>>>>> Stashed changes
              svg
                  .select(".x.axis")
                  .transition()
@@ -640,39 +611,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .style("text-anchor", "middle")
                 .text("Years");
 
-<<<<<<< Updated upstream
-            const data = d3.csvParse(json_data,
-                function (d) {
-                    // d3.selectAll("path.area").remove();
-                    // d3.selectAll("path.line").remove();
-                    // d3.selectAll(".graph-title").remove();
-                    return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                })
-                
-                console.log(data)
-                minDateYear = data[0].date.getFullYear();
-                maxDateYear = data[data.length - 1].date.getFullYear();
-    
-                $("#singleYear").attr({
-                    "min": minDateYear,
-                    "max": maxDateYear,
-                    "value": minDateYear
-                })
-            
-                $("#startYear").attr({
-                    "min": minDateYear,
-                    "max": maxDateYear,
-                    "value": minDateYear
-                })
-            
-                $("#endYear").attr({
-                    "min": minDateYear,
-                    "max": maxDateYear,
-                    "value": maxDateYear
-                })
-=======
             if (graph_type == "line") {
->>>>>>> Stashed changes
 
                 const data = d3.csvParse(json_data,
                     function (d) {

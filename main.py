@@ -150,7 +150,7 @@ def output():
     products_in_use_co2e=""
     p = request.args.get("p")
     print(p)
-    user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/results/test.zip")
+    user_zip = S3Helper.download_file("hpwc-output","hwpc-user-outputs/"+p+"/test.zip")
     #user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/harvest_data.csv")
 
     with open('/tmp/zip_folder.zip', 'wb') as f:
