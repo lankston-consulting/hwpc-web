@@ -1254,7 +1254,10 @@ input[type="radio"]:after{
 .output-page aside {
   background-color: white;
   width: 20%;
-  height: 90vh;
+  min-height: fit-content;
+  /* height: fit-content; */
+  flex-grow: 1;
+  
   margin-bottom: 2em;
   border-radius: 10px;
   padding: 25px;
@@ -1263,10 +1266,41 @@ input[type="radio"]:after{
 .output-page section {
   background-color: white;
   width: 80%;
+  max-width: 1300px;
   height: 90vh;
   margin-bottom: 2em;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 1920px) {
+  .output-page section {
+    /* width: 60%; */
+    height: fit-content;
+    padding-bottom: 2em;
+    /* max-width: 850px; */
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .output-page {
+    flex-direction: column;
+  }
+
+  .output-page aside {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 2em;
+  }
+
+  .output-page section {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 2em;
+  }
+}
+  
+
 
 /* Style the tab */
 .tab {

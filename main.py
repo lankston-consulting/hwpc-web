@@ -167,6 +167,9 @@ def output():
                 test = test.drop(columns="DiscardDestinationID")
             except:
                 print("no column")
+            test.dropna(inplace = True)
+            print(test)
+            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
             data_dict[file[:-4]] = test.to_csv(index=False)
     print(data_dict.keys())
     data_json=json.dumps(data_dict)

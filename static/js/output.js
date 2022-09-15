@@ -558,13 +558,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .append("g")
                 .text("hello")
             
-            svg
-                .append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
-        
-            svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+    
 
             //y axis title
             svg
@@ -588,6 +582,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .text("Years");
 
             if (graph_type == "line") {
+
 
                 const data = d3.csvParse(json_data,
                     function (d) {
@@ -635,8 +630,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .transition()
                     .duration(750)
                     .call(d3.axisLeft(y));
-                    
-        
+                
+                
+                    svg
+                    .append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+            
+                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+
                 //title
                 svg
                     .append("text")
@@ -812,6 +815,17 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .transition()
                     .duration(750)
                     .call(d3.axisLeft(y));
+                
+                           
+                svg
+                    .append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+            
+                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+
+
                     //title
                 svg
                 .append("text")
@@ -937,6 +951,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 // console.log("this is a stack")
                 const grp = svg
                     .append("g")
+                
+                           
+                svg
+                    .append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+            
+                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+
                 const data = d3.csvParse(json_data,
                     function (d) {
                             
@@ -1275,13 +1299,124 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
             }
             else {
-                console.log("graph type is bar")
+                console.log(json_data)
+                console.log("graph type is active bar")
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                    })
+                
+                arranged = [];
+                    const subgroups = data.columns.slice(1)
+                    // console.log(subgroups)
+                   
+                const groups = data.map(d => (parseDate(d.date)))
+                    // color palette = one color per subgroup
+                    const color = d3.scaleOrdinal()
+                        .domain(subgroups)
+                    .range(['#e41a1c', '#377eb8', '#4daf4a'])
+                
+                    data.forEach(function (d) {
+                        var newD = {x: groups};
+                        var y0neg = 0;
+                        var y0pos = 0;
+                        newD.values = color.domain().map(function (m) {
+                            if (d[m] > 0)
+                                return { name: m, y0: y0pos, y1: y0pos += +d[m] };
+                            else {
+                                var y1 = y0neg;
+                                return { name: m, y0: y0neg += d[m], y1: y1 };
+                            } 
+                        });
+                        newD.totalPositive = d3.max(newD.values, function (v) { return v.y1});
+                        newD.totalNegative = d3.min(newD.values, function (v) { return v.y0 });
+                        arranged.push(newD);
+                     });
+                 
+        
+                
+               
+                    // Add X axis
+                    const x = d3.scaleBand()
+                        .domain(groups)
+                        .rangeRound([0, width])
+                        .padding([0.2])
+                    svg.append("g")
+                    .attr("transform", `translate(0, ${height})`)
+                    .call(d3.axisBottom(x));
+                
 
+                    // Add Y axis
+                    const y = d3.scaleLinear()
+                        .domain([0, 60])
+                        .rangeRound([height, 0])
+                    svg.append("g")
+                        .call(d3.axisLeft(y));
+
+                
+
+                    //stack the data? --> stack per subgroup
+                    const stackedData = d3.stack()
+                        .keys(subgroups)
+                        (data)
+
+                    // Show the bars
+                    svg.append("g")
+                        .selectAll("g")
+                        // Enter in the stack data = loop key per key = group per group
+                        .data(stackedData)
+                        .join("g")
+                        .attr("fill", d => color(d.key))
+                        .selectAll("rect")
+                        // enter a second time = loop subgroup per subgroup to add all rectangles
+                        .data(d => d)
+                        .join("rect")
+                        .attr("x", function(d) { return x(d.date); })
+                        .attr("y", function(d) { return y(d.y1); })
+                        .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+                        .attr("width", x.bandwidth());
+                
+                //     svg.append("g")
+                //     .attr("class", "axis")
+                //     .attr("transform", "translate(0," + height + ")")
+                //     .call(d3.axisBottom(x));
+              
+                // svg.append("g")
+                //     .attr("class", "axis")
+                //     .call(d3.axisLeft(y).ticks(null, "s"))
+                //   .append("text")
+                //     .attr("x", 2)
+                //     .attr("y", y(y.ticks().pop()) + 0.5)
+                //     .attr("dy", "0.32em")
+                //     .attr("fill", "#000")
+                //     .attr("font-weight", "bold")
+                //     .attr("text-anchor", "start")
+                //     .text("Population");
+              
+                // var legend = g.append("g")
+                //     .attr("font-family", "sans-serif")
+                //     .attr("font-size", 10)
+                //     .attr("text-anchor", "end")
+                //   .selectAll("g")
+                //   .data(keys.slice().reverse())
+                //   .enter().append("g")
+                //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+              
+                // legend.append("rect")
+                //     .attr("x", width - 19)
+                //     .attr("width", 19)
+                //     .attr("height", 19)
+                //     .attr("fill", z);
+              
+                // legend.append("text")
+                //     .attr("x", width - 24)
+                //     .attr("y", 9.5)
+                //     .attr("dy", "0.32em")
+                //     .text(function(d) { return d; });
 
             }
             
             
-           
     
             } else {
             console.log("I broke");
