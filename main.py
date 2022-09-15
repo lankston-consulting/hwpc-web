@@ -3,6 +3,7 @@ import uuid
 import os
 import zipfile
 import pandas as pd
+import numpy as np
 from flask import Flask, redirect, render_template, request, jsonify
 # from config import gch
 from utils.s3_helper import S3Helper
@@ -167,7 +168,9 @@ def output():
                 test = test.drop(columns="DiscardDestinationID")
             except:
                 print("no column")
+            test = test.replace(0, np.nan)
             test.dropna(inplace = True)
+        
             print(test)
             test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
             data_dict[file[:-4]] = test.to_csv(index=False)
