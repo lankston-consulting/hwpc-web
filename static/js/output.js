@@ -1,5 +1,19 @@
 output = {}
 
+captions_dict = []
+captions_dict["annual_harvest_and_timber_product_output"] = {text:"Annual total timber harvest and product output converted to metric tons of carbon, from [minimum year] to [maximum year]."}
+captions_dict["annual_net_change_carbon_stocks"] = "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["end_use"] = [{text:"Total cumulative metric tons carbon stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year]."}]
+captions_dict["burned_w_energy_capture_emitted"] = "Total cumulative metric ton carbon emitted from burning discarded products with energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. Discarded products are assumed to be burned in an incinerator with energy capture. Emitted carbon is displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["burned_wo_energy_capture_emitted"] = "Total cumulative metric tons carbon emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["total_fuelwood_carbon_emitted"] = "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["total_cumulative_carbon_stocks"] = "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites (SWDS)."
+captions_dict["total_dumps_carbon"] = "Total cumulative metric tons carbon stored in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon in dumps include discarded wood and paper products and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["total_landfills_carbon"] = "Total cumulative metric tons carbon stored in landfills from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon in landfills are discarded wood and paper products and comprise a portion of the solid waste disposal site pool. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["total_dumps_carbon_emitted"] = "Total cumulative metric tons carbon emitted from discarded products in dumps manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in dumps is decay without energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+captions_dict["total_composted_carbon_emitted"] = "Total cumulative metric tons carbon emitted from composted discarded harvested wood products manufactured from total timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other greenhouse gases such as methane."
+captions_dict["total_landfills_carbon_emitted"] = "Total cumulative metric tons carbon emitted from discarded products in landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."
+
 output.initialize = function(input_json) {
     data_json=input_json;
     data_json = data_json.replace(/\n/g, '\\n')
@@ -32,7 +46,7 @@ $("#defaultOpen").click(function (e) {
     for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
         inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
@@ -44,7 +58,7 @@ $("#burned").click(function(e){
     for(i=0;i<$("#burnedContent").children()[1].children.length;i++){
         inactive_ids.push($("#burnedContent").children()[1].children[i].classList[$("#burnedContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
@@ -57,7 +71,7 @@ $("#swds").click(function(e){
     for(i=0;i<$("#carbonContent").children()[1].children.length;i++){
         inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for (i = 0; i < inactive_ids.length; i++){
         // console.log(inactive_ids[i])
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
@@ -71,7 +85,7 @@ $("#emitted").click(function(e){
     for(i=0;i<$("#decayContent").children()[1].children.length;i++){
         inactive_ids.push($("#decayContent").children()[1].children[i].classList[$("#decayContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
@@ -81,7 +95,7 @@ $("#reused").click(function (e) {
     // generate_graph(swds_co2e, "swds", true, 1300, 700) 
 })
 
-generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type,y_label){
+generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type, y_label="", caption){
     // console.log(json_data)
     var parseDate = d3.timeFormat("%Y");
     // if (graph_type == "line") {
@@ -185,7 +199,94 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             
         
                 
-            } else if (graph_type == "stack") {
+            } else if (graph_type == "multiline"){
+                const data1 = d3.csvParse(json_data,
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    })
+                    const data2 = d3.csvParse(json_data,
+                        function (d) {
+                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+                        })
+                
+                var keys = ["Value1", "Value2"];             
+                    x.domain(
+                        d3.extent(data1, (d) => { return d.date; })
+                    );
+                    y.domain([
+                        0,
+                        d3.max(data2, (d) => { return +d.value; })
+                    ]);
+
+                const linePath = svg
+                    .append("path")
+                    .datum(data1)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 1.5);
+                
+                const linePath2 = svg
+                    .append("path")
+                    .datum(data2)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                
+                linePath2
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 1.5);
+                    
+                svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisBottom(x).ticks(5));
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(y));
+                
+                           
+                // svg
+                //     .append("g")
+                //     .attr("class", "x axis")
+                //     .attr("transform", "translate(0," + height + ")")
+                //     .call(d3.axisBottom(x));
+            
+                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+
+
+                    //title
+                svg
+                .append("text")
+                .attr("class", "graph-title")
+                .attr("x", width / 2)
+                .attr("y", 0 - margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", "18px")
+                .text(title);
+            }
+            
+            else if (graph_type == "stack") {
                 const grp = svg
                 .append("g")
                 const data = d3.csvParse(json_data,
@@ -271,7 +372,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         .transition()
                         .duration(750)
                         // call the x axis as years
-                        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+                        .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format("d")));
                     
                     //Y axis
                     svg
@@ -555,9 +656,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             
-            svg
-                .append("g")
-                .text("hello")
+           
             
     
 
@@ -595,6 +694,28 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     
                 minDateYear = data[0].date.getFullYear();
                 maxDateYear = data[data.length - 1].date.getFullYear();
+
+                // caption = caption.replace("[minimum year]",minDateYear)
+                // caption = caption.replace("[maximum year]",maxDateYear)    
+                    svg
+                    .append("g")
+                    .attr("x",width/2)
+                    .attr("y",height + 20)
+                    .attr("class","caption")
+
+                new d3plus.TextBox()
+                    .select(".caption")
+                    .data(caption)
+                    .fontSize(16)
+                    .width(200)
+                    .x(function(d, i) { return i * 250; })
+                    .render();
+                // svg
+                //     .append("g")
+                //     .append("text")
+                //     .text(caption)
+                //     .attr("x",20)
+                //     .attr("y",height + 20)
                                         
                 x.domain(
                     d3.extent(data, (d) => { return d.date; })
@@ -761,7 +882,17 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         function (d) {
                             return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
                         })
-                
+                minDateYear = data1[0].date.getFullYear();
+                maxDateYear = data1[data1.length - 1].date.getFullYear();
+
+                // caption = caption.replace("[minimum year]",minDateYear)
+                // caption = caption.replace("[maximum year]",maxDateYear)    
+                // svg
+                //     .append("g")
+                //     .append("text")
+                //     .text(caption)
+                //     .attr("x",20)
+                //     .attr("y",height + 20)
                 var keys = ["Value1", "Value2"];             
                     x.domain(
                         d3.extent(data1, (d) => { return d.date; })
@@ -969,7 +1100,17 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             
                         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
                     })
-                
+                minDateYear = data[0].date.getFullYear();
+                maxDateYear = data[data.length - 1].date.getFullYear();
+
+                caption = caption.replace("[minimum year]",minDateYear)
+                caption = caption.replace("[maximum year]",maxDateYear)    
+                svg
+                    .append("g")
+                    .append("text")
+                    .text(caption)
+                    .attr("x",20)
+                    .attr("y",height + 20)
                 
                 var keys = ["Products in Use", "SWDS Present"];
                 const palette = ['lightgreen', 'lightblue'];
@@ -1442,7 +1583,7 @@ $(".non-active").click(function (e) {
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
     non_active_div[0].classList.add(current_tabs_active_id);
-    generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3])
+    generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3], captions_dict[non_active_id])
     generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
     
     if(non_active_div_siblings.length != 0){
