@@ -1491,8 +1491,10 @@ ul .year-controls li {
 .graph-title {
   font-family: var(--montserrat);
   font-weight: 600;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
 }
+
+
 
 .y-axis-title {
 font-family: var(--montserrat);

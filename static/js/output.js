@@ -167,7 +167,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .select(".x.axis")
                     .transition()
                     .duration(750)
-                    .call(d3.axisBottom(x));
+                    .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%Y")));
                 svg
                     .select(".y.axis")
                     .transition()
@@ -180,6 +180,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .attr("x", width / 2)
                     .attr("y", 0 - margin.top / 2)
                     .attr("text-anchor", "middle")
+                    .style("font-size", "14px")
                     .text(title);
             
         
@@ -647,6 +648,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .attr("x", width / 2)
                     .attr("y", 0 - margin.top / 2)
                     .attr("text-anchor", "middle")
+                    .attr("font-size", "18px")
                     .text(title);
                     
                 function mouseMove(event) {
@@ -832,7 +834,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .attr("class", "graph-title")
                 .attr("x", width / 2)
                 .attr("y", 0 - margin.top / 2)
-                .attr("text-anchor", "middle")
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", "18px")
                 .text(title);
 
                 function mouseMove(event) {
@@ -1137,6 +1140,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .attr("x", width / 2)
                     .attr("y", 0 - margin.top / 2)
                     .attr("text-anchor", "middle")
+                    .attr("font-size", "18px")
                     .text(title);
                
    
