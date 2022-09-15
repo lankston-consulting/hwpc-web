@@ -163,7 +163,10 @@ def output():
         if ".csv" in file:
             print(file[:-4])
             test = pd.read_csv("/tmp/zip_folder/"+file)
-            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+            try:
+                test = test.drop(columns="DiscardDestinationID")
+            except:
+                print("no column")
             data_dict[file[:-4]] = test.to_csv(index=False)
     print(data_dict.keys())
     data_json=json.dumps(data_dict)

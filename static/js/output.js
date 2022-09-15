@@ -5,21 +5,21 @@ output.initialize = function(input_json) {
     data_json = data_json.replace(/\n/g, '\\n')
     final_json = JSON.parse(data_json)
     data_dict = []
-    data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline"]
-    data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar"]
+    data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline","Hundred Cubic Feet (CCF)"]
+    data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar","Megagrams Carbon (Mg C)"]
     // data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
-    data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line"]
-    data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line"]
-    data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line"]
-    data_dict["swds"] = [final_json.swds, "Total SWDS", "line"]
-    data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line"]
-    data_dict["total_cumulative_carbon_stocks"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack"]
-    data_dict["total_dumps_carbon"] = [final_json.total_dumps_carbon, "Total Carbon in Dumps", "line"]
-    data_dict["total_dumps_carbon_emitted"] = [final_json.total_dumps_carbon_emitted, "Total Carbon in Dumps Emitted", "line"]
-    data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line"]
-    data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line"]
-    data_dict["total_landfills_carbon"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line"]
-    data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line"]
+    data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line","Carbon Emissions (CO2e)"]
+    data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line","Carbon Emissions (CO2e)"]
+    data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line","Megagrams Carbon (Mg C)"]
+    data_dict["swds"] = [final_json.swds, "Total SWDS", "line","Megagrams Carbon (Mg C)"]
+    data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line","Carbon Emissions (CO2e)"]
+    data_dict["total_cumulative_carbon_stocks"] = [final_json.total_cumulative_carbon_stocks, "Total Cumulative Carbon Stocks", "stack","Megagrams Carbon (Mg C)"]
+    data_dict["total_dumps_carbon"] = [final_json.total_dumps_carbon, "Total Carbon in Dumps", "line","Megagrams Carbon (Mg C)"]
+    data_dict["total_dumps_carbon_emitted"] = [final_json.total_dumps_carbon_emitted, "Total Carbon in Dumps Emitted", "line","Carbon Emissions (CO2e)"]
+    data_dict["total_fuelwood_carbon_emitted"] = [final_json.total_fuelwood_carbon_emitted, "Total Emitted Fuelwood Carbon", "line","Carbon Emissions (CO2e)"]
+    data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line","Megagrams Carbon (Mg C)"]
+    data_dict["total_landfills_carbon"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line","Megagrams Carbon (Mg C)"]
+    data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line","Carbon Emissions (CO2e)"]
     
     
     
@@ -32,9 +32,9 @@ $("#defaultOpen").click(function (e) {
     for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
         inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
 $("#burned").click(function(e){
@@ -44,9 +44,9 @@ $("#burned").click(function(e){
     for(i=0;i<$("#burnedContent").children()[1].children.length;i++){
         inactive_ids.push($("#burnedContent").children()[1].children[i].classList[$("#burnedContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
     
 })
@@ -57,10 +57,10 @@ $("#swds").click(function(e){
     for(i=0;i<$("#carbonContent").children()[1].children.length;i++){
         inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
     for (i = 0; i < inactive_ids.length; i++){
         // console.log(inactive_ids[i])
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
 
@@ -71,9 +71,9 @@ $("#emitted").click(function(e){
     for(i=0;i<$("#decayContent").children()[1].children.length;i++){
         inactive_ids.push($("#decayContent").children()[1].children[i].classList[$("#decayContent").children()[1].children[i].classList.length-1])
     }
-    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2])
+    generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3])
     for(i=0;i<inactive_ids.length;i++){
-        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2])
+        generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
 
@@ -81,7 +81,7 @@ $("#reused").click(function (e) {
     // generate_graph(swds_co2e, "swds", true, 1300, 700) 
 })
 
-generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type){
+generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type,y_label){
     // console.log(json_data)
     var parseDate = d3.timeFormat("%Y");
     // if (graph_type == "line") {
@@ -575,7 +575,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .attr("x", 0 - height / 2)
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
-                .text("Carbon Emissions (CO2e)");
+                .text(y_label);
     
             //x axis title
             svg
@@ -823,6 +823,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 function mouseMove(event) {
                     // console.log(event, "hello");
+                    
             
                     const bisect = d3.bisector((d) => d.date).left,
                         x0 = x.invert(d3.pointer(event, this)[0]),
@@ -972,7 +973,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
                 //create scales
                 const xScale = d3
-                    .scaleTime()
+                    .scaleLinear()
                     .range([0, width])
                     .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
                     
@@ -1195,27 +1196,26 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     })
                     .on("touchmove mousemove", mouseMove);
 
-    
+                    const tParser = d3.timeParse("%d/%m/%Y")
 
                 function mouseMove(event) {
-                    console.log(stackedData)
-                    console.log(x.invert(d3.pointer(event, this)[0]))
+                    
                     const bisect = d3.bisector((d) => d.date).left,
-                        x0 = x.invert(d3.pointer(event, this)[0]),
-                        i = bisect(stackedData[0], x0, 1),
-                        d0 = stackedData[0][i - 1],
-                        d1 = stackedData[0][i],
+                        x0 = new Date(xScale.invert(d3.pointer(event, this)[0])),
+                        i = bisect(data, x0, 1),
+                        d0 = data[i - 1],
+                        d1 = data[i],
                         d = x0 - d0.year > d1.year - x0 ? d1 : d0;
 
-                    const bisect1 = d3.bisector((d) => d.date).left,
-                        xx0 = x.invert(d3.pointer(event, this)[0]),
-                        ii = bisect1(stackedData[1], xx0, 1),
-                        dd0 = stackedData[1][ii - 1],
-                        dd1 = stackedData[1][ii],
-                        dd = xx0 - dd0.year > dd1.year - xx0 ? dd1 : dd0;
-                    // console.log(x0)
+                    // const bisect1 = d3.bisector((d) => d.date).left,
+                    //     xx0 = xScale.invert(d3.pointer(event, this)[0]),
+                    //     ii = bisect1(stackedData[1], xx0, 1),
+                    //     dd0 = stackedData[1][ii - 1],
+                    //     dd1 = stackedData[1][ii],
+                    //     dd = xx0 - dd0.year > dd1.year - xx0 ? dd1 : dd0;
+                    console.log(x0)
                     // console.log(xx0)
-                    // console.log(i, d0, d1, d)
+                    console.log(i, d0, d1, d)
                     // console.log(ii, dd0, dd1, dd)
                     
 
@@ -1303,7 +1303,7 @@ $(".non-active").click(function (e) {
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
     non_active_div[0].classList.add(current_tabs_active_id);
-    generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2])
+    generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3])
     generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
     
     if(non_active_div_siblings.length != 0){
