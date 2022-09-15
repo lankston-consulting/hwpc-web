@@ -621,7 +621,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             
             $("." + graph_class).html("")
         
-            const margin = { top: 40, right: 80, bottom: 60, left: 80 },
+            const margin = { top: 40, right: 80, bottom: 160, left: 80 },
                 width = w - margin.left - margin.right,
                 height = h - margin.top - margin.bottom;
                         
@@ -697,17 +697,18 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 // caption = caption.replace("[minimum year]",minDateYear)
                 // caption = caption.replace("[maximum year]",maxDateYear)    
-                    svg
+                svg
                     .append("g")
-                    .attr("x",width/2)
-                    .attr("y",height + 20)
-                    .attr("class","caption")
+                    .attr("class", "caption")
+                    .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
+                    
 
                 new d3plus.TextBox()
                     .select(".caption")
                     .data(caption)
                     .fontSize(16)
-                    .width(200)
+                    .width(width)
+                    .textAnchor("middle")
                     .x(function(d, i) { return i * 250; })
                     .render();
                 // svg
