@@ -1253,7 +1253,7 @@ input[type="radio"]:after{
 
 .output-page aside {
   background-color: white;
-  width: 20%;
+ max-width: 20%;
   min-height: fit-content;
   /* height: fit-content; */
   flex-grow: 1;
@@ -1267,20 +1267,14 @@ input[type="radio"]:after{
   background-color: white;
   width: 80%;
   max-width: 1300px;
-  height: 90vh;
+  min-height: 90vh;
   margin-bottom: 2em;
   border-radius: 10px;
+  height: fit-content;
+  padding-bottom: 2em;
 }
 
-@media screen and (max-width: 1920px) {
-  .output-page section {
-    /* width: 60%; */
-    height: fit-content;
-    padding-bottom: 2em;
-    /* max-width: 850px; */
-  }
-  
-}
+
 
 @media screen and (max-width: 600px) {
   .output-page {
