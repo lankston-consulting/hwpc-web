@@ -282,7 +282,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 .attr("x", width / 2)
                 .attr("y", 0 - margin.top / 2)
                     .attr("text-anchor", "middle")
-                    .attr("font-size", "18px")
+                    .attr("font-size", "14px")
                 .text(title);
             }
             
