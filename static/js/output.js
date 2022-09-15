@@ -748,60 +748,188 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             } else if (graph_type == "multiline") {
                 console.log("graph type is active multiline")
                 
-                const data = d3.csvParse(json_data,
+                const data1 = d3.csvParse(json_data,
                     function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                     })
+                    const data2 = d3.csvParse(json_data,
+                        function (d) {
+                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+                        })
                 
-                var keys = ["Value1", "Value2"];
-
-
-                const sumstat = d3.group(data, d => d.value);
-
-
-                // Add X axis --> it is a date format
-                const x = d3.scaleTime()
-
-                .range([ 0, width ]);
-              svg.append("g")
-                .attr("transform", `translate(0, ${height})`)
-                .call(d3.axisBottom(x));
-            
-              // Add Y axis
-              const y = d3.scaleLinear()
-                .range([ height, 0 ]);
-              svg.append("g")
-                    .call(d3.axisLeft(y));
-                
-                
+                var keys = ["Value1", "Value2"];             
                     x.domain(
-                        d3.extent(data, (d) => { return d.date; })
+                        d3.extent(data1, (d) => { return d.date; })
                     );
                     y.domain([
                         0,
-                        d3.max(data, (d) => { return +d.value; })
+                        d3.max(data2, (d) => { return +d.value; })
                     ]);
-            
-              // color palette
-              var res = Array.from(sumstat.keys());
-              var color = d3.scaleOrdinal()
-                .domain(res)
-                .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
-            
-              // Draw the line
-              svg.selectAll(".line")
-                  .data(sumstat)
-                  .join("path")
+
+                const linePath = svg
+                    .append("path")
+                    .datum(data1)
+                    .attr("class", "line")
                     .attr("fill", "none")
-                    .attr("stroke", function(d){ return color(d[0]) })
+                    .attr("stroke", "steelblue")
                     .attr("stroke-width", 1.5)
-                    .attr("d", function(d){
-                      return d3.line()
-                        .x(function(d) { return x(d.year); })
-                        .y(function(d) { return y(+d.n); })
-                        (d[1])
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 3);
+                
+                const linePath2 = svg
+                    .append("path")
+                    .datum(data2)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                
+                linePath2
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 3);
+                    
+                svg
+                    .select(".x.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisBottom(x));
+                svg
+                    .select(".y.axis")
+                    .transition()
+                    .duration(750)
+                    .call(d3.axisLeft(y));
+                    //title
+                svg
+                .append("text")
+                .attr("class", "graph-title")
+                .attr("x", width / 2)
+                .attr("y", 0 - margin.top / 2)
+                .attr("text-anchor", "middle")
+                .text(title);
+
+                function mouseMove(event) {
+                    // console.log(event, "hello");
+            
+                    const bisect = d3.bisector((d) => d.date).left,
+                        x0 = x.invert(d3.pointer(event, this)[0]),
+                        i = bisect(data1, x0, 1),
+                        d0 = data1[i - 1],
+                        d1 = data1[i],
+                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                    const bisect2 = d3.bisector((d) => d.date).left,
+                        xx0 = x.invert(d3.pointer(event, this)[0]),
+                        ii = bisect2(data2, xx0, 1),
+                        dd0 = data2[ii - 1],
+                        dd1 = data2[ii],
+                        dd = xx0 - dd0.date > dd1.date - xx0 ? dd1 : dd0;
+                    // console.log(i, d0, d1, d) 
+                    // focus
+                    //    .select("rect")
+                    //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+                            
+            
+                    focus
+                        .select("circle.y")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+            
+                    focus
+                        .select("text.y1")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text("Yearly Harvest (CCF): " +d3.format(",.2~f")(d.value));
+                    
+                    focus
+                        .select("text.y2")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text("Timber Products (MBF): " + d3.format(",.2~f")(dd.value));
+            
+                    focus
+                        .select("text.y3")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .text(parseDate(d.date));
+            
+                    focus
+                        .select(".x")
+                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+                        .attr("y2", height - y(d.value));
+            
+                    focus
+                        .select(".y")
+                        .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
+                        .attr("x2", width + width);
+                    
+                }
+                const focus = svg
+                    .append("g")
+                    .attr("class", "focus")
+                    .style("display", "none");
+                            
+                     
+                
+                // append the x line
+                focus
+                    .append("line")
+                    .attr("class", "x")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("y1", 0)
+                    .attr("y2", height);
+                
+                // append the y line
+                focus
+                    .append("line")
+                    .attr("class", "y")
+                    .style("stroke-dasharray", "3,3")
+                    .style("opacity", 0.5)
+                    .attr("x1", width)
+                    .attr("x2", width);
+                
+                // append the circle at the intersection
+                focus
+                    .append("circle")
+                    .attr("class", "y")
+                    .style("fill", "none")
+                    .attr("r", 4); // radius
+                            
+                
+                // place the value at the intersection
+                focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
+                        
+                
+                // place the date at the intersection
+                focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
+                
+
+                focus.append("text").attr("class", "y3").attr("dx", 8).attr("dy", "2.3em");
+                
+                     
+                            
+                svg
+                    .append("rect")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .style("fill", "none")
+                    .style("pointer-events", "all")
+                    .on("mouseover", () => {
+                        focus.style("display", null);
                     })
-                return (svg.node());
+                    .on("mouseout", () => {
+                        focus.style("display", "none");
+                    })
+                    .on("touchmove mousemove", mouseMove);
                 
             }
             else if (graph_type == "stack") {
@@ -844,7 +972,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
                 //create scales
                 const xScale = d3
-                    .scaleLinear()
+                    .scaleTime()
                     .range([0, width])
                     .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
                     
@@ -1070,16 +1198,26 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
 
                 function mouseMove(event) {
-            	
+                    console.log(stackedData)
+                    console.log(x.invert(d3.pointer(event, this)[0]))
                     const bisect = d3.bisector((d) => d.date).left,
                         x0 = x.invert(d3.pointer(event, this)[0]),
-                        i = bisect(data, x0, 1),
-                        d0 = data[i - 1],
-                        d1 = data[i],
-                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                        i = bisect(stackedData[0], x0, 1),
+                        d0 = stackedData[0][i - 1],
+                        d1 = stackedData[0][i],
+                        d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+
+                    const bisect1 = d3.bisector((d) => d.date).left,
+                        xx0 = x.invert(d3.pointer(event, this)[0]),
+                        ii = bisect1(stackedData[1], xx0, 1),
+                        dd0 = stackedData[1][ii - 1],
+                        dd1 = stackedData[1][ii],
+                        dd = xx0 - dd0.year > dd1.year - xx0 ? dd1 : dd0;
                     // console.log(x0)
-                    console.log(i, d0, d1, d)
-                    console.log(d.value2)
+                    // console.log(xx0)
+                    // console.log(i, d0, d1, d)
+                    // console.log(ii, dd0, dd1, dd)
+                    
 
                     focus
                         .select("circle.y")
