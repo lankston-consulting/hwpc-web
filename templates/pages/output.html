@@ -58,21 +58,62 @@
             <br>
             <br> -->
             <div style="width: 100%;">
-                <button class="link-1" style="float:right;">Filter</button>
+                <button class="link-1" style="float:left;">Filter</button>
+            </div>
+            <div>
+                <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
+                <a href="#dl-opened" style="float:right; margin-right: 2em;" class="custom-btn link-1"
+                    id="dl-closed">Export
+                </a>
+
+                {% include "components/downloads.html" %}
+
             </div>
         </form>
     </aside>
     <section>
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="defaultOpen">Products in Use</button>
-            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">Burned</button>
-            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">Carbon in SWDS</button>
-            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">Emitted from Decay</button>
+            <button class="tablinks" onclick="openTab(event, 'coolFlashyTabContent')" id="defaultOpen">⚡Cool Flashy
+                Tab⚡</button>
+            <button class="tablinks" onclick="openTab(event, 'solidCarbonContent')" id="solidCarbon">Solid
+                Carbon</button>
+            <button class="tablinks" onclick="openTab(event, 'emissionsContent')" id="emissions">Emissions</button>
             <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button>
+
+            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="productsInUse">OLD Products in
+                Use</button>
+            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">OLD Burned</button>
+            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">OLD Carbon in SWDS</button>
+            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">OLD Emitted from
+                Decay</button>
+
         </div>
 
+
+
         <!-- Tab content -->
+        <div id="coolFlashyTabContent" class="tabcontent">
+            <h3>Cool Flashy Tab</h3>
+            <p>Some content in Cool Flashy Tab..</p>
+
+        </div>
+        <div id="solidCarbonContent" class="tabcontent">
+            <h3>Solid Carbon</h3>
+            <p>Some content in Solid Carbon Tab..</p>
+        </div>
+        <div id="emissionsContent" class="tabcontent">
+            <h3>Emissions</h3>
+            <p>Some content in Emissions Tab..</p>
+        </div>
+        <div id="reusedContent" class="tabcontent">
+            <h3>Reused</h3>
+            <p>Some content in Reused Tab..</p>
+
+        </div>
+
+
+
         <div id="inUseContent" class="tabcontent">
             <!-- <h1>Annual Harvest</h1> -->
             <div class="graph active-graph annual_harvest_and_timber_product_output"></div>
@@ -108,18 +149,8 @@
                 <div class="graph non-active total_landfills_carbon_emitted"></div>
             </div>
         </div>
-        <div id="reusedContent" class="tabcontent">
-            <h1>Reused</h1>
-            <div class="graph active-graph non-active reused"></div>
-        </div>
-        <div>
-            <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
-            <a href="#dl-opened" style="float:right; margin-right: 2em;" class="custom-btn link-1" id="dl-closed">Export
-            </a>
 
-            {% include "components/downloads.html" %}
 
-        </div>
     </section>
     <!-- <div style="margin-left: 2em; width: 400px;">
         <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"

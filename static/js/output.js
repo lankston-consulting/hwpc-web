@@ -40,6 +40,18 @@ output.initialize = function(input_json) {
 }
 
 $("#defaultOpen").click(function (e) {
+    // active_id = $("#inUseContent").children()[0].classList[$("#inUseContent").children()[0].classList.length-1]
+    // inactive = $("#inUseContent").children()[1].children
+    // inactive_ids =[]
+    // for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
+    //     inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
+    // }
+    // generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
+    // for(i=0;i<inactive_ids.length;i++){
+    //     generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+    // }
+})
+$("#productsInUse").click(function (e) {
     active_id = $("#inUseContent").children()[0].classList[$("#inUseContent").children()[0].classList.length-1]
     inactive = $("#inUseContent").children()[1].children
     inactive_ids =[]
