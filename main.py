@@ -164,6 +164,9 @@ def output():
         if ".csv" in file:
             print(file[:-4])
             test = pd.read_csv("/tmp/zip_folder/"+file)
+            if(file[:-4] == "annual_net_change_carbon_stocks"):
+                test = test.set_index("Year")
+                test = test.melt(ignore_index=False)
             try:
                 test = test.drop(columns="DiscardDestinationID")
             except:

@@ -695,8 +695,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 minDateYear = data[0].date.getFullYear();
                 maxDateYear = data[data.length - 1].date.getFullYear();
                 console.log(caption[0].text)
-                caption[0].text = caption[0].text.replace("[minimum year]",minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]",maxDateYear)    
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 svg
                     .append("g")
                     .attr("class", graph_class + "caption")
@@ -704,12 +704,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     
 
                 new d3plus.TextBox()
-                    .select("."+graph_class + "caption")
+                    .select("." + graph_class + "caption")
                     .data(caption)
                     .fontSize(16)
                     .width(width)
                     .textAnchor("middle")
-                    .x(function(d, i) { return i * 250; })
+                    .x(function (d, i) { return i * 250; })
                     .render();
                 // svg
                 //     .append("g")
@@ -755,7 +755,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .call(d3.axisLeft(y));
                 
                 
-                    svg
+                svg
                     .append("g")
                     .attr("class", "x axis")
                     .attr("transform", "translate(0," + height + ")")
@@ -879,15 +879,15 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     function (d) {
                         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
                     })
-                    const data2 = d3.csvParse(json_data,
-                        function (d) {
-                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-                        })
+                const data2 = d3.csvParse(json_data,
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+                    })
                 minDateYear = data1[0].date.getFullYear();
                 maxDateYear = data1[data1.length - 1].date.getFullYear();
 
-                caption[0].text = caption[0].text.replace("[minimum year]",minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]",maxDateYear)    
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 svg
                     .append("g")
                     .attr("class", graph_class + "caption")
@@ -895,22 +895,22 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     
 
                 new d3plus.TextBox()
-                    .select("."+graph_class + "caption")
+                    .select("." + graph_class + "caption")
                     .data(caption)
                     .fontSize(16)
                     .width(width)
                     .textAnchor("middle")
-                    .x(function(d, i) { return i * 250; })
+                    .x(function (d, i) { return i * 250; })
                     .render();
 
-                var keys = ["Value1", "Value2"];             
-                    x.domain(
-                        d3.extent(data1, (d) => { return d.date; })
-                    );
-                    y.domain([
-                        0,
-                        d3.max(data2, (d) => { return +d.value; })
-                    ]);
+                var keys = ["Value1", "Value2"];
+                x.domain(
+                    d3.extent(data1, (d) => { return d.date; })
+                );
+                y.domain([
+                    0,
+                    d3.max(data2, (d) => { return +d.value; })
+                ]);
 
                 const linePath = svg
                     .append("path")
@@ -969,16 +969,45 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
 
 
-                    //title
+                //title
                 svg
-                .append("text")
-                .attr("class", "graph-title")
-                .attr("x", width / 2)
-                .attr("y", 0 - margin.top / 2)
+                    .append("text")
+                    .attr("class", "graph-title")
+                    .attr("x", width / 2)
+                    .attr("y", 0 - margin.top / 2)
                     .attr("text-anchor", "middle")
                     .attr("font-size", "18px")
-                .text(title);
+                    .text(title);
 
+                // // Legend
+                // var legend = svg.selectAll(".legend")
+                //     .data(keys.slice())
+                //     .enter().append("g")
+                //     .attr("class", "legend")
+                //     .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+                
+
+                //     legend.append("path")
+                //     .attr("class", "line")
+                //     .attr("d", function(d) { return line(d.values); })
+                //     .style("stroke", function(d) { return color(d.name); });
+                  
+                //   legend.append('rect')
+                //       .attr('x', width - 20)
+                //       .attr('y', function(d, i){ return i *  20;})
+                //       .attr('width', 10)
+                //       .attr('height', 10)
+                //       .style('fill', function(d) { 
+                //         return color(d.name);
+                //       });
+                  
+                //   legend.append('text')
+                //       .attr('x', width - 8)
+                //       .attr('y', function(d, i){ return (i *  20) + 9;})
+                //       .text(function(d){ return d.name; });
+                  
+            
+            
                 function mouseMove(event) {
                     // console.log(event, "hello");
                     
@@ -1008,7 +1037,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     focus
                         .select("text.y1")
                         .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text("Yearly Harvest (CCF): " +d3.format(",.2~f")(d.value));
+                        .text("Yearly Harvest (CCF): " + d3.format(",.2~f")(d.value));
                     
                     focus
                         .select("text.y2")
@@ -1113,8 +1142,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 minDateYear = data[0].date.getFullYear();
                 maxDateYear = data[data.length - 1].date.getFullYear();
 
-                caption[0].text = caption[0].text.replace("[minimum year]",minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]",maxDateYear)    
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 svg
                     .append("g")
                     .attr("class", graph_class + "caption")
@@ -1122,12 +1151,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     
 
                 new d3plus.TextBox()
-                    .select("."+graph_class + "caption")
+                    .select("." + graph_class + "caption")
                     .data(caption)
                     .fontSize(16)
                     .width(width)
                     .textAnchor("middle")
-                    .x(function(d, i) { return i * 250; })
+                    .x(function (d, i) { return i * 250; })
                     .render();
                 
                 var keys = ["Products in Use", "SWDS Present"];
@@ -1215,28 +1244,28 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     .enter()
                     .append("rect")
                     .attr("x", 20)
-                    .attr("y", function (d, i) { return 20 + i * (size + 5) }) 
+                    .attr("y", function (d, i) { return 20 + i * (size + 5) })
                     .attr("width", size)
                     .attr("height", size)
                     .style("fill", (d, i) => palette[i])
-                    // .on("mouseover", highlight)
-                    // .on("mouseleave", noHighlight)
+                // .on("mouseover", highlight)
+                // .on("mouseleave", noHighlight)
                 
                 console.log(stackedData)
                 // Add one dot in the legend for each name.
-                    svg.selectAll("legendlabels")
+                svg.selectAll("legendlabels")
                     .data(keys)
                     .enter()
-                        .append("text")
-                        .attr("font-size", "16px")
-                    .attr("x", 20 + size*1.2)
-                    .attr("y", function(d,i){ return 25 + i*(size+5) + (size/2)}) 
+                    .append("text")
+                    .attr("font-size", "16px")
+                    .attr("x", 20 + size * 1.2)
+                    .attr("y", function (d, i) { return 25 + i * (size + 5) + (size / 2) })
                     .style("fill", "black")
-                    .text(function(d){ return d})
+                    .text(function (d) { return d })
                     .attr("text-anchor", "left")
                     .style("alignment-baseline", "bottom")
-                    // .on("mouseover", highlight)
-                    // .on("mouseleave", noHighlight)
+                // .on("mouseover", highlight)
+                // .on("mouseleave", noHighlight)
 
                 // var legend = svg.append('g')
                 //     .attr('class', 'legend')
@@ -1383,7 +1412,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     })
                     .on("touchmove mousemove", mouseMove);
 
-                    const tParser = d3.timeParse("%d/%m/%Y")
+                const tParser = d3.timeParse("%d/%m/%Y")
 
                 function mouseMove(event) {
                     
@@ -1466,78 +1495,67 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 console.log("graph type is active bar")
                 const data = d3.csvParse(json_data,
                     function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), variable: d[Object.keys(d)[1]], value: d[Object.keys(d)[2]] }
                     })
                 
-                arranged = [];
-                    const subgroups = data.columns.slice(1)
-                    // console.log(subgroups)
-                   
+                
+            
+
+                var subgroups = d3.group(data, d => d.variable);
+            
+                       
                 const groups = data.map(d => (parseDate(d.date)))
-                    // color palette = one color per subgroup
-                    const color = d3.scaleOrdinal()
-                        .domain(subgroups)
-                    .range(['#e41a1c', '#377eb8', '#4daf4a'])
-                
-                    data.forEach(function (d) {
-                        var newD = {x: groups};
-                        var y0neg = 0;
-                        var y0pos = 0;
-                        newD.values = color.domain().map(function (m) {
-                            if (d[m] > 0)
-                                return { name: m, y0: y0pos, y1: y0pos += +d[m] };
-                            else {
-                                var y1 = y0neg;
-                                return { name: m, y0: y0neg += d[m], y1: y1 };
-                            } 
-                        });
-                        newD.totalPositive = d3.max(newD.values, function (v) { return v.y1});
-                        newD.totalNegative = d3.min(newD.values, function (v) { return v.y0 });
-                        arranged.push(newD);
-                     });
-                 
+                // color palette = one color per subgroup
+                const color = d3.scaleOrdinal()
+                    .domain(subgroups)
+                    .range(['#e41a1c', '#377eb8'])
         
-                
-               
-                    // Add X axis
-                    const x = d3.scaleBand()
-                        .domain(groups)
-                        .rangeRound([0, width])
-                        .padding([0.2])
-                    svg.append("g")
+                   
+                // Add X axis
+                const x = d3.scaleBand()
+                    .domain(groups)
+                    .range([0, width])
+                    .padding([0.2])
+                svg.append("g")
                     .attr("transform", `translate(0, ${height})`)
                     .call(d3.axisBottom(x));
+                    
+         
+                // Add Y axis
+                const y = d3.scaleLinear()
+                    .domain([d3.min (data, d => d.value), d3.max(data, d => d.value)])
+
+                    .range([height, 0, height])
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+    
+                    
+    
+                //stack the data? --> stack per subgroup
+                const stackedData = d3.stack()
+                    .keys(subgroups)
+                    (data)
+                console.log(data)
+                // Show the bars
+                svg.append("g")
+                    .selectAll("g")
+                    // Enter in the stack data = loop key per key = group per group
+                    .data(stackedData)
+                    .join("g")
+                    .attr("fill", d => color(d.key))
+                    .selectAll("rect")
+                    // enter a second time = loop subgroup per subgroup to add all rectangles
+                    .data(d => d)
+                    .join("rect")
+                    .attr("x", function (d) { return x(d.date); })
+                    .attr("y", function (d) { return y(d.y0); })
+                    // console.log(y0)
+                    // .attr("height", (data, function (d) { return d.value1; } - function (d) { return d.value2; }))
+                    .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+                    .attr("width", x.bandwidth());
+                    
                 
-
-                    // Add Y axis
-                    const y = d3.scaleLinear()
-                        .domain([0, 60])
-                        .rangeRound([height, 0])
-                    svg.append("g")
-                        .call(d3.axisLeft(y));
-
-                
-
-                    //stack the data? --> stack per subgroup
-                    const stackedData = d3.stack()
-                        .keys(subgroups)
-                        (data)
-
-                    // Show the bars
-                    svg.append("g")
-                        .selectAll("g")
-                        // Enter in the stack data = loop key per key = group per group
-                        .data(stackedData)
-                        .join("g")
-                        .attr("fill", d => color(d.key))
-                        .selectAll("rect")
-                        // enter a second time = loop subgroup per subgroup to add all rectangles
-                        .data(d => d)
-                        .join("rect")
-                        .attr("x", function(d) { return x(d.date); })
-                        .attr("y", function(d) { return y(d.y1); })
-                        .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-                        .attr("width", x.bandwidth());
+               
                 
                 //     svg.append("g")
                 //     .attr("class", "axis")
