@@ -55,11 +55,11 @@ $("#productsInUse").click(function (e) {
     active_id = $("#inUseContent").children()[0].classList[$("#inUseContent").children()[0].classList.length-1]
     inactive = $("#inUseContent").children()[1].children
     inactive_ids =[]
-    for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
+    for(let i=0;i<$("#inUseContent").children()[1].children.length;i++){
         inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    for(i=0;i<inactive_ids.length;i++){
+    for(let i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
@@ -67,11 +67,11 @@ $("#burned").click(function(e){
     active_id = $("#burnedContent").children()[0].classList[$("#burnedContent").children()[0].classList.length-1]
     inactive = $("#burnedContent").children()[1].children
     inactive_ids =[]
-    for(i=0;i<$("#burnedContent").children()[1].children.length;i++){
+    for(let i=0;i<$("#burnedContent").children()[1].children.length;i++){
         inactive_ids.push($("#burnedContent").children()[1].children[i].classList[$("#burnedContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    for(i=0;i<inactive_ids.length;i++){
+    for(let i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
     
@@ -80,11 +80,11 @@ $("#swds").click(function(e){
     active_id = $("#carbonContent").children()[0].classList[$("#carbonContent").children()[0].classList.length-1]
     inactive = $("#carbonContent").children()[1].children
     inactive_ids =[]
-    for(i=0;i<$("#carbonContent").children()[1].children.length;i++){
+    for(let i=0;i<$("#carbonContent").children()[1].children.length;i++){
         inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    for (i = 0; i < inactive_ids.length; i++){
+    for (let i=0;i<inactive_ids.length;i++){
         // console.log(inactive_ids[i])
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
@@ -94,12 +94,16 @@ $("#emitted").click(function(e){
     active_id = $("#decayContent").children()[0].classList[$("#decayContent").children()[0].classList.length-1]
     inactive = $("#decayContent").children()[1].children
     inactive_ids =[]
-    for(i=0;i<$("#decayContent").children()[1].children.length;i++){
+    for(let i=0;i<$("#decayContent").children()[1].children.length;i++){
         inactive_ids.push($("#decayContent").children()[1].children[i].classList[$("#decayContent").children()[1].children[i].classList.length-1])
     }
+    console.log(inactive_ids)
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    for(i=0;i<inactive_ids.length;i++){
+    console.log(inactive_ids.length)
+    for(let i=0;i<inactive_ids.length;i++){
+        console.log(i)
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+        console.log("HEERE")
     }
 })
 
@@ -119,341 +123,194 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         
             const x = d3.scaleTime().range([0, width]);
             const y = d3.scaleLinear().range([height, 0]);
-
-            const valueline = d3
-                .line()
-                .x((d) => { return x(d.date); })
-                .y((d) => { return y(d.value); })
-       
-       
-            const svg = d3
-                .select("div." + graph_class)
-                .append("div")
-                .classed("svg-graph-container-sm", true) // Container class to make graphs responsive.
-                .append("svg")
-                .attr("id", graph_class)
-                .attr("class", graph_class)
-                .attr("preserveAspectRatio", "xMinYMid meet")
-                .attr(
-                    "viewBox",
-                    `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-                .classed("svg-content-responsive", true)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
-            svg
-                .append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
-        
-            svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
     
             if (graph_type == "line") {
-
+                tester = document.getElementsByClassName("non-active " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
-                        // d3.selectAll("path.area").remove();
-                        // d3.selectAll("path.line").remove();
-                        // d3.selectAll(".title").remove();
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                        return { year: d[Object.keys(d)[0]], value: d[Object.keys(d)[1]] }
                     })
+                    
+                // minDateYear = data[0].date.getFullYear();
+                // maxDateYear = data[data.length - 1].date.getFullYear();
+                // console.log(caption[0].text)
+                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+                // svg
+                //     .append("g")
+                //     .attr("class", graph_class + "caption")
+                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
+
+                year_array=[]
+                value_array=[]
                 
-                    minDateYear = data[0].date.getFullYear();
-                    maxDateYear = data[data.length - 1].date.getFullYear();
-        
-                    x.domain(
-                        d3.extent(data, (d) => { return d.date; })
-                    );
-                    y.domain([
-                        0,
-                        d3.max(data, (d) => { return +d.value; })
-                    ]);
-                
-                        
-                    const linePath = svg
-                    .append("path")
-                    .datum(data)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                const pathLength = linePath.node().getTotalLength();
-                linePath
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 2);
-                
-                    svg
-                    .select(".x.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%Y")));
-                svg
-                    .select(".y.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisLeft(y));
-    
-                svg
-                    .append("text")
-                    .attr("class", "graph-title")
-                    .attr("x", width / 2)
-                    .attr("y", 0 - margin.top / 2)
-                    .attr("text-anchor", "middle")
-                    .style("font-size", "14px")
-                    .text(title);
-            
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value_array.push(data[i].value)
+                   
+                }
+
+
+                var trace1 = {
+                    x:year_array,
+                    y:value_array,
+                    name:data_dict[graph_class][1],
+                    type:"scatter"
+                }
+
+                var layout = {
+                    title: data_dict[graph_class][1],
+                    // yaxis: {title: data_dict[graph_class][3]}
+                    }
+
+                var stackedData = [trace1];
+                Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
         
                 
             } else if (graph_type == "multiline"){
-                const data1 = d3.csvParse(json_data,
+                console.log("graph type is active multiline")
+                tester = document.getElementsByClassName("non-active " + graph_class)[0];
+                const data = d3.csvParse(json_data,
                     function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                        return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2 : d[Object.keys(d)[2]]}
                     })
-                    const data2 = d3.csvParse(json_data,
-                        function (d) {
-                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-                        })
-                
-                var keys = ["Value1", "Value2"];             
-                    x.domain(
-                        d3.extent(data1, (d) => { return d.date; })
-                    );
-                    y.domain([
-                        0,
-                        d3.max(data2, (d) => { return +d.value; })
-                    ]);
+                // const data2 = d3.csvParse(json_data,
+                //     function (d) {
+                //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+                //     })
+                minDateYear = data[0].year
+                maxDateYear = data[data.length - 1].year
 
-                const linePath = svg
-                    .append("path")
-                    .datum(data1)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                const pathLength = linePath.node().getTotalLength();
-                linePath
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 1.5);
-                
-                const linePath2 = svg
-                    .append("path")
-                    .datum(data2)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                
-                linePath2
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 1.5);
-                    
-                svg
-                    .select(".x.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisBottom(x).ticks(5));
-                svg
-                    .select(".y.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisLeft(y));
-                
-                           
-                // svg
-                //     .append("g")
-                //     .attr("class", "x axis")
-                //     .attr("transform", "translate(0," + height + ")")
-                //     .call(d3.axisBottom(x));
-            
-                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+                year_array=[]
+                value1_array=[]
+                value2_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value1_array.push(data[i].value1)
+                    value2_array.push(data[i].value2)
+                }
 
 
-                    //title
-                svg
-                .append("text")
-                .attr("class", "graph-title")
-                .attr("x", width / 2)
-                .attr("y", 0 - margin.top / 2)
-                    .attr("text-anchor", "middle")
-                    .attr("font-size", "14px")
-                .text(title);
+                var trace1 = {
+                    x:year_array,
+                    y:value1_array,
+                    name:"Annual Harvest",
+                    type:"scatter"
+                }
+                
+                var trace2 = {
+                    x:year_array,
+                    y:value2_array,
+                    // yaxis: 'y2',
+                    name:"Annual Timber Harvest",
+                    type:"scatter"
+                }
+
+                var layout = {
+                    title: 'Annual Harvest and Timber Product Outputs',
+                    // yaxis: {title: 'Hundred Cubic Feet (CCF)'},
+                    // yaxis2: {
+                    //   title: 'Megagrams Carbon (Mg C)',
+                    //   titlefont: {color: 'rgb(148, 103, 189)'},
+                    //   tickfont: {color: 'rgb(148, 103, 189)'},
+                    //   overlaying: 'y',
+                    //   side: 'right'
+                    // },
+                    showlegend: false}
+
+                var stackedData = [trace1, trace2];
+                Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
             }
             
             else if (graph_type == "stack") {
-                const grp = svg
-                .append("g")
+                // console.log("this is a stack")
+                tester = document.getElementsByClassName("non-active " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
-                        
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]]}
-                    })
-                
-                const palette = ['lightgreen', 'lightblue'];
-                const stack = d3.stack().keys(['value1', 'value2']);
-                const stackedValues = stack(data);
-                // console.log(stackedValues)
-                const stackedData = [];
-
-                stackedValues.forEach((layer, index) => {
-                    // console.log(layer)
-                    // console.log(index)
-                    const currentStack = [];
-                    layer.forEach((d, i) => {
-                        // console.log(d)
-                        // console.log(data[i])
-                        // console.log(i)
-                        currentStack.push({
-                            year: data[i].date,
-                            values: d
                             
-                        });
-                    });
-                    stackedData.push(currentStack);
-                });
-                // console.log(stackedData)
+                        return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                    })
+                    console.log(data_json)
+                minDateYear = data[0].year
+                maxDateYear = data[data.length - 1].year
 
-                //create scales
-                const xScale = d3
-                .scaleLinear()
-                .range([0, width])
-                .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
-            
-                const yScale = d3
-                    .scaleLinear()
-                    .range([height, 0])
-                    .domain([0, d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]);
-            
-                const area = d3.area()
-                .x(dataPoint => xScale(parseDate(dataPoint.year)))
-                .y0(dataPoint => yScale(dataPoint.values[0]))
-                .y1(dataPoint => yScale(dataPoint.values[1]));
-                
-        
-                var series = grp
-                    .selectAll(".series")
-                    .data(stackedData)
-                    .enter()
-                    .append("g")
-                    .attr("class", "series");
-        
-                var path = series.append("path")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-linejoin", "round")
-                    .attr("stroke-linecap", "round")
-                    .attr("stroke-width", 1.5)
-                    .style("fill", "white")
-                    .attr("d", d => area(d));
-                
-                
-                path.each(function (d) { d.totalLength = this.getTotalLength(); })
-            
-                path
-                    .attr("stroke-dasharray", function (d) { return d.totalLength + " " + d.totalLength; })
-                    .attr("stroke-dashoffset", function (d) { return d.totalLength; })
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .style("fill", "white")
-                    .transition()
-                    .duration(1000)
-                    .style("fill", (d, i) => palette[i]);;
-                    
-                    
-                    //X axis
-                    svg
-                        .select(".x.axis")
-                        .transition()
-                        .duration(750)
-                        // call the x axis as years
-                        .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format("d")));
-                    
-                    //Y axis
-                    svg
-                        .select(".y.axis")
-                        .transition()
-                        .duration(750)
-                        .call(d3.axisLeft(yScale));
-                    
-        
-                    //title
-                    svg
-                        .append("text")
-                        .attr("class", "graph-title")
-                        .attr("x", width / 2)
-                        .attr("y", 0 - margin.top / 2)
-                        .attr("text-anchor", "middle")
-                        .text(title);
-                
+                year_array=[]
+                value1_array=[]
+                value2_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value1_array.push(data[i].value1)
+                    value2_array.push(data[i].value2)
+                }
 
+                var trace1 = {
+                    x:year_array,
+                    y:value1_array,
+                    name:"Products in Use",
+                    stackgroup: 'one'
+                }
+                
+                var trace2 = {
+                    x:year_array,
+                    y:value2_array,
+                    name:"SWDS",
+                    stackgroup: 'one'
+                }
+
+                var layout = {
+                    title: 'Total Carbon Stocks',
+                    showlegend: false
+                    // yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                    }
+
+                var stackedData = [trace1, trace2];
+                Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});   
             } else {
-                console.log("graph type is bar")
+                tester = document.getElementsByClassName("non-active " + graph_class)[0];
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
+                    })
+
+                year_array=[]
+                prod_array=[]
+                swds_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    prod_array.push(data[i].products_in_use_change)
+                    swds_array.push(data[i].SWDS_change)
+                }
+                year_array = year_array.slice(0, -2)
+                prod_array = prod_array.slice(0, -2)
+                swds_array = swds_array.slice(0, -2)
+                var trace1 = {
+                    x:year_array,
+                    y:prod_array,
+                    name:"Change in Products in Use",
+                    type:"bar"
+                }
+                
+                var trace2 = {
+                    x:year_array,
+                    y:swds_array,
+                    name:"Change in SWDS",
+                    type:"bar"
+                }
+
+                stackedData = [trace1, trace2];
+            
+
+                var layout = {
+                            barmode: 'relative',
+                            // xaxis: {title:"Years"},
+                            // yaxis: {title:"Megagrams C (Mg C)"},
+                            title: "Annual Net Change Carbon Stocks",
+                            showlegend: false};
+
+                plot = Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
                 
             }
-            // console.log("min",data[0].date)
-            // console.log("max",data[data.length-1].date)
-          
-     
-       
-            // // Now I can use this dataset:
-            // // Add X axis --> it is a date format
-            // const x = d3.scaleTime()
-            //     .domain(d3.extent(data, function (d) { return d.date; }))
-            //     .range([0, width]);
-            // svg.append("g")
-            //     .attr("transform", `translate(0, ${height})`)
-            //     .call(d3.axisBottom(x));
-        
-            // // Add Y axis
-            // const y = d3.scaleLinear()
-            //     .domain([0, d3.max(data, function (d) { return +d.value; })])
-            //     .range([height, 0]);
-            // svg.append("g")
-            //     .call(d3.axisLeft(y));
-        
-            // // Add the line
-            // svg.append("path")
-            //     .datum(data)
-            //     .attr("fill", "none")
-            //     .attr("stroke", "steelblue")
-            //     .attr("stroke-width", 1.5)
-            //     .attr("d", d3.line()
-            //         .x(function (d) { return x(d.date) })
-            //         .y(function (d) { return y(d.value) })
-            //     )
-        
-            // svg.append("text")
-            //     .attr("class", "x label")
-            //     .attr("text-anchor", "center")
-            //     .attr("x", width / 2)
-            //     .attr("y", height + 20)
-            //     .text("Years");
             
-            // svg.append("text")
-            //     .attr("class", "y label")
-            //     .attr("text-anchor", "center")
-            //     .attr("y", 6)
-            //     .attr("dy", ".75em")
-            //     .attr("transform", "rotate(-90)")
-            //     .text("Co2e");
         } else if (is_active == "hidden") {
              // hidden graphs
              $("." + graph_class).html("")
@@ -636,884 +493,175 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             const margin = { top: 40, right: 80, bottom: 160, left: 80 },
                 width = w - margin.left - margin.right,
                 height = h - margin.top - margin.bottom;
-                        
-            const x = d3.scaleTime().range([0, width]);
-            const y = d3.scaleLinear().range([height, 0]);
-
-            // const area = d3
-            // .area()
-            // .x((d) => { return x(d.date); })
-            // .y0(height)
-            // .y1((d) => { return y(d.value); })
-
 
             const valueline = d3
                 .line()
                 .x((d) => { return x(d.date); })
                 .y((d) => { return y(d.value); })
        
-       
-            const svg = d3
-                .select("div." + graph_class)
-                .append("div")
-                .classed("svg-graph-container", true) // Container class to make graphs responsive.
-                .append("svg")
-                .attr("id", graph_class)
-                .attr("class", graph_class)
-                .attr("preserveAspectRatio", "xMinYMid meet")
-                .attr(
-                    "viewBox",
-                    `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-                .classed("svg-content-responsive", true)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
-           
-            
-    
-
-            //y axis title
-            svg
-                .append("text")
-                .attr("class", "y-axis-title")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - margin.left)
-                .attr("x", 0 - height / 2)
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .text(y_label);
-    
-            //x axis title
-            svg
-                .append("text")
-                .attr("class", "x-axis-title")
-                .attr("y", height + 30)
-                .attr("x", width / 2)
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .text("Years");
 
             if (graph_type == "line") {
-
-
+                
+                tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
-                        // d3.selectAll("path.area").remove();
-                        // d3.selectAll("path.line").remove();
-                        // d3.selectAll(".title").remove();
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                        return { year: d[Object.keys(d)[0]], value: d[Object.keys(d)[1]] }
                     })
                     
-                minDateYear = data[0].date.getFullYear();
-                maxDateYear = data[data.length - 1].date.getFullYear();
-                console.log(caption[0].text)
-                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                svg
-                    .append("g")
-                    .attr("class", graph_class + "caption")
-                    .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
-                    
-
-                new d3plus.TextBox()
-                    .select("." + graph_class + "caption")
-                    .data(caption)
-                    .fontSize(16)
-                    .width(width)
-                    .textAnchor("middle")
-                    .x(function (d, i) { return i * 250; })
-                    .render();
+                // minDateYear = data[0].date.getFullYear();
+                // maxDateYear = data[data.length - 1].date.getFullYear();
+                // console.log(caption[0].text)
+                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 // svg
                 //     .append("g")
-                //     .append("text")
-                //     .text(caption)
-                //     .attr("x",20)
-                //     .attr("y",height + 20)
-                                        
-                x.domain(
-                    d3.extent(data, (d) => { return d.date; })
-                );
-                y.domain([
-                    0,
-                    d3.max(data, (d) => { return +d.value; })
-                ]);
-                const linePath = svg
-                    .append("path")
-                    .datum(data)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                const pathLength = linePath.node().getTotalLength();
-                linePath
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 3);
-                    
-                svg
-                    .select(".x.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisBottom(x));
-                svg
-                    .select(".y.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisLeft(y));
-                
-                
-                svg
-                    .append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
-            
-                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
+                //     .attr("class", graph_class + "caption")
+                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
 
-                //title
-                svg
-                    .append("text")
-                    .attr("class", "graph-title")
-                    .attr("x", width / 2)
-                    .attr("y", 0 - margin.top / 2)
-                    .attr("text-anchor", "middle")
-                    .attr("font-size", "18px")
-                    .text(title);
-                    
-                function mouseMove(event) {
-                    // console.log(event, "hello");
-            
-                    const bisect = d3.bisector((d) => d.date).left,
-                        x0 = x.invert(d3.pointer(event, this)[0]),
-                        i = bisect(data, x0, 1),
-                        d0 = data[i - 1],
-                        d1 = data[i],
-                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-                    // console.log(i, d0, d1, d) 
-                    // focus
-                    //    .select("rect")
-                    //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-                            
-            
-                    focus
-                        .select("circle.y")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-            
-                    focus
-                        .select("text.y1")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text(d3.format(",.2~f")(d.value));
-            
-                    focus
-                        .select("text.y2")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text(parseDate(d.date));
-            
-                    focus
-                        .select(".x")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .attr("y2", height - y(d.value));
-            
-                    focus
-                        .select(".y")
-                        .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
-                        .attr("x2", width + width);
-                    
+                year_array=[]
+                value_array=[]
+                
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value_array.push(data[i].value)
                 }
-                const focus = svg
-                    .append("g")
-                    .attr("class", "focus")
-                    .style("display", "none");
-                            
-                     
-                
-                // append the x line
-                focus
-                    .append("line")
-                    .attr("class", "x")
-                    .style("stroke-dasharray", "3,3")
-                    .style("opacity", 0.5)
-                    .attr("y1", 0)
-                    .attr("y2", height);
-                
-                // append the y line
-                focus
-                    .append("line")
-                    .attr("class", "y")
-                    .style("stroke-dasharray", "3,3")
-                    .style("opacity", 0.5)
-                    .attr("x1", width)
-                    .attr("x2", width);
-                
-                // append the circle at the intersection
-                focus
-                    .append("circle")
-                    .attr("class", "y")
-                    .style("fill", "none")
-                    .attr("r", 4); // radius
-                            
-                
-                // place the value at the intersection
-                focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
-                        
-                
-                // place the date at the intersection
-                focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
+
+
+                var trace1 = {
+                    x:year_array,
+                    y:value_array,
+                    name:data_dict[graph_class][1],
+                    type:"scatter"
+                }
                 
                 
-                     
-                            
-                svg
-                    .append("rect")
-                    .attr("width", width)
-                    .attr("height", height)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", () => {
-                        focus.style("display", null);
-                    })
-                    .on("mouseout", () => {
-                        focus.style("display", "none");
-                    })
-                    .on("touchmove mousemove", mouseMove);
-                            
-                            
-                    
+
+                var layout = {
+                    title: data_dict[graph_class][1],
+                    yaxis: {title: data_dict[graph_class][3]},
+                    }
+
+                var stackedData = [trace1];
+                Plotly.newPlot(tester, stackedData, layout);
+                                     
             } else if (graph_type == "multiline") {
                 console.log("graph type is active multiline")
-                
-                const data1 = d3.csvParse(json_data,
+                tester = document.getElementsByClassName("active-graph " + graph_class)[0];
+                const data = d3.csvParse(json_data,
                     function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                        return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2 : d[Object.keys(d)[2]]}
                     })
-                const data2 = d3.csvParse(json_data,
-                    function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-                    })
-                minDateYear = data1[0].date.getFullYear();
-                maxDateYear = data1[data1.length - 1].date.getFullYear();
+                // const data2 = d3.csvParse(json_data,
+                //     function (d) {
+                //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+                //     })
+                minDateYear = data[0].year
+                maxDateYear = data[data.length - 1].year
 
-                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                svg
-                    .append("g")
-                    .attr("class", graph_class + "caption")
-                    .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
-                    
-
-                new d3plus.TextBox()
-                    .select("." + graph_class + "caption")
-                    .data(caption)
-                    .fontSize(16)
-                    .width(width)
-                    .textAnchor("middle")
-                    .x(function (d, i) { return i * 250; })
-                    .render();
-
-                var keys = ["Value1", "Value2"];
-                x.domain(
-                    d3.extent(data1, (d) => { return d.date; })
-                );
-                y.domain([
-                    0,
-                    d3.max(data2, (d) => { return +d.value; })
-                ]);
-
-                const linePath = svg
-                    .append("path")
-                    .datum(data1)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                const pathLength = linePath.node().getTotalLength();
-                linePath
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 3);
-                
-                const linePath2 = svg
-                    .append("path")
-                    .datum(data2)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                
-                linePath2
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 3);
-                    
-                svg
-                    .select(".x.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisBottom(x));
-                svg
-                    .select(".y.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisLeft(y));
-                
-                           
-                svg
-                    .append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
-            
-                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
-
-
-                //title
-                svg
-                    .append("text")
-                    .attr("class", "graph-title")
-                    .attr("x", width / 2)
-                    .attr("y", 0 - margin.top / 2)
-                    .attr("text-anchor", "middle")
-                    .attr("font-size", "18px")
-                    .text(title);
-
-                // // Legend
-                // var legend = svg.selectAll(".legend")
-                //     .data(keys.slice())
-                //     .enter().append("g")
-                //     .attr("class", "legend")
-                //     .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
-                
-
-                //     legend.append("path")
-                //     .attr("class", "line")
-                //     .attr("d", function(d) { return line(d.values); })
-                //     .style("stroke", function(d) { return color(d.name); });
-                  
-                //   legend.append('rect')
-                //       .attr('x', width - 20)
-                //       .attr('y', function(d, i){ return i *  20;})
-                //       .attr('width', 10)
-                //       .attr('height', 10)
-                //       .style('fill', function(d) { 
-                //         return color(d.name);
-                //       });
-                  
-                //   legend.append('text')
-                //       .attr('x', width - 8)
-                //       .attr('y', function(d, i){ return (i *  20) + 9;})
-                //       .text(function(d){ return d.name; });
-                  
-            
-            
-                function mouseMove(event) {
-                    // console.log(event, "hello");
-                    
-            
-                    const bisect = d3.bisector((d) => d.date).left,
-                        x0 = x.invert(d3.pointer(event, this)[0]),
-                        i = bisect(data1, x0, 1),
-                        d0 = data1[i - 1],
-                        d1 = data1[i],
-                        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-                    const bisect2 = d3.bisector((d) => d.date).left,
-                        xx0 = x.invert(d3.pointer(event, this)[0]),
-                        ii = bisect2(data2, xx0, 1),
-                        dd0 = data2[ii - 1],
-                        dd1 = data2[ii],
-                        dd = xx0 - dd0.date > dd1.date - xx0 ? dd1 : dd0;
-                    // console.log(i, d0, d1, d) 
-                    // focus
-                    //    .select("rect")
-                    //     .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-                            
-            
-                    focus
-                        .select("circle.y")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-            
-                    focus
-                        .select("text.y1")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text("Yearly Harvest (CCF): " + d3.format(",.2~f")(d.value));
-                    
-                    focus
-                        .select("text.y2")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text("Timber Products (MBF): " + d3.format(",.2~f")(dd.value));
-            
-                    focus
-                        .select("text.y3")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .text(parseDate(d.date));
-            
-                    focus
-                        .select(".x")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
-                        .attr("y2", height - y(d.value));
-            
-                    focus
-                        .select(".y")
-                        .attr("transform", "translate(" + width * -1 + "," + y(d.value) + ")")
-                        .attr("x2", width + width);
-                    
+                year_array=[]
+                value1_array=[]
+                value2_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value1_array.push(data[i].value1)
+                    value2_array.push(data[i].value2)
                 }
-                const focus = svg
-                    .append("g")
-                    .attr("class", "focus")
-                    .style("display", "none");
-                            
-                     
-                
-                // append the x line
-                focus
-                    .append("line")
-                    .attr("class", "x")
-                    .style("stroke-dasharray", "3,3")
-                    .style("opacity", 0.5)
-                    .attr("y1", 0)
-                    .attr("y2", height);
-                
-                // append the y line
-                focus
-                    .append("line")
-                    .attr("class", "y")
-                    .style("stroke-dasharray", "3,3")
-                    .style("opacity", 0.5)
-                    .attr("x1", width)
-                    .attr("x2", width);
-                
-                // append the circle at the intersection
-                focus
-                    .append("circle")
-                    .attr("class", "y")
-                    .style("fill", "none")
-                    .attr("r", 4); // radius
-                            
-                
-                // place the value at the intersection
-                focus.append("text").attr("class", "y1").attr("dx", 8).attr("dy", "-.3em");
-                        
-                
-                // place the date at the intersection
-                focus.append("text").attr("class", "y2").attr("dx", 8).attr("dy", "1em");
-                
 
-                focus.append("text").attr("class", "y3").attr("dx", 8).attr("dy", "2.3em");
+
+                var trace1 = {
+                    x:year_array,
+                    y:value1_array,
+                    name:"Annual Harvest",
+                    type:"scatter"
+                }
                 
-                     
-                            
-                svg
-                    .append("rect")
-                    .attr("width", width)
-                    .attr("height", height)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", () => {
-                        focus.style("display", null);
-                    })
-                    .on("mouseout", () => {
-                        focus.style("display", "none");
-                    })
-                    .on("touchmove mousemove", mouseMove);
+                var trace2 = {
+                    x:year_array,
+                    y:value2_array,
+                    yaxis: 'y2',
+                    name:"Annual Timber Harvest",
+                    type:"scatter"
+                }
+
+                var layout = {
+                    title: 'Annual Harvest and Timber Product Outputs',
+                    yaxis: {title: 'Hundred Cubic Feet (CCF)'},
+                    yaxis2: {
+                      title: 'Megagrams Carbon (Mg C)',
+                      titlefont: {color: 'rgb(148, 103, 189)'},
+                      tickfont: {color: 'rgb(148, 103, 189)'},
+                      overlaying: 'y',
+                      side: 'right'
+                    }}
+
+                var stackedData = [trace1, trace2];
+                Plotly.newPlot(tester, stackedData, layout);
+
+
+                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+                // svg
+                //     .append("g")
+                //     .attr("class", graph_class + "caption")
+                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
+                    
+
+                
                 
             }
             else if (graph_type == "stack") {
                 // console.log("this is a stack")
-                const grp = svg
-                    .append("g")
-                
-                           
-                svg
-                    .append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
-            
-                svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
-
+                tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
                             
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                        return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
                     })
-                minDateYear = data[0].date.getFullYear();
-                maxDateYear = data[data.length - 1].date.getFullYear();
+                    console.log(data_json)
+                minDateYear = data[0].year
+                maxDateYear = data[data.length - 1].year
 
-                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                svg
-                    .append("g")
-                    .attr("class", graph_class + "caption")
-                    .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
-                    
-
-                new d3plus.TextBox()
-                    .select("." + graph_class + "caption")
-                    .data(caption)
-                    .fontSize(16)
-                    .width(width)
-                    .textAnchor("middle")
-                    .x(function (d, i) { return i * 250; })
-                    .render();
-                
-                var keys = ["Products in Use", "SWDS Present"];
-                const palette = ['lightgreen', 'lightblue'];
-                const patterns = ['diagonal-stripe-1', 'circles-8'];
-                const stack = d3.stack().keys(['value1', 'value2']);
-                const stackedValues = stack(data);
-                // console.log(stackedValues)
-                const stackedData = [];
-
-    
-                stackedValues.forEach((layer, index) => {
-                    // console.log(layer)
-                    // console.log(index)
-                    const currentStack = [];
-                    layer.forEach((d, i) => {
-                        // console.log(d)
-                        // console.log(data[i])
-                        // console.log(i)
-                        currentStack.push({
-                            year: data[i].date,
-                            values: d
-                                
-                        });
-                    });
-                    stackedData.push(currentStack);
-                });
-                // console.log(stackedData)
-    
-                //create scales
-                const xScale = d3
-                    .scaleLinear()
-                    .range([0, width])
-                    .domain(d3.extent(data, (d) => { return parseDate(d.date); }));
-                    
-                // console.log(xScale)
-                
-                const yScale = d3
-                    .scaleLinear()
-                    .range([height, 0])
-                    .domain([0, d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]);
-                
-                const area = d3.area()
-                    .x(dataPoint => xScale(parseDate(dataPoint.year)))
-                    .y0(dataPoint => yScale(dataPoint.values[0]))
-                    .y1(dataPoint => yScale(dataPoint.values[1]));
-                    
-            
-                var series = grp
-                    .selectAll(".series")
-                    .data(stackedData)
-                    .enter()
-                    .append("g")
-                    .attr("class", "series");
-            
-                var path = series.append("path")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-linejoin", "round")
-                    .attr("stroke-linecap", "round")
-                    .attr("stroke-width", 3)
-                    .style("fill", "white")
-                    .attr("d", d => area(d));
-                    
-                    
-                path.each(function (d) { d.totalLength = this.getTotalLength(); })
-                
-                path
-                    .attr("stroke-dasharray", function (d) { return d.totalLength + " " + d.totalLength; })
-                    .attr("stroke-dashoffset", function (d) { return d.totalLength; })
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .style("fill", "white")
-                    .transition()
-                    .duration(1000)
-                    // .style("fill", "url(#hash4_4)");
-                    .style("fill", (d, i) => palette[i]);
-                    
-                         
-                //legend
-
-                var size = 20
-                svg.selectAll("legendrect")
-                    .data(stackedData)
-                    .enter()
-                    .append("rect")
-                    .attr("x", 20)
-                    .attr("y", function (d, i) { return 20 + i * (size + 5) })
-                    .attr("width", size)
-                    .attr("height", size)
-                    .style("fill", (d, i) => palette[i])
-                // .on("mouseover", highlight)
-                // .on("mouseleave", noHighlight)
-                
-                console.log(stackedData)
-                // Add one dot in the legend for each name.
-                svg.selectAll("legendlabels")
-                    .data(keys)
-                    .enter()
-                    .append("text")
-                    .attr("font-size", "16px")
-                    .attr("x", 20 + size * 1.2)
-                    .attr("y", function (d, i) { return 25 + i * (size + 5) + (size / 2) })
-                    .style("fill", "black")
-                    .text(function (d) { return d })
-                    .attr("text-anchor", "left")
-                    .style("alignment-baseline", "bottom")
-                // .on("mouseover", highlight)
-                // .on("mouseleave", noHighlight)
-
-                // var legend = svg.append('g')
-                //     .attr('class', 'legend')
-                //     .attr('transform', 'translate(' + (margin.left + 12) + ', 0)');
-                    
-                // legend.selectAll('rect')
-                //     .data(stack)
-                //     .enter()
-                //     .append('rect')
-                //     .attr('x', 0)
-                //     .attr('y', 18)
-                //     // .attr('y', function(d, i){
-                //     //     return i * 18;
-                //     // })
-                //     .attr('width', 12)
-                //     .attr('height', 12)
-                //     .style("fill", (d, i) => palette[i]);
-                    
-                     
-                // // .attr("fill", "pink");
-                    
-                // legend.selectAll('text')
-                //     .data(stack)
-                //     .enter()
-                //     .append('text')
-                //     .text(function (d) {
-                //         return d;
-                //     })
-                //     .attr('x', 18)
-                //     .attr('y', function (d, i) {
-                //         return i * 18;
-                //     })
-                //     .attr('text-anchor', 'start')
-                //     .attr('alignment-baseline', 'hanging');
-                    
-                // path
-                //fill with pattern
-                        
-                        
-                //X axis
-                svg
-                    .select(".x.axis")
-                    .transition()
-                    .duration(750)
-                    // call the x axis as years
-                    .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
-                    
-                //Y axis
-                svg
-                    .select(".y.axis")
-                    .transition()
-                    .duration(750)
-                    .call(d3.axisLeft(yScale));
-                    
-        
-                //title
-                svg
-                    .append("text")
-                    .attr("class", "graph-title")
-                    .attr("x", width / 2)
-                    .attr("y", 0 - margin.top / 2)
-                    .attr("text-anchor", "middle")
-                    .attr("font-size", "18px")
-                    .text(title);
-               
-   
-                //focus
-                    
-                    
-       
-                    
-                const focus = svg
-                    .append("g")
-                    .attr("class", "focus")
-                    .style("display", "none");
-                    
-                focus
-                    .append("circle")
-                    .attr("class", "y")
-                    .style("fill", "none")
-                    .attr("r", 4); // radius
-
-                // focus.append("circle")
-                //     .attr("r", 5);
-
-                // focus.append("text")
-                //     .attr("x", 9)
-                //     .attr("dy", ".35em")
-                //     .style("font-size",15);
-                
-                // var focus2 = svg.append("g")
-                //     .attr("class", "focus")
-                //     .style("display", "none");
-
-                // focus2.append("circle")
-                //     .attr("r",5);
-
-                // focus2.append("text")
-                //     .attr("x", 9)
-                //     .attr("dy", ".35em")
-                //     .style("font-size",15);
-                
-                // var focus3 = svg.append("g")
-                //     .attr("class", "focus")
-                //     .style("display", "none");
-
-                // focus3.append("circle")
-                //     .attr("r", 5);
-
-                // focus3.append("text")
-                //     .attr("x", 9)
-                //     .attr("dy", ".35em")
-                //     .style("font-size",15);
-
-                // var focus4 = svg.append("g")
-                //     .attr("class", "focus")
-                //     .style("display", "none");
-
-                // focus4.append("circle")
-                //     .attr("r", 5);
-
-                // focus4.append("text")
-                //     .attr("x", 9)
-                //     .attr("dy", ".5em")
-                //     .style("font-size",15);
-
-                svg.append("rect")
-                    .attr("class", "overlay")
-                    .attr("width", width)
-                    .attr("height", height)
-                    .style("fill", "none")
-                    .style("pointer-events", "all")
-                    .on("mouseover", function () {
-                        focus.style("display", null);
-                        // focus2.style("display", null);
-                        // focus3.style("display", null);
-                        // focus4.style("display", null);
-                    })
-                    .on("mouseout", function () {
-                        focus.style("display", "none");
-                        // focus2.style("display", "none");
-                        // focus3.style("display", "none");
-                        // focus4.style("display", "none");
-                    })
-                    .on("touchmove mousemove", mouseMove);
-
-                const tParser = d3.timeParse("%d/%m/%Y")
-
-                function mouseMove(event) {
-                    
-                    const bisect = d3.bisector((d) => d.date).left,
-                        x0 = new Date(xScale.invert(d3.pointer(event, this)[0])),
-                        i = bisect(data, x0, 1),
-                        d0 = data[i - 1],
-                        d1 = data[i],
-                        d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-
-                    // const bisect1 = d3.bisector((d) => d.date).left,
-                    //     xx0 = xScale.invert(d3.pointer(event, this)[0]),
-                    //     ii = bisect1(stackedData[1], xx0, 1),
-                    //     dd0 = stackedData[1][ii - 1],
-                    //     dd1 = stackedData[1][ii],
-                    //     dd = xx0 - dd0.year > dd1.year - xx0 ? dd1 : dd0;
-                    console.log(x0)
-                    // console.log(xx0)
-                    console.log(i, d0, d1, d)
-                    // console.log(ii, dd0, dd1, dd)
-                    
-
-                    focus
-                        .select("circle.y")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value2) + ")");
-            
-                    focus
-                        .select("text.y1")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
-                        .text(d3.format(",.2~f")(d.value1));
-            
-                    focus
-                        .select("text.y2")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
-                        .text(parseDate(d.date));
-            
-                    focus
-                        .select(".x")
-                        .attr("transform", "translate(" + x(d.date) + "," + y(d.value1) + ")")
-                        .attr("y2", height - y(d.value1));
-            
-                    focus
-                        .select(".y")
-                        .attr("transform", "translate(" + width * -1 + "," + y(d.value1) + ")")
-                        .attr("x2", width + width);
-
-                    //   var depl=parseFloat(d['Safari'])+parseFloat(d['Opera'])+parseFloat(d['Firefox']);
-                    //   var depl2=parseFloat(d['Safari'])+parseFloat(d['Opera']);
-                    //   var depl3=parseFloat(d['Safari'])+parseFloat(d['Opera'])+parseFloat(d['Firefox'])+parseFloat(d['Chrome']);
-                    //   var depl4=parseFloat(d['Opera']);
-                    //   focus.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl/100+ ")"); 
-                    //   focus2.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl2/100+ ")");   
-                    //   focus3.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl3/100+ ")");   
-                    //   focus4.attr("transform", "translate(" + x(d.date) + "," + (500 - margin.top - margin.bottom)*depl4/100+ ")");   
-                    //   focus.select("text").text(d3.round(100-depl, 1)+"%");
-                    //   focus2.select("text").text(d3.round(100-depl2, 1)+"%");
-                    //   focus3.select("text").text(d3.round(100-depl3, 1)+"%");
-                    //   focus4.select("text").text(d3.round(100-depl4, 1)+"%");
+                year_array=[]
+                value1_array=[]
+                value2_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    value1_array.push(data[i].value1)
+                    value2_array.push(data[i].value2)
                 }
-                // svg
-                // .append("rect")
-                // .attr("width", width)
-                // .attr("height", height)
-                // .style("fill", "none")
-                // .style("pointer-events", "all")
-                // .on("mouseover", function() {
-                //     focus.style("display", "none");
-                // })
-                // .on("mouseout", function() {
-                //     focus.style("display", "none");
-                // })
-                // .on("touchmove mousemove", mouseMove);
-       
- 
-                    
+
+                var trace1 = {
+                    x:year_array,
+                    y:value1_array,
+                    name:"Products in Use",
+                    stackgroup: 'one'
+                }
+                
+                var trace2 = {
+                    x:year_array,
+                    y:value2_array,
+                    name:"SWDS",
+                    stackgroup: 'one'
+                }
+
+                var layout = {
+                    title: 'Total Carbon Stocks',
+                    yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                    }
+
+                var stackedData = [trace1, trace2];
+                Plotly.newPlot(tester, stackedData, layout);   
     
             }
             else {
                 console.log(json_data)
                 console.log("graph type is active bar")
-
-                tester = document.getElementsByClassName('annual_net_change_carbon_stocks')[0];
-
+                tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
                         return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
                     })
-                console.log(data)
-                console.log(data.year)
+
                 year_array=[]
                 prod_array=[]
                 swds_array=[]
@@ -1522,14 +670,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     prod_array.push(data[i].products_in_use_change)
                     swds_array.push(data[i].SWDS_change)
                 }
-
+                year_array = year_array.slice(0, -2)
+                prod_array = prod_array.slice(0, -2)
+                swds_array = swds_array.slice(0, -2)
                 var trace1 = {
                     x:year_array,
                     y:prod_array,
                     name:"Change in Products in Use",
                     type:"bar"
                 }
-                console.log(trace1)
+                
                 var trace2 = {
                     x:year_array,
                     y:swds_array,
@@ -1540,119 +690,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 stackedData = [trace1, trace2];
             
 
-                var layout = {barmode: 'stack'};
+                var layout = {
+                            barmode: 'relative',
+                            xaxis: {title:"Years"},
+                            yaxis: {title:"Megagrams C (Mg C)"},
+                            title: "Annual Net Change Carbon Stocks"};
 
                 plot = Plotly.newPlot(tester, stackedData, layout);
-                console.log(plot)
-                
-                // var visualization = new d3plus.Plot()
-                // .container("#"+graph_class)
-                // .data(data)
-                // .shape("bar")
-                // .id("name")
-                // .x({"stacked": true, "value": "value"})
-                // .y("year")
-                // .time("year")
-                // .draw()
-
-                // var subgroups = d3.group(data, d => d.variable);
-            
-                       
-                // const groups = data.map(d => (parseDate(d.date)))
-                // // color palette = one color per subgroup
-                // const color = d3.scaleOrdinal()
-                //     .domain(subgroups)
-                //     .range(['#e41a1c', '#377eb8'])
-        
-                   
-                // // Add X axis
-                // const x = d3.scaleBand()
-                //     .domain(groups)
-                //     .range([0, width])
-                //     .padding([0.2])
-                // svg.append("g")
-                //     .attr("transform", `translate(0, ${height})`)
-                //     .call(d3.axisBottom(x));
-                    
-         
-                // // Add Y axis
-                // const y = d3.scaleLinear()
-                //     .domain([d3.min (data, d => d.value), d3.max(data, d => d.value)])
-
-                //     .range([height, 0, height])
-                // svg.append("g")
-                //     .call(d3.axisLeft(y));
-    
-                    
-    
-                // //stack the data? --> stack per subgroup
-                // const stackedData = d3.stack()
-                //     .keys(subgroups)
-                //     (data)
-                // console.log(data)
-                // // Show the bars
-                // svg.append("g")
-                //     .selectAll("g")
-                //     // Enter in the stack data = loop key per key = group per group
-                //     .data(stackedData)
-                //     .join("g")
-                //     .attr("fill", d => color(d.key))
-                //     .selectAll("rect")
-                //     // enter a second time = loop subgroup per subgroup to add all rectangles
-                //     .data(d => d)
-                //     .join("rect")
-                //     .attr("x", function (d) { return x(d.date); })
-                //     .attr("y", function (d) { return y(d.y0); })
-                //     // console.log(y0)
-                //     // .attr("height", (data, function (d) { return d.value1; } - function (d) { return d.value2; }))
-                //     .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-                //     .attr("width", x.bandwidth());
-                    
-                
-               
-                
-                //     svg.append("g")
-                //     .attr("class", "axis")
-                //     .attr("transform", "translate(0," + height + ")")
-                //     .call(d3.axisBottom(x));
-              
-                // svg.append("g")
-                //     .attr("class", "axis")
-                //     .call(d3.axisLeft(y).ticks(null, "s"))
-                //   .append("text")
-                //     .attr("x", 2)
-                //     .attr("y", y(y.ticks().pop()) + 0.5)
-                //     .attr("dy", "0.32em")
-                //     .attr("fill", "#000")
-                //     .attr("font-weight", "bold")
-                //     .attr("text-anchor", "start")
-                //     .text("Population");
-              
-                // var legend = g.append("g")
-                //     .attr("font-family", "sans-serif")
-                //     .attr("font-size", 10)
-                //     .attr("text-anchor", "end")
-                //   .selectAll("g")
-                //   .data(keys.slice().reverse())
-                //   .enter().append("g")
-                //     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-              
-                // legend.append("rect")
-                //     .attr("x", width - 19)
-                //     .attr("width", 19)
-                //     .attr("height", 19)
-                //     .attr("fill", z);
-              
-                // legend.append("text")
-                //     .attr("x", width - 24)
-                //     .attr("y", 9.5)
-                //     .attr("dy", "0.32em")
-                //     .text(function(d) { return d; });
 
             }
             
-            
-    
             } else {
             console.log("I broke");
         }
@@ -1662,13 +709,29 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
 
 $(".non-active").click(function (e) {
-    var non_active_div = $(e.target);
-    var non_active_div_siblings = $(e.target).siblings()
+    console.log($(e.target))
+    console.log($(e.target).parent().parent())
+    // console.log
+    var non_active_div = $(e.target).parent().parent();
+    var non_active_div_siblings = $(e.target).parent().parent().siblings()
     var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
 
     var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
-    non_active_id = non_active_div[0].classList[non_active_div[0].classList.length-1]
-    current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-1]
+    for(let i=0;i<non_active_div[0].classList.length;i++){
+        if(non_active_div[0].classList[i] != "graph" && non_active_div[0].classList[i] != "js-plotly-plot" && non_active_div[0].classList[i] != "non-active"){
+            non_active_id = non_active_div[0].classList[i]
+        }
+    }
+    console.log(current_tabs_active_graph[0].classList)
+    for(let i=0;i<current_tabs_active_graph[0].classList.length;i++){
+        if(current_tabs_active_graph[0].classList[i] != "graph" && current_tabs_active_graph[0].classList[i] != "active-graph" && current_tabs_active_graph[0].classList[i] != "js-plotly-plot"){
+            console.log(current_tabs_active_graph[0].classList[i])
+            current_tabs_active_id = current_tabs_active_graph[0].classList[i]
+        }
+    }
+    // current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-2]
+    console.log(non_active_id)
+    console.log(current_tabs_active_id)
     current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
@@ -1684,25 +747,25 @@ $(".non-active").click(function (e) {
     }      
 });
 
-$(document).ready(function () {
-    $("#singleYear").attr({
-        "min": minDateYear,
-        "max": maxDateYear,
-        "value": minDateYear
-    })
+// $(document).ready(function () {
+//     $("#singleYear").attr({
+//         "min": minDateYear,
+//         "max": maxDateYear,
+//         "value": minDateYear
+//     })
 
-    $("#startYear").attr({
-        "min": minDateYear,
-        "max": maxDateYear,
-        "value": minDateYear
-    })
+//     $("#startYear").attr({
+//         "min": minDateYear,
+//         "max": maxDateYear,
+//         "value": minDateYear
+//     })
 
-    $("#endYear").attr({
-        "min": minDateYear,
-        "max": maxDateYear,
-        "value": maxDateYear
-    })
-})
+//     $("#endYear").attr({
+//         "min": minDateYear,
+//         "max": maxDateYear,
+//         "value": maxDateYear
+//     })
+// })
 
 // Harvest Years Controls
 
@@ -1715,24 +778,24 @@ $(function () {
 });
 
 
-d3.select("#dl-closed").on('click', function () {
-    generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
-    generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
-    generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);
+// d3.select("#dl-closed").on('click', function () {
+//     generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
+//     generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
+//     generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);
 
 
-    generate_graph(data_dict["annual_harvests_output"][0], "annual_harvests_output1", "hidden", data_dict["annual_harvests_output"][1], 1300, 700, data_dict["annual_harvests_output"][2]);
-    generate_graph(data_dict["end_use"][0], "end_use1", "hidden", data_dict["end_use"][1], 1300, 700, data_dict["end_use"][2]);
-     generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
-    generate_graph(data_dict["burned_wo_energy_capture_emitted"][0], "burned_wo_energy_capture_emitted1", "hidden", data_dict["burned_wo_energy_capture_emitted"][1], 1300, 700, data_dict["burned_wo_energy_capture_emitted"][2]);
-    generate_graph(data_dict["burned_w_energy_capture_emitted"][0], "burned_w_energy_capture_emitted1", "hidden", data_dict["burned_w_energy_capture_emitted"][1], 1300, 700, data_dict["burned_w_energy_capture_emitted"][2]);
-    generate_graph(data_dict["total_fuelwood_carbon_emitted"][0], "total_fuelwood_carbon_emitted1", "hidden", data_dict["total_fuelwood_carbon_emitted"][1], 1300, 700, data_dict["total_fuelwood_carbon_emitted"][2]);
+//     generate_graph(data_dict["annual_harvests_output"][0], "annual_harvests_output1", "hidden", data_dict["annual_harvests_output"][1], 1300, 700, data_dict["annual_harvests_output"][2]);
+//     generate_graph(data_dict["end_use"][0], "end_use1", "hidden", data_dict["end_use"][1], 1300, 700, data_dict["end_use"][2]);
+//      generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
+//     generate_graph(data_dict["burned_wo_energy_capture_emitted"][0], "burned_wo_energy_capture_emitted1", "hidden", data_dict["burned_wo_energy_capture_emitted"][1], 1300, 700, data_dict["burned_wo_energy_capture_emitted"][2]);
+//     generate_graph(data_dict["burned_w_energy_capture_emitted"][0], "burned_w_energy_capture_emitted1", "hidden", data_dict["burned_w_energy_capture_emitted"][1], 1300, 700, data_dict["burned_w_energy_capture_emitted"][2]);
+//     generate_graph(data_dict["total_fuelwood_carbon_emitted"][0], "total_fuelwood_carbon_emitted1", "hidden", data_dict["total_fuelwood_carbon_emitted"][1], 1300, 700, data_dict["total_fuelwood_carbon_emitted"][2]);
 
-    // generate_graph(data_dict["total_cumulative_carbon_stocks_co2e"][0], "total_cumulative_carbon_stocks_co2e1", "hidden", data_dict["total_cumulative_carbon_stocks_co2e"][1], 1300, 700, data_dict["total_cumulative_carbon_stocks_co2e"][2]);
-    //generate_graph(data_dict["total_dumps_carbon_co2e"][0], "total_dumps_carbon_co2e1", "hidden", data_dict["total_dumps_carbon_co2e"][1], 1300, 700, data_dict["total_dumps_carbon_co2e"][2]);
-    //generate_graph(data_dict["total_landfills_carbon_co2e"][0], "total_landfills_carbon_co2e1", "hidden", data_dict["total_landfills_carbon_co2e"][1], 1300, 700, data_dict["total_landfills_carbon_co2e"][2]);
+//     // generate_graph(data_dict["total_cumulative_carbon_stocks_co2e"][0], "total_cumulative_carbon_stocks_co2e1", "hidden", data_dict["total_cumulative_carbon_stocks_co2e"][1], 1300, 700, data_dict["total_cumulative_carbon_stocks_co2e"][2]);
+//     //generate_graph(data_dict["total_dumps_carbon_co2e"][0], "total_dumps_carbon_co2e1", "hidden", data_dict["total_dumps_carbon_co2e"][1], 1300, 700, data_dict["total_dumps_carbon_co2e"][2]);
+//     //generate_graph(data_dict["total_landfills_carbon_co2e"][0], "total_landfills_carbon_co2e1", "hidden", data_dict["total_landfills_carbon_co2e"][1], 1300, 700, data_dict["total_landfills_carbon_co2e"][2]);
     
    
         
 
-})
+// })
