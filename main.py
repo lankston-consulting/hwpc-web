@@ -164,9 +164,20 @@ def output():
         if ".csv" in file:
             print(file[:-4])
             test = pd.read_csv("/tmp/zip_folder/"+file)
-            if(file[:-4] == "annual_net_change_carbon_stocks"):
-                test = test.set_index("Year")
-                test = test.melt(ignore_index=False)
+            # if(file[:-4] == "annual_net_change_carbon_stocks"):
+            #     test = test.set_index("Year")
+            #     test = test.melt(ignore_index=False)
+            #     try:
+            #         test = test.drop(columns="DiscardDestinationID")
+            #     except:
+            #         print("no column")
+            #     test = test.replace(0, np.nan)
+            #     test.dropna(inplace = True)
+            
+            #     print(test)
+            #     test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+            #     data_dict[file[:-4]] = test.to_csv(index=True)
+            # else:
             try:
                 test = test.drop(columns="DiscardDestinationID")
             except:

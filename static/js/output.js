@@ -1495,64 +1495,102 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 console.log("graph type is active bar")
                 const data = d3.csvParse(json_data,
                     function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), variable: d[Object.keys(d)[1]], value: d[Object.keys(d)[2]] }
+                        return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
                     })
-                
-                
-            
+                console.log(data)
+                console.log(data.year)
+                year_array=[]
+                prod_array=[]
+                swds_array=[]
+                for(i in data){
+                    year_array.push(data[i].year)
+                    prod_array.push(data[i].products_in_use_change)
+                    swds_array.push(data[i].SWDS_change)
+                }
 
-                var subgroups = d3.group(data, d => d.variable);
+                var trace1 = {
+                    x:year_array,
+                    y:prod_array,
+                    name:"Change in Products in Use",
+                    type:"bar"
+                }
+                console.log(trace1)
+                var trace2 = {
+                    x:year_array,
+                    y:swds_array,
+                    name:"Change in SWDS",
+                    type:"bar"
+                }
+
+                stackedData = [trace1,trace2]
+
+                var layout = {barmode: 'stack'};
+
+                plot = Plotly.newPlot(graph_class, stackedData, layout);
+                console.log(plot)
+                
+                // var visualization = new d3plus.Plot()
+                // .container("#"+graph_class)
+                // .data(data)
+                // .shape("bar")
+                // .id("name")
+                // .x({"stacked": true, "value": "value"})
+                // .y("year")
+                // .time("year")
+                // .draw()
+
+                // var subgroups = d3.group(data, d => d.variable);
             
                        
-                const groups = data.map(d => (parseDate(d.date)))
-                // color palette = one color per subgroup
-                const color = d3.scaleOrdinal()
-                    .domain(subgroups)
-                    .range(['#e41a1c', '#377eb8'])
+                // const groups = data.map(d => (parseDate(d.date)))
+                // // color palette = one color per subgroup
+                // const color = d3.scaleOrdinal()
+                //     .domain(subgroups)
+                //     .range(['#e41a1c', '#377eb8'])
         
                    
-                // Add X axis
-                const x = d3.scaleBand()
-                    .domain(groups)
-                    .range([0, width])
-                    .padding([0.2])
-                svg.append("g")
-                    .attr("transform", `translate(0, ${height})`)
-                    .call(d3.axisBottom(x));
+                // // Add X axis
+                // const x = d3.scaleBand()
+                //     .domain(groups)
+                //     .range([0, width])
+                //     .padding([0.2])
+                // svg.append("g")
+                //     .attr("transform", `translate(0, ${height})`)
+                //     .call(d3.axisBottom(x));
                     
          
-                // Add Y axis
-                const y = d3.scaleLinear()
-                    .domain([d3.min (data, d => d.value), d3.max(data, d => d.value)])
+                // // Add Y axis
+                // const y = d3.scaleLinear()
+                //     .domain([d3.min (data, d => d.value), d3.max(data, d => d.value)])
 
-                    .range([height, 0, height])
-                svg.append("g")
-                    .call(d3.axisLeft(y));
+                //     .range([height, 0, height])
+                // svg.append("g")
+                //     .call(d3.axisLeft(y));
     
                     
     
-                //stack the data? --> stack per subgroup
-                const stackedData = d3.stack()
-                    .keys(subgroups)
-                    (data)
-                console.log(data)
-                // Show the bars
-                svg.append("g")
-                    .selectAll("g")
-                    // Enter in the stack data = loop key per key = group per group
-                    .data(stackedData)
-                    .join("g")
-                    .attr("fill", d => color(d.key))
-                    .selectAll("rect")
-                    // enter a second time = loop subgroup per subgroup to add all rectangles
-                    .data(d => d)
-                    .join("rect")
-                    .attr("x", function (d) { return x(d.date); })
-                    .attr("y", function (d) { return y(d.y0); })
-                    // console.log(y0)
-                    // .attr("height", (data, function (d) { return d.value1; } - function (d) { return d.value2; }))
-                    .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-                    .attr("width", x.bandwidth());
+                // //stack the data? --> stack per subgroup
+                // const stackedData = d3.stack()
+                //     .keys(subgroups)
+                //     (data)
+                // console.log(data)
+                // // Show the bars
+                // svg.append("g")
+                //     .selectAll("g")
+                //     // Enter in the stack data = loop key per key = group per group
+                //     .data(stackedData)
+                //     .join("g")
+                //     .attr("fill", d => color(d.key))
+                //     .selectAll("rect")
+                //     // enter a second time = loop subgroup per subgroup to add all rectangles
+                //     .data(d => d)
+                //     .join("rect")
+                //     .attr("x", function (d) { return x(d.date); })
+                //     .attr("y", function (d) { return y(d.y0); })
+                //     // console.log(y0)
+                //     // .attr("height", (data, function (d) { return d.value1; } - function (d) { return d.value2; }))
+                //     .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+                //     .attr("width", x.bandwidth());
                     
                 
                
