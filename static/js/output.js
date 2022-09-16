@@ -1505,6 +1505,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             else {
                 console.log(json_data)
                 console.log("graph type is active bar")
+
+                tester = document.getElementsByClassName('annual_net_change_carbon_stocks')[0];
+
                 const data = d3.csvParse(json_data,
                     function (d) {
                         return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
@@ -1534,11 +1537,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     type:"bar"
                 }
 
-                stackedData = [trace1,trace2]
+                stackedData = [trace1, trace2];
+            
 
                 var layout = {barmode: 'stack'};
 
-                plot = Plotly.newPlot(graph_class, stackedData, layout);
+                plot = Plotly.newPlot(tester, stackedData, layout);
                 console.log(plot)
                 
                 // var visualization = new d3plus.Plot()
