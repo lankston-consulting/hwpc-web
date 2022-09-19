@@ -173,6 +173,11 @@ li {
   outline: none;
 }
 
+.custom-btn-output {
+  width: 100px !important; 
+  min-width: 100px !important;
+}
+
 .btn-calc {
   background-color: var(--dark-green);
   background-image: linear-gradient(315deg, var(--light-green) 0%, var(--dark-green) 74%);
