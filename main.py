@@ -150,8 +150,17 @@ def output():
     products_in_use_mgc=""
     products_in_use_co2e=""
     p = request.args.get("p")
+    q = request.args.get("q")
+    y = request.args.get("y")
     print(p)
-    user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/test.zip")
+    print(q)
+   
+    if(y==None):
+        print("no year range")
+    if(y!=None):
+        print("years: "+y)
+    # print(y)
+    user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
     #user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/harvest_data.csv")
 
     with open('/tmp/zip_folder.zip', 'wb') as f:
@@ -164,20 +173,6 @@ def output():
         if ".csv" in file:
             print(file[:-4])
             test = pd.read_csv("/tmp/zip_folder/"+file)
-            # if(file[:-4] == "annual_net_change_carbon_stocks"):
-            #     test = test.set_index("Year")
-            #     test = test.melt(ignore_index=False)
-            #     try:
-            #         test = test.drop(columns="DiscardDestinationID")
-            #     except:
-            #         print("no column")
-            #     test = test.replace(0, np.nan)
-            #     test.dropna(inplace = True)
-            
-            #     print(test)
-            #     test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
-            #     data_dict[file[:-4]] = test.to_csv(index=True)
-            # else:
             try:
                 test = test.drop(columns="DiscardDestinationID")
             except:
