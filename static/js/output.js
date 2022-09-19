@@ -2,7 +2,7 @@ output = {}
 
 captions_dict = []
 captions_dict["annual_harvest_and_timber_product_output"] = [{text:"Annual total timber harvest and product output converted to metric tons of carbon, from [minimum year] to [maximum year]."}]
-captions_dict["annual_net_change_carbon_stocks"] =  [{text:"Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
+captions_dict["annual_net_change_carbon_stocks"] =  [{text:"Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that are still in <br> use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane."}]
 captions_dict["end_use"] = [{text:"Total cumulative metric tons carbon stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year]."}]
 captions_dict["burned_w_energy_capture_emitted"] =  [{text:"Total cumulative metric ton carbon emitted from burning discarded products with energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. Discarded products are assumed to be burned in an incinerator with energy capture. Emitted carbon is displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
 captions_dict["burned_wo_energy_capture_emitted"] =  [{text:"Total cumulative metric tons carbon emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
@@ -148,6 +148,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     }
 
                 var stackedData = [trace1];
+                
                 Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
         
                 
@@ -522,10 +523,15 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 var layout = {
                     title: data_dict[graph_class][1],
                     xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
-                    yaxis: {title: data_dict[graph_class][3]},
+                    yaxis: { title: data_dict[graph_class][3] },
+                    automargin: true,
+                    height: 700,
+                    margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+                    responsive: true
                     }
 
                 var stackedData = [trace1];
+                
                 Plotly.newPlot(tester, stackedData, layout);
                                      
             } else if (graph_type == "multiline") {
@@ -573,17 +579,24 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                     title: 'Annual Harvest and Timber Product Outputs',
-                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
-                    yaxis: {title: 'Hundred Cubic Feet (CCF)'},
+                    xaxis: { title: "Years<br><br>" + caption[0].text },
+                    yaxis: { title: 'Hundred Cubic Feet (CCF)' },
                     yaxis2: {
-                      title: 'Megagrams Carbon (Mg C)',
-                      titlefont: {color: 'rgb(148, 103, 189)'},
-                      tickfont: {color: 'rgb(148, 103, 189)'},
-                      overlaying: 'y',
-                      side: 'right'
-                    }}
+                        title: 'Megagrams Carbon (Mg C)',
+                        titlefont: { color: 'rgb(148, 103, 189)' },
+                        tickfont: { color: 'rgb(148, 103, 189)' },
+                        overlaying: 'y',
+                        side: 'right'
+                    },
+                    automargin: true,
+                    height: 700,
+                    margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+                    responsive: true
+                };
 
                 var stackedData = [trace1, trace2];
+
+
                 Plotly.newPlot(tester, stackedData, layout);
 
 
@@ -637,8 +650,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                     title: 'Total Carbon Stocks',
-                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
-                    yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                    xaxis: { title: "Years<br><br>" + caption[0].text },
+                    yaxis: { title: 'Megagrams Carbon (Mg C)' },
+                    automargin: true,
+                    height: 700,
+                    margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+                    responsive: true
                     }
 
                 var stackedData = [trace1, trace2];
@@ -689,10 +706,15 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                             barmode: 'relative',
-                            xaxis: {title:"Years<br><div class='caption'>"+caption[0].text+"</div>"},
+                            xaxis: { title: "Years<br><br>" + caption[0].text },
                             yaxis: {title:"Megagrams C (Mg C)"},
-                            title: "Annual Net Change Carbon Stocks"};
-
+                            title: "Annual Net Change Carbon Stocks",
+                            automargin: true,
+                            height: 700,
+                            margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+                            responsive: true};
+             
+                
                 plot = Plotly.newPlot(tester, stackedData, layout);
 
             }
