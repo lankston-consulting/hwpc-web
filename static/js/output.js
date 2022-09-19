@@ -40,35 +40,23 @@ output.initialize = function(input_json) {
 }
 
 $("#defaultOpen").click(function (e) {
-    // active_id = $("#inUseContent").children()[0].classList[$("#inUseContent").children()[0].classList.length-1]
-    // inactive = $("#inUseContent").children()[1].children
-    // inactive_ids =[]
-    // for(i=0;i<$("#inUseContent").children()[1].children.length;i++){
-    //     inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
-    // }
-    // generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    // for(i=0;i<inactive_ids.length;i++){
-    //     generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
-    // }
-})
-$("#productsInUse").click(function (e) {
-    active_id = $("#inUseContent").children()[0].classList[$("#inUseContent").children()[0].classList.length-1]
-    inactive = $("#inUseContent").children()[1].children
+    active_id = $("#coolFlashyTabContent").children()[0].classList[$("#coolFlashyTabContent").children()[0].classList.length-1]
+    inactive = $("#coolFlashyTabContent").children()[1].children
     inactive_ids =[]
-    for(let i=0;i<$("#inUseContent").children()[1].children.length;i++){
-        inactive_ids.push($("#inUseContent").children()[1].children[i].classList[$("#inUseContent").children()[1].children[i].classList.length-1])
+    for(let i=0;i<$("#coolFlashyTabContent").children()[1].children.length;i++){
+        inactive_ids.push($("#coolFlashyTabContent").children()[1].children[i].classList[$("#coolFlashyTabContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(let i=0;i<inactive_ids.length;i++){
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
-$("#burned").click(function(e){
-    active_id = $("#burnedContent").children()[0].classList[$("#burnedContent").children()[0].classList.length-1]
-    inactive = $("#burnedContent").children()[1].children
+$("#solidCarbon").click(function(e){
+    active_id = $("#solidCarbonContent").children()[0].classList[$("#solidCarbonContent").children()[0].classList.length-1]
+    inactive = $("#solidCarbonContent").children()[1].children
     inactive_ids =[]
-    for(let i=0;i<$("#burnedContent").children()[1].children.length;i++){
-        inactive_ids.push($("#burnedContent").children()[1].children[i].classList[$("#burnedContent").children()[1].children[i].classList.length-1])
+    for(let i=0;i<$("#solidCarbonContent").children()[1].children.length;i++){
+        inactive_ids.push($("#solidCarbonContent").children()[1].children[i].classList[$("#solidCarbonContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(let i=0;i<inactive_ids.length;i++){
@@ -76,12 +64,12 @@ $("#burned").click(function(e){
     }
     
 })
-$("#swds").click(function(e){
-    active_id = $("#carbonContent").children()[0].classList[$("#carbonContent").children()[0].classList.length-1]
-    inactive = $("#carbonContent").children()[1].children
+$("#emissions").click(function(e){
+    active_id = $("#emissionsContent").children()[0].classList[$("#emissionsContent").children()[0].classList.length-1]
+    inactive = $("#emissionsContent").children()[1].children
     inactive_ids =[]
-    for(let i=0;i<$("#carbonContent").children()[1].children.length;i++){
-        inactive_ids.push($("#carbonContent").children()[1].children[i].classList[$("#carbonContent").children()[1].children[i].classList.length-1])
+    for(let i=0;i<$("#emissionsContent").children()[1].children.length;i++){
+        inactive_ids.push($("#emissionsContent").children()[1].children[i].classList[$("#emissionsContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for (let i=0;i<inactive_ids.length;i++){
@@ -90,20 +78,16 @@ $("#swds").click(function(e){
     }
 })
 
-$("#emitted").click(function(e){
-    active_id = $("#decayContent").children()[0].classList[$("#decayContent").children()[0].classList.length-1]
-    inactive = $("#decayContent").children()[1].children
+$("#reused").click(function(e){
+    active_id = $("#reusedContent").children()[0].classList[$("#reusedContent").children()[0].classList.length-1]
+    inactive = $("#reusedContent").children()[1].children
     inactive_ids =[]
-    for(let i=0;i<$("#decayContent").children()[1].children.length;i++){
-        inactive_ids.push($("#decayContent").children()[1].children[i].classList[$("#decayContent").children()[1].children[i].classList.length-1])
+    for(let i=0;i<$("#reusedContent").children()[1].children.length;i++){
+        inactive_ids.push($("#reusedContent").children()[1].children[i].classList[$("#reusedContent").children()[1].children[i].classList.length-1])
     }
-    console.log(inactive_ids)
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
-    console.log(inactive_ids.length)
     for(let i=0;i<inactive_ids.length;i++){
-        console.log(i)
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
-        console.log("HEERE")
     }
 })
 
