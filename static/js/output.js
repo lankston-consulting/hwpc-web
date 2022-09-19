@@ -492,11 +492,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         return { year: d[Object.keys(d)[0]], value: d[Object.keys(d)[1]] }
                     })
                     
-                // minDateYear = data[0].date.getFullYear();
-                // maxDateYear = data[data.length - 1].date.getFullYear();
-                // console.log(caption[0].text)
-                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+                minDateYear = data[0].date.getFullYear();
+                maxDateYear = data[data.length - 1].date.getFullYear();
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 // svg
                 //     .append("g")
                 //     .attr("class", graph_class + "caption")
@@ -522,6 +521,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                     title: data_dict[graph_class][1],
+                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                     yaxis: {title: data_dict[graph_class][3]},
                     }
 
@@ -539,8 +539,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 //     function (d) {
                 //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
                 //     })
+
+               
                 minDateYear = data[0].year
                 maxDateYear = data[data.length - 1].year
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
 
                 year_array=[]
                 value1_array=[]
@@ -569,6 +573,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                     title: 'Annual Harvest and Timber Product Outputs',
+                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                     yaxis: {title: 'Hundred Cubic Feet (CCF)'},
                     yaxis2: {
                       title: 'Megagrams Carbon (Mg C)',
@@ -601,9 +606,11 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             
                         return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
                     })
-                    console.log(data_json)
+                    
                 minDateYear = data[0].year
                 maxDateYear = data[data.length - 1].year
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
 
                 year_array=[]
                 value1_array=[]
@@ -630,6 +637,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                     title: 'Total Carbon Stocks',
+                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                     yaxis: {title: 'Megagrams Carbon (Mg C)'},
                     }
 
@@ -645,6 +653,11 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     function (d) {
                         return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
                     })
+
+                minDateYear = data[0].year
+                maxDateYear = data[data.length - 1].year
+                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
 
                 year_array=[]
                 prod_array=[]
@@ -676,7 +689,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 var layout = {
                             barmode: 'relative',
-                            xaxis: {title:"Years"},
+                            xaxis: {title:"Years<br><div class='caption'>"+caption[0].text+"</div>"},
                             yaxis: {title:"Megagrams C (Mg C)"},
                             title: "Annual Net Change Carbon Stocks"};
 

@@ -1387,6 +1387,11 @@ svg .rect {
   max-width: 430px;
 }
 
+.caption {
+  overflow-wrap: break-word; 
+  display:none;
+}
+
 /* 
 .temp-graph {
   max-height: 200px;
