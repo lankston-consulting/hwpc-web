@@ -76,23 +76,15 @@
     <section>
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'coolFlashyTabContent')" id="defaultOpen">⚡Cool Flashy
-                Tab⚡</button>
+            <button class="tablinks" onclick="openTab(event, 'coolFlashyTabContent')" id="defaultOpen">Cumulative
+                Results</button>
             <button class="tablinks" onclick="openTab(event, 'solidCarbonContent')" id="solidCarbon">Solid
                 Carbon</button>
             <button class="tablinks" onclick="openTab(event, 'emissionsContent')" id="emissions">Emissions</button>
             <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button>
 
-            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="productsInUse">OLD Products in
-                Use</button>
-            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">OLD Burned</button>
-            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">OLD Carbon in SWDS</button>
-            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">OLD Emitted from
-                Decay</button>
 
         </div>
-
-
 
         <!-- Tab content -->
         <div id="coolFlashyTabContent" class="tabcontent">
@@ -133,64 +125,29 @@
         </div>
 
 
-        <div id="inUseContent" class="tabcontent">
-            <!-- <h1>Annual Harvest</h1> -->
-            <div class="graph active-graph annual_harvest_and_timber_product_output"></div>
-
-            <div class="add-graph-container">
-                <div class="graph non-active end_use"></div>
-                <div class="graph non-active annual_net_change_carbon_stocks" style="width:600px; height: 250px;"></div>
-
-            </div>
-        </div>
-
-        <div id="burnedContent" class="tabcontent">
-            <!-- <h1>Burned</h1> -->
-            <div class="graph active-graph burned_wo_energy_capture_emitted" alt=""></div>
-            <div class="add-graph-container">
-                <!-- <div class="graph non-active burned_w_energy_capture_emitted"></div> -->
-                <div class="graph non-active total_fuelwood_carbon_emitted"></div>
-            </div>
-        </div>
-
-        <div id="carbonContent" class="tabcontent">
-            <!-- <h1>Carbon in SWDS</h1> -->
-            <div class="graph active-graph total_cumulative_carbon_stocks"></div>
-            <div class="add-graph-container">
-                <div class="graph non-active total_dumps_carbon"></div>
-                <div class="graph non-active total_landfills_carbon"></div>
-            </div>
-        </div>
-        <div id="decayContent" class="tabcontent">
-            <div class="graph active-graph total_dumps_carbon_emitted"></div>
-            <div class="add-graph-container">
-                <div class="graph non-active total_composted_carbon_emitted"></div>
-                <div class="graph non-active total_landfills_carbon_emitted"></div>
-            </div>
-        </div>
-
-
     </section>
     <!-- <div style="margin-left: 2em; width: 400px;">
         <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"
             style="display: flex; margin:auto; margin-top: 150px;">
     </div> -->
 </div>
-<div id="hidden-graphs" style="display:none;">
-    <div class="graph total_dumps_carbon_emitted1"></div>
+<div id="hidden-graphs">
+    <div class="graph hidden annual_timber_harvest_table"></div>
+    <!-- <div class="graph total_dumps_carbon_emitted1"></div>
     <div class="graph total_composted_carbon_emitted1"></div>
     <div class="graph total_landfills_carbon_emitted1"></div>
 
     <div class="graph  annual_harvests_output1"></div>
-    <div class="graph  end_use1"></div>
+    <div class="graph  end_use1"></div> -->
     <!-- <div class="graph  annual_net_change_carbon_stocks1"></div> -->
-    <div class="graph burned_wo_energy_capture_emitted1"></div>
+    <!-- <div class="graph burned_wo_energy_capture_emitted1"></div>
     <div class="graph burned_w_energy_capture_emitted1"></div>
     <div class="graph total_fuelwood_carbon_emitted1"></div>
 
     <div class="graph total_cumulative_carbon_stocks1"></div>
     <div class="graph total_carbon_dumps1"></div>
-    <div class="graph total_carbon_landfill1"></div>
+    <div class="graph total_carbon_landfill1"></div> -->
+
 
 
     <!-- <div class="graph active reused"></div> -->

@@ -42,7 +42,9 @@ output.initialize = function(input_json) {
     data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line","Carbon Emissions (CO2e)"]
     data_dict["total_solid_carbon_dispositions"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
     data_dict["swds_emissions"] = [final_json.carbon_emitted_distinct_swds, "Total Emissions Dispositions", "stack", "Carbon Emissions (CO2e)"]
-    data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions","stack","Carbon Emissions (CO2e)"]
+    data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
+    
+    data_dict["annual_timber_harvest_table"] = [final_json.annual_harvest_and_timber_product_output, "Annual Timber Product Output", "table", ""]
     
 }
 
@@ -488,90 +490,163 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                  .style("text-anchor", "middle")
                  .text("Years");
  
-                 if (graph_type == "line") {
+            if (graph_type == "line") {
 
-                    const data = d3.csvParse(json_data,
-                        function (d) {
-                            // d3.selectAll("path.area").remove();
-                            // d3.selectAll("path.line").remove();
-                            // d3.selectAll(".title").remove();
-                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                        })
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        // d3.selectAll("path.area").remove();
+                        // d3.selectAll("path.line").remove();
+                        // d3.selectAll(".title").remove();
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    })
                      
-                        minDateYear = data[0].date.getFullYear();
-                        maxDateYear = data[data.length - 1].date.getFullYear();
+                minDateYear = data[0].date.getFullYear();
+                maxDateYear = data[data.length - 1].date.getFullYear();
                      
-                        x.domain(
-                            d3.extent(data, (d) => { return d.date; })
-                        );
-                        y.domain([
-                            0,
-                            d3.max(data, (d) => { return +d.value; })
-                        ]);
+                x.domain(
+                    d3.extent(data, (d) => { return d.date; })
+                );
+                y.domain([
+                    0,
+                    d3.max(data, (d) => { return +d.value; })
+                ]);
                      
-                                  // Add the line
-                        const linePath = svg
-                        .append("path")
-                        .datum(data)
-                        .attr("class", "line")
-                        .attr("fill", "none")
-                        .attr("stroke", "steelblue")
-                        .attr("stroke-width", 1.5)
-                        .attr("d", valueline)
-                    const pathLength = linePath.node().getTotalLength();
-                    linePath
-                        .attr("stroke-dasharray", pathLength)
-                        .attr("stroke-dashoffset", pathLength)
-                        .attr("stroke-width", 0)
-                        .transition()
-                        .duration(1000)
-                        .attr("stroke-dashoffset", 0)
-                        .attr("stroke-width", 3);
+                // Add the line
+                const linePath = svg
+                    .append("path")
+                    .datum(data)
+                    .attr("class", "line")
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", valueline)
+                const pathLength = linePath.node().getTotalLength();
+                linePath
+                    .attr("stroke-dasharray", pathLength)
+                    .attr("stroke-dashoffset", pathLength)
+                    .attr("stroke-width", 0)
+                    .transition()
+                    .duration(1000)
+                    .attr("stroke-dashoffset", 0)
+                    .attr("stroke-width", 3);
                         
                 
-                    // console.log(data)
-                } else if (graph_type == "stack") {
-                    console.log("this is a stack")
-                    const data = d3.csvParse(json_data,
-                        function (d) {
-                            return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]]}
-                        })
+                // console.log(data)
+            } else if (graph_type == "stack") {
+                console.log("this is a stack")
+                const data = d3.csvParse(json_data,
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]] }
+                    })
                      
                         
         
-                        var area = d3.area()
-                            .x(function(d) { return x(d.date); })
-                            .y0(function(d) { return y(d.value1); })
-                            .y1(function(d) { return y(d.value2); })
-                        // const valueline = d3
-                        // .group(data,d => d.date, d => d.value1,d => d.value2)
+                var area = d3.area()
+                    .x(function (d) { return x(d.date); })
+                    .y0(function (d) { return y(d.value1); })
+                    .y1(function (d) { return y(d.value2); })
+                // const valueline = d3
+                // .group(data,d => d.date, d => d.value1,d => d.value2)
                     
-                        var keys = data.columns.slice(1)
-                    // console.log(keys)
+                var keys = data.columns.slice(1)
+                // console.log(keys)
                     
         
-                        // // color palette
-                        // var color = d3.scaleOrdinal()
-                        //   .domain(keys)
-                        //   .range(d3.schemeSet2);
+                // // color palette
+                // var color = d3.scaleOrdinal()
+                //   .domain(keys)
+                //   .range(d3.schemeSet2);
                       
-                        // //stack the data?
-                        // var stackedData = d3.stack()
-                        //   .keys(keys)
-                        // (data)
+                // //stack the data?
+                // var stackedData = d3.stack()
+                //   .keys(keys)
+                // (data)
                     
                     
     
-                 } else if (graph_type == "multiline") {
-                     console.log("graph type is active multiline")
+            } else if (graph_type == "multiline") {
+                console.log("graph type is active multiline")
 
                      
                     
-                 } else {
-                    console.log("graph type is active bar")
-                }
+            } else if (graph_type == "bar") {
+                console.log("graph type is active bar")
+            } else {
+                console.log("This is a table")
+                        
+                tester = document.getElementsByClassName("hidden " + graph_class)[0];
+
+                     
+                var data = d3.csvParse(json_data, 
+                        
+                    function (d) {
+                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
+                    
+                
+                         
+                    function rows (rows) {
+
+                        function unpack(rows, key) {
+                            return rows.map(function (row) { return row[key]; });
+                        }
+                              
+                        
+                        var headerNames = d3.keys(rows[0]);
+                        console.log(headerNames)
+                                
+                        var headerColor = "grey";
+                        var rowEvenColor = "lightgrey";
+                        var rowOddColor = "white";
+                              
+                        var headerValues = [];
+                        var cellValues = [];
+                        for (i = 0; i < headerNames.length; i++) {
+                            headerValue = [headerNames[i]];
+                            headerValues[i] = headerValue;
+                            cellValue = unpack(rows, headerNames[i]);
+                            cellValues[i] = cellValue;
+                        }
+                              
+                        // clean date
+                        for (i = 0; i < cellValues[1].length; i++) {
+                            var dateValue = cellValues[1][i].split(' ')[0]
+                            cellValues[1][i] = dateValue
+                        }
+                              
+                              
+                        var data_layout = [{
+                            type: 'table',
+                            columnwidth: [150, 600, 1000, 900, 600, 500, 1000, 1000, 1000],
+                            columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                            header: {
+                                values: headerValues,
+                                align: "center",
+                                line: { width: 1, color: 'rgb(50, 50, 50)' },
+                                fill: { color: headerColor },
+                                font: { family: "Arial", size: 12, color: "white" }
+                            },
+                            cells: {
+                                values: cellValues,
+                                align: ["center", "center"],
+                                line: { color: "black", width: 1 },
+                                fill: {
+                                    color: [[rowOddColor, rowEvenColor, rowOddColor,
+                                        rowEvenColor, rowOddColor]]
+                                },
+                                font: { family: "Arial", size: 9, color: ["black"] }
+                            }
+                        }]
+                              
+                        var layout = {
+                            title: "Insert Table Title Here",
+                        }
+                              
+                        Plotly.newPlot(tester, data_layout, layout);
+                    }
+                
+                });
                  
-              
+            }
             
           
              svg
@@ -785,10 +860,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             y_name = "SWDS"
                         }
                         if(column == "emitted_w_energy_capture"){
-                            y_name = "Emitted with Energy Capture"
+                            y_name = "Emitted with <br>Energy Capture"
                         }
                         if(column == "emitted_wo_energy_capture"){
-                            y_name = "Emitted without Energy Capture"
+                            y_name = "Emitted without <br>Energy Capture"
                         }
                         if(column == "Fuel_emitted_co2e"){
                             y_name = "Fuelwood Emissions"
@@ -865,7 +940,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     var layout = {
                         title: title,
                         xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
-                        yaxis: {title: 'Carbon Emissions (CO2e)'},
+                        yaxis: { title: 'Carbon Emissions (CO2e)' },
+                        automargin: true,
+                        height: 700,
+                        margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+                        responsive: true,
+            
                         }
                 }
                 if(emissions_present == true && solid_present == true){
@@ -880,16 +960,26 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             // tickfont: {color: 'rgb(148, 103, 189)'},
                             overlaying: 'y',
                             side: 'right'
-                          }
+                        },
+                        automargin: true,
+                        height: 700,
+                        margin: { l: 100, r: 55, b: 100, t: 100, pad: 4 },
+                        responsive: true,
+                        legend: {x: 1.05, y: 1}
                         }
                 }
                 if(emissions_present == false && solid_present == true){
                     var layout = {
                         title: title,
                         xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
-                        yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                        yaxis: { title: 'Megagrams Carbon (Mg C)' },
+                        automargin: true,
+                        height: 700,
+                        margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+                        responsive: true
                         }
                 }
+
                 
 
                 // var stackedData = [trace1, trace2];
@@ -1031,7 +1121,9 @@ $(function () {
 });
 
 
-// d3.select("#dl-closed").on('click', function () {
+d3.select("#dl-closed").on('click', function () {
+    generate_graph(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table", "hidden", data_dict["annual_timber_harvest_table"][1], 1300, 700, data_dict["annual_timber_harvest_table"][2], data_dict["annual_timber_harvest_table"][3])
+});
 //     generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
 //     generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
 //     generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);
