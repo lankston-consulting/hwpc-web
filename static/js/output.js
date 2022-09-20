@@ -21,9 +21,11 @@ output.initialize = function(input_json) {
     data_dict = []
     data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline","Hundred Cubic Feet (CCF)"]
     data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar","Megagrams Carbon (Mg C)"]
+    data_dict["all_results_final"] = [final_json.big_four,"Final Results","stack","Megagrams Carbon (Mg C)"]
     // data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
-    data_dict["burned_w_energy_capture_emitted"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line","Carbon Emissions (CO2e)"]
-    data_dict["burned_wo_energy_capture_emitted"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line","Carbon Emissions (CO2e)"]
+    data_dict["burned_with_energy_capture_emissions"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line","Carbon Emissions (CO2e)"]
+    data_dict["burned_without_energy_capture_emissions"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line","Carbon Emissions (CO2e)"]
+    
     data_dict["end_use"] = [final_json.total_end_use_products, "Total End Use Products", "line","Megagrams Carbon (Mg C)"]
     data_dict["swds"] = [final_json.swds, "Total SWDS", "line","Megagrams Carbon (Mg C)"]
     data_dict["total_composted_carbon_emitted"] = [final_json.total_composted_carbon_emitted, "Total Carbon in Compost Emitted" , "line","Carbon Emissions (CO2e)"]
@@ -34,8 +36,9 @@ output.initialize = function(input_json) {
     data_dict["total_in_use"] = [final_json.total_in_use, "Total Carbon in Use", "line","Megagrams Carbon (Mg C)"]
     data_dict["total_landfills_carbon"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line","Megagrams Carbon (Mg C)"]
     data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line","Carbon Emissions (CO2e)"]
-    
-    
+    data_dict["total_solid_carbon_dispositions"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
+    data_dict["swds_emissions"] = [final_json.carbon_emitted_distinct_swds, "Total Emissions Dispositions", "stack", "Carbon Emissions (CO2e)"]
+    data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions","stack","Carbon Emissions (CO2e)"]
     
 }
 
@@ -601,47 +604,152 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             else if (graph_type == "stack") {
                 // console.log("this is a stack")
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
-                const data = d3.csvParse(json_data,
-                    function (d) {
+                const data = d3.csvParse(json_data)
+                    // function (d) {
                             
-                        return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
-                    })
-                    
-                minDateYear = data[0].year
-                maxDateYear = data[data.length - 1].year
-                caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+                    //     return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
+                    // })
+                console.log(data)
+                console.log(Object.keys(data[0]))
+                // keys = Object.keys(data[0])
+                // minDateYear = data[0].keys[0]
+                // maxDateYear = data[data.length - 1].keys[0]
+                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+                stackedData = []
+                year_data = []
+                emissions_present = false
+                solid_present = false
+                for(i in data.columns){
+                    if(data.columns[i].includes("emit")){
+                        emissions_present = true
+                    }
+                    if(!data.columns[i].includes("emit")){
+                        solid_present = true
+                    }
+                }
+                for(i in data.columns){
+                    column = data.columns[i]
+                    if(i == 0){
+                        for(j in data){
+                            year_data.push(data[j][column])
+                        }
+                    }
+                    else{
 
-                year_array=[]
-                value1_array=[]
-                value2_array=[]
-                for(i in data){
-                    year_array.push(data[i].year)
-                    value1_array.push(data[i].value1)
-                    value2_array.push(data[i].value2)
+                        
+                        temp=[]
+                        for(j in data){
+                            console.log(column)
+                            console.log(data[j])
+                            console.log(data[j][column])
+                            // console.log(break)
+                            temp.push(data[j][column])
+                        }
+                        if(column == "products_in_use"){
+                            y_name = "Products in Use"
+                        }
+                        if(column == "SWDS"){
+                            y_name = "SWDS"
+                        }
+                        if(column == "emitted_w_energy_capture"){
+                            y_name = "Emitted with Energy Capture"
+                        }
+                        if(column == "emitted_wo_energy_capture"){
+                            y_name = "Emitted without Energy Capture"
+                        }
+                        if(column == "Fuel_emitted_co2e"){
+                            y_name = "Fuelwood Emissions"
+                        }
+                        if(column == "Composted_emitted_co2e"){
+                            y_name = "Compost Emissions"
+                        }
+                        if(column == "Dumps_emitted_mgc"){
+                            y_name = "Dump Emissions"
+                        }
+                        if(column == "Landfills_emitted_co2e"){
+                            y_name = "Landfill Emissions"
+                        }
+                        if(emissions_present==true && solid_present == false){
+                            if(column.includes("emit")){
+                                var temp_trace = {
+                                    x:year_data,
+                                    y:temp,
+                                    name:y_name,
+                                    stackgroup: 'one'
+                                }
+                            }
+                        }
+                        if(emissions_present == true && solid_present == true){
+                            if(column.includes("emit")){
+                                var temp_trace = {
+                                    x:year_data,
+                                    y:temp,
+                                    yaxis: 'y2',
+                                    name:y_name,
+                                    stackgroup: 'one'
+                                }
+                            }else{
+                                var temp_trace = {
+                                    x:year_data,
+                                    y:temp,
+                                    name:y_name,
+                                    stackgroup: 'one'
+                                }
+                            }
+                        }
+                        if(emissions_present == false && solid_present == true){
+                            var temp_trace = {
+                                x:year_data,
+                                y:temp,
+                                name:y_name,
+                                stackgroup: 'one'
+                            }
+                        }
+                        stackedData.push(temp_trace)
+                    }
+                    
                 }
 
-                var trace1 = {
-                    x:year_array,
-                    y:value1_array,
-                    name:"Products in Use",
-                    stackgroup: 'one'
+                    
+                temp_cap = " This is a temporary caption, please get me data."
+                //caption[0].text
+                if(data.columns.includes("emitted")){
+                    console.log("hello")
+                }
+
+                if(emissions_present==true && solid_present == false){
+                    var layout = {
+                        title: title,
+                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        yaxis: {title: 'Carbon Emissions (CO2e)'},
+                        }
+                }
+                if(emissions_present == true && solid_present == true){
+                    var layout = {
+                        title: title,
+                        autosize: true, 
+                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                        yaxis2: {
+                            title: 'Carbon Emissions (CO2e)',
+                            // titlefont: {color: 'rgb(148, 103, 189)'},
+                            // tickfont: {color: 'rgb(148, 103, 189)'},
+                            overlaying: 'y',
+                            side: 'right'
+                          }
+                        }
+                }
+                if(emissions_present == false && solid_present == true){
+                    var layout = {
+                        title: title,
+                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                        }
                 }
                 
-                var trace2 = {
-                    x:year_array,
-                    y:value2_array,
-                    name:"SWDS",
-                    stackgroup: 'one'
-                }
 
-                var layout = {
-                    title: 'Total Carbon Stocks',
-                    xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
-                    yaxis: {title: 'Megagrams Carbon (Mg C)'},
-                    }
-
-                var stackedData = [trace1, trace2];
+                // var stackedData = [trace1, trace2];
                 Plotly.newPlot(tester, stackedData, layout);   
     
             }
