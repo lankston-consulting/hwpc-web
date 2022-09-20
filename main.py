@@ -102,6 +102,9 @@ def upload():
         else:
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
             
+    if request.form.get('enduseproductrates'):
+        end_use_product_rates = request.form['enduseproductrates']
+
     dispositions = request.files['DispositionsFilename']
     disposition_half_lives = request.files['DispositionHalfLivesFilename']
     distribution_data = request.files['DistributionDataFilename']
@@ -120,6 +123,7 @@ def upload():
             "region":region_selection,
             "primary_product_ratios.csv":custom_region_file,
             "end_use_product_ratios.csv":end_use_product_ratios,
+            "end_use_product_rates":end_use_product_rates,
             "dispositions.csv":dispositions,
             "disposition_half_lives.csv":disposition_half_lives,
             "distribution_data.csv":distribution_data,
