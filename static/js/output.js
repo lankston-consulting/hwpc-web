@@ -105,9 +105,7 @@ $("#reused").click(function (e) {
 })
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type, y_label="", caption){
-    // console.log(json_data)
     var parseDate = d3.timeFormat("%Y");
-    // if (graph_type == "line") {
         if (is_active == "inactive") {
             // $("." + graph_class).html("")
             // const margin = { top: 30, right: 10, bottom: 30, left: 60 },
@@ -119,14 +117,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
             if (graph_type == "line") {
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
-                const data = d3.csvParse(json_data,
-                    function (d) {
-                        return { year: d[Object.keys(d)[0]], value: d[Object.keys(d)[1]] }
-                    })
+                const data = d3.csvParse(json_data)
                     
-                // minDateYear = data[0].date.getFullYear();
-                // maxDateYear = data[data.length - 1].date.getFullYear();
-                // console.log(caption[0].text)
+                // minDateYear = data[0].date
+                // maxDateYear = data[data.length - 1].date
                 // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
                 // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 // svg
@@ -138,9 +132,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 value_array=[]
                 
                 for(i in data){
-                    year_array.push(data[i].year)
-                    value_array.push(data[i].value)
-                   
+                    year_array.push(data[i][data.columns[0]])
+                    value_array.push(data[i][data.columns[1]])
                 }
 
 
@@ -150,15 +143,20 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     name:data_dict[graph_class][1],
                     type:"scatter"
                 }
-
-                var layout = {
-                    title: data_dict[graph_class][1],
-                    // yaxis: {title: data_dict[graph_class][3]}
-                    height: 350, 
-                    responsive: true
-                    }
-
                 var stackedData = [trace1];
+                var layout = {
+                    title: title,
+                    height: 350, 
+                    responsive: true,
+                    // yaxis: {title: 'Hundred Cubic Feet (CCF)'},
+                    // yaxis2: {
+                    //   title: 'Megagrams Carbon (Mg C)',
+                    //   titlefont: {color: 'rgb(148, 103, 189)'},
+                    //   tickfont: {color: 'rgb(148, 103, 189)'},
+                    //   overlaying: 'y',
+                    //   side: 'right'
+                    // },
+                    showlegend: false}
                 
                 Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
         
@@ -224,12 +222,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 // console.log("this is a stack")
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
                 const data = d3.csvParse(json_data)
-                    // function (d) {
-                            
-                    //     return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
-                    // })
-                console.log(data)
-                console.log(Object.keys(data[0]))
                 // keys = Object.keys(data[0])
                 // minDateYear = data[0].keys[0]
                 // maxDateYear = data[data.length - 1].keys[0]
@@ -240,7 +232,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 emissions_present = false
                 solid_present = false
                 for(i in data.columns){
-                    console.log()
                     if(data.columns[i].includes("emit")){
                         emissions_present = true
                     }
@@ -736,15 +727,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 
             }
             else if (graph_type == "stack") {
-                // console.log("this is a stack")
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data)
-                    // function (d) {
-                            
-                    //     return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[2]] }
-                    // })
-                console.log(data)
-                console.log(Object.keys(data[0]))
                 // keys = Object.keys(data[0])
                 // minDateYear = data[0].keys[0]
                 // maxDateYear = data[data.length - 1].keys[0]
@@ -755,42 +739,50 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 emissions_present = false
                 solid_present = false
                 for(i in data.columns){
-                    console.log()
-                    if(data.columns[i].includes("emit")){
+                    if(data.columns[i].includes("co2e")){
                         emissions_present = true
                     }
-                    if(!data.columns[i].includes("emit") && !data.columns[i].includes("Year")){
+                    if(!data.columns[i].includes("co2e") && !data.columns[i].includes("Year")){
                         solid_present = true
                     }
                 }
+                console.log(emissions_present)
+                console.log(solid_present)
                 for(i in data.columns){
                     column = data.columns[i]
+                    console.log(column)
                     if(i == 0){
                         for(j in data){
                             year_data.push(data[j][column])
                         }
                     }
                     else{
-
-                        
                         temp=[]
                         for(j in data){
-                            console.log(column)
-                            console.log(data[j])
-                            console.log(data[j][column])
-                            // console.log(break)
                             temp.push(data[j][column])
                         }
                         if(column == "products_in_use"){
                             y_name = "Products in Use"
                         }
+                        if(column == "products_in_use_present_co2e"){
+                            y_name = "Products in Use"
+                        }
                         if(column == "SWDS"){
                             y_name = "SWDS"
+                        }
+                        if(column == "SWDS_present_co2e"){
+                            y_name = "SWDS" 
+                        }
+                        if(column == "emitted_w_energy_capture_emitted_co2e"){
+                            y_name = "Emitted with <br>Energy Capture"
                         }
                         if(column == "emitted_w_energy_capture"){
                             y_name = "Emitted with <br>Energy Capture"
                         }
                         if(column == "emitted_wo_energy_capture"){
+                            y_name = "Emitted without <br>Energy Capture"
+                        }
+                        if(column == "emitted_wo_energy_capture_emitted_co2e"){
                             y_name = "Emitted without <br>Energy Capture"
                         }
                         if(column == "Fuel_emitted_co2e"){
@@ -815,18 +807,18 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             y_name = "Carbon in Landfills"
                         }
                         if(emissions_present==true && solid_present == false){
-                            console.log("just emitt")
-                            if(column.includes("emit")){
-                                var temp_trace = {
-                                    x:year_data,
-                                    y:temp,
-                                    name:y_name,
-                                    stackgroup: 'one'
-                                }
+                   
+                            
+                            var temp_trace = {
+                                x:year_data,
+                                y:temp,
+                                name:y_name,
+                                stackgroup: 'one'
                             }
+                            
                         }
                         if(emissions_present == true && solid_present == true){
-                            console.log('here')
+                           
                             if(column.includes("emit")){
                                 var temp_trace = {
                                     x:year_data,
@@ -858,16 +850,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 }
 
                     
-                temp_cap = " This is a temporary caption, please get me data."
-                //caption[0].text
-                if(data.columns.includes("emitted")){
-                    console.log("hello")
-                }
+                
 
                 if(emissions_present==true && solid_present == false){
                     var layout = {
                         title: title,
-                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                         yaxis: { title: 'Carbon Emissions (CO2e)' },
                         automargin: true,
                         height: 700,
@@ -880,7 +868,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     var layout = {
                         title: title,
                         autosize: true, 
-                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                         yaxis: {title: 'Megagrams Carbon (Mg C)'},
                         yaxis2: {
                             title: 'Carbon Emissions (CO2e)',
@@ -899,7 +887,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 if(emissions_present == false && solid_present == true){
                     var layout = {
                         title: title,
-                        xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
+                        xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
                         yaxis: { title: 'Megagrams Carbon (Mg C)' },
                         automargin: true,
                         height: 700,
@@ -915,7 +903,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
     
             }
             else {
-                console.log(json_data)
+               
                 console.log("graph type is active bar")
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data,
@@ -1049,9 +1037,7 @@ generate_table = function (json_data, table_class) {
 }
 
 $(".non-active").click(function (e) {
-    console.log($(e.target))
-    console.log($(e.target).parent().parent())
-    // console.log
+ 
     var non_active_div = $(e.target).parent().parent();
     var non_active_div_siblings = $(e.target).parent().parent().siblings()
     var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
@@ -1062,7 +1048,7 @@ $(".non-active").click(function (e) {
             non_active_id = non_active_div[0].classList[i]
         }
     }
-    console.log(current_tabs_active_graph[0].classList)
+
     for(let i=0;i<current_tabs_active_graph[0].classList.length;i++){
         if(current_tabs_active_graph[0].classList[i] != "graph" && current_tabs_active_graph[0].classList[i] != "active-graph" && current_tabs_active_graph[0].classList[i] != "js-plotly-plot"){
             console.log(current_tabs_active_graph[0].classList[i])
@@ -1070,18 +1056,25 @@ $(".non-active").click(function (e) {
         }
     }
     // current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-2]
-    console.log(non_active_id)
-    console.log(current_tabs_active_id)
     current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
     non_active_div[0].classList.add(current_tabs_active_id);
+    console.log(current_tabs_active_id)
     generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3], captions_dict[non_active_id])
     generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
-    
+    // console.log(non_active_div_sibling_id)
     if(non_active_div_siblings.length != 0){
         for(i = 0;i<non_active_div_siblings.length;i++){
-            non_active_div_sibling_id = non_active_div_siblings[i].classList[non_active_div_siblings[i].classList.length-1]
+            // non_active_div_sibling_id = non_active_div_siblings[i].classList[non_active_div_siblings[i].classList.length-1]
+            for(let j=0;j<non_active_div_siblings[i].classList.length;j++){
+                console.log(non_active_div_siblings[i].classList[j])
+                if(non_active_div_siblings[i].classList[j] != "graph" && non_active_div_siblings[i].classList[j] != "js-plotly-plot" && non_active_div_siblings[i].classList[j] != "non-active"){
+                    non_active_div_sibling_id = non_active_div_siblings[i].classList[j]
+                }
+            }
+            
+            console.log(non_active_div_sibling_id)
             generate_graph(data_dict[non_active_div_sibling_id][0],non_active_div_sibling_id,"inactive",data_dict[non_active_div_sibling_id][1],400,250,data_dict[non_active_div_sibling_id][2])
         }
     }      
