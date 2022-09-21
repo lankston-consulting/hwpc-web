@@ -161,38 +161,62 @@ def output():
    
     if(y==None):
         print("no year range")
+        user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
+        with open('/tmp/zip_folder.zip', 'wb') as f:
+            f.write(user_zip.read())
+        file = zipfile.ZipFile('/tmp/zip_folder.zip')
+        file.extractall(path='/tmp/zip_folder')
+        files = os.listdir('/tmp/zip_folder')
+        data_dict = {}
+        for file in files:
+            if ".csv" in file:
+                print(file[:-4])
+                test = pd.read_csv("/tmp/zip_folder/"+file)
+                try:
+                    test = test.drop(columns="DiscardDestinationID")
+                except:
+                    print("no column")
+                test = test.replace(0, np.nan)
+                test.dropna(inplace = True)
+            
+                print(test)
+                test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+                data_dict[file[:-4]] = test.to_csv(index=False)
+        print(data_dict.keys())
+        data_json=json.dumps(data_dict)
+        
+        data_json = data_json.replace('\\"',' ')
     if(y!=None):
         print("years: "+y)
-    # print(y)
-    user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
-    #user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/harvest_data.csv")
-
-    with open('/tmp/zip_folder.zip', 'wb') as f:
-        f.write(user_zip.read())
-    file = zipfile.ZipFile('/tmp/zip_folder.zip')
-    file.extractall(path='/tmp/zip_folder')
-    files = os.listdir('/tmp/zip_folder')
-    data_dict = {}
-    for file in files:
-        if ".csv" in file:
-            print(file[:-4])
-            test = pd.read_csv("/tmp/zip_folder/"+file)
-            try:
-                test = test.drop(columns="DiscardDestinationID")
-            except:
-                print("no column")
-            test = test.replace(0, np.nan)
-            test.dropna(inplace = True)
+        user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+y+"_"+q+".zip")
+        with open('/tmp/zip_folder.zip', 'wb') as f:
+            f.write(user_zip.read())
+        file = zipfile.ZipFile('/tmp/zip_folder.zip')
+        file.extractall(path='/tmp/zip_folder')
+        files = os.listdir('/tmp/zip_folder')
+        data_dict = {}
+        for file in files:
+            if ".csv" in file and y in file:
+                print(file[:-4])
+                test = pd.read_csv("/tmp/zip_folder/"+file)
+                try:
+                    test = test.drop(columns="DiscardDestinationID")
+                except:
+                    print("no column")
+                test = test.replace(0, np.nan)
+                test.dropna(inplace = True)
+            
+                print(test)
+                test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+                data_dict[file[5:-4]] = test.to_csv(index=False)
+        print(data_dict.keys())
+        data_json=json.dumps(data_dict)
         
-            print(test)
-            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
-            data_dict[file[:-4]] = test.to_csv(index=False)
-    print(data_dict.keys())
-    data_json=json.dumps(data_dict)
+        data_json = data_json.replace('\\"',' ')
+    # print(y)
     
-    data_json = data_json.replace('\\"',' ')
 
-    return render_template("pages/output.html",data_json=data_json)
+    return render_template("pages/output.html",data_json=data_json,bucket=p,file_name=q)
 
 # @app.route('/download', methods=['GET','POST'])
 # def download():

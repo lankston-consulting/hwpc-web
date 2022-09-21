@@ -59,7 +59,7 @@
             <br> -->
             <div style="display:flex; width: fit-content; margin: auto; gap: 10%;">
                 <div>
-                    <button class="link-1 custom-btn custom-btn-output" style="float:left;">Filter</button>
+                    <a id="yearfilter" class="link-1 custom-btn custom-btn-output" style="float:left;">Filter</a>
                 </div>
                 <div>
                     <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
@@ -155,7 +155,7 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}');
+    output.initialize('{{data_json | safe}}','{{ bucket }}', '{{ file_name }}');
 </script>
 
 {% endblock content %}
