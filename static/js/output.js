@@ -15,7 +15,9 @@ captions_dict["total_dumps_carbon_emitted"] =  [{text:"Total cumulative metric t
 captions_dict["total_composted_carbon_emitted"] = [{text:"Total cumulative metric tons carbon emitted from composted discarded harvested wood products manufactured from total <br>  timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded <br> products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of <br> carbon dioxide equivalent (CO2e) and do not include other greenhouse gases such as methane."}]
 captions_dict["total_landfills_carbon_emitted"] =  [{text:"Total cumulative metric tons carbon emitted from discarded products in landfills manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is <br> decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with <br> energy capture is not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not <br> include other carbon-based greenhouse gases such as methane."}]
 captions_dict["total_solid_carbon_dispositions"] = [{text:"Total cumulative metric tons carbon stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products.  The carbon remaining in the end-use products in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills."}]
+captions_dict["total_solid_carbon_dispositions2"] = [{text:"Total cumulative metric tons carbon stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products.  The carbon remaining in the end-use products in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills."}]
 captions_dict["total_emissions_dispositions"] = [{text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burning discarded products with and without energy capture, composted discarded harvested wood products, and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
+captions_dict["total_emissions_dispositions2"] = [{text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burning discarded products with and without energy capture, composted discarded harvested wood products, and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
 captions_dict["swds_emissions"] = [{text: "Total cumulative metric tons carbon emitted from discarded products in landfills and dumps manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills and dumps is decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not included. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
 
 output.initialize = function(input_json) {
@@ -41,8 +43,10 @@ output.initialize = function(input_json) {
     data_dict["total_landfills_carbon"] = [final_json.total_landfills_carbon, "Total Landfills Carbon", "line","Megagrams Carbon (Mg C)"]
     data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line","Carbon Emissions (CO2e)"]
     data_dict["total_solid_carbon_dispositions"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
+    data_dict["total_solid_carbon_dispositions2"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
     data_dict["swds_emissions"] = [final_json.carbon_emitted_distinct_swds, "Total Emissions Dispositions", "stack", "Carbon Emissions (CO2e)"]
     data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
+    data_dict["total_emissions_dispositions2"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
     
     data_dict["annual_timber_harvest_table"] = [final_json.annual_harvest_and_timber_product_output, "Annual Timber Product Output", "table", ""]
     
@@ -69,6 +73,7 @@ $("#solidCarbon").click(function(e){
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(let i=0;i<inactive_ids.length;i++){
+        console.log(data_dict[inactive_ids[i]])
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
     
@@ -76,13 +81,14 @@ $("#solidCarbon").click(function(e){
 $("#emissions").click(function(e){
     active_id = $("#emissionsContent").children()[0].classList[$("#emissionsContent").children()[0].classList.length-1]
     inactive = $("#emissionsContent").children()[1].children
+    console.log(inactive)
     inactive_ids =[]
     for(let i=0;i<$("#emissionsContent").children()[1].children.length;i++){
         inactive_ids.push($("#emissionsContent").children()[1].children[i].classList[$("#emissionsContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for (let i=0;i<inactive_ids.length;i++){
-        // console.log(inactive_ids[i])
+        console.log(inactive_ids[i])
         generate_graph(data_dict[inactive_ids[i]][0],inactive_ids[i],"inactive",data_dict[inactive_ids[i]][1], 400 , 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
     }
 })
@@ -221,6 +227,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             else if (graph_type == "stack") {
                 // console.log("this is a stack")
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
+                console.log(tester)
                 const data = d3.csvParse(json_data)
                 // keys = Object.keys(data[0])
                 // minDateYear = data[0].keys[0]
@@ -232,10 +239,10 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 emissions_present = false
                 solid_present = false
                 for(i in data.columns){
-                    if(data.columns[i].includes("emit")){
+                    if(data.columns[i].includes("co2e")){
                         emissions_present = true
                     }
-                    if(!data.columns[i].includes("emit") && !data.columns[i].includes("Year")){
+                    if(!data.columns[i].includes("co2e") && !data.columns[i].includes("Year")){
                         solid_present = true
                     }
                 }
@@ -247,8 +254,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         }
                     }
                     else{
-
-                        
                         temp=[]
                         for(j in data){
                             temp.push(data[j][column])
@@ -256,14 +261,26 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         if(column == "products_in_use"){
                             y_name = "Products in Use"
                         }
+                        if(column == "products_in_use_present_co2e"){
+                            y_name = "Products in Use"
+                        }
                         if(column == "SWDS"){
                             y_name = "SWDS"
                         }
+                        if(column == "SWDS_present_co2e"){
+                            y_name = "SWDS" 
+                        }
+                        if(column == "emitted_w_energy_capture_emitted_co2e"){
+                            y_name = "Emitted with <br>Energy Capture"
+                        }
                         if(column == "emitted_w_energy_capture"){
-                            y_name = "Emitted with Energy Capture"
+                            y_name = "Emitted with <br>Energy Capture"
                         }
                         if(column == "emitted_wo_energy_capture"){
-                            y_name = "Emitted without Energy Capture"
+                            y_name = "Emitted without <br>Energy Capture"
+                        }
+                        if(column == "emitted_wo_energy_capture_emitted_co2e"){
+                            y_name = "Emitted without <br>Energy Capture"
                         }
                         if(column == "Fuel_emitted_co2e"){
                             y_name = "Fuelwood Emissions"
@@ -280,17 +297,25 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         if(column == "Landfills_emitted_co2e"){
                             y_name = "Landfill Emissions"
                         }
+                        if(column == "Dumps_present_mgc"){
+                            y_name = "Carbon in Dumps"
+                        }
+                        if(column == "Landfills_present_mgc"){
+                            y_name = "Carbon in Landfills"
+                        }
                         if(emissions_present==true && solid_present == false){
-                            if(column.includes("emit")){
-                                var temp_trace = {
-                                    x:year_data,
-                                    y:temp,
-                                    name:y_name,
-                                    stackgroup: 'one'
-                                }
+                   
+                            
+                            var temp_trace = {
+                                x:year_data,
+                                y:temp,
+                                name:y_name,
+                                stackgroup: 'one'
                             }
+                            
                         }
                         if(emissions_present == true && solid_present == true){
+                           
                             if(column.includes("emit")){
                                 var temp_trace = {
                                     x:year_data,
@@ -318,19 +343,12 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         }
                         stackedData.push(temp_trace)
                     }
-                    
                 }
-
-                    
-                temp_cap = " This is a temporary caption, please get me data."
-                //caption[0].text
-                if(data.columns.includes("emitted")){
-                    console.log("hello")
-                }
-
+    
                 if(emissions_present==true && solid_present == false){
                     var layout = {
                         title: title,
+                        responsive: true,
                         showlegend: false
                         // xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
                         // yaxis: {title: 'Carbon Emissions (CO2e)'},
@@ -339,22 +357,14 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 if(emissions_present == true && solid_present == true){
                     var layout = {
                         title: title,
-                        autosize: true, 
-                        showlegend: false,
-                        // xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
-                        // yaxis: {title: 'Megagrams Carbon (Mg C)'},
-                        yaxis2: {
-                            // title: 'Carbon Emissions (CO2e)',
-                            // titlefont: {color: 'rgb(148, 103, 189)'},
-                            // tickfont: {color: 'rgb(148, 103, 189)'},
-                            overlaying: 'y',
-                            side: 'right'
-                          }
+                        responsive: true,
+                        showlegend: false
                         }
                 }
                 if(emissions_present == false && solid_present == true){
                     var layout = {
                         title: title,
+                        responsive: true,
                         showlegend: false
                         // xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
                         // yaxis: {title: 'Megagrams Carbon (Mg C)'},
@@ -409,7 +419,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             title: "Annual Net Change Carbon Stocks",
                             showlegend: false};
 
-                plot = Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
+                Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
                 
             }
             
@@ -746,11 +756,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         solid_present = true
                     }
                 }
-                console.log(emissions_present)
-                console.log(solid_present)
                 for(i in data.columns){
                     column = data.columns[i]
-                    console.log(column)
                     if(i == 0){
                         for(j in data){
                             year_data.push(data[j][column])
@@ -968,22 +975,18 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 generate_table = function (json_data, table_class) {
         
     tester = document.getElementsByClassName("hidden " + table_class)[0];
-    console.log("hello")
                      
     // var data = d3.csvParse(json_data, function (d) { return process_data(d) } );
     var data = d3.csvParse(json_data)
     process_data(data)
         function process_data(rows) {
 
-            function unpack(rows,key) {
-                console.log(rows)
-                
+            function unpack(rows,key) {        
                 return rows.map(function (row) {return row[key];});
             }
                   
             
             var headerNames = Object.keys(rows[0]);
-            console.log(headerNames)
                     
             var headerColor = "grey";
             var rowEvenColor = "lightgrey";
@@ -1003,7 +1006,6 @@ generate_table = function (json_data, table_class) {
                 var dateValue = cellValues[1][i].split(' ')[0]
                 cellValues[1][i] = dateValue
             }
-            console.log(cellValues)
                   
             var data_layout = [{
                 type: 'table',
@@ -1040,6 +1042,7 @@ $(".non-active").click(function (e) {
  
     var non_active_div = $(e.target).parent().parent();
     var non_active_div_siblings = $(e.target).parent().parent().siblings()
+    console.log(non_active_div_siblings)
     var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
 
     var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
@@ -1051,7 +1054,6 @@ $(".non-active").click(function (e) {
 
     for(let i=0;i<current_tabs_active_graph[0].classList.length;i++){
         if(current_tabs_active_graph[0].classList[i] != "graph" && current_tabs_active_graph[0].classList[i] != "active-graph" && current_tabs_active_graph[0].classList[i] != "js-plotly-plot"){
-            console.log(current_tabs_active_graph[0].classList[i])
             current_tabs_active_id = current_tabs_active_graph[0].classList[i]
         }
     }
@@ -1063,18 +1065,14 @@ $(".non-active").click(function (e) {
     console.log(current_tabs_active_id)
     generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3], captions_dict[non_active_id])
     generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
-    // console.log(non_active_div_sibling_id)
     if(non_active_div_siblings.length != 0){
         for(i = 0;i<non_active_div_siblings.length;i++){
-            // non_active_div_sibling_id = non_active_div_siblings[i].classList[non_active_div_siblings[i].classList.length-1]
             for(let j=0;j<non_active_div_siblings[i].classList.length;j++){
-                console.log(non_active_div_siblings[i].classList[j])
                 if(non_active_div_siblings[i].classList[j] != "graph" && non_active_div_siblings[i].classList[j] != "js-plotly-plot" && non_active_div_siblings[i].classList[j] != "non-active"){
                     non_active_div_sibling_id = non_active_div_siblings[i].classList[j]
                 }
             }
             
-            console.log(non_active_div_sibling_id)
             generate_graph(data_dict[non_active_div_sibling_id][0],non_active_div_sibling_id,"inactive",data_dict[non_active_div_sibling_id][1],400,250,data_dict[non_active_div_sibling_id][2])
         }
     }      
