@@ -2,7 +2,8 @@ var headers = ["H1","H2","H3","H4","H5","H6"]; //We only use h1 and h2
 
 // $(".required-alert").hide();
 
-function toggleAccordion(e,edit_mode=false) {
+function toggleAccordion(e, edit_mode = false) {
+  console.log(e)
   if(e.type != undefined){
     var target = e.target,
     name = target.nodeName.toUpperCase();
@@ -257,48 +258,59 @@ $('#previewbtn').click(function (e){
   if(region_input != "Custom"){
     // region_input = region_input.split("\\")
     // region_input = region_input[region_input.length-1]
-    region = "<p class=\"modal-input-data acc-03\">Primary Products Region Selected: " + region_input + "</p><br>"
+    region = "<p class=\"modal-input-data acc-03a\">Primary Products Region Selected: " + region_input + "</p><br>"
   }
   else{
     custom_region_input = $("[name='customregion']").val()
     if(custom_region_input != ""){
       custom_region_input = custom_region_input .split("\\")
       custom_region_input = custom_region_input [custom_region_input.length-1]
-      region = "<p class=\"modal-input-data acc-03\">Primary Products Custom Region Selected: "+ custom_region_input + "</p><br>"
+      region = "<p class=\"modal-input-data acc-03a\">Primary Products Custom Region Selected: "+ custom_region_input + "</p><br>"
     }
     else{
-      region = "<p class=\"modal-input-data acc-03\">Primary Products Custom Region Selected: MISSING REQUIRED DATA</p><br>"
+      region = "<p class=\"modal-input-data acc-03a\">Primary Products Custom Region Selected: MISSING REQUIRED DATA</p><br>"
     }
+  }
+
+  input_end_use_rates = $("[name='enduseproductrates']").val()
+  console.log(input_end_use_rates)
+  if(input_end_use_rates != ""){
+    input_end_use_rates = input_end_use_rates.split("\\")
+    input_end_use_rates = input_end_use_rates[input_end_use_rates.length-1]
+    end_use_rates = "<p class=\"modal-input-data acc-03b\">End Use Ratios: " + input_end_use_rates + "</p><br>"
+  }
+  else{
+    end_use_rates = "<p class=\"modal-input-data acc-03b\">End Use Ratios: Using Default</p><br>"
   }
 
   input_end_use_ratios = $("[name='EndUseRatiosFilename']").val()
   if(input_end_use_ratios != ""){
     input_end_use_ratios = input_end_use_ratios.split("\\")
     input_end_use_ratios = input_end_use_ratios[input_end_use_ratios.length-1]
-    end_use_ratios = "<p class=\"modal-input-data acc-04\">End Use Ratios: " + input_end_use_ratios + "</p><br>"
+    end_use_ratios = "<p class=\"modal-input-data acc-03c\">End Use Ratios: " + input_end_use_ratios + "</p><br>"
   }
   else{
-    end_use_ratios = "<p class=\"modal-input-data acc-04\">End Use Ratios: Using Default</p><br>"
+    end_use_ratios = "<p class=\"modal-input-data acc-03c\">End Use Ratios: Using Default</p><br>"
   }
 
   input_discard_dispostions = $("[name='DispositionsFilename']").val()
   if(input_discard_dispostions != ""){
     input_discard_dispostions = input_discard_dispostions.split("\\")
     input_discard_dispostions = input_discard_dispostions[input_discard_dispostions.length-1]
-    discard_dispostions = "<p class=\"modal-input-data acc-04\">Discard Dispositions: " + input_discard_dispostions + "</p><br>"
+    discard_dispostions = "<p class=\"modal-input-data acc-03d\">Discard Dispositions: " + input_discard_dispostions + "</p><br>"
   }
   else{
-    discard_dispostions = "<p class=\"modal-input-data acc-04\">Discard Dispositions: Using Default</p><br>"
+    discard_dispostions = "<p class=\"modal-input-data acc-03d\">Discard Dispositions: Using Default</p><br>"
   }
 
   input_discard_dispostions_half_lives = $("[name='DispositionHalfLivesFilename']").val()
   if(input_discard_dispostions_half_lives != ""){
     input_discard_dispostions_half_lives = input_discard_dispostions_half_lives.split("\\")
     input_discard_dispostions_half_lives = input_discard_dispostions_half_lives[input_discard_dispostions_half_lives.length-1]
-    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives Ratios: " + input_discard_dispostions_half_lives + "</p><br>"
+    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-03e\">Discard Dispositions Half-lives Ratios: " + input_discard_dispostions_half_lives + "</p><br>"
   }
   else{
-    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-04\">Discard Dispositions Half-lives Ratios: Using Default</p><br>"
+    discard_dispostions_half_lives = "<p class=\"modal-input-data acc-03e\">Discard Dispositions Half-lives Ratios: Using Default</p><br>"
   }
 
 
@@ -306,10 +318,10 @@ $('#previewbtn').click(function (e){
   if(input_burned != ""){
     input_burned = input_burned.split("\\")
     input_burned = input_burned[input_burned.length-1]
-    burned = "<p class=\"modal-input-data acc-04\">Burned Ratios: " + input_burned + "</p><br>"
+    burned = "<p class=\"modal-input-data acc-03f\">Burned Ratios: " + input_burned + "</p><br>"
   }
   else{
-    burned = "<p class=\"modal-input-data acc-04\">Burned Ratios: Using Default</p><br>"
+    burned = "<p class=\"modal-input-data acc-03f\">Burned Ratios: Using Default</p><br>"
   }
 
   // input_ccf_to_mgc = $("[name='CcfToMgcFilename']").val()
@@ -326,63 +338,78 @@ $('#previewbtn').click(function (e){
   if(input_loss_factor != ""){
     input_loss_factor = input_loss_factor.split("\\")
     input_loss_factor = input_loss_factor[input_loss_factor.length-1]
-    loss_factor = "<p class=\"modal-input-data acc-05\">Loss Factor: " + input_loss_factor + "</p><br>"
+    loss_factor = "<p class=\"modal-input-data acc-04\">Loss Factor: " + input_loss_factor + "</p><br>"
   }
   else{
-    loss_factor = "<p class=\"modal-input-data acc-05\">Loss Factor: MISSING REQUIRED DATA</p><br>"
+    loss_factor = "<p class=\"modal-input-data acc-04\">Loss Factor: MISSING REQUIRED DATA</p><br>"
   }
 
   input_iterations = $("[name='iterations']").val()
   if(input_iterations != ""){
     input_iterations = input_iterations.split("\\")
     input_iterations = input_iterations[input_iterations.length-1]
-    iterations = "<p class=\"modal-input-data acc-06\">Number of Monte Carlo Iterations: " + input_iterations + "</p><br>"
+    iterations = "<p class=\"modal-input-data acc-05\">Number of Monte Carlo Iterations: " + input_iterations + "</p><br>"
   }
   else{
-    iterations = "<p class=\"modal-input-data acc-06\">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>"
+    iterations = "<p class=\"modal-input-data acc-05\">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>"
   }
 
   input_distribution = $("[name='DistributionDataFilename']").val()
   if(input_distribution != ""){
     input_distribution = input_distribution.split("\\")
     input_distribution = input_distribution[input_distribution.length-1]
-    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: " + input_distribution + "</p><br>"
+    distribution = "<p class=\"modal-input-data acc-05\">Distribution Data: " + input_distribution + "</p><br>"
   }
   else{
-    distribution = "<p class=\"modal-input-data acc-04\">Distribution Data: Using Default</p><br>"
+    distribution = "<p class=\"modal-input-data acc-05\">Distribution Data: Using Default</p><br>"
   }
 
   input_email = $("[name='email']").val()
   if(input_email != ""){
     input_email = input_email.split("\\")
     input_email = input_email[input_email.length-1]
-    email = "<p class=\"modal-input-data acc-07\">Email: " + input_email + "</p><br>"
+    email = "<p class=\"modal-input-data acc-06\">Email: " + input_email + "</p><br>"
   }
   else{
-    email = "<p class=\"modal-input-data acc-07\">Email: MISSING REQUIRED DATA</p><br>"
+    email = "<p class=\"modal-input-data acc-06\">Email: MISSING REQUIRED DATA</p><br>"
   }
 
   input_runname = $("[name='runname']").val()
   if(input_runname != ""){
     input_runname = input_runname.split("\\")
     input_runname = input_runname[input_runname.length-1]
-    runname = "<p class=\"modal-input-data acc-08\">Run Name: " + input_runname + "</p><br>"
+    runname = "<p class=\"modal-input-data acc-07\">Run Name: " + input_runname + "</p><br>"
   }
   else{
-    runname = "<p class=\"modal-input-data acc-08\">Run Name: MISSING REQUIRED DATA</p><br>"
+    runname = "<p class=\"modal-input-data acc-07\">Run Name: MISSING REQUIRED DATA</p><br>"
   }
 
   
   
   $("#preview-modal").css("display","block")
-  $("#preview-modal-content").html(harvest + mbf_to_ccf + timber_product_ratios + region + end_use_ratios + discard_dispostions + discard_dispostions_half_lives + distribution + burned + loss_factor + iterations + email + runname)
+  $("#preview-modal-content").html(harvest + mbf_to_ccf + timber_product_ratios + region + end_use_rates + end_use_ratios + discard_dispostions + discard_dispostions_half_lives + distribution + burned + loss_factor + iterations + email + runname)
   $(".modal-input-data").click(function (e) {
     class_list = $(e.target).attr("class").split(/\s+/)
     $("#preview-modal").css("display","none")
     $("#"+class_list[1]).get(0).scrollIntoView({behavior: "smooth", block: "center"});
-    toggleAccordion($("#"+class_list[1])[0])
-    if(class_list[1]=="acc-01" || class_list[1] == "acc-05" || class_list[1]=="acc-06" || class_list[1]=="acc-07"){
+    console.log(class_list)
+    if (class_list[1] == "acc-03a" || class_list[1] == "acc-03b" || class_list[1] == "acc-03c" || class_list[1] == "acc-03d" || class_list[1] == "acc-03e" || class_list[1] == "acc-03f") {
+      console.log(class_list[1])
+      console.log(class_list[1].slice(0, -1))
+      console.log($("#" + class_list[1])[0])
+      console.log("1")
+      toggleAccordion($("#" + class_list[1].slice(0, -1))[0])
+      toggleAccordion($("#" + class_list[1])[0])
+      toggleAccordion($("#" + class_list[1])[0])
+    }
+    if (class_list[1] == "acc-01" || class_list[1] == "acc-02" || class_list[1] == "acc-04" ||  class_list[1] == "acc-05" || class_list[1] == "acc-06" || class_list[1] == "acc-07") {
+      console.log("2")
+      toggleAccordion($("#" + class_list[1])[0])
       toggleAccordion($("#"+class_list[1])[0])
+    }
+    else {
+      console.log("3")
+      toggleAccordion($("#" + class_list[1])[0])
     }
   });
   

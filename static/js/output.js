@@ -573,78 +573,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 console.log("graph type is active bar")
             } else {
                 console.log("This is a table")
-                        
-                tester = document.getElementsByClassName("hidden " + graph_class)[0];
-
-                     
-                var data = d3.csvParse(json_data, 
-                        
-                    function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                    
-                
-                         
-                    function rows (rows) {
-
-                        function unpack(rows, key) {
-                            return rows.map(function (row) { return row[key]; });
-                        }
-                              
-                        
-                        var headerNames = d3.keys(rows[0]);
-                        console.log(headerNames)
-                                
-                        var headerColor = "grey";
-                        var rowEvenColor = "lightgrey";
-                        var rowOddColor = "white";
-                              
-                        var headerValues = [];
-                        var cellValues = [];
-                        for (i = 0; i < headerNames.length; i++) {
-                            headerValue = [headerNames[i]];
-                            headerValues[i] = headerValue;
-                            cellValue = unpack(rows, headerNames[i]);
-                            cellValues[i] = cellValue;
-                        }
-                              
-                        // clean date
-                        for (i = 0; i < cellValues[1].length; i++) {
-                            var dateValue = cellValues[1][i].split(' ')[0]
-                            cellValues[1][i] = dateValue
-                        }
-                              
-                              
-                        var data_layout = [{
-                            type: 'table',
-                            columnwidth: [150, 600, 1000, 900, 600, 500, 1000, 1000, 1000],
-                            columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                            header: {
-                                values: headerValues,
-                                align: "center",
-                                line: { width: 1, color: 'rgb(50, 50, 50)' },
-                                fill: { color: headerColor },
-                                font: { family: "Arial", size: 12, color: "white" }
-                            },
-                            cells: {
-                                values: cellValues,
-                                align: ["center", "center"],
-                                line: { color: "black", width: 1 },
-                                fill: {
-                                    color: [[rowOddColor, rowEvenColor, rowOddColor,
-                                        rowEvenColor, rowOddColor]]
-                                },
-                                font: { family: "Arial", size: 9, color: ["black"] }
-                            }
-                        }]
-                              
-                        var layout = {
-                            title: "Insert Table Title Here",
-                        }
-                              
-                        Plotly.newPlot(tester, data_layout, layout);
-                    }
-                
-                });
                  
             }
             
@@ -1049,7 +977,76 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         
     }
 
+generate_table = function (json_data, table_class) {
+        
+    tester = document.getElementsByClassName("hidden " + table_class)[0];
+    console.log("hello")
+                     
+    // var data = d3.csvParse(json_data, function (d) { return process_data(d) } );
+    var data = d3.csvParse(json_data)
+    process_data(data)
+        function process_data(rows) {
 
+            function unpack(rows,key) {
+                console.log(rows)
+                
+                return rows.map(function (row) {return row[key];});
+            }
+                  
+            
+            var headerNames = Object.keys(rows[0]);
+            console.log(headerNames)
+                    
+            var headerColor = "grey";
+            var rowEvenColor = "lightgrey";
+            var rowOddColor = "white";
+                  
+            var headerValues = [];
+            var cellValues = [];
+            for (i = 0; i < headerNames.length; i++) {
+                headerValue = [headerNames[i]];
+                headerValues[i] = headerValue;
+                cellValue = unpack(rows, headerNames[i]);
+                cellValues[i] = cellValue;
+            }
+                  
+            // clean date
+            for (i = 0; i < cellValues[1].length; i++) {
+                var dateValue = cellValues[1][i].split(' ')[0]
+                cellValues[1][i] = dateValue
+            }
+            console.log(cellValues)
+                  
+            var data_layout = [{
+                type: 'table',
+                columnwidth: [150, 600, 1000, 900, 600, 500, 1000, 1000, 1000],
+                columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                header: {
+                    values: headerValues,
+                    align: "center",
+                    line: { width: 1, color: 'rgb(50, 50, 50)' },
+                    fill: { color: headerColor },
+                    font: { family: "Arial", size: 12, color: "white" }
+                },
+                cells: {
+                    values: cellValues,
+                    align: ["center", "center"],
+                    line: { color: "black", width: 1 },
+                    fill: {
+                        color: [[rowOddColor, rowEvenColor, rowOddColor,
+                            rowEvenColor, rowOddColor]]
+                    },
+                    font: { family: "Arial", size: 9, color: ["black"] }
+                }
+            }]
+                  
+            var layout = {
+                title: "Insert Table Title Here",
+            }
+                  
+            Plotly.newPlot(tester, data_layout, layout);
+        }
+}
 
 $(".non-active").click(function (e) {
     console.log($(e.target))
@@ -1122,7 +1119,7 @@ $(function () {
 
 
 d3.select("#dl-closed").on('click', function () {
-    generate_graph(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table", "hidden", data_dict["annual_timber_harvest_table"][1], 1300, 700, data_dict["annual_timber_harvest_table"][2], data_dict["annual_timber_harvest_table"][3])
+    generate_table(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table")
 });
 //     generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
 //     generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);

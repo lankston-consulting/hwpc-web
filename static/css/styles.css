@@ -1343,6 +1343,10 @@ input[type="radio"]:after{
   height: 800px;
 } */
 
+#hidden-graphs .hidden{
+  height:fit-content;
+}
+
 .svg-graph-container {
  display: inline-block;
  position: relative;
