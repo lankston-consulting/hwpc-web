@@ -413,14 +413,14 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             
             $("." + graph_class).html("")
         
-            const margin = { top: 40, right: 80, bottom: 160, left: 80 },
-                width = w - margin.left - margin.right,
-                height = h - margin.top - margin.bottom;
+            // const margin = { top: 40, right: 80, bottom: 160, left: 80 },
+            //     width = w - margin.left - margin.right,
+            //     height = h - margin.top - margin.bottom;
 
-            const valueline = d3
-                .line()
-                .x((d) => { return x(d.date); })
-                .y((d) => { return y(d.value); })
+            // const valueline = d3
+            //     .line()
+            //     .x((d) => { return x(d.date); })
+            //     .y((d) => { return y(d.value); })
        
 
             if (graph_type == "line") {
@@ -707,15 +707,27 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
 
                 year_array=[]
                 prod_array=[]
-                swds_array=[]
+                swds_array = []
+                net_change_array = []
+                
+                
                 for(i in data){
                     year_array.push(data[i].year)
                     prod_array.push(data[i].products_in_use_change)
                     swds_array.push(data[i].SWDS_change)
+
+                    temp1 = parseInt(data[i].products_in_use_change)
+                    temp2 = parseInt(data[i].SWDS_change)
+                    temp3 = temp1 + temp2
+
+                    net_change_array.push(temp3)
                 }
+                console.log(net_change_array)
                 year_array = year_array.slice(0, -2)
                 prod_array = prod_array.slice(0, -2)
                 swds_array = swds_array.slice(0, -2)
+                net_change_array = net_change_array.slice(0, -2)
+
                 var trace1 = {
                     x:year_array,
                     y:prod_array,
@@ -729,7 +741,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     name:"Change in SWDS",
                     type:"bar"
                 }
-                stackedData = [trace1, trace2];
+
+                var trace3 = {
+                    x: year_array,
+                    y: net_change_array,
+                    name: "Net Change",
+                    type: "scatter"
+                }
+
+                stackedData = [trace1, trace2, trace3];
+                
                 var layout = {
                             barmode: 'relative',
                             xaxis: { title: "Years<br><br>" + caption[0].text },

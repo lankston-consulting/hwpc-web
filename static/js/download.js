@@ -8,19 +8,31 @@
 // canvas.height = 1000;
 // var ctx = canvas.getContext("2d");
 
+     
+var img_png = d3.select('#png-export');
+
 d3.select("#download")
   .on('click', function () {
     // console.log(document.getElementById("end_use"));
 
     //   saveSvgAsPng(document.getElementById("end_use"), "plot.png", {backgroundColor: "#FFFFFF", width: 1300, height: 700});
-
+    image_array = [];
     $(".dl-files").children().each(function () {
       tempChk = $(this).children()[0];
 
       if (tempChk.checked) {
-        console.log(tempChk.value);
+        // console.log(tempChk.value);
+        Plotly.toImage(document.getElementsByClassName(tempChk.value)[0], { format: 'png', width: 1300, height: 700 }).then(function (dataUrl) {
+      
+          $("#hidden-graphs").append("<img src='" + dataUrl + "' class='hidden-graph'>");
+          img_png.attr("src", dataUrl);
+          image_array[tempChk.value] = img_png;
+          console.log(image_array[tempChk.value]);
 
-        Plotly.downloadImage(document.getElementsByClassName(tempChk.value)[0], { format: 'png', width: 1300, height: 700, filename: tempChk.value });
+      
+      })
+        
+        
 
         //export all csv files
         // var csv = document.getElementsByClassName("csv")[0];
@@ -33,14 +45,7 @@ d3.select("#download")
       }
 
       // zip all plotly downloadImages as a zip file and download
-      // var zip = new JSZip();
-      // var img = zip.folder("images");
-      // img.file("plot.png", imgData, { base64: true });
-      // zip.generateAsync({ type: "blob" })
-      //   .then(function (content) {
-      //     // see FileSaver.js
-      //     saveAs(content, "example.zip");
-      //   });
+   
      
 
       //     // saveSvgAsPng(document.getElementById(tempChk.value+"1"), tempChk.value +".png", {backgroundColor: "#FFFFFF", width: 1300, height: 700});
@@ -74,7 +79,24 @@ d3.select("#download")
       //     console.log("No files to download.");
     
     });
-
+    console.log(image_array);
+     var zip = new JSZip();
+    for (var key in image_array){
+      console.log(key.slice(0,-7))
+      console.log(image_array[key])
+      zip.file(key.slice(0,-7)+".png",image_array[key])
+    }
+    // for (i = 0; i < image_array.length; i++) {
+    //   
+      
+    // }
+   
+    // img.file("plot.png", imgData, { base64: true });
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
+        // see FileSaver.js
+        saveAs(content, "example.zip");
+      });
   
 
   });
