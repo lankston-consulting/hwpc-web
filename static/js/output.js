@@ -58,7 +58,7 @@ output.initialize = function(input_json,bucket,file_name) {
     data_dict["total_landfills_carbon_emitted"] = [final_json.total_landfills_carbon_emitted, "Total Landfills Carbon Emitted", "line","Carbon Emissions (CO2e)"]
     data_dict["total_solid_carbon_dispositions"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
     data_dict["total_solid_carbon_dispositions2"] = [final_json.carbon_present_distinct_swds,"Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
-    data_dict["swds_emissions"] = [final_json.carbon_emitted_distinct_swds, "Total Emissions Dispositions", "stack", "Carbon Emissions (CO2e)"]
+    data_dict["swds_emissions"] = [final_json.carbon_emitted_distinct_swds, "Total SWDS Emissions", "stack", "Carbon Emissions (CO2e)"]
     data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
     data_dict["total_emissions_dispositions2"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
     
