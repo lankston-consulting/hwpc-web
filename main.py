@@ -4,6 +4,7 @@ import os
 import zipfile
 import pandas as pd
 import numpy as np
+from io import StringIO
 from flask import Flask, redirect, render_template, request, jsonify
 # from config import gch
 from utils.s3_helper import S3Helper
@@ -158,20 +159,19 @@ def output():
     y = request.args.get("y")
     print(p)
     print(q)
-   
+    data_dict = {}
     if(y==None):
         print("no year range")
-        user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
-        with open('/tmp/zip_folder.zip', 'wb') as f:
-            f.write(user_zip.read())
-        file = zipfile.ZipFile('/tmp/zip_folder.zip')
-        file.extractall(path='/tmp/zip_folder')
-        files = os.listdir('/tmp/zip_folder')
-        data_dict = {}
-        for file in files:
-            if ".csv" in file:
+        
+        
+        user_zip = S3Helper.read_zipfile("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
+        # print(user_zip)
+        for file in user_zip:
+            if ".csv" in file and "results" not in file:
                 print(file[:-4])
-                test = pd.read_csv("/tmp/zip_folder/"+file)
+                print(user_zip[file])
+                csvStringIO = StringIO(user_zip[file])
+                test = pd.read_csv(csvStringIO, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
                 except:
@@ -182,23 +182,20 @@ def output():
                 print(test)
                 test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
                 data_dict[file[:-4]] = test.to_csv(index=False)
+                
         print(data_dict.keys())
         data_json=json.dumps(data_dict)
         
         data_json = data_json.replace('\\"',' ')
     if(y!=None):
         print("years: "+y)
-        user_zip = S3Helper.download_file("hwpc-output","hwpc-user-outputs/"+p+"/results/"+y+"_"+q+".zip")
-        with open('/tmp/zip_folder.zip', 'wb') as f:
-            f.write(user_zip.read())
-        file = zipfile.ZipFile('/tmp/zip_folder.zip')
-        file.extractall(path='/tmp/zip_folder')
-        files = os.listdir('/tmp/zip_folder')
-        data_dict = {}
-        for file in files:
-            if ".csv" in file and y in file:
+        user_zip = S3Helper.read_zipfile("hwpc-output","hwpc-user-outputs/"+p+"/results/"+y+"_"+q+".zip")
+        
+        for file in user_zip:
+            if ".csv" in file and y in file and "results" not in file:
                 print(file[:-4])
-                test = pd.read_csv("/tmp/zip_folder/"+file)
+                csvStringIO = StringIO(user_zip[file])
+                test = pd.read_csv(csvStringIO, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
                 except:

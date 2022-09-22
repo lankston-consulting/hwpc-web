@@ -4,7 +4,8 @@ from botocore.exceptions import ClientError
 import json
 import tempfile
 import os
-
+import io
+import zipfile
 
 
 class S3Helper(object):
@@ -44,6 +45,23 @@ class S3Helper(object):
             logging.error(e)
             return False
         return True
+
+    @staticmethod
+    def read_zipfile(bucket,file_name):
+        
+        obj =  S3Helper.s3_resource.Object(bucket, file_name )
+        contents = {}
+        with io.BytesIO(obj.get()["Body"].read()) as tf:
+            # rewind the file
+            tf.seek(0)
+            # Read the file as a zipfile and process the members
+            with zipfile.ZipFile(tf, mode='r') as zipf:
+                for subfile in zipf.namelist():
+                    file_contents= zipf.read(subfile).decode("utf-8")
+                    contents[subfile] = file_contents
+        
+        return contents
+
 
     @staticmethod
     def download_file(bucket,file_name):

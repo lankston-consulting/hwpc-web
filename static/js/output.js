@@ -780,10 +780,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         if(column == "products_in_use"){
                             y_name = "Products in Use"
                         }
+                        if(column == "products_in_use_mgc"){
+                            y_name = "Products in Use"
+                        }
                         if(column == "products_in_use_present_co2e"){
                             y_name = "Products in Use"
                         }
                         if(column == "SWDS"){
+                            y_name = "SWDS"
+                        }
+                        if(column == "SWDS_mgc"){
                             y_name = "SWDS"
                         }
                         if(column == "SWDS_present_co2e"){
