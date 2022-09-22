@@ -62,8 +62,24 @@ output.initialize = function(input_json,bucket,file_name) {
     data_dict["total_emissions_dispositions"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
     data_dict["total_emissions_dispositions2"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
     
+    //Data_dict for Tables
     data_dict["annual_timber_harvest_table"] = [final_json.annual_harvest_and_timber_product_output, "Annual Timber Product Output", "table", ""]
-    
+
+    data_dict["total_yearly_net_change"] = [final_json.total_yearly_net_change, "Total Yearly Net Change", "table", ""]
+    data_dict["total_selected_net_change"] = [final_json.total_selected_net_change, "Total Selected Net Change", "table", ""]
+    data_dict["total_yearly_dispositions"] = [final_json.total_yearly_dispositions, "Total Yearly Dispositions", "table", ""]
+    data_dict["total_selected_dispositions"] = [final_json.total_selected_dispositions, "Total Selected Dispositions", "table", ""]
+
+    //Data Dict for hidden graphs (unique identifiers)
+    data_dict["all_results_final_hidden"] = [final_json.big_four,"Final Results","stack","Megagrams Carbon (Mg C)"]
+    data_dict["total_solid_carbon_dispositions_hidden"] = [final_json.carbon_present_distinct_swds, "Total Solid Carbon Dispositions", "stack", "Megagrams Carbon (Mg C)"]
+    data_dict["total_emissions_dispositions_hidden"] = [final_json.emitted_all, "Total Emissions", "stack", "Carbon Emissions (CO2e)"]
+    data_dict["annual_net_change_carbon_stocks_hidden"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar","Megagrams Carbon (Mg C)"]
+    data_dict["annual_harvest_and_timber_product_output_hidden"] = [final_json.annual_harvest_and_timber_product_output, "Annual Harvest and Timber Products", "multiline", "Hundred Cubic Feet (CCF)"]
+    data_dict["burned_with_energy_capture_emissions_hidden"] = [final_json.burned_w_energy_capture_emit, "Total Carbon Burned With Energy Capture", "line","Carbon Emissions (CO2e)"]
+    data_dict["burned_without_energy_capture_emissions_hidden"] = [final_json.burned_wo_energy_capture_emit, "Total Carbon Burned Without Energy Capture", "line", "Carbon Emissions (CO2e)"]
+    data_dict["swds_emissions_hidden"] = [final_json.carbon_emitted_distinct_swds, "Total Emissions Dispositions", "stack", "Carbon Emissions (CO2e)"]
+
 }
 
 $("#defaultOpen").click(function (e) {
@@ -125,7 +141,7 @@ $("#reused").click(function (e) {
 })
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type, y_label="", caption){
-    var parseDate = d3.timeFormat("%Y");
+    // var parseDate = d3.timeFormat("%Y");
         if (is_active == "inactive") {
             if (graph_type == "line") {
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
@@ -319,21 +335,24 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     var layout = {
                         title: title,
                         responsive: true,
-                        showlegend: false
+                        showlegend: false,
+                        height: 350, 
                         }
                 }
                 if(emissions_present == true && solid_present == true){
                     var layout = {
                         title: title,
                         responsive: true,
-                        showlegend: false
+                        showlegend: false,
+                        height: 350, 
                         }
                 }
                 if(emissions_present == false && solid_present == true){
                     var layout = {
                         title: title,
                         responsive: true,
-                        showlegend: false
+                        showlegend: false,
+                        height: 350, 
                         }
                 }
                 
@@ -384,183 +403,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 
             }
             
-        } else if (is_active == "hidden") {
-             // hidden graphs
-             $("." + graph_class).html("")
-        
-             const margin = { top: 40, right: 80, bottom: 60, left: 80 },
-                 width = w - margin.left - margin.right,
-                 height = h - margin.top - margin.bottom;
-                         
-             const x = d3.scaleTime().range([0, width]);
-             const y = d3.scaleLinear().range([height, 0]);
- 
-             // const area = d3
-             // .area()
-             // .x((d) => { return x(d.date); })
-             // .y0(height)
-             // .y1((d) => { return y(d.value); })
- 
- 
-             const valueline = d3
-                 .line()
-                 .x((d) => { return x(d.date); })
-                 .y((d) => { return y(d.value); })
-        
-        
-             const svg = d3
-                 .select("div." + graph_class)
-                 .append("div")
-                 .classed("svg-graph-container", true) // Container class to make graphs responsive.
-                 .append("svg")
-                 .attr("id", graph_class)
-                 .attr("class", graph_class)
-                 .attr("preserveAspectRatio", "xMinYMid meet")
-                 .attr(
-                     "viewBox",
-                     `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-                 .classed("svg-content-responsive", true)
-                 .append("g")
-                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-             
-             svg
-                 .append("g")
-                 .attr("class", "x axis")
-                 .attr("transform", "translate(0," + height + ")")
-                 .call(d3.axisBottom(x));
-         
-             svg.append("g").attr("class", "y axis").call(d3.axisLeft(y));
- 
-             //y axis title
-             svg
-                 .append("text")
-                 .attr("class", "y-axis-title")
-                 .attr("transform", "rotate(-90)")
-                 .attr("y", 0 - margin.left)
-                 .attr("x", 0 - height / 2)
-                 .attr("dy", "1em")
-                 .style("text-anchor", "middle")
-                 .text("Carbon Emissions (CO2e)");
-     
-             //x axis title
-             svg
-                 .append("text")
-                 .attr("class", "x-axis-title")
-                 .attr("y", height + 30)
-                 .attr("x", width / 2)
-                 .attr("dy", "1em")
-                 .style("text-anchor", "middle")
-                 .text("Years");
- 
-            if (graph_type == "line") {
-
-                const data = d3.csvParse(json_data,
-                    function (d) {
-                        // d3.selectAll("path.area").remove();
-                        // d3.selectAll("path.line").remove();
-                        // d3.selectAll(".title").remove();
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[1]] }
-                    })
-                     
-                minDateYear = data[0].date.getFullYear();
-                maxDateYear = data[data.length - 1].date.getFullYear();
-                     
-                x.domain(
-                    d3.extent(data, (d) => { return d.date; })
-                );
-                y.domain([
-                    0,
-                    d3.max(data, (d) => { return +d.value; })
-                ]);
-                     
-                // Add the line
-                const linePath = svg
-                    .append("path")
-                    .datum(data)
-                    .attr("class", "line")
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", valueline)
-                const pathLength = linePath.node().getTotalLength();
-                linePath
-                    .attr("stroke-dasharray", pathLength)
-                    .attr("stroke-dashoffset", pathLength)
-                    .attr("stroke-width", 0)
-                    .transition()
-                    .duration(1000)
-                    .attr("stroke-dashoffset", 0)
-                    .attr("stroke-width", 3);
-                        
-                
-                // console.log(data)
-            } else if (graph_type == "stack") {
-                console.log("this is a stack")
-                const data = d3.csvParse(json_data,
-                    function (d) {
-                        return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value1: d[Object.keys(d)[1]], value2: d[Object.keys(d)[1]] }
-                    })
-                     
-                        
-        
-                var area = d3.area()
-                    .x(function (d) { return x(d.date); })
-                    .y0(function (d) { return y(d.value1); })
-                    .y1(function (d) { return y(d.value2); })
-                // const valueline = d3
-                // .group(data,d => d.date, d => d.value1,d => d.value2)
-                    
-                var keys = data.columns.slice(1)
-                // console.log(keys)
-                    
-        
-                // // color palette
-                // var color = d3.scaleOrdinal()
-                //   .domain(keys)
-                //   .range(d3.schemeSet2);
-                      
-                // //stack the data?
-                // var stackedData = d3.stack()
-                //   .keys(keys)
-                // (data)
-                    
-                    
-    
-            } else if (graph_type == "multiline") {
-                console.log("graph type is active multiline")
-
-                     
-                    
-            } else if (graph_type == "bar") {
-                console.log("graph type is active bar")
-            } else {
-                console.log("This is a table")
-                 
-            }
-            
-          
-             svg
-                 .select(".x.axis")
-                 .transition()
-                 .duration(750)
-                 .call(d3.axisBottom(x));
-             svg
-                 .select(".y.axis")
-                 .transition()
-                 .duration(750)
-                 .call(d3.axisLeft(y));
- 
-
-             //title
-             svg
-                 .append("text")
-                 .attr("class", "graph-title")
-                 .attr("x", width / 2)
-                 .attr("y", 0 - margin.top / 2)
-                 .attr("text-anchor", "middle")
-                .text(title);
-            
-        } else if (is_active == "active") {
+        }  else if (is_active == "active") {
             
             $("." + graph_class).html("")
         
@@ -893,12 +736,380 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 plot = Plotly.newPlot(tester, stackedData, layout);
             }
             } else {
-            console.log("I broke");
+            console.log("I broke add error logic here")
         }
         
     }
 
-generate_table = function (json_data, table_class) {
+generate_hidden_graph = function (json_data, graph_class, title, w, h, graph_type, y_label = "", caption) {
+    console.log(graph_class)
+
+    $("." + graph_class).html("")
+    console.log("hello")
+
+    if (graph_type == "line") {
+        
+        tester = document.getElementsByClassName("hidden " + graph_class)[0];
+        const data = d3.csvParse(json_data)
+            
+        minDateYear = data[0].date
+        maxDateYear = data[data.length - 1].date
+        caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+        caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+        // svg
+        //     .append("g")
+        //     .attr("class", graph_class + "caption")
+        //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
+
+        year_array=[]
+        value_array=[]
+        
+        for(i in data){
+            year_array.push(data[i][data.columns[0]])
+            value_array.push(data[i][data.columns[1]])
+        }
+
+
+        var trace1 = {
+            x:year_array,
+            y:value_array,
+            name:data_dict[graph_class][1],
+            type:"scatter"
+        }
+        
+        
+
+        var layout = {
+            title: data_dict[graph_class][1],
+            xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
+            yaxis: { title: data_dict[graph_class][3] },
+            automargin: true,
+            height: 700,
+            margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+            responsive: true
+            }
+
+        var stackedData = [trace1];
+        
+        Plotly.newPlot(tester, stackedData, layout);
+                             
+    } else if (graph_type == "multiline") {
+        console.log("graph type is active multiline")
+        tester = document.getElementsByClassName("hidden " + graph_class)[0];
+        const data = d3.csvParse(json_data,
+            function (d) {
+                return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2 : d[Object.keys(d)[2]]}
+            })
+        // const data2 = d3.csvParse(json_data,
+        //     function (d) {
+        //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
+        //     })
+
+       
+        minDateYear = data[0].year
+        maxDateYear = data[data.length - 1].year
+        caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+        caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+
+        year_array=[]
+        value1_array=[]
+        value2_array=[]
+        for(i in data){
+            year_array.push(data[i].year)
+            value1_array.push(data[i].value1)
+            value2_array.push(data[i].value2)
+        }
+
+
+        var trace1 = {
+            x:year_array,
+            y:value1_array,
+            name:"Annual Harvest",
+            type:"scatter"
+        }
+        
+        var trace2 = {
+            x:year_array,
+            y:value2_array,
+            yaxis: 'y2',
+            name:"Annual Timber Harvest",
+            type:"scatter"
+        }
+
+        var layout = {
+            title: 'Annual Harvest and Timber Product Outputs',
+            xaxis: { title: "Years<br><br>" + caption[0].text },
+            yaxis: { title: 'Hundred Cubic Feet (CCF)' },
+            yaxis2: {
+                title: 'Megagrams Carbon (Mg C)',
+                titlefont: { color: 'rgb(148, 103, 189)' },
+                tickfont: { color: 'rgb(148, 103, 189)' },
+                overlaying: 'y',
+                side: 'right'
+            },
+            automargin: true,
+            height: 700,
+            margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 }, 
+            responsive: true
+        };
+
+        var stackedData = [trace1, trace2];
+
+
+        Plotly.newPlot(tester, stackedData, layout);
+
+
+        // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+        // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+        // svg
+        //     .append("g")
+        //     .attr("class", graph_class + "caption")
+        //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
+            
+
+        
+        
+    }
+    else if (graph_type == "stack") {
+        tester = document.getElementsByClassName("hidden " + graph_class)[0];
+        const data = d3.csvParse(json_data)
+        // keys = Object.keys(data[0])
+        // minDateYear = data[0].keys[0]
+        // maxDateYear = data[data.length - 1].keys[0]
+        // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+        // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+        stackedData = []
+        year_data = []
+        emissions_present = false
+        solid_present = false
+        for(i in data.columns){
+            if(data.columns[i].includes("co2e")){
+                emissions_present = true
+            }
+            if(!data.columns[i].includes("co2e") && !data.columns[i].includes("Year")){
+                solid_present = true
+            }
+        }
+        for(i in data.columns){
+            column = data.columns[i]
+            if(i == 0){
+                for(j in data){
+                    year_data.push(data[j][column])
+                }
+            }
+            else{
+                temp=[]
+                for(j in data){
+                    temp.push(data[j][column])
+                }
+                if(column == "products_in_use"){
+                    y_name = "Products in Use"
+                }
+                if(column == "products_in_use_mgc"){
+                    y_name = "Products in Use"
+                }
+                if(column == "products_in_use_present_co2e"){
+                    y_name = "Products in Use"
+                }
+                if(column == "SWDS"){
+                    y_name = "SWDS"
+                }
+                if(column == "SWDS_mgc"){
+                    y_name = "SWDS"
+                }
+                if(column == "SWDS_present_co2e"){
+                    y_name = "SWDS" 
+                }
+                if(column == "emitted_w_energy_capture_emitted_co2e"){
+                    y_name = "Emitted with <br>Energy Capture"
+                }
+                if(column == "emitted_w_energy_capture"){
+                    y_name = "Emitted with <br>Energy Capture"
+                }
+                if(column == "emitted_wo_energy_capture"){
+                    y_name = "Emitted without <br>Energy Capture"
+                }
+                if(column == "emitted_wo_energy_capture_emitted_co2e"){
+                    y_name = "Emitted without <br>Energy Capture"
+                }
+                if(column == "Fuel_emitted_co2e"){
+                    y_name = "Fuelwood Emissions"
+                }
+                if(column == "Composted_emitted_co2e"){
+                    y_name = "Compost Emissions"
+                }
+                if(column == "Dumps_emitted_mgc"){
+                    y_name = "Dump Emissions"
+                }
+                if(column == "Dumps_emitted_co2e"){
+                    y_name = "Dump Emissions"
+                }
+                if(column == "Landfills_emitted_co2e"){
+                    y_name = "Landfill Emissions"
+                }
+                if(column == "Dumps_present_mgc"){
+                    y_name = "Carbon in Dumps"
+                }
+                if(column == "Landfills_present_mgc"){
+                    y_name = "Carbon in Landfills"
+                }
+                if(emissions_present==true && solid_present == false){
+           
+                    
+                    var temp_trace = {
+                        x:year_data,
+                        y:temp,
+                        name:y_name,
+                        stackgroup: 'one'
+                    }
+                    
+                }
+                if(emissions_present == true && solid_present == true){
+                   
+                    if(column.includes("emit")){
+                        var temp_trace = {
+                            x:year_data,
+                            y:temp,
+                            yaxis: 'y2',
+                            name:y_name,
+                            stackgroup: 'one'
+                        }
+                    }else{
+                        var temp_trace = {
+                            x:year_data,
+                            y:temp,
+                            name:y_name,
+                            stackgroup: 'one'
+                        }
+                    }
+                }
+                if(emissions_present == false && solid_present == true){
+                    var temp_trace = {
+                        x:year_data,
+                        y:temp,
+                        name:y_name,
+                        stackgroup: 'one'
+                    }
+                }
+                stackedData.push(temp_trace)
+            }
+            
+        }
+
+            
+        
+
+        if(emissions_present==true && solid_present == false){
+            var layout = {
+                title: title,
+                xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
+                yaxis: { title: 'Carbon Emissions (CO2e)' },
+                automargin: true,
+                height: 700,
+                margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+                responsive: true,
+    
+                }
+        }
+        if(emissions_present == true && solid_present == true){
+            var layout = {
+                title: title,
+                autosize: true, 
+                xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
+                yaxis: {title: 'Megagrams Carbon (Mg C)'},
+                yaxis2: {
+                    title: 'Carbon Emissions (CO2e)',
+                    // titlefont: {color: 'rgb(148, 103, 189)'},
+                    // tickfont: {color: 'rgb(148, 103, 189)'},
+                    overlaying: 'y',
+                    side: 'right'
+                },
+                automargin: true,
+                height: 700,
+                margin: { l: 100, r: 55, b: 100, t: 100, pad: 4 },
+                responsive: true,
+                legend: {x: 1.05, y: 1}
+                }
+        }
+        if(emissions_present == false && solid_present == true){
+            var layout = {
+                title: title,
+                xaxis: {title:"Years<br><sup>"+caption[0].text+"</sup>"},
+                yaxis: { title: 'Megagrams Carbon (Mg C)' },
+                automargin: true,
+                height: 700,
+                margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+                responsive: true
+                }
+        }
+
+        
+
+        // var stackedData = [trace1, trace2];
+        Plotly.newPlot(tester, stackedData, layout);   
+
+    }
+    else {
+       
+        console.log("graph type is active bar")
+        tester = document.getElementsByClassName("hidden " + graph_class)[0];
+        const data = d3.csvParse(json_data,
+            function (d) {
+                return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
+            })
+ 
+        minDateYear = data[0].year
+        maxDateYear = data[data.length - 1].year
+        caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
+        caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
+
+       
+
+        year_array=[]
+        prod_array=[]
+        swds_array=[]
+        for(i in data){
+            year_array.push(data[i].year)
+            prod_array.push(data[i].products_in_use_change)
+            swds_array.push(data[i].SWDS_change)
+        }
+        year_array = year_array.slice(0, -2)
+        prod_array = prod_array.slice(0, -2)
+        swds_array = swds_array.slice(0, -2)
+        var trace1 = {
+            x:year_array,
+            y:prod_array,
+            name:"Change in Products in Use",
+            type:"bar"
+        }
+        
+        var trace2 = {
+            x:year_array,
+            y:swds_array,
+            name:"Change in SWDS",
+            type:"bar"
+        }
+
+        stackedData = [trace1, trace2];
+    
+
+        var layout = {
+                    barmode: 'relative',
+                    xaxis: { title: "Years<br><br>" + caption[0].text },
+                    yaxis: {title:"Megagrams C (Mg C)"},
+                    title: "Annual Net Change Carbon Stocks",
+                    automargin: true,
+                    height: 700,
+                    margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 }, 
+                    responsive: true};
+     
+        
+        plot = Plotly.newPlot(tester, stackedData, layout);
+
+    }
+}
+
+generate_table = function (json_data, table_class, title) {
         
     tester = document.getElementsByClassName("hidden " + table_class)[0];
                      
@@ -935,29 +1146,31 @@ generate_table = function (json_data, table_class) {
                   
             var data_layout = [{
                 type: 'table',
-                columnwidth: [150, 600, 1000, 900, 600, 500, 1000, 1000, 1000],
-                columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                columnwidth: [50, 50, 50, 50, 50, 50, 50, 50, 50],
+                columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 header: {
                     values: headerValues,
                     align: "center",
                     line: { width: 1, color: 'rgb(50, 50, 50)' },
                     fill: { color: headerColor },
-                    font: { family: "Arial", size: 12, color: "white" }
+                    font: { family: "Open Sans", size: 16, color: "white" }
                 },
                 cells: {
                     values: cellValues,
+                    height: 25,
                     align: ["center", "center"],
-                    line: { color: "black", width: 1 },
-                    fill: {
-                        color: [[rowOddColor, rowEvenColor, rowOddColor,
-                            rowEvenColor, rowOddColor]]
-                    },
-                    font: { family: "Arial", size: 9, color: ["black"] }
-                }
+                    line: { color: "gray", width: 1 },
+                    // fill: { color: "white" },
+                    font: { family: "Open Sans", size: 14, color: ["black"] }
+                },
+                
             }]
                   
             var layout = {
-                title: "Insert Table Title Here",
+                title: title,
+                height: (cellValues[0].length + 2) * 30 + 100,
+                width: headerNames.length * 300,
+
             }
                   
             Plotly.newPlot(tester, data_layout, layout);
@@ -1060,8 +1273,25 @@ $(function () {
 
 
 d3.select("#dl-closed").on('click', function () {
-    generate_table(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table")
+    // generate_table(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table", data_dict["annual_timber_harvest_table"][1])
+    // generate_table(data_dict["total_yearly_net_change"][0], "total_yearly_net_change", data_dict["total_yearly_net_change"][1])
+    // generate_table(data_dict["total_selected_net_change"][0], "total_selected_net_change", data_dict["total_selected_net_change"][1])
+    // generate_table(data_dict["total_yearly_dispositions"][0], "total_yearly_dispositions", data_dict["total_yearly_dispositions"][1])
+    // generate_table(data_dict["total_selected_dispositions"][0], "total_selected_dispositions", data_dict["total_selected_dispositions"][1])
+
+    generate_hidden_graph(data_dict["all_results_final_hidden"][0], "all_results_final_hidden", data_dict["all_results_final_hidden"][1], 1300, 700, data_dict["all_results_final_hidden"][2], data_dict["all_results_final_hidden"][3], captions_dict["all_results_final"])
+    generate_hidden_graph(data_dict["total_solid_carbon_dispositions_hidden"][0], "total_solid_carbon_dispositions_hidden", data_dict["total_solid_carbon_dispositions_hidden"][1], 1300, 700, data_dict["total_solid_carbon_dispositions_hidden"][2], data_dict["total_solid_carbon_dispositions_hidden"][3], captions_dict["total_solid_carbon_dispositions"])
+    generate_hidden_graph(data_dict["total_emissions_dispositions_hidden"][0], "total_emissions_dispositions_hidden", data_dict["total_emissions_dispositions_hidden"][1], 1300, 700, data_dict["total_emissions_dispositions_hidden"][2], data_dict["total_emissions_dispositions_hidden"][3], captions_dict["total_emissions_dispositions"])
+    generate_hidden_graph(data_dict["annual_net_change_carbon_stocks_hidden"][0], "annual_net_change_carbon_stocks_hidden", data_dict["annual_net_change_carbon_stocks_hidden"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks_hidden"][2], data_dict["annual_net_change_carbon_stocks_hidden"][3], captions_dict["annual_net_change_carbon_stocks"])
+    generate_hidden_graph(data_dict["annual_harvest_and_timber_product_output_hidden"][0], "annual_harvest_and_timber_product_output_hidden", data_dict["annual_harvest_and_timber_product_output_hidden"][1], 1300, 700, data_dict["annual_harvest_and_timber_product_output_hidden"][2], data_dict["annual_harvest_and_timber_product_output_hidden"][3], captions_dict["annual_harvest_and_timber_product_output"])
+    generate_hidden_graph(data_dict["burned_with_energy_capture_emissions_hidden"][0], "burned_with_energy_capture_emissions_hidden", data_dict["burned_with_energy_capture_emissions_hidden"][1], 1300, 700, data_dict["burned_with_energy_capture_emissions_hidden"][2], data_dict["burned_with_energy_capture_emissions_hidden"][3], captions_dict["burned_with_energy_capture_emissions"])
+    generate_hidden_graph(data_dict["burned_without_energy_capture_emissions_hidden"][0], "burned_without_energy_capture_emissions_hidden", data_dict["burned_without_energy_capture_emissions_hidden"][1], 1300, 700, data_dict["burned_without_energy_capture_emissions_hidden"][2], data_dict["burned_without_energy_capture_emissions_hidden"][3], captions_dict["burned_without_energy_capture_emissions"])
+    generate_hidden_graph(data_dict["swds_emissions_hidden"][0], "swds_emissions_hidden", data_dict["swds_emissions_hidden"][1], 1300, 700, data_dict["swds_emissions_hidden"][2], data_dict["swds_emissions_hidden"][3], captions_dict["swds_emissions"])
+
+   
 });
+
+
 //     generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
 //     generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
 //     generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);

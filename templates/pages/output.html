@@ -131,22 +131,22 @@
             style="display: flex; margin:auto; margin-top: 150px;">
     </div> -->
 </div>
-<div id="hidden-graphs">
-    <div class="graph hidden annual_timber_harvest_table"></div>
-    <!-- <div class="graph total_dumps_carbon_emitted1"></div>
-    <div class="graph total_composted_carbon_emitted1"></div>
-    <div class="graph total_landfills_carbon_emitted1"></div>
+<div id="hidden-graphs" style="display: none;">
 
-    <div class="graph  annual_harvests_output1"></div>
-    <div class="graph  end_use1"></div> -->
-    <!-- <div class="graph  annual_net_change_carbon_stocks1"></div> -->
-    <!-- <div class="graph burned_wo_energy_capture_emitted1"></div>
-    <div class="graph burned_w_energy_capture_emitted1"></div>
-    <div class="graph total_fuelwood_carbon_emitted1"></div>
+    <!-- <div class="graph hidden annual_timber_harvest_table"></div>
+    <div class="graph hidden total_yearly_net_change"></div>
+    <div class="graph hidden total_selected_net_change"></div>
+    <div class="graph hidden total_yearly_dispositions"></div>
+    <div class="graph hidden total_selected_dispositions"></div> -->
 
-    <div class="graph total_cumulative_carbon_stocks1"></div>
-    <div class="graph total_carbon_dumps1"></div>
-    <div class="graph total_carbon_landfill1"></div> -->
+    <div class="graph hidden all_results_final_hidden"></div>
+    <div class="graph hidden total_solid_carbon_dispositions_hidden"></div>
+    <div class="graph hidden total_emissions_dispositions_hidden"></div>
+    <div class="graph hidden annual_net_change_carbon_stocks_hidden"></div>
+    <div class="graph hidden annual_harvest_and_timber_product_output_hidden"></div>
+    <div class="graph hidden burned_with_energy_capture_emissions_hidden"></div>
+    <div class="graph hidden burned_without_energy_capture_emissions_hidden"></div>
+    <div class="graph hidden swds_emissions_hidden"></div>
 
 
 
@@ -155,7 +155,7 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}','{{ bucket }}', '{{ file_name }}');
+    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}');
 </script>
 
 {% endblock content %}
