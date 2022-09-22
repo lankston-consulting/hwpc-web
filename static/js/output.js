@@ -127,26 +127,9 @@ $("#reused").click(function (e) {
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type, y_label="", caption){
     var parseDate = d3.timeFormat("%Y");
         if (is_active == "inactive") {
-            // $("." + graph_class).html("")
-            // const margin = { top: 30, right: 10, bottom: 30, left: 60 },
-            //     width = w - margin.left - margin.right,
-            //     height = h - margin.top - margin.bottom;
-        
-            // const x = d3.scaleTime().range([0, width]);
-            // const y = d3.scaleLinear().range([height, 0]);
-    
             if (graph_type == "line") {
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
                 const data = d3.csvParse(json_data)
-                    
-                // minDateYear = data[0].date
-                // maxDateYear = data[data.length - 1].date
-                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                // svg
-                //     .append("g")
-                //     .attr("class", graph_class + "caption")
-                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
 
                 year_array=[]
                 value_array=[]
@@ -168,14 +151,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     title: title,
                     height: 350, 
                     responsive: true,
-                    // yaxis: {title: 'Hundred Cubic Feet (CCF)'},
-                    // yaxis2: {
-                    //   title: 'Megagrams Carbon (Mg C)',
-                    //   titlefont: {color: 'rgb(148, 103, 189)'},
-                    //   tickfont: {color: 'rgb(148, 103, 189)'},
-                    //   overlaying: 'y',
-                    //   side: 'right'
-                    // },
                     showlegend: false}
                 
                 Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
@@ -188,10 +163,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     function (d) {
                         return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2 : d[Object.keys(d)[2]]}
                     })
-                // const data2 = d3.csvParse(json_data,
-                //     function (d) {
-                //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-                //     })
                 minDateYear = data[0].year
                 maxDateYear = data[data.length - 1].year
 
@@ -215,7 +186,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 var trace2 = {
                     x:year_array,
                     y:value2_array,
-                    // yaxis: 'y2',
                     name:"Annual Timber Harvest",
                     type:"scatter"
                 }
@@ -224,14 +194,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     title: 'Annual Harvest and Timber Product Outputs',
                     height: 350, 
                     responsive: true,
-                    // yaxis: {title: 'Hundred Cubic Feet (CCF)'},
-                    // yaxis2: {
-                    //   title: 'Megagrams Carbon (Mg C)',
-                    //   titlefont: {color: 'rgb(148, 103, 189)'},
-                    //   tickfont: {color: 'rgb(148, 103, 189)'},
-                    //   overlaying: 'y',
-                    //   side: 'right'
-                    // },
                     showlegend: false}
 
                 var stackedData = [trace1, trace2];
@@ -239,15 +201,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
             }
             
             else if (graph_type == "stack") {
-                // console.log("this is a stack")
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
                 console.log(tester)
                 const data = d3.csvParse(json_data)
-                // keys = Object.keys(data[0])
-                // minDateYear = data[0].keys[0]
-                // maxDateYear = data[data.length - 1].keys[0]
-                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 stackedData = []
                 year_data = []
                 emissions_present = false
@@ -364,8 +320,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         title: title,
                         responsive: true,
                         showlegend: false
-                        // xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
-                        // yaxis: {title: 'Carbon Emissions (CO2e)'},
                         }
                 }
                 if(emissions_present == true && solid_present == true){
@@ -380,14 +334,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         title: title,
                         responsive: true,
                         showlegend: false
-                        // xaxis: {title:"Years<br><sup>"+temp_cap+"</sup>"},
-                        // yaxis: {title: 'Megagrams Carbon (Mg C)'},
                         }
                 }
                 
-
-                // var stackedData = [trace1, trace2];
-                // Plotly.newPlot(tester, stackedData, layout);  
                 Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});   
             } else {
                 tester = document.getElementsByClassName("non-active " + graph_class)[0];
@@ -428,10 +377,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     barmode: 'relative',
                     height: 350, 
                     responsive: true,
-                            // xaxis: {title:"Years"},
-                            // yaxis: {title:"Megagrams C (Mg C)"},
-                            title: "Annual Net Change Carbon Stocks",
-                            showlegend: false};
+                    title: "Annual Net Change Carbon Stocks",
+                    showlegend: false};
 
                 Plotly.newPlot(tester, stackedData, layout, {staticPlot: true});
                 
@@ -680,11 +627,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     function (d) {
                         return { year: d[Object.keys(d)[0]], value1: d[Object.keys(d)[1]], value2 : d[Object.keys(d)[2]]}
                     })
-                // const data2 = d3.csvParse(json_data,
-                //     function (d) {
-                //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-                //     })
-
                
                 minDateYear = data[0].year
                 maxDateYear = data[data.length - 1].year
@@ -734,30 +676,11 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 };
 
                 var stackedData = [trace1, trace2];
-
-
-                Plotly.newPlot(tester, stackedData, layout);
-
-
-                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                // svg
-                //     .append("g")
-                //     .attr("class", graph_class + "caption")
-                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
-                    
-
-                
-                
+                Plotly.newPlot(tester, stackedData, layout);                           
             }
             else if (graph_type == "stack") {
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data)
-                // keys = Object.keys(data[0])
-                // minDateYear = data[0].keys[0]
-                // maxDateYear = data[data.length - 1].keys[0]
-                // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-                // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
                 stackedData = []
                 year_data = []
                 emissions_present = false
@@ -872,12 +795,8 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             }
                         }
                         stackedData.push(temp_trace)
-                    }
-                    
+                    } 
                 }
-
-                    
-                
 
                 if(emissions_present==true && solid_present == false){
                     var layout = {
@@ -922,22 +841,16 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                         responsive: true
                         }
                 }
-
-                
-
-                // var stackedData = [trace1, trace2];
                 Plotly.newPlot(tester, stackedData, layout);   
     
             }
             else {
-               
                 console.log("graph type is active bar")
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
                 const data = d3.csvParse(json_data,
                     function (d) {
                         return { year: d[Object.keys(d)[0]], products_in_use_change : d[Object.keys(d)[1]], SWDS_change: d[Object.keys(d)[2]] }
                     })
-
                 minDateYear = data[0].year
                 maxDateYear = data[data.length - 1].year
                 caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
@@ -967,10 +880,7 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                     name:"Change in SWDS",
                     type:"bar"
                 }
-
                 stackedData = [trace1, trace2];
-            
-
                 var layout = {
                             barmode: 'relative',
                             xaxis: { title: "Years<br><br>" + caption[0].text },
@@ -979,13 +889,9 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                             automargin: true,
                             height: 700,
                             margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 }, 
-                            responsive: true};
-             
-                
+                            responsive: true};  
                 plot = Plotly.newPlot(tester, stackedData, layout);
-
             }
-            
             } else {
             console.log("I broke");
         }
@@ -1077,12 +983,10 @@ $(".non-active").click(function (e) {
             current_tabs_active_id = current_tabs_active_graph[0].classList[i]
         }
     }
-    // current_tabs_active_id = current_tabs_active_graph[0].classList[current_tabs_active_graph[0].classList.length-2]
     current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
     current_tabs_active_graph[0].classList.add(non_active_id);
     non_active_div[0].classList.remove(non_active_id);
     non_active_div[0].classList.add(current_tabs_active_id);
-    console.log(current_tabs_active_id)
     generate_graph(data_dict[non_active_id][0],non_active_id,"active",data_dict[non_active_id][1],1300,700,data_dict[non_active_id][2], data_dict[non_active_id][3], captions_dict[non_active_id])
     generate_graph(data_dict[current_tabs_active_id][0],current_tabs_active_id,"inactive",data_dict[current_tabs_active_id][1],400,250,data_dict[current_tabs_active_id][2])
     if(non_active_div_siblings.length != 0){
