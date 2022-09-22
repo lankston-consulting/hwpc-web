@@ -154,6 +154,7 @@ def output():
     sdws_co2e=""
     products_in_use_mgc=""
     products_in_use_co2e=""
+    is_single = "false"
     p = request.args.get("p")
     q = request.args.get("q")
     y = request.args.get("y")
@@ -190,6 +191,7 @@ def output():
         data_json = data_json.replace('\\"',' ')
     if(y!=None):
         print("years: "+y)
+        is_single = "true"
         user_zip = S3Helper.read_zipfile("hwpc-output","hwpc-user-outputs/"+p+"/results/"+y+"_"+q+".zip")
         
         for file in user_zip:
@@ -214,7 +216,7 @@ def output():
     # print(y)
     
 
-    return render_template("pages/output.html",data_json=data_json,bucket=p,file_name=q)
+    return render_template("pages/output.html",data_json=data_json,bucket=p,file_name=q,is_single=is_single)
 
 # @app.route('/download', methods=['GET','POST'])
 # def download():

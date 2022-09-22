@@ -22,16 +22,16 @@
                     <li id="yearInput-1" class="toHide" style="display:none;">
                         <div style="display:flex;">
                             <label class="control-label-sub" for="singleYear">Single Year:</label>
-                            <input class="control-num" type="number" id="singleYear" value="1906">
+                            <input class="control-num" type="number" id="singleYear" value="">
                         </div>
                     </li>
-                    <li>
+                    <!-- <li>
                         <input class="control-input" type="radio" id="rangeYearBtn" name="harvestYears" pattern="[0-9]"
                             value="2">
                         <label class="control-label" for="rangeYearBtn"> Range of Harvest Years</label>
-                    </li>
+                    </li> -->
 
-                    <li id="yearInput-2" class="toHide" style="display:none;">
+                    <!-- <li id="yearInput-2" class="toHide" style="display:none;">
                         <div style="display:flex;">
                             <label class="control-label-sub" for="startYear"> Start Year: </label>
                             <input class="control-num" type="number" id="startYear" pattern="[0-9]">
@@ -40,7 +40,7 @@
                             <label class="control-label-sub" for="endYear"> End Year: </label>
                             <input class="control-num" type="number" id="endYear" pattern="[0-9]">
                         </div>
-                    </li>
+                    </li> -->
 
 
                 </ul>
@@ -155,7 +155,7 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}');
+    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}');
 </script>
 
 {% endblock content %}

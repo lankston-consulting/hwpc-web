@@ -29,16 +29,22 @@ captions_dict["total_emissions_dispositions2"] = [{text:""}]
 // captions_dict["total_emissions_dispositions2"] = [{text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burning discarded products <br> with and without energy capture, composted discarded harvested wood products, and discarded products in dumps and landfills manufactured <br> from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy <br> capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. <br> Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood <br> and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper waste was generally discarded <br> to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon <br> dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
 captions_dict["swds_emissions"] = [{text: "Total cumulative metric tons carbon emitted from discarded products in landfills and dumps manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills and dumps is decay without <br> energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not <br> included. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based <br> greenhouse gases such as methane."}]
 
-output.initialize = function(input_json,bucket,file_name) {
+output.initialize = function(input_json,bucket,file_name,is_single) {
     data_bucket = bucket
     data_file_name = file_name
     data_json=input_json;
     data_json = data_json.replace(/\n/g, '\\n')
     final_json = JSON.parse(data_json)
+    
     data_dict = []
     const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output)
     harvestminDateYear = data[0].Year
     harvestmaxDateYear = data[data.length-1].Year
+    console.log(is_single)
+    if(is_single == "true"){
+        $('#singleYearBtn').attr("checked","true")
+        $("#yearInput-1").show('fast');
+    }
     data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline","Hundred Cubic Feet (CCF)"]
     data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar","Megagrams Carbon (Mg C)"]
     data_dict["all_results_final"] = [final_json.big_four,"Final Results","stack","Megagrams Carbon (Mg C)"]
@@ -1215,13 +1221,6 @@ $(".non-active").click(function (e) {
     }      
 });
 
-$("#yearfilter").click(function(e){
-    console.log(data_bucket)
-    console.log(data_file_name)
-    console.log("clicked")
-
-})
-
 $("#allYearsBtn").click(function(e){
     console.log("all year")
     $('#yearfilter').attr("href","/output?p="+data_bucket+"&q="+data_file_name)
@@ -1248,17 +1247,17 @@ $(document).ready(function () {
         "value": harvestminDateYear
     })
 
-    $("#startYear").attr({
-        "min": harvestminDateYear,
-        "max": harvestmaxDateYear,
-        "value": harvestminDateYear
-    })
+    // $("#startYear").attr({
+    //     "min": harvestminDateYear,
+    //     "max": harvestmaxDateYear,
+    //     "value": harvestminDateYear
+    // })
 
-    $("#endYear").attr({
-        "min": harvestminDateYear,
-        "max": harvestmaxDateYear,
-        "value": harvestmaxDateYear
-    })
+    // $("#endYear").attr({
+    //     "min": harvestminDateYear,
+    //     "max": harvestmaxDateYear,
+    //     "value": harvestmaxDateYear
+    // })
 })
 
 // Harvest Years Controls
