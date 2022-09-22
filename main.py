@@ -176,8 +176,9 @@ def output():
                     test = test.drop(columns="DiscardDestinationID")
                 except:
                     print("no column")
-                test = test.replace(0, np.nan)
-                test.dropna(inplace = True)
+                test.drop(test.tail(1).index,inplace=True)
+                # test = test.replace(0, np.nan)
+                # test.dropna(inplace = True)
             
                 print(test)
                 test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
@@ -200,9 +201,9 @@ def output():
                     test = test.drop(columns="DiscardDestinationID")
                 except:
                     print("no column")
-                test = test.replace(0, np.nan)
-                test.dropna(inplace = True)
-            
+                # test = test.replace(0, np.nan)
+                # test.dropna(inplace = True)
+                test.drop(test.tail(1).index,inplace=True)
                 print(test)
                 test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
                 data_dict[file[5:-4]] = test.to_csv(index=False)
