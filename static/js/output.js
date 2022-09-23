@@ -1310,3 +1310,128 @@ d3.select("#dl-closed").on('click', function () {
    
 });
 
+
+// exports
+
+window.jsPDF = window.jspdf.jsPDF;
+     
+var img_png = d3.select('#png-export');
+let zip = new JSZip();
+
+
+function export_tables() {
+  //export plotly tables as pngs
+
+  var tables = document.getElementsByClassName('graph table');
+  
+  for (var i = 0; i < tables.length; i++) {
+    // Plotly.toImage(tables[i], { format: 'png' });
+    console.log(tables[i]);
+    generate_tables(tables[i], { format: 'png' }, tables[i].classList[3]+ ".pdf");
+  }
+}
+
+function savePDF(imageDataURL, file_name) {
+
+  var image = new Image();
+  image.onload = function() {
+    let pageWidth = image.naturalWidth;
+    let pageHeight = image.naturalHeight;
+
+    const pdf = new jsPDF({
+      orientation: pageHeight > pageWidth ? "portrait": "landscape",
+      unit: "px",
+      format: [pageHeight, pageWidth]
+    });
+
+    pdf.addImage(imageDataURL, 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+    var blob = pdf.output('blob');
+    console.log(pdf)
+    zip.file(file_name, blob, { binary: true })
+    // pdf.save("table.pdf");
+  }
+  image.src = imageDataURL;
+}
+
+
+async function generate_tables(div, options,file_name) {
+
+  url = await Plotly.toImage(div, options);
+  savePDF(url, file_name);
+  
+}
+ 
+
+big_count = 0
+small_count = 0
+$(".dl-files").children().each(function () {
+  tempChk = $(this).children()[0];
+  if (tempChk.checked) {
+    big_count +=1
+  }});
+
+
+
+function export_plots() {
+  var image_array = [];
+  
+  $(".dl-files").children().each(function () {
+    tempChk = $(this).children()[0];
+    if (tempChk.checked) {
+      // console.log(tempChk.value);
+      png_options = { format: 'png', width: 1300, height: 700 };
+       //push plotly to image_array
+      
+      // 
+
+      console.log(document.getElementsByClassName(tempChk.value)[0])
+       gen = generate_image(document.getElementsByClassName(tempChk.value)[0], png_options,tempChk.value.slice(0, -7) + ".png")
+       
+    }
+  })
+  console.log(zip)
+  
+}
+
+async function generate_image(div, options,file_name) {
+  url = await Plotly.toImage(div, options);
+  await zip.file(file_name, urlToPromise(url), { binary: true })
+  console.log(big_count)
+  console.log(small_count)
+  small_count +=1;
+  if(small_count == big_count){
+    zip.generateAsync({ type: "blob" }).then(function callback(content) {
+      // see FileSaver.js
+      console.log(content)
+      saveAs(content, "example.zip");});
+  }
+  
+ }
+
+function export_csv() {
+  //export csv files
+}
+
+
+function urlToPromise(url) {
+  return new Promise(function(resolve, reject) {
+    JSZipUtils.getBinaryContent(url, function (err, data) {
+          if(err) {
+              reject(err);
+          } else {
+              resolve(data);
+          }
+      });
+  });
+  }
+
+
+  d3.select("#download")
+    .on('click', function () {
+
+      // export_csv();
+      export_tables();
+      export_plots();
+    });
+
+
