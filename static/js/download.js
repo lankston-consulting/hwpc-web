@@ -10,6 +10,7 @@
 
      
 var img_png = d3.select('#png-export');
+let zip = new JSZip();
 
 function export_tables() {
   //export plotly tables as pngs
@@ -22,11 +23,17 @@ function export_tables() {
 
   //export pdfs as zip
 }
-
+big_count = 0
+small_count = 0
+$(".dl-files").children().each(function () {
+  tempChk = $(this).children()[0];
+  if (tempChk.checked) {
+    big_count +=1
+  }});
 
 function export_plots() {
   var image_array = [];
-  var zip = new JSZip();
+  
   $(".dl-files").children().each(function () {
     tempChk = $(this).children()[0];
     if (tempChk.checked) {
@@ -35,24 +42,28 @@ function export_plots() {
        //push plotly to image_array
       
       // 
-       gen = generate_image(document.getElementsByClassName(tempChk.value)[0], png_options,tempChk.value.slice(0, -7) + ".png",zip)
-      console.log(gen)
-     
-      
-      console.log(image_array)
+
+      console.log(document.getElementsByClassName(tempChk.value)[0])
+       gen = generate_image(document.getElementsByClassName(tempChk.value)[0], png_options,tempChk.value.slice(0, -7) + ".png")
+       
     }
   })
   console.log(zip)
-  zip.generateAsync({ type: "blob" }).then(function callback(content) {
-    // see FileSaver.js
-    console.log(content)
-    saveAs(content, "example.zip");});
+  
 }
 
-async function generate_image(div, options,file_name,zip) {
+async function generate_image(div, options,file_name) {
   url = await Plotly.toImage(div, options);
-  console.log(url)
   await zip.file(file_name, urlToPromise(url), { binary: true })
+  console.log(big_count)
+  console.log(small_count)
+  small_count +=1;
+  if(small_count == big_count){
+    zip.generateAsync({ type: "blob" }).then(function callback(content) {
+      // see FileSaver.js
+      console.log(content)
+      saveAs(content, "example.zip");});
+  }
   
  }
 
