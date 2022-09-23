@@ -70,7 +70,6 @@ output.initialize = function(input_json,bucket,file_name,is_single) {
     
     //Data_dict for Tables
     data_dict["annual_timber_harvest_table"] = [final_json.annual_harvest_and_timber_product_output, "Annual Timber Product Output", "table", ""]
-
     data_dict["total_yearly_net_change"] = [final_json.total_yearly_net_change, "Total Yearly Net Change", "table", ""]
     data_dict["total_selected_net_change"] = [final_json.total_selected_net_change, "Total Selected Net Change", "table", ""]
     data_dict["total_yearly_dispositions"] = [final_json.total_yearly_dispositions, "Total Yearly Dispositions", "table", ""]
@@ -1293,11 +1292,11 @@ $(function () {
 
 
 d3.select("#dl-closed").on('click', function () {
-    // generate_table(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table", data_dict["annual_timber_harvest_table"][1])
-    // generate_table(data_dict["total_yearly_net_change"][0], "total_yearly_net_change", data_dict["total_yearly_net_change"][1])
-    // generate_table(data_dict["total_selected_net_change"][0], "total_selected_net_change", data_dict["total_selected_net_change"][1])
-    // generate_table(data_dict["total_yearly_dispositions"][0], "total_yearly_dispositions", data_dict["total_yearly_dispositions"][1])
-    // generate_table(data_dict["total_selected_dispositions"][0], "total_selected_dispositions", data_dict["total_selected_dispositions"][1])
+    generate_table(data_dict["annual_timber_harvest_table"][0], "annual_timber_harvest_table", data_dict["annual_timber_harvest_table"][1])
+    generate_table(data_dict["total_yearly_net_change"][0], "total_yearly_net_change", data_dict["total_yearly_net_change"][1])
+    generate_table(data_dict["total_selected_net_change"][0], "total_selected_net_change", data_dict["total_selected_net_change"][1])
+    generate_table(data_dict["total_yearly_dispositions"][0], "total_yearly_dispositions", data_dict["total_yearly_dispositions"][1])
+    generate_table(data_dict["total_selected_dispositions"][0], "total_selected_dispositions", data_dict["total_selected_dispositions"][1])
 
     generate_hidden_graph(data_dict["all_results_final_hidden"][0], "all_results_final_hidden", data_dict["all_results_final_hidden"][1], 1300, 700, data_dict["all_results_final_hidden"][2], data_dict["all_results_final_hidden"][3], captions_dict["all_results_final"])
     generate_hidden_graph(data_dict["total_solid_carbon_dispositions_hidden"][0], "total_solid_carbon_dispositions_hidden", data_dict["total_solid_carbon_dispositions_hidden"][1], 1300, 700, data_dict["total_solid_carbon_dispositions_hidden"][2], data_dict["total_solid_carbon_dispositions_hidden"][3], captions_dict["total_solid_carbon_dispositions"])
@@ -1311,24 +1310,3 @@ d3.select("#dl-closed").on('click', function () {
    
 });
 
-
-//     generate_graph(data_dict["total_dumps_carbon_emitted"][0], "total_dumps_carbon_emitted1", "hidden", data_dict["total_dumps_carbon_emitted"][1], 1300, 700, data_dict["total_dumps_carbon_emitted"][2]);
-//     generate_graph(data_dict["total_landfills_carbon_emitted"][0], "total_landfills_carbon_emitted1", "hidden", data_dict["total_landfills_carbon_emitted"][1], 1300, 700, data_dict["total_landfills_carbon_emitted"][2]);
-//     generate_graph(data_dict["total_composted_carbon_emitted"][0], "total_composted_carbon_emitted1", "hidden", data_dict["total_composted_carbon_emitted"][1], 1300, 700, data_dict["total_composted_carbon_emitted"][2]);
-
-
-//     generate_graph(data_dict["annual_harvests_output"][0], "annual_harvests_output1", "hidden", data_dict["annual_harvests_output"][1], 1300, 700, data_dict["annual_harvests_output"][2]);
-//     generate_graph(data_dict["end_use"][0], "end_use1", "hidden", data_dict["end_use"][1], 1300, 700, data_dict["end_use"][2]);
-//      generate_graph(data_dict["annual_net_change_carbon_stocks"][0], "annual_net_change_carbon_stocks1", "hidden", data_dict["annual_net_change_carbon_stocks"][1], 1300, 700, data_dict["annual_net_change_carbon_stocks"][2]);
-//     generate_graph(data_dict["burned_wo_energy_capture_emitted"][0], "burned_wo_energy_capture_emitted1", "hidden", data_dict["burned_wo_energy_capture_emitted"][1], 1300, 700, data_dict["burned_wo_energy_capture_emitted"][2]);
-//     generate_graph(data_dict["burned_w_energy_capture_emitted"][0], "burned_w_energy_capture_emitted1", "hidden", data_dict["burned_w_energy_capture_emitted"][1], 1300, 700, data_dict["burned_w_energy_capture_emitted"][2]);
-//     generate_graph(data_dict["total_fuelwood_carbon_emitted"][0], "total_fuelwood_carbon_emitted1", "hidden", data_dict["total_fuelwood_carbon_emitted"][1], 1300, 700, data_dict["total_fuelwood_carbon_emitted"][2]);
-
-//     // generate_graph(data_dict["total_cumulative_carbon_stocks_co2e"][0], "total_cumulative_carbon_stocks_co2e1", "hidden", data_dict["total_cumulative_carbon_stocks_co2e"][1], 1300, 700, data_dict["total_cumulative_carbon_stocks_co2e"][2]);
-//     //generate_graph(data_dict["total_dumps_carbon_co2e"][0], "total_dumps_carbon_co2e1", "hidden", data_dict["total_dumps_carbon_co2e"][1], 1300, 700, data_dict["total_dumps_carbon_co2e"][2]);
-//     //generate_graph(data_dict["total_landfills_carbon_co2e"][0], "total_landfills_carbon_co2e1", "hidden", data_dict["total_landfills_carbon_co2e"][1], 1300, 700, data_dict["total_landfills_carbon_co2e"][2]);
-    
-   
-        
-
-// })

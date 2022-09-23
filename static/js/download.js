@@ -12,17 +12,50 @@
 var img_png = d3.select('#png-export');
 let zip = new JSZip();
 
+
 function export_tables() {
   //export plotly tables as pngs
-  var tables = document.getElementsByClassName('table');
+
+  var tables = document.getElementsByClassName('graph table');
+  
   for (var i = 0; i < tables.length; i++) {
-    Plotly.downloadImage(tables[i], { format: 'png' });
+    // Plotly.toImage(tables[i], { format: 'png' });
+    console.log(tables[i]);
+    generate_tables(tables[i], { format: 'png' }, i + ".png");
+
 
   }
-  //save pngs as pdfs
 
-  //export pdfs as zip
+
 }
+
+async function generate_tables(div, options,file_name) {
+  url = await Plotly.toImage(div, options);
+  
+  // var doc = new PDFDocument({ size: 'LETTER', margin: 50 });
+  //   const stream = doc.pipe(blobStream());
+  //   doc.image(Buffer.from(url, 'base64'), 100, 100);
+  //   doc.end();
+
+
+  // const PDFurl = stream.toBlobURL("application/pdf");
+ 
+  
+  await zip.file(file_name, PDFurl, { binary: true })
+
+  // console.log(big_count)
+  // console.log(small_count)
+  // small_count +=1;
+  // if(small_count == big_count){
+  //   zip.generateAsync({ type: "blob" }).then(function callback(content) {
+  //     // see FileSaver.js
+  //     console.log(content)
+  //     saveAs(content, "example.zip");});
+  // }
+  
+}
+ 
+
 big_count = 0
 small_count = 0
 $(".dl-files").children().each(function () {
@@ -30,6 +63,8 @@ $(".dl-files").children().each(function () {
   if (tempChk.checked) {
     big_count +=1
   }});
+
+
 
 function export_plots() {
   var image_array = [];
@@ -85,62 +120,11 @@ function urlToPromise(url) {
   }
 
 
-
-
   d3.select("#download")
     .on('click', function () {
 
-     
-      export_plots();
-      // export_tables();
       // export_csv();
-
-      
-
+      export_tables();
+      export_plots();
     });
-
-
-      // image_array = [];
-      // var zip = new JSZip();
-      // prime_count = 0
-      // new_count = 0;
-      // $(".dl-files").children().each(function () {
-      //   tempChk = $(this).children()[0];
-      //   if (tempChk.checked) { 
-      //     prime_count += 1;
-      //   }
-      // })
-    //   return new Promise((resolve, reject) => {
-
-    //     
-    
-              // $("#hidden-graphs").append("img");
-              // var img = $('<img/>')
-              // img.attr("src", dataUrl)
-              // img.attr("class", "hidden-graph")
-              // img.appendTo("#hidden-graphs");
-              // src='" + dataUrl + "' class='hidden-graph'>
-              // img_png.attr("src", dataUrl);
-         
-
-              // new_image = saveAs(dataUrl, tempChk.value.slice(0, -7) +".png");
-        
-        
-          //     zip.file(tempChk.value.slice(0, -7) + ".png", urlToPromise(dataUrl), { binary: true });
-          //   })
-          
-          // });
-
-
-        
-  
-
-
-    
-
-
-//       //reach here regardless
-//       // {status: "fulfilled", value: 33}
-//    });
-    
 
