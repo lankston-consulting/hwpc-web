@@ -2,6 +2,7 @@ import json
 import uuid
 import os
 import zipfile
+from datetime import datetime
 import pandas as pd
 import numpy as np
 from io import StringIO
@@ -60,9 +61,13 @@ def upload():
                                                                 var_name="Year",
                                                                 value_name="ccf")
             yearly_harvest_input= yearly_harvest_input[yearly_harvest_input['ccf'] != 0]
+            start_year = yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1]
+            stop_year = yearly_harvest_input["Year"][0]
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         else: 
-            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)     
+            start_year = yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1]
+            stop_year = yearly_harvest_input["Year"][0]
+            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         
     harvest_data_type = request.form['harvestdatatype']
     timber_product_ratios = request.files['yearlytimberproductratios']
@@ -116,6 +121,9 @@ def upload():
     email = request.form['email']
     run_name = request.form['runname']
 
+    now = datetime.now()
+    dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
+
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
             "harvest_data.csv":yearly_harvest_input,
@@ -124,16 +132,19 @@ def upload():
             "region":region_selection,
             "primary_product_ratios.csv":custom_region_file,
             "end_use_product_ratios.csv":end_use_product_ratios,
-            "end_use_product_rates":end_use_product_rates,
+            "decay_function":end_use_product_rates,
             "dispositions.csv":dispositions,
             "disposition_half_lives.csv":disposition_half_lives,
             "distribution_data.csv":distribution_data,
             "burned_ratios.csv":burned_ratios,
             "mbf_to_ccf.csv":mbf_to_ccf,
-            "loss_factor":loss_factor,
+            "end_use_loss_factor":loss_factor,
             "iterations":iterations,
             "email":email,
-            "run_name":run_name
+            "scenario_name":run_name,
+            "simulation_date":dt_string,
+            "start_year":start_year,
+            "stop_year":stop_year
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.

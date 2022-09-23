@@ -86,32 +86,74 @@ class S3Helper(object):
         """
         print(bucket_name)
         print(source_file_name)
-        data_json = {}
+        data_json = {
+            "scenario_name": "",
+            "email": "",
+            "harvest_data_type": "",
+            "end_use_loss_factor" : 0,
+            "simulation_date": "",
+            "start_year": 0,
+            "end_year": 0,
+            "region": {
+                "name": "",
+                "custom": "false"
+            } ,
+            "decay_function":"chi2",
+            "monte_carlo": {
+                "iterations" : 1
+            },
+            "inputs": {
+                "harvest_data.csv": "",
+                "timber_product_ratios.csv": "",
+                "primary_product_ratios.csv": "",
+                "end_use_product_ratios.csv": "",
+                "dispositions.csv": "",
+                "disposition_half_lives.csv": "",
+                "distribution_data.csv": "",
+                "burned_ratios.csv": "",
+                "mbf_to_ccf.csv": "",
+            }
+        }
         # Code parses through data pulled from web
         for key,value in data.items():
             # If the code was potentially converted from a pandas dataframe for wide-to-long formatting or is just a string type it pases through here
-            if str(type(value)) == "<class 'str'>":
+            print(key)
+            if str(type(value)) == "<class 'str'>" and ".csv" in key:
+                
                 path = source_file_name+key
                 temp_file = tempfile.TemporaryFile()
                 temp_file.write(value.encode())
                 temp_file.seek(0)
-                data_json[key] = path
+                data_json["inputs"][key] = path
 
                 S3Helper.upload_file(temp_file, bucket_name, path)
                 temp_file.close()
+            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "iterations" not in key and "region" not in key:
+                data_json[key]=value
+            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "iterations" in key:
+                data_json["monte_carlo"][key]=value
+            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "region" in key:
+                data_json["region"]["name"]=value
+                if(value != "North Central" and value != "Northeast" and value != "Pacific Northwest, East" and value != "Pacific Northwest, West" and value != "Pacific Southwest" and value != "Rocky Mountain" and value != "South Central" and value != "Southeast" and value != "West"):
+                    data_json["region"]["custom"] = "true"
+           
             # If the input is not empty, it will make the file and upload. If it is empty, it will be skipped and save memory.
-            if str(type(value)) == "<class 'werkzeug.datastructures.FileStorage'>":
+            if str(type(value)) == "<class 'werkzeug.datastructures.FileStorage'>" and ".csv" in key:
                 if (value.content_length == "text/csv"):
                     path = source_file_name+key
                     temp_file = tempfile.TemporaryFile()
                     temp_file.write(value.read())
                     temp_file.seek(0)
-                    data_json[key]=path
+                    data_json["inputs"][key]=path
                     S3Helper.upload_file(temp_file, bucket_name, path)
                     temp_file.close()
-                path = source_file_name+key
-                data_json[key]=path
-            
+                # path = source_file_name+key
+                # data_json[key]=path
+        
+        for i in data_json["inputs"]:
+            if data_json["inputs"][i] == "":
+                data_json["inputs"][i] = "Default Data"
+        print(data_json)
         # The json of all the file paths is converted into a string then to bytes to be uploaded as a temp file for use in the worker.
         data_json = json.dumps(data_json)
         data_json = data_json.encode()
