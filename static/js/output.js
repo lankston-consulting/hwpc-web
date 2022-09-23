@@ -1318,7 +1318,8 @@ window.jsPDF = window.jspdf.jsPDF;
 var img_png = d3.select('#png-export');
 let zip = new JSZip();
 
-
+big_count = 0
+small_count = 0
 function export_tables() {
   //export plotly tables as pngs
 
@@ -1327,9 +1328,11 @@ function export_tables() {
   for (var i = 0; i < tables.length; i++) {
     // Plotly.toImage(tables[i], { format: 'png' });
     console.log(tables[i]);
+    big_count +=1;
     generate_tables(tables[i], { format: 'png' }, tables[i].classList[3]+ ".pdf");
   }
 }
+
 
 function savePDF(imageDataURL, file_name) {
 
@@ -1346,9 +1349,15 @@ function savePDF(imageDataURL, file_name) {
 
     pdf.addImage(imageDataURL, 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
     var blob = pdf.output('blob');
-    console.log(pdf)
     zip.file(file_name, blob, { binary: true })
-    // pdf.save("table.pdf");
+    small_count += 1;
+    if(small_count == big_count){
+        zip.generateAsync({ type: "blob" }).then(function callback(content) {
+          // see FileSaver.js
+          console.log(content)
+          saveAs(content, data_file_name+".zip");});
+      }
+
   }
   image.src = imageDataURL;
 }
@@ -1362,13 +1371,12 @@ async function generate_tables(div, options,file_name) {
 }
  
 
-big_count = 0
-small_count = 0
-$(".dl-files").children().each(function () {
-  tempChk = $(this).children()[0];
-  if (tempChk.checked) {
-    big_count +=1
-  }});
+
+// $(".dl-files").children().each(function () {
+//   tempChk = $(this).children()[0];
+//   if (tempChk.checked) {
+//     big_count +=1
+//   }});
 
 
 
@@ -1377,40 +1385,30 @@ function export_plots() {
   
   $(".dl-files").children().each(function () {
     tempChk = $(this).children()[0];
-    if (tempChk.checked) {
-      // console.log(tempChk.value);
+    console.log(tempChk.checked)
+    if (tempChk.checked == true) {
       png_options = { format: 'png', width: 1300, height: 700 };
-       //push plotly to image_array
-      
-      // 
-
       console.log(document.getElementsByClassName(tempChk.value)[0])
        gen = generate_image(document.getElementsByClassName(tempChk.value)[0], png_options,tempChk.value.slice(0, -7) + ".png")
        
     }
   })
-  console.log(zip)
-  
 }
 
 async function generate_image(div, options,file_name) {
   url = await Plotly.toImage(div, options);
   await zip.file(file_name, urlToPromise(url), { binary: true })
-  console.log(big_count)
-  console.log(small_count)
-  small_count +=1;
-  if(small_count == big_count){
-    zip.generateAsync({ type: "blob" }).then(function callback(content) {
-      // see FileSaver.js
-      console.log(content)
-      saveAs(content, "example.zip");});
-  }
-  
  }
 
 function export_csv() {
-  //export csv files
-}
+    for (let i in data_dict) {
+        if(i.includes("hidden") == false && i.includes("2") == false){
+            zip.file(i+".csv", data_dict[i][0], { binary: true })
+        }
+    }
+    }
+    //export csv files
+
 
 
 function urlToPromise(url) {
@@ -1428,10 +1426,9 @@ function urlToPromise(url) {
 
   d3.select("#download")
     .on('click', function () {
-
-      // export_csv();
-      export_tables();
-      export_plots();
+        export_tables();
+        export_csv();
+        export_plots();
     });
 
 
