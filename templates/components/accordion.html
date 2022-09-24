@@ -6,6 +6,20 @@
     <input type="radio" class="custom-radio-btn" id="edit-mode" name="accordion-toggle" value="edit-mode">
     <label tabindex="0" class="edit-mode" for="edit-mode">Edit</label>
 </span>
+<span tabindex="0" class="acc-monte-carlo-disclaimer">
+    <p>Monte Carlo Disclaimer:</p>
+    <p>Unless you are extremely familiar with the HWPC model, you do not need this feature. Please ignore this option.
+    </p>
+
+    <p>IPCC suggests several ways to measure uncertainty in HWP including Monte Carlo simulation. HWPC model's algorithm
+        is deterministic, but requires recursion to simulate recycled materials re-entering use. This makes HWPC
+        computationally expensive. If activated, a Monte Carlo simulation of HWPC will exponentially increase the number
+        of iterations that must be run and will take an extremely long time to run.
+    </p>
+    <p>Again, you do not need this. HWPC's base algorithm is sufficient for all reporting needs.</p>
+    <br>
+    <button id="mc-disclaimer">Understoond, I want this</button>
+</span>
 <div class="accordion">
     <form enctype="multipart/form-data" name="forms" id="forms" action="{{ url_for('upload') }}" method="post">
         <h1 id="acc-01" class="acc-h1" role="button" tabindex="0"><span>01</span>Upload annual harvest data</h1>
@@ -295,7 +309,9 @@
             </span>
 
         </div>
-        <h1 id="acc-05" class="acc-h1" role="button" tabindex="0"><span>05</span>Enter number of Monte Carlo iterations
+        <h1 id="acc-05" class="acc-h1 acc-disabled" role="button" tabindex="0"><span>05</span>Enter number of Monte
+            Carlo
+            iterations
         </h1>
         <div>
             <span style="width: 100%;">

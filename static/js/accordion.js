@@ -4,35 +4,46 @@ var headers = ["H1","H2","H3","H4","H5","H6"]; //We only use h1 and h2
 
 function toggleAccordion(e, edit_mode = false) {
   console.log(e)
-  if(e.type != undefined){
+  if (e.type != undefined) {
     var target = e.target,
-    name = target.nodeName.toUpperCase();
+      name = target.nodeName.toUpperCase();
   }
-  else{
+  else {
     var target = e
     name = target.nodeName.toUpperCase();
   }
 
-if($.inArray(name,headers) > -1) {
-  var subItem = $(target).next();
+  //only select target if target does not have acc-disabled class
+  if (!target.classList.contains("acc-disabled")) {
+
+    if ($.inArray(name, headers) > -1) {
+      var subItem = $(target).next();
   
-  //slideUp all elements (except target) at current depth or greater
-  if(edit_mode == false){
-  var depth = $(subItem).parents().length;
-  var allAtDepth = $(".accordion div").filter(function() {
-    if($(this).parents().length >= depth && this !== subItem.get(0)) {
-      return true; 
+      //slideUp all elements (except target) at current depth or greater
+      if (edit_mode == false) {
+        var depth = $(subItem).parents().length;
+        var allAtDepth = $(".accordion div").filter(function () {
+          if ($(this).parents().length >= depth && this !== subItem.get(0)) {
+            return true;
+          }
+        });
+        $(allAtDepth).slideUp("fast");
+      }
+      //slideToggle target content and adjust bottom border if necessary
+      subItem.slideToggle("fast", function () {
+        $(".accordion :visible:last");
+      });
+      // $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
     }
-  });
-  $(allAtDepth).slideUp("fast");
+  }
 }
-  //slideToggle target content and adjust bottom border if necessary
-  subItem.slideToggle("fast",function() {
-    $(".accordion :visible:last");
-  });
-  // $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
-}
-}
+
+// when mc-disclaimer is clicked remove acc-disabled class from all elements
+
+$("#mc-disclaimer").click(function () {
+  $(".accordion").find(".acc-disabled").removeClass("acc-disabled");
+});
+
 
 $(".acc-h1, .acc-h2").click(function(e) {
   $("#default-mode").prop("checked", true)
