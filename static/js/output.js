@@ -44,6 +44,7 @@ output.initialize = function(input_json,bucket,file_name,is_single) {
     if(is_single == "true"){
         $('#singleYearBtn').attr("checked","true")
         $("#yearInput-1").show('fast');
+        $(".graph.non-active.annual_harvest_and_timber_product_output").css("display","none")
     }
     data_dict["annual_harvest_and_timber_product_output"] = [final_json.annual_harvest_and_timber_product_output,"Annual Harvest and Timber Products","multiline","Hundred Cubic Feet (CCF)"]
     data_dict["annual_net_change_carbon_stocks"] = [final_json.annual_net_change_carbon_stocks, "Annual Net Change Carbon Stocks", "bar","Megagrams Carbon (Mg C)"]
