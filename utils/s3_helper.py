@@ -128,11 +128,11 @@ class S3Helper(object):
 
                 S3Helper.upload_file(temp_file, bucket_name, path)
                 temp_file.close()
-            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "iterations" not in key and "region" not in key:
+            if str(type(value)) == "<class 'str'>" and ".csv" not in key and "iterations" not in key and "region" not in key:
                 data_json[key]=value
-            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "iterations" in key:
+            if str(type(value)) == "<class 'str'>" and ".csv" not in key and "iterations" in key:
                 data_json["monte_carlo"][key]=value
-            if str(type(value)) == "<class 'str'>" and ".csv"  not in key and "region" in key:
+            if str(type(value)) == "<class 'str'>" and ".csv" not in key and "region" in key:
                 data_json["region"]["name"]=value
                 if(value != "North Central" and value != "Northeast" and value != "Pacific Northwest, East" and value != "Pacific Northwest, West" and value != "Pacific Southwest" and value != "Rocky Mountain" and value != "South Central" and value != "Southeast" and value != "West"):
                     data_json["region"]["custom"] = "true"
@@ -150,6 +150,9 @@ class S3Helper(object):
                 # path = source_file_name+key
                 # data_json[key]=path
         
+        if data_json["region"]["custom"] == "false":
+             data_json["inputs"]["primary_product_ratios.csv"] = ""
+
         for i in data_json["inputs"]:
             if data_json["inputs"][i] == "":
                 data_json["inputs"][i] = "Default Data"

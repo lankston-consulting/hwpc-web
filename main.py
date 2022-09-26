@@ -61,12 +61,13 @@ def upload():
                                                                 var_name="Year",
                                                                 value_name="ccf")
             yearly_harvest_input= yearly_harvest_input[yearly_harvest_input['ccf'] != 0]
-            start_year = yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1]
-            stop_year = yearly_harvest_input["Year"][0]
+            start_year = str(yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1])
+            stop_year = str(yearly_harvest_input["Year"][0])
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         else: 
-            start_year = yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1]
-            stop_year = yearly_harvest_input["Year"][0]
+            start_year = str(yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1])
+            stop_year = str(yearly_harvest_input["Year"][0])
+            print(start_year)
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         
     harvest_data_type = request.form['harvestdatatype']
@@ -144,7 +145,7 @@ def upload():
             "scenario_name":run_name,
             "simulation_date":dt_string,
             "start_year":start_year,
-            "stop_year":stop_year
+            "end_year":stop_year
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
