@@ -22,26 +22,9 @@
                     <li id="yearInput-1" class="toHide" style="display:none;">
                         <div style="display:flex;">
                             <label class="control-label-sub" for="singleYear">Single Year:</label>
-                            <input class="control-num" type="number" id="singleYear" value="1906">
+                            <input class="control-num" type="number" id="singleYear" value="">
                         </div>
                     </li>
-                    <li>
-                        <input class="control-input" type="radio" id="rangeYearBtn" name="harvestYears" pattern="[0-9]"
-                            value="2">
-                        <label class="control-label" for="rangeYearBtn"> Range of Harvest Years</label>
-                    </li>
-
-                    <li id="yearInput-2" class="toHide" style="display:none;">
-                        <div style="display:flex;">
-                            <label class="control-label-sub" for="startYear"> Start Year: </label>
-                            <input class="control-num" type="number" id="startYear" pattern="[0-9]">
-                        </div>
-                        <div style="display:flex;">
-                            <label class="control-label-sub" for="endYear"> End Year: </label>
-                            <input class="control-num" type="number" id="endYear" pattern="[0-9]">
-                        </div>
-                    </li>
-
 
                 </ul>
             </fieldset>
@@ -57,69 +40,73 @@
             </div>
             <br>
             <br> -->
-            <div style="width: 100%;">
-                <button class="link-1" style="float:right;">Filter</button>
+            <div style="display:flex; width: fit-content; margin: auto; gap: 10%;">
+                <div>
+                    <a id="yearfilter" class="link-1 custom-btn custom-btn-output" style="float:left;">Filter</a>
+                </div>
+                <div>
+                    <a href="#dl-opened" style="float:right;  margin-right: 2em;"
+                        class="custom-btn custom-btn-output link-1" id="dl-closed">Export
+                    </a>
+
+                    {% include "components/downloads.html" %}
+
+                </div>
             </div>
         </form>
     </aside>
-    <section style="max-width: 1300px;">
+    <section>
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'inUseContent')" id="defaultOpen">Products in Use</button>
-            <button class="tablinks" onclick="openTab(event, 'burnedContent')" id="burned">Burned</button>
-            <button class="tablinks" onclick="openTab(event, 'carbonContent')" id="swds">Carbon in SWDS</button>
-            <button class="tablinks" onclick="openTab(event, 'decayContent')" id="emitted">Emitted from Decay</button>
+            <button class="tablinks" onclick="openTab(event, 'coolFlashyTabContent')" id="defaultOpen">Cumulative
+                Results</button>
+            <button class="tablinks" onclick="openTab(event, 'solidCarbonContent')" id="solidCarbon">Solid
+                Carbon</button>
+            <button class="tablinks" onclick="openTab(event, 'emissionsContent')" id="emissions">Emissions</button>
             <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button>
+
+
         </div>
 
         <!-- Tab content -->
-        <div id="inUseContent" class="tabcontent">
-            <!-- <h1>Annual Harvest</h1> -->
-            <div class="graph active-graph annual_harvests_output"></div>
-
+        <div id="coolFlashyTabContent" class="tabcontent">
+            <div class="graph active-graph all_results_final"></div>
             <div class="add-graph-container">
-                <div class="graph non-active end_use"></div>
-                <!-- <div class="temp-graph graph">Temp Graph</div> -->
-                <!-- <div class="temp-graph">Temp Graph</div> -->
+                <div class="graph non-active total_solid_carbon_dispositions"></div>
+                <div class="graph non-active total_emissions_dispositions"></div>
+
+            </div>
+
+        </div>
+        <div id="solidCarbonContent" class="tabcontent">
+            <div class="graph active-graph total_solid_carbon_dispositions2"></div>
+            <div class="add-graph-container">
+                <div class="graph non-active annual_net_change_carbon_stocks"></div>
+                <div class="graph non-active annual_harvest_and_timber_product_output"></div>
+
             </div>
         </div>
+        <div id="emissionsContent" class="tabcontent">
+            <div class="graph active-graph total_emissions_dispositions2 "></div>
+            <div class="add-graph-container">
+                <div class="graph non-active burned_with_energy_capture_emissions"></div>
+                <div class="graph non-active burned_without_energy_capture_emissions"></div>
+                <div class="graph non-active swds_emissions"></div>
 
-        <div id="burnedContent" class="tabcontent">
-            <!-- <h1>Burned</h1> -->
-            <div class="graph active-graph burned_wo_energy_capture_emitted"></div>
-            <div class="add-graph-container">
-                <div class="graph non-active burned_w_energy_capture_emitted"></div>
-                <div class="graph non-active total_fuelwood_carbon_emitted"></div>
-            </div>
-        </div>
-
-        <div id="carbonContent" class="tabcontent">
-            <!-- <h1>Carbon in SWDS</h1> -->
-            <div class="graph active-graph total_cumulative_carbon_stocks_mgc"></div>
-            <div class="add-graph-container">
-                <div class="graph non-active total_carbon_dumps_co2e"></div>
-                <div class="graph non-active total_carbon_landfill_co2e"></div>
-            </div>
-        </div>
-        <div id="decayContent" class="tabcontent">
-            <div class="graph active-graph total_dumps_carbon_emitted"></div>
-            <div class="add-graph-container">
-                <div class="graph non-active total_composted_carbon_emitted"></div>
-                <div class="graph non-active total_landfills_carbon_emitted"></div>
             </div>
         </div>
         <div id="reusedContent" class="tabcontent">
-            <h1>Reused</h1>
-            <div class="graph active-graph non-active reused"></div>
-        </div>
-        <div>
-            <!-- <button style="float:right; margin-right: 2em;" class="custom-btn">Export</button> -->
-            <a href="#dl-opened" style="float:right; margin-right: 2em;" class="custom-btn link-1" id="dl-closed">Export
-            </a>
+            <div class="graph active-graph total_recycled_in_use"></div>
+            <div class="add-graph-container">
+                <div class="graph non-active"></div>
+                <div class="graph non-active annual_net_change_carbon_stocks_recycled"></div>
+                <div class="graph non-active"></div>
 
-            {% include "components/downloads.html" %}
+            </div>
 
         </div>
+
+
     </section>
     <!-- <div style="margin-left: 2em; width: 400px;">
         <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"
@@ -127,28 +114,31 @@
     </div> -->
 </div>
 <div id="hidden-graphs" style="display:none;">
-    <div class="graph total_dumps_carbon_emitted1"></div>
-    <div class="graph total_composted_carbon_emitted1"></div>
-    <div class="graph total_landfills_carbon_emitted1"></div>
 
-    <div class="graph  annual_harvests_output1"></div>
-    <div class="graph  end_use1"></div>
-    <!-- <div class="graph  annual_net_change_carbon_stocks1"></div> -->
-    <div class="graph burned_wo_energy_capture_emitted1"></div>
-    <div class="graph burned_w_energy_capture_emitted1"></div>
-    <div class="graph total_fuelwood_carbon_emitted1"></div>
+    <div class="graph table hidden annual_timber_harvest_table"></div>
+    <div class="graph table hidden total_yearly_net_change"></div>
+    <div class="graph table hidden total_selected_net_change"></div>
+    <div class="graph table hidden total_yearly_dispositions"></div>
+    <div class="graph table hidden total_selected_dispositions"></div>
 
-    <div class="graph total_cumulative_carbon_stocks_mgc1"></div>
-    <div class="graph total_carbon_dumps_co2e1"></div>
-    <div class="graph total_carbon_landfill_co2e1"></div>
+
+    <div class="graph hidden all_results_final_hidden"></div>
+    <div class="graph hidden total_solid_carbon_dispositions_hidden"></div>
+    <div class="graph hidden total_emissions_dispositions_hidden"></div>
+    <div class="graph hidden annual_net_change_carbon_stocks_hidden"></div>
+    <div class="graph hidden annual_harvest_and_timber_product_output_hidden"></div>
+    <div class="graph hidden burned_with_energy_capture_emissions_hidden"></div>
+    <div class="graph hidden burned_without_energy_capture_emissions_hidden"></div>
+    <div class="graph hidden swds_emissions_hidden"></div>
+
 
 
     <!-- <div class="graph active reused"></div> -->
 </div>
-
+<script type="text/javascript" src="{{ url_for('static', filename='js/jszip.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}');
+    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}');
 </script>
 
 {% endblock content %}

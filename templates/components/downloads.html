@@ -1,76 +1,86 @@
 <div class="dl-container" id="dl-opened">
-    <div class="dl-modal">
-        <div class="dl-modal-details">
-            <h1 class="dl-modal-title">Download Files</h1>
-            <p class="dl-modal-desc">
-                <form id="download_files_form">
-                    <ul style="text-align: left;" class="dl-files">
-                        <li><input type="checkbox" checked="checked" id="annual_harvests_output_chk"
-                                name="annual_harvests_output_chk" value="annual_harvests_output" /><label
-                                for="annual_harvests_output"> Annual Total
-                                Harvest</label></li>
-                        <li><input type="checkbox" checked="checked" id="end_use" name="end_use_chk"
-                                value="end_use" /><label for="end_use_chk">
-                                Total End Use
-                                Products</label></li>
-                        <li><input type="checkbox" checked="checked" id="annual_net_change_carbon_stocks_chk"
-                                name="annual_net_change_carbon_stocks_chk"
-                                value="annual_net_change_carbon_stocks" /><label
-                                for="annual_net_change_carbon_stocks_chk"> Annual Net Change
-                                Carbon Stocks</label>
-                        </li>
-                        <li><input type="checkbox" checked="checked" id="burned_wo_energy_capture_emitted_chk"
-                                name="burned_wo_energy_capture_emitted_chk" value="burned_wo_energy_capture_emitted" />
-                            <label for="burned_wo_energy_capture_emitted_chk"> Total Burned Carbon Emitted
-                                Without Energy
-                                Capture</label></li>
-                        <li><input type="checkbox" checked="checked" id="burned_w_energy_capture_emitted_chk"
-                                name="burned_w_energy_capture_emitted_chk" value="burned_w_energy_capture_emitted" />
-                            <label for="burned_w_energy_capture_emitted_chk">
-                                Total Carbon Burned with Energy
-                                CApture</label></li>
-                        <li><input type="checkbox" checked="checked" id="total_fuelwood_carbon_emitted_chk"
-                                name="total_fuelwood_carbon_emitted_chk" value="total_fuelwood_carbon_emitted" /> <label
-                                for="total_fuelwood_carbon_emitted_chk">
-                                Total Emitted Fuelwood Carbon</label>
-                        </li>
-                        <li><input type="checkbox" checked="checked" id="total_cumulative_carbon_stocks_co2e_chk"
-                                name="total_cumulative_carbon_stocks_co2e_chk"
-                                value="total_cumulative_carbon_stocks_co2e" /> <label
-                                for="total_cumulative_carbon_stocks_co2e_chk"></label> Total Cumulative Carbon Stocks
-                        </li>
-                        <li><input type="checkbox" checked="checked" id="total_dumps_carbon_co2e_chk"
-                                name="total_dumps_carbon_co2e_chk" value="total_dumps_carbon_co2e" /> <label
-                                for="total_dumps_carbon_co2e_chk"> Total Carbon in
-                                Dumps</label></li>
-                        <li><input type="checkbox" checked="checked" id="total_landfills_carbon_co2e_chk"
-                                name="total_landfills_carbon_co2e_chk" value="total_landfills_carbon_co2e" /> <label
-                                for="total_landfills_carbon_co2e_chk"> Total
-                                Carbon in Landfills</label></li>
-                        <li><input type="checkbox" checked="checked" id="total_dumps_carbon_emitted_chk"
-                                name="total_dumps_carbon_emitted_chk" value="total_dumps_carbon_emitted" /> <label
-                                for="total_dumps_carbon_emitted_chk"> Total Carbon in
-                                Dumps Emitted</label></li>
-                        <li><input type="checkbox" checked="checked" id="total_composted_carbon_emitted_chk"
-                                name="total_composted_carbon_emitted_chk" value="total_composted_carbon_emitted" />
-                            <label for="total_composted_carbon_emitted-chk">Total Carbon in Compost Emitted</label>
-                        </li>
-                        <li><input type="checkbox" checked="checked" id="total_landfills_carbon_emitted_chk"
-                                name="total_landfills_carbon_emitted_chk" value="total_landfills_carbon_emitted" />
-                            <label for="total_landfills_carbon_emitted_chk">
-                                Total Carbon in Landfills Emitted</label>
-                        </li>
+        <div class="dl-modal">
+                <div class="dl-modal-details">
+                        <h1 class="dl-modal-title">Download Files</h1>
+                        <p class="dl-modal-desc">
+                                <form id="download_files_form">
+                                        <ul style="text-align: left;" class="dl-files">
 
-                    </ul>
-                    <button type="button" id="download">Download Files</button>
-                </form>
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="all_results_final_hidden_chk"
+                                                                name="all_results_final_hidden_chk"
+                                                                value="all_results_final_hidden" /><label
+                                                                for="all_results_final_hidden">
+                                                                Final Results
+                                                        </label></li>
 
-            </p>
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="total_solid_carbon_dispositions_hidden_chk"
+                                                                name="total_solid_carbon_dispositions_hidden_chk"
+                                                                value="total_solid_carbon_dispositions_hidden" /><label
+                                                                for="total_solid_carbon_dispositions_hidden">
+                                                                Total Solid Carbon Dispositions
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="total_emissions_dispositions_hidden_chk"
+                                                                name="total_emissions_dispositions_hidden_chk"
+                                                                value="total_emissions_dispositions_hidden" /><label
+                                                                for="total_emissions_dispositions_hidden">
+                                                                Total Emissons
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="annual_net_change_carbon_stocks_hidden_chk"
+                                                                name="annual_net_change_carbon_stocks_hidden_chk"
+                                                                value="annual_net_change_carbon_stocks_hidden" /><label
+                                                                for="annual_net_change_carbon_stocks_hidden">
+                                                                Annual Net Change Carbon Stocks
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="annual_harvest_and_timber_product_output_hidden_chk"
+                                                                name="annual_harvest_and_timber_product_output_hidden_chk"
+                                                                value="annual_harvest_and_timber_product_output_hidden" /><label
+                                                                for="annual_harvest_and_timber_product_output_hidden">
+                                                                Annual Harvest and Timber Product Output
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="burned_with_energy_capture_emissions_hidden_chk"
+                                                                name="burned_with_energy_capture_emissions_hidden_chk"
+                                                                value="burned_with_energy_capture_emissions_hidden" /><label
+                                                                for="burned_with_energy_capture_emissions_hidden">
+                                                                Burned with Energy Capture Emissions
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="burned_without_energy_capture_emissions_hidden_chk"
+                                                                name="burned_without_energy_capture_emissions_hidden_chk"
+                                                                value="burned_without_energy_capture_emissions_hidden" /><label
+                                                                for="burned_without_energy_capture_emissions_hidden">
+                                                                Burned without Energy Capture Emissions
+                                                        </label></li>
+
+                                                <li><input type="checkbox" checked="checked"
+                                                                id="swds_emissions_hidden_chk"
+                                                                name="swds_emissions_hidden_chk"
+                                                                value="swds_emissions_hidden" /><label
+                                                                for="swds_emissions_hidden">
+                                                                SWDS Emissions
+                                                        </label></li>
+
+                                        </ul>
+                                        <button type="button" class="custom-btn custom-btn-download btn-calc"
+                                                id="download">Download Files</button>
+                                </form>
+
+                        </p>
+                </div>
+
+
+                <p class="dl-modal-text"></p>
+                <!-- <button class="modal-btn">Button &rarr;</button> -->
+                <a href="#dl-closed" class="link-2"></a>
         </div>
-
-
-        <p class="dl-modal-text"></p>
-        <!-- <button class="modal-btn">Button &rarr;</button> -->
-        <a href="#dl-closed" class="link-2"></a>
-    </div>
 </div>

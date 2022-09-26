@@ -2,7 +2,10 @@ import json
 import uuid
 import os
 import zipfile
+from datetime import datetime
 import pandas as pd
+import numpy as np
+from io import StringIO
 from flask import Flask, redirect, render_template, request, jsonify
 # from config import gch
 from utils.s3_helper import S3Helper
@@ -58,9 +61,14 @@ def upload():
                                                                 var_name="Year",
                                                                 value_name="ccf")
             yearly_harvest_input= yearly_harvest_input[yearly_harvest_input['ccf'] != 0]
+            start_year = str(yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1])
+            stop_year = str(yearly_harvest_input["Year"][0])
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         else: 
-            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)     
+            start_year = str(yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) -1])
+            stop_year = str(yearly_harvest_input["Year"][0])
+            print(start_year)
+            yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         
     harvest_data_type = request.form['harvestdatatype']
     timber_product_ratios = request.files['yearlytimberproductratios']
@@ -101,6 +109,9 @@ def upload():
         else:
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
             
+    if request.form.get('enduseproductrates'):
+        end_use_product_rates = request.form['enduseproductrates']
+
     dispositions = request.files['DispositionsFilename']
     disposition_half_lives = request.files['DispositionHalfLivesFilename']
     distribution_data = request.files['DistributionDataFilename']
@@ -111,6 +122,9 @@ def upload():
     email = request.form['email']
     run_name = request.form['runname']
 
+    now = datetime.now()
+    dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
+
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
             "harvest_data.csv":yearly_harvest_input,
@@ -119,15 +133,19 @@ def upload():
             "region":region_selection,
             "primary_product_ratios.csv":custom_region_file,
             "end_use_product_ratios.csv":end_use_product_ratios,
+            "decay_function":end_use_product_rates,
             "dispositions.csv":dispositions,
             "disposition_half_lives.csv":disposition_half_lives,
             "distribution_data.csv":distribution_data,
             "burned_ratios.csv":burned_ratios,
             "mbf_to_ccf.csv":mbf_to_ccf,
-            "loss_factor":loss_factor,
+            "end_use_loss_factor":loss_factor,
             "iterations":iterations,
             "email":email,
-            "run_name":run_name
+            "scenario_name":run_name,
+            "simulation_date":dt_string,
+            "start_year":start_year,
+            "end_year":stop_year
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
@@ -148,39 +166,69 @@ def output():
     sdws_co2e=""
     products_in_use_mgc=""
     products_in_use_co2e=""
+    is_single = "false"
     p = request.args.get("p")
+    q = request.args.get("q")
+    y = request.args.get("y")
     print(p)
-    user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/results/test.zip")
-    #user_zip = S3Helper.download_file("hwpc","hwpc-user-inputs/"+p+"/harvest_data.csv")
-
-    with open('/tmp/zip_folder.zip', 'wb') as f:
-        f.write(user_zip.read())
-    file = zipfile.ZipFile('/tmp/zip_folder.zip')
-    file.extractall(path='/tmp/zip_folder')
-    files = os.listdir('/tmp/zip_folder')
+    print(q)
     data_dict = {}
-    for file in files:
-        if ".csv" in file:
-            print(file[:-4])
-            test = pd.read_csv("/tmp/zip_folder/"+file)
-            test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
-            data_dict[file[:-4]] = test.to_csv(index=False)
-            if "swds_mgc" in file:
-                swds_mgc=test
-            if "swds_co2e" in file:
-                swds_co2e=test
-            if "products_in_use_mgc" in file:
-                products_in_use_mgc = test
-            if "products_in_use_co2e" in file:
-                products_in_use_co2e = test
-    total_cumulative_carbon_stocks_mgc = swds_mgc.merge(products_in_use_mgc, on='Year')
-    data_dict["total_cumulative_carbon_stocks_mgc"] = total_cumulative_carbon_stocks_mgc.to_csv(index=False)
-    total_cumulative_carbon_stocks_co2e = swds_co2e.merge(products_in_use_co2e, on='Year')
-    data_dict["total_cumulative_carbon_stocks_co2e"] = total_cumulative_carbon_stocks_co2e.to_csv(index=False)
-    data_json=json.dumps(data_dict)
-    data_json = data_json.replace('\\"',' ')
+    if(y==None):
+        print("no year range")
+        
+        
+        user_zip = S3Helper.read_zipfile("hwpc-output","hwpc-user-outputs/"+p+"/results/"+q+".zip")
+        # print(user_zip)
+        for file in user_zip:
+            if ".csv" in file and "results" not in file:
+                print(file[:-4])
+                print(user_zip[file])
+                csvStringIO = StringIO(user_zip[file])
+                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                try:
+                    test = test.drop(columns="DiscardDestinationID")
+                except:
+                    print("no column")
+                test.drop(test.tail(1).index,inplace=True)
+                # test = test.replace(0, np.nan)
+                # test.dropna(inplace = True)
+            
+                print(test)
+                test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+                data_dict[file[:-4]] = test.to_csv(index=False)
+                
+        print(data_dict.keys())
+        data_json=json.dumps(data_dict)
+        
+        data_json = data_json.replace('\\"',' ')
+    if(y!=None):
+        print("years: "+y)
+        is_single = "true"
+        user_zip = S3Helper.read_zipfile("hwpc-output","hwpc-user-outputs/"+p+"/results/"+y+"_"+q+".zip")
+        
+        for file in user_zip:
+            if ".csv" in file and y in file and "results" not in file:
+                print(file[:-4])
+                csvStringIO = StringIO(user_zip[file])
+                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                try:
+                    test = test.drop(columns="DiscardDestinationID")
+                except:
+                    print("no column")
+                # test = test.replace(0, np.nan)
+                # test.dropna(inplace = True)
+                test.drop(test.tail(1).index,inplace=True)
+                print(test)
+                test = test.loc[:, ~test.columns.str.contains('^Unnamed')]
+                data_dict[file[5:-4]] = test.to_csv(index=False)
+        print(data_dict.keys())
+        data_json=json.dumps(data_dict)
+        
+        data_json = data_json.replace('\\"',' ')
+    # print(y)
+    
 
-    return render_template("pages/output.html",data_json=data_json)
+    return render_template("pages/output.html",data_json=data_json,bucket=p,file_name=q,is_single=is_single)
 
 # @app.route('/download', methods=['GET','POST'])
 # def download():

@@ -15,9 +15,18 @@
         integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3plus-text@1"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"
+        integrity="sha512-3WaCYjK/lQuL0dVIRt1thLXr84Z/4Yppka6u40yEJT1QulYm9pCxguF6r8V84ndP5K03koI9hV1+zo/bUbgMtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet"
         type="text/css" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,11 +52,9 @@
 </body>
 {% block scripts %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/accordion.js') }}"></script>
-<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/curvedarrow.js') }}"></script> -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/homeflowchart.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/taboutput.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/saveSvgAsPng.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/download.js') }}"></script>
+
 
 {% endblock scripts %}
 

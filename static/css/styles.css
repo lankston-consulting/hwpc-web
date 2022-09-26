@@ -173,6 +173,17 @@ li {
   outline: none;
 }
 
+.custom-btn-output {
+  width: 120px !important; 
+  min-width: fit-content !important;
+  font-size: 1.6rem;
+}
+
+.custom-btn-download {
+  width: max-content !important;
+  min-width: fit-content !important;
+}
+
 .btn-calc {
   background-color: var(--dark-green);
   background-image: linear-gradient(315deg, var(--light-green) 0%, var(--dark-green) 74%);
@@ -324,6 +335,8 @@ li {
 
 /* Calculator/Accordion */
 
+
+
 .calc-config-container {
 
   background-color: white;
@@ -378,9 +391,58 @@ li {
   max-width: 1080px;
   width: 80%;
   margin: 20px auto;
-  
-  
+
 }
+
+.accordion, .acc-monte-carlo-disclaimer {
+  display: block;
+  max-width: 1080px;
+  width: 80%;
+  margin: 20px auto;
+
+}
+
+.acc-monte-carlo-disclaimer p {
+  font-size: 1.4rem;
+  font-family: 'Open Sans', sans-serif;
+  color: var(--dark-gray);
+  margin-bottom: 0.5em;
+}
+
+.acc-monte-carlo-disclaimer button {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+
+
+.acc-monte-carlo-disclaimer button:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+
 .accordion h1, h2, h3, h4 {
   cursor: pointer;
 }
@@ -494,6 +556,12 @@ color: var(--dark-gray);
   justify-self: flex-end;
   margin-left: auto;
   float: right;
+}
+
+.acc-disabled {
+  background-color: var(--light-gray) !important;
+  color: var(--dark-gray) !important;
+  cursor: not-allowed !important;
 }
 
  a.block-item-green {
@@ -1245,7 +1313,8 @@ input[type="radio"]:after{
   margin-bottom: 15rem; 
   padding-bottom: 15rem;
   display: flex;
-  width: 90%;
+  min-width: fit-content;
+  width: 1600px;
   margin: auto;
 
   
@@ -1253,8 +1322,11 @@ input[type="radio"]:after{
 
 .output-page aside {
   background-color: white;
-  width: 20%;
-  height: 90vh;
+  max-width: 20%;
+  min-height: fit-content;
+  /* height: fit-content; */
+  flex-grow: 1;
+  
   margin-bottom: 2em;
   border-radius: 10px;
   padding: 25px;
@@ -1263,10 +1335,36 @@ input[type="radio"]:after{
 .output-page section {
   background-color: white;
   width: 80%;
-  height: 90vh;
+  max-width: 1300px;
+  min-height: 89vh;
   margin-bottom: 2em;
   border-radius: 10px;
+  height: fit-content;
+  /* padding-bottom: 2em; */
 }
+
+
+
+@media screen and (max-width: 600px) {
+  .output-page {
+    flex-direction: column;
+  }
+
+  .output-page aside {
+    width: 100%;
+    max-width: 100%;
+    height: fit-content;
+    margin-bottom: 2em;
+  }
+
+  .output-page section {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 2em;
+  }
+}
+  
+
 
 /* Style the tab */
 .tab {
@@ -1274,7 +1372,7 @@ input[type="radio"]:after{
   background-color: #f1f1f1;
 }
 
-/* Style the buttons that are used to open the tab content */
+
 .tab button {
   background-color: inherit;
   float: left;
@@ -1283,19 +1381,19 @@ input[type="radio"]:after{
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  font-family: var(--opensans);
 }
 
-/* Change background color of buttons on hover */
+
 .tab button:hover {
   background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
+
 .tab button.active {
   background-color: #ccc;
 }
 
-/* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
@@ -1304,9 +1402,13 @@ input[type="radio"]:after{
   transition: background ease 0.2s;
 }
 
-/* .active-graph {
-  height: 800px;
-} */
+.active-graph {
+  margin-bottom: 1em;
+}
+
+#hidden-graphs .hidden{
+  height:fit-content;
+}
 
 .svg-graph-container {
  display: inline-block;
@@ -1336,37 +1438,37 @@ input[type="radio"]:after{
   left: 0;
 }
 
-svg .rect {
-  fill: gold;
-  stroke: steelblue;
-  stroke-width: 5px;
-}
-
-
 
 .add-graph-container {
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 0px; 
-  width: 100%; */
   display: flex;
+  gap: 1em;
 }
 
 .add-graph-container .graph {
   flex-grow: 1;
   max-width: 430px;
+  
 }
 
-/* 
-.temp-graph {
-  max-height: 200px;
-  height: 250px;
-  width: 33%;
-  max-width: 33%;
-  background-color: lightskyblue;
-} */
+.active-graph::after {
+  content: "Click to make graphs larger";
+}
+
+div.plotly-container{
+  border-radius: 10px;
+}
+
+div.non-active.graph>div.plot-container>div.svg-container:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: all 0.3s;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+div.svg-container svg:first-child {
+  border-radius: 10px;
+}
 
 .year-controls {
   list-style-type: none;
@@ -1463,8 +1565,10 @@ ul .year-controls li {
 .graph-title {
   font-family: var(--montserrat);
   font-weight: 600;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
 }
+
+
 
 .y-axis-title {
 font-family: var(--montserrat);
@@ -1498,7 +1602,7 @@ circle.y {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 1000;
   display: none;
   justify-content: center;
   align-items: center;
@@ -1512,12 +1616,13 @@ circle.y {
 }
 
 .dl-modal {
-  width: 60rem;
+  width: 50rem;
+  height: fit-content;
   padding: 4rem 2rem;
   border-radius: .8rem;
 
   /* color: var(--light); */
-  background: white;
+  background: #e6e6e6;
   box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, 0.3);
   position: relative;
 
@@ -1527,17 +1632,17 @@ circle.y {
 .dl-modal-details {
   text-align: center;
 
-  margin-bottom: 4rem;
-  padding-bottom: 4rem;
-  border-bottom: 1px solid hsla(0, 0%, 100%, .4);
+  margin-bottom: 1rem;
+
 }
 
 .dl-modal-title {
-  font-size: 3.2rem;
+  margin-top: 2rem;
+  font-size: 2.8rem;
 }
 
 .dl-modal-desc {
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   font-size: 1.6rem;
   font-style: italic;
@@ -1617,10 +1722,8 @@ circle.y {
 .link-2 {
   width: 4rem;
   height: 4rem;
-  border: 1px solid hsla(0, 0%, 100%, .4);
-  border-radius: 100rem;
 
-  color: inherit;
+  color: #c0c5cb;
   font-size: 2.2rem;
 
   position: absolute;
@@ -1645,19 +1748,55 @@ circle.y {
 .link-2:focus {
   border-color: hsla(0, 0%, 100%, .6);
   transform: translateY(-.2rem);
+  color: var(--dark-gray);
 }
 .dl-files {
   padding: 20px;
+  width: fit-content;
+  margin: auto;
 }
 .dl-files li input{
   margin-right: .5em;
   margin-bottom: .5em;
 }
 
-.dl-files li input label {
-  font-family: var(--opensans);
-  font-size: 1.8rem !important;
+.dl-files label {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+  cursor: pointer;
+
 }
+
+
+@media screen and (max-width: 600px) {
+  .dl-modal {
+    width: 90%;
+    min-height: fit-content;
+    height: 50%;
+    padding: 2rem 1rem;
+  }
+
+  .dl-modal-title {
+    font-size: 2.4rem;
+  }
+
+  .dl-modal-desc {
+    font-size: 1.4rem;
+  }
+
+  .dl-modal-text {
+    padding: 0 2rem;
+    font-size: 1.4rem;
+  }
+
+  .dl-modal-btn {
+    padding: 1rem 1.4rem;
+    font-size: 1.2rem;
+  }
+}
+
+
 
 
 /* Footer */
