@@ -27,9 +27,9 @@
   border: 1px solid red;
 } */
 
-/* *:focus {
+*:focus {
   outline: blue solid 3px !important;
-} */
+}
 
 html, body {
   height: 100%;
@@ -384,6 +384,11 @@ li {
   border: 2px solid var(--dark-green) !important;
 }
 
+@media (max-width: 769px) {
+  .calc-config-container {
+    width: 95%;
+  }
+}
 
 
 .accordion, .acc-change-toggle  {
@@ -401,6 +406,13 @@ li {
   margin: 20px auto;
 
 }
+
+@media (max-width: 769px) {
+  .accordion, .acc-change-toggle, .acc-monte-carlo-disclaimer {
+    width: 95%;
+  }
+}
+
 
 .acc-monte-carlo-disclaimer p {
   font-size: 1.4rem;
@@ -959,7 +971,7 @@ input[type="radio"]:after{
 
 @media only screen and (max-width: 600px) {
  .modal-content {
-  width: 80%;
+  width: 90%;
   margin: 30% auto;
  }
 }
@@ -1297,6 +1309,9 @@ input[type="radio"]:after{
 }
 
 @media only screen and (max-width: 600px) {
+  .contact-container {
+    height: fit-content;
+  }
   .contact-content {
     flex-direction: column;
     padding: 20px;
@@ -1326,6 +1341,7 @@ input[type="radio"]:after{
   min-height: fit-content;
   /* height: fit-content; */
   flex-grow: 1;
+  margin-right: 2em;
   
   margin-bottom: 2em;
   border-radius: 10px;
@@ -1348,17 +1364,22 @@ input[type="radio"]:after{
 @media screen and (max-width: 600px) {
   .output-page {
     flex-direction: column;
+    /* width: 100%; */
+    min-width: var(--content-width);
+    width: fit-content;
+    margin: auto;
   }
 
   .output-page aside {
-    width: 100%;
-    max-width: 100%;
+    max-width: fit-content; 
     height: fit-content;
     margin-bottom: 2em;
+    margin-left: 3em;
   }
 
   .output-page section {
-    width: 100%;
+    width: 95%;
+    margin: auto;
     height: fit-content;
     margin-bottom: 2em;
   }
@@ -1469,6 +1490,10 @@ div.non-active.graph>div.plot-container>div.svg-container:hover{
 div.svg-container svg:first-child {
   border-radius: 10px;
 }
+
+
+
+
 
 .year-controls {
   list-style-type: none;
@@ -1582,20 +1607,8 @@ font-weight: 400;
   font-weight: 400;
 }
 
-/* Graph Focus Styling */
 
 
-line.x,
-line.y,
-circle.y {
-  stroke: var(--dark-green);
-}
-
-.focus text {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-    
 /* Downloads Modal */
 
 .dl-container {

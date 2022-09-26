@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="output-page">
-    <aside style="margin-right: 2em;">
+    <aside>
         <h1 style="margin-bottom: 1em; font-size: 1.8rem;">Controls</h1>
         <form action="">
             <fieldset>
@@ -58,7 +58,7 @@
     <section>
         <!-- Tab links -->
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'coolFlashyTabContent')" id="defaultOpen">Cumulative
+            <button class="tablinks" onclick="openTab(event, 'cumulativeResultsContent')" id="defaultOpen">Cumulative
                 Results</button>
             <button class="tablinks" onclick="openTab(event, 'solidCarbonContent')" id="solidCarbon">Solid
                 Carbon</button>
@@ -69,34 +69,42 @@
         </div>
 
         <!-- Tab content -->
-        <div id="coolFlashyTabContent" class="tabcontent">
-            <div class="graph active-graph all_results_final"></div>
+        <div id="cumulativeResultsContent" class="tabcontent">
+            <div tabindex="0" aria-label=" All Final Results" class="graph active-graph all_results_final"></div>
             <div class="add-graph-container">
-                <div class="graph non-active total_solid_carbon_dispositions"></div>
-                <div class="graph non-active total_emissions_dispositions"></div>
+                <div tabindex="0" aria-label="Total Solid Carbon Dispositions"
+                    class="graph non-active total_solid_carbon_dispositions"></div>
+                <div tabindex="0" aria-label="Total Emissions" class="graph non-active total_emissions_dispositions">
+                </div>
 
             </div>
 
         </div>
         <div id="solidCarbonContent" class="tabcontent">
-            <div class="graph active-graph total_solid_carbon_dispositions2"></div>
+            <div tabindex="0" aria-label="Total Soild Carbon Dispositions"
+                class="graph active-graph total_solid_carbon_dispositions2"></div>
             <div class="add-graph-container">
-                <div class="graph non-active annual_net_change_carbon_stocks"></div>
-                <div class="graph non-active annual_harvest_and_timber_product_output"></div>
+                <div tabindex="0" aria-label="Annual Net Change Carbon Stocks"
+                    class="graph non-active annual_net_change_carbon_stocks"></div>
+                <div tabindex="0" aria-label="Annual Harvest and Timber Products Output"
+                    class="graph non-active annual_harvest_and_timber_product_output"></div>
 
             </div>
         </div>
         <div id="emissionsContent" class="tabcontent">
-            <div class="graph active-graph total_emissions_dispositions2 "></div>
+            <div tabindex="0" aria-label="Total Emissions" class="graph active-graph total_emissions_dispositions2 ">
+            </div>
             <div class="add-graph-container">
-                <div class="graph non-active burned_with_energy_capture_emissions"></div>
-                <div class="graph non-active burned_without_energy_capture_emissions"></div>
-                <div class="graph non-active swds_emissions"></div>
+                <div tabindex="0" aria-label="Burned with Energy Capture Emissions"
+                    class="graph non-active burned_with_energy_capture_emissions"></div>
+                <div tabindex="0" aria-label="Burned without Energy Capture Emissions"
+                    class="graph non-active burned_without_energy_capture_emissions"></div>
+                <div tabindex="0" aria-label="SWDS Emissions" class="graph non-active swds_emissions"></div>
 
             </div>
         </div>
         <div id="reusedContent" class="tabcontent">
-            <div class="graph active-graph total_recycled_in_use"></div>
+            <div tabindex="0" aria-label="" class="graph active-graph total_recycled_in_use"></div>
             <div class="add-graph-container">
                 <div class="graph non-active"></div>
                 <div class="graph non-active annual_net_change_carbon_stocks_recycled"></div>
