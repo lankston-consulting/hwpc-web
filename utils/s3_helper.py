@@ -105,13 +105,15 @@ class S3Helper(object):
             "inputs": {
                 "harvest_data.csv": "",
                 "timber_product_ratios.csv": "",
+                "primary_products.csv": "",
                 "primary_product_ratios.csv": "",
                 "end_use_product_ratios.csv": "",
-                "dispositions.csv": "",
-                "disposition_half_lives.csv": "",
-                "distribution_data.csv": "",
-                "burned_ratios.csv": "",
-                "mbf_to_ccf.csv": "",
+                "end_use_products.csv": "",
+                "discard_destinations.csv": "",
+                "discard_destination_ratios.csv": "",
+                # "distribution_data.csv": "",
+                "discard_burned_w_energy_capture.csv": "",
+                "mbf_to_ccf_conversion.csv": "",
             }
         }
         # Code parses through data pulled from web
