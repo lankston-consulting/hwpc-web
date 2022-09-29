@@ -124,7 +124,7 @@ def upload():
 
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
-
+    new_id = str(uuid.uuid4())
     # The data is compiled to a dictionary to be processed with the GcsHelper class
     data = {
             "harvest_data.csv":yearly_harvest_input,
@@ -145,11 +145,12 @@ def upload():
             "scenario_name":run_name,
             "simulation_date":dt_string,
             "start_year":start_year,
-            "end_year":stop_year
+            "end_year":stop_year,
+            "user_string": new_id
             }
 
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
-    new_id = str(uuid.uuid4())
+    
     # print(new_id)
     S3Helper.upload_input_group("hwpc", user_data_folder + new_id + '/', data)
     #return "This is a test to view the submitted data"   
