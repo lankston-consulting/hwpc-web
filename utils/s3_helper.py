@@ -106,6 +106,7 @@ class S3Helper(object):
             "inputs": {
                 "harvest_data.csv": "",
                 "timber_product_ratios.csv": "",
+                "timber_products.csv": "",
                 "primary_products.csv": "",
                 "primary_product_ratios.csv": "",
                 "end_use_product_ratios.csv": "",
