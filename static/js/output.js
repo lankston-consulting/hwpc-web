@@ -89,11 +89,11 @@ output.initialize = function(input_json,bucket,file_name,is_single) {
 }
 
 $("#defaultOpen").click(function (e) {
-    active_id = $("#coolFlashyTabContent").children()[0].classList[$("#coolFlashyTabContent").children()[0].classList.length-1]
-    inactive = $("#coolFlashyTabContent").children()[1].children
+    active_id = $("#cumulativeResultsContent").children()[0].classList[$("#cumulativeResultsContent").children()[0].classList.length-1]
+    inactive = $("#cumulativeResultsContent").children()[1].children
     inactive_ids =[]
-    for(let i=0;i<$("#coolFlashyTabContent").children()[1].children.length;i++){
-        inactive_ids.push($("#coolFlashyTabContent").children()[1].children[i].classList[$("#coolFlashyTabContent").children()[1].children[i].classList.length-1])
+    for(let i=0;i<$("#cumulativeResultsContent").children()[1].children.length;i++){
+        inactive_ids.push($("#cumulativeResultsContent").children()[1].children[i].classList[$("#cumulativeResultsContent").children()[1].children[i].classList.length-1])
     }
     generate_graph(data_dict[active_id][0],active_id,"active",data_dict[active_id][1], 1300 , 700, data_dict[active_id][2], data_dict[active_id][3],captions_dict[active_id])
     for(let i=0;i<inactive_ids.length;i++){
@@ -142,9 +142,73 @@ $("#reused").click(function(e){
     }
 })
 
-$("#reused").click(function (e) {
-    // generate_graph(swds_co2e, "swds", true, 1300, 700) 
+// Keydown event listener
+$("#defaultOpen").keydown(function (e) {
+    if (e.which === 32 || e.which === 13) {
+        active_id = $("#cumulativeResultsContent").children()[0].classList[$("#cumulativeResultsContent").children()[0].classList.length - 1]
+        inactive = $("#cumulativeResultsContent").children()[1].children
+        inactive_ids = []
+        for (let i = 0; i < $("#cumulativeResultsContent").children()[1].children.length; i++) {
+            inactive_ids.push($("#cumulativeResultsContent").children()[1].children[i].classList[$("#cumulativeResultsContent").children()[1].children[i].classList.length - 1])
+        }
+        generate_graph(data_dict[active_id][0], active_id, "active", data_dict[active_id][1], 1300, 700, data_dict[active_id][2], data_dict[active_id][3], captions_dict[active_id])
+        for (let i = 0; i < inactive_ids.length; i++) {
+            generate_graph(data_dict[inactive_ids[i]][0], inactive_ids[i], "inactive", data_dict[inactive_ids[i]][1], 400, 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+        }
+    }
 })
+
+$("#solidCarbon").keydown(function (e) {
+    if (e.which === 32 || e.which === 13) {
+        active_id = $("#solidCarbonContent").children()[0].classList[$("#solidCarbonContent").children()[0].classList.length - 1]
+        inactive = $("#solidCarbonContent").children()[1].children
+        inactive_ids = []
+        for (let i = 0; i < $("#solidCarbonContent").children()[1].children.length; i++) {
+            inactive_ids.push($("#solidCarbonContent").children()[1].children[i].classList[$("#solidCarbonContent").children()[1].children[i].classList.length - 1])
+        }
+        generate_graph(data_dict[active_id][0], active_id, "active", data_dict[active_id][1], 1300, 700, data_dict[active_id][2], data_dict[active_id][3], captions_dict[active_id])
+        for (let i = 0; i < inactive_ids.length; i++) {
+            console.log(data_dict[inactive_ids[i]])
+            generate_graph(data_dict[inactive_ids[i]][0], inactive_ids[i], "inactive", data_dict[inactive_ids[i]][1], 400, 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+        }
+    }
+})
+
+$("#emissions").keydown(function (e) {
+    if (e.which === 32 || e.which === 13) {
+        active_id = $("#emissionsContent").children()[0].classList[$("#emissionsContent").children()[0].classList.length - 1]
+        inactive = $("#emissionsContent").children()[1].children
+        console.log(inactive)
+        inactive_ids = []
+        for (let i = 0; i < $("#emissionsContent").children()[1].children.length; i++) {
+            inactive_ids.push($("#emissionsContent").children()[1].children[i].classList[$("#emissionsContent").children()[1].children[i].classList.length - 1])
+        }
+        generate_graph(data_dict[active_id][0], active_id, "active", data_dict[active_id][1], 1300, 700, data_dict[active_id][2], data_dict[active_id][3], captions_dict[active_id])
+        for (let i = 0; i < inactive_ids.length; i++) {
+            console.log(inactive_ids[i])
+            generate_graph(data_dict[inactive_ids[i]][0], inactive_ids[i], "inactive", data_dict[inactive_ids[i]][1], 400, 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+        }
+    }
+})
+
+$("#reused").keydown(function (e) {
+    if (e.which === 32 || e.which === 13) {
+        active_id = $("#reusedContent").children()[0].classList[$("#reusedContent").children()[0].classList.length - 1]
+        inactive = $("#reusedContent").children()[1].children
+        inactive_ids = []
+        for (let i = 0; i < $("#reusedContent").children()[1].children.length; i++) {
+            inactive_ids.push($("#reusedContent").children()[1].children[i].classList[$("#reusedContent").children()[1].children[i].classList.length - 1])
+        }
+        generate_graph(data_dict[active_id][0], active_id, "active", data_dict[active_id][1], 1300, 700, data_dict[active_id][2], data_dict[active_id][3], captions_dict[active_id])
+        for (let i = 0; i < inactive_ids.length; i++) {
+            generate_graph(data_dict[inactive_ids[i]][0], inactive_ids[i], "inactive", data_dict[inactive_ids[i]][1], 400, 250, data_dict[inactive_ids[i]][2], data_dict[inactive_ids[i]][3])
+        }
+    }
+})
+
+
+
+
 
 generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_type, y_label="", caption){
     // var parseDate = d3.timeFormat("%Y");
@@ -412,17 +476,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
         }  else if (is_active == "active") {
             
             $("." + graph_class).html("")
-        
-            // const margin = { top: 40, right: 80, bottom: 160, left: 80 },
-            //     width = w - margin.left - margin.right,
-            //     height = h - margin.top - margin.bottom;
-
-            // const valueline = d3
-            //     .line()
-            //     .x((d) => { return x(d.date); })
-            //     .y((d) => { return y(d.value); })
-       
-
             if (graph_type == "line") {
                 
                 tester = document.getElementsByClassName("active-graph " + graph_class)[0];
@@ -432,11 +485,6 @@ generate_graph = function(json_data, graph_class, is_active, title, w, h, graph_
                 maxDateYear = data[data.length - 1].date
                 caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
                 caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-                // svg
-                //     .append("g")
-                //     .attr("class", graph_class + "caption")
-                //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
-
                 year_array=[]
                 value_array=[]
                 
@@ -1242,6 +1290,47 @@ $(".non-active").click(function (e) {
     }      
 });
 
+$(".non-active").keydown(function (e) {
+
+    if (e.keyCode == 13 || e.keyCode == 32) {
+ 
+        var non_active_div = $(e.target).parent().parent();
+        var non_active_div_siblings = $(e.target).parent().parent().siblings()
+        console.log(non_active_div_siblings)
+        var current_tabs_active_graph_sibling = non_active_div.parent().closest('div');
+
+        var current_tabs_active_graph = current_tabs_active_graph_sibling.siblings().closest('div');
+        for (let i = 0; i < non_active_div[0].classList.length; i++) {
+            if (non_active_div[0].classList[i] != "graph" && non_active_div[0].classList[i] != "js-plotly-plot" && non_active_div[0].classList[i] != "non-active") {
+                non_active_id = non_active_div[0].classList[i]
+            }
+        }
+
+        for (let i = 0; i < current_tabs_active_graph[0].classList.length; i++) {
+            if (current_tabs_active_graph[0].classList[i] != "graph" && current_tabs_active_graph[0].classList[i] != "active-graph" && current_tabs_active_graph[0].classList[i] != "js-plotly-plot") {
+                current_tabs_active_id = current_tabs_active_graph[0].classList[i]
+            }
+        }
+        current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
+        current_tabs_active_graph[0].classList.add(non_active_id);
+        non_active_div[0].classList.remove(non_active_id);
+        non_active_div[0].classList.add(current_tabs_active_id);
+        generate_graph(data_dict[non_active_id][0], non_active_id, "active", data_dict[non_active_id][1], 1300, 700, data_dict[non_active_id][2], data_dict[non_active_id][3], captions_dict[non_active_id])
+        generate_graph(data_dict[current_tabs_active_id][0], current_tabs_active_id, "inactive", data_dict[current_tabs_active_id][1], 400, 250, data_dict[current_tabs_active_id][2])
+        if (non_active_div_siblings.length != 0) {
+            for (i = 0; i < non_active_div_siblings.length; i++) {
+                for (let j = 0; j < non_active_div_siblings[i].classList.length; j++) {
+                    if (non_active_div_siblings[i].classList[j] != "graph" && non_active_div_siblings[i].classList[j] != "js-plotly-plot" && non_active_div_siblings[i].classList[j] != "non-active") {
+                        non_active_div_sibling_id = non_active_div_siblings[i].classList[j]
+                    }
+                }
+            
+                generate_graph(data_dict[non_active_div_sibling_id][0], non_active_div_sibling_id, "inactive", data_dict[non_active_div_sibling_id][1], 400, 250, data_dict[non_active_div_sibling_id][2])
+            }
+        }
+    }      
+});
+
 $("#allYearsBtn").click(function(e){
     console.log("all year")
     $('#yearfilter').attr("href","/output?p="+data_bucket+"&q="+data_file_name)
@@ -1371,14 +1460,6 @@ async function generate_tables(div, options,file_name) {
   
 }
  
-
-
-// $(".dl-files").children().each(function () {
-//   tempChk = $(this).children()[0];
-//   if (tempChk.checked) {
-//     big_count +=1
-//   }});
-
 
 
 function export_plots() {
