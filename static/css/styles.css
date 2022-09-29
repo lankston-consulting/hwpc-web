@@ -401,10 +401,17 @@ li {
 
 .accordion, .acc-monte-carlo-disclaimer {
   display: block;
-  max-width: 1080px;
+  /* max-width: 1080px;
   width: 80%;
-  margin: 20px auto;
+  margin: 20px auto; */
+  margin-bottom: 2em;
 
+}
+
+.disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media (max-width: 769px) {

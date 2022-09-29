@@ -41,7 +41,7 @@ function toggleAccordion(e, edit_mode = false) {
 // when mc-disclaimer is clicked remove acc-disabled class from all elements
 
 $("#mc-disclaimer").click(function () {
-  $(".accordion").find(".acc-disabled").removeClass("acc-disabled");
+  $(".accordion").find(".disabled").removeClass("disabled");
 });
 
 
