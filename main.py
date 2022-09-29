@@ -75,13 +75,15 @@ def upload():
 
     if(timber_product_ratios.filename != ''):
         timber_product_ratios = pd.read_csv(timber_product_ratios)
-        if(timber_product_ratios.keys()[0] != 'TimberProductID' or timber_product_ratios.keys()[1] != "Year" or timber_product_ratios.keys()[2] != "Ratio"):
+        if(timber_product_ratios.keys()[0] != 'TimberProductID' or timber_product_ratios.keys()[1] != "Year" or (timber_product_ratios.keys()[2] != "Ratio" and timber_product_ratios.keys()[2] != "TimberProductRatio")):
             timber_product_ratios = timber_product_ratios.melt(id_vars="TimberProductID",
                                                                      var_name="Year",
                                                                      value_name="Ratio")
             timber_product_ratios = timber_product_ratios.to_csv(index=False) 
+            print(timber_product_ratios)
         else:
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
+            print(timber_product_ratios)
             
     region_selection = request.form['regionselection']
     if(region_selection == "Custom"):
