@@ -114,6 +114,7 @@ class S3Helper(object):
                 "end_use_products.csv": "",
                 "discard_destinations.csv": "",
                 "discard_destination_ratios.csv": "",
+                "regions.csv":"",
                 # "distribution_data.csv": "",
                 "discard_burned_w_energy_capture.csv": "",
                 "mbf_to_ccf_conversion.csv": "",
