@@ -89,6 +89,7 @@ class S3Helper(object):
         data_json = {
             "scenario_name": "",
             "email": "",
+            "user_string": "",
             "harvest_data_type": "",
             "end_use_loss_factor" : 0,
             "simulation_date": "",
