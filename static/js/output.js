@@ -29,6 +29,14 @@ captions_dict["total_emissions_dispositions2"] = [{text:""}]
 // captions_dict["total_emissions_dispositions2"] = [{text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burning discarded products <br> with and without energy capture, composted discarded harvested wood products, and discarded products in dumps and landfills manufactured <br> from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy <br> capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. <br> Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood <br> and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper waste was generally discarded <br> to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon <br> dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane."}]
 captions_dict["swds_emissions"] = [{text: "Total cumulative metric tons carbon emitted from discarded products in landfills and dumps manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills and dumps is decay without <br> energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not <br> included. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based <br> greenhouse gases such as methane."}]
 
+header_dict = []
+
+header_dict["annual_timber_harvest_table"] = ['Year', 'CCF MgC', 'End Use MgC']
+header_dict["total_yearly_net_change"] = ['Year', 'SWDS Present Change MgC']
+header_dict["total_selected_net_change"] = ['Year', 'Products in Use MgC', 'SWDS MgC', 'Products in Use Change MgC', 'SWDS Change MgC']
+header_dict["total_yearly_dispositions"] = ['Year', 'SWDS Present Change MgC', 'Emitted with Energy Capture co2e', 'Emitted with Energy Capture Change co2e', 'Emitted without Energy Capture co2e', 'Emitted without Energy Capture Change co2e', 'Products in Use Change Mgc', 'SWDS MgC', 'SWDS Change MgC', 'Total Remaining MgC', 'Total Change MgC']
+header_dict["total_selected_dispositions"] = ['Year', 'SWDS Present Change MgC', 'Emitted with Energy Capture co2e', 'Emitted with Energy Capture Change co2e', 'Emitted without Energy Capture co2e', 'Emitted without Energy Capture Change co2e', 'Products in Use Change Mgc', 'SWDS MgC', 'SWDS Change MgC', 'Total Remaining MgC', 'Total Change MgC']
+
 output.initialize = function(input_json,bucket,file_name,is_single) {
     data_bucket = bucket
     data_file_name = file_name
@@ -1185,6 +1193,7 @@ generate_hidden_graph = function (json_data, graph_class, title, w, h, graph_typ
 }
 
 generate_table = function (json_data, table_class, title) {
+
         
     tester = document.getElementsByClassName("hidden " + table_class)[0];
                      
@@ -1199,7 +1208,18 @@ generate_table = function (json_data, table_class, title) {
                   
             
             var headerNames = Object.keys(rows[0]);
-                    
+
+            console.log(headerNames)
+
+            let imageWidth = 0
+            console.log(headerNames.length)
+            if (headerNames.length <= 4) {
+                imageWidth = 512
+            }
+            else {
+                imageWidth = 692
+            }
+
             var headerColor = "grey";
             var rowEvenColor = "lightgrey";
             var rowOddColor = "white";
@@ -1210,7 +1230,16 @@ generate_table = function (json_data, table_class, title) {
                 headerValue = [headerNames[i]];
                 headerValues[i] = headerValue;
                 cellValue = unpack(rows, headerNames[i]);
-                cellValues[i] = cellValue;
+                if (i >= 1) {
+                    temp=[]
+                    for (j = 0; j < cellValue.length; j++) { 
+                        temp.push(parseFloat(cellValue[j]).toFixed(2));
+                    }
+                    cellValues[i] = temp;
+                }
+                else {
+                    cellValues[i] = cellValue;
+                }
             }
                   
             // clean date
@@ -1221,14 +1250,13 @@ generate_table = function (json_data, table_class, title) {
                   
             var data_layout = [{
                 type: 'table',
-                columnwidth: [50, 50, 50, 50, 50, 50, 50, 50, 50],
-                columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
+                columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 header: {
-                    values: headerValues,
-                    align: "center",
+                    values: header_dict[table_class],
                     line: { width: 1, color: 'rgb(50, 50, 50)' },
                     fill: { color: headerColor },
-                    font: { family: "Open Sans", size: 16, color: "white" }
+                    font: { family: "Open Sans", size: 14, color: "white"}
                 },
                 cells: {
                     values: cellValues,
@@ -1236,15 +1264,16 @@ generate_table = function (json_data, table_class, title) {
                     align: ["center", "center"],
                     line: { color: "gray", width: 1 },
                     // fill: { color: "white" },
-                    font: { family: "Open Sans", size: 14, color: ["black"] }
+                    font: { family: "Open Sans", size: 12, color: ["black"] }
                 },
                 
             }]
+            
                   
             var layout = {
                 title: title,
                 height: (cellValues[0].length + 2) * 30 + 100,
-                width: headerNames.length * 300,
+                width: imageWidth,
 
             }
                   
@@ -1427,24 +1456,49 @@ function export_tables() {
 function savePDF(imageDataURL, file_name) {
 
   var image = new Image();
-  image.onload = function() {
-    let pageWidth = image.naturalWidth;
-    let pageHeight = image.naturalHeight;
+    image.onload = function () {
+        imageWidth = image.naturalWidth;
+        imageHeight = image.naturalHeight;
+        let orientation = ""
+        let pageWidth = 0
+        let pageHeight = 0
+        var position = 10;
+        if (imageWidth > imageHeight) {
+            orientation = "landscape"
+            pageWidth = 792
+            pageHeight = 612
+        }
+        else {
+            orientation = "portrait"
+            pageWidth = 612
+            pageHeight = 792
+        }
+    // let pageWidth = image.naturalWidth;
+    //   let pageHeight = image.naturalHeight;
+      let heightLeft = imageHeight;
 
     const pdf = new jsPDF({
-      orientation: pageHeight > pageWidth ? "portrait": "landscape",
-      unit: "px",
-      format: [pageHeight, pageWidth]
+        orientation: orientation,
+        unit: "px",
+        format: [pageHeight, pageWidth]
     });
 
-    pdf.addImage(imageDataURL, 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+        pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+        heightLeft -= pageHeight;
+        // console.log(heightLeft);
+        while (heightLeft >= 0) {
+            position += heightLeft;
+            pdf.addPage();
+            pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+            heightLeft -= pageHeight;
+        }
     var blob = pdf.output('blob');
     zip.file(file_name, blob, { binary: true })
     small_count += 1;
     if(small_count == big_count){
         zip.generateAsync({ type: "blob" }).then(function callback(content) {
           // see FileSaver.js
-          console.log(content)
+        //   console.log(content)
           saveAs(content, data_file_name+".zip");});
       }
 
@@ -1455,7 +1509,8 @@ function savePDF(imageDataURL, file_name) {
 
 async function generate_tables(div, options,file_name) {
 
-  url = await Plotly.toImage(div, options);
+    url = await Plotly.toImage(div, options);
+    // console.log(url)
   savePDF(url, file_name);
   
 }
@@ -1467,7 +1522,7 @@ function export_plots() {
   
   $(".dl-files").children().each(function () {
     tempChk = $(this).children()[0];
-    console.log(tempChk.checked)
+    // console.log(tempChk.checked)
     if (tempChk.checked == true) {
       png_options = { format: 'png', width: 1300, height: 700 };
       console.log(document.getElementsByClassName(tempChk.value)[0])
