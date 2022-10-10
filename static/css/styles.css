@@ -1479,6 +1479,7 @@ input[type="radio"]:after{
 }
 
 .active-graph::after {
+  margin-left: 2em;
   content: "Click to make graphs larger";
 }
 
