@@ -840,8 +840,6 @@ generate_hidden_graph = function (json_data, graph_class, title, w, h, graph_typ
     console.log(graph_class)
 
     $("." + graph_class).html("")
-    console.log("hello")
-
     if (graph_type == "line") {
         
         tester = document.getElementsByClassName("hidden " + graph_class)[0];
@@ -1226,11 +1224,12 @@ generate_table = function (json_data, table_class, title) {
 
             let imageWidth = 0
             console.log(headerNames.length)
-            if (headerNames.length <= 4) {
-                imageWidth = 512
+
+            if (headerNames.length <= 5) {
+                imageWidth =  1225 // pdf exports at letter mm size, 2551px will give it 144ppi 'resolution'
             }
             else {
-                imageWidth = 692
+                imageWidth = 1582
             }
 
             var headerColor = "grey";
@@ -1285,7 +1284,7 @@ generate_table = function (json_data, table_class, title) {
                   
             var layout = {
                 title: title,
-                height: (cellValues[0].length + 2) * 30 + 100,
+                height: (cellValues[0].length + 5) * 30 + 100,
                 width: imageWidth,
 
             }
@@ -1468,55 +1467,107 @@ function export_tables() {
 
 function savePDF(imageDataURL, file_name) {
 
-  var image = new Image();
+//   var image = new Image();
+//     image.onload = function () {
+//         imageWidth = image.naturalWidth;
+//         imageHeight = image.naturalHeight;
+//         let orientation = ""
+//         let pageWidth = 0
+//         let pageHeight = 0
+//         var position = 10;
+//         if (imageWidth > imageHeight) {
+//             orientation = "landscape"
+//             pageWidth = 792
+//             pageHeight = 612
+//         }
+//         else {
+//             orientation = "portrait"
+//             pageWidth = 612
+//             pageHeight = 792
+//         }
+//     // let pageWidth = image.naturalWidth;
+//     //   let pageHeight = image.naturalHeight;
+//       let heightLeft = imageHeight;
+
+//     const pdf = new jsPDF({
+//         orientation: orientation,
+//         unit: "px",
+//         format: [pageHeight, pageWidth]
+//     });
+
+//         pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+//         heightLeft -= pageHeight;
+//         // console.log(heightLeft);
+//         while (heightLeft >= 0) {
+//             position += heightLeft;
+//             pdf.addPage();
+//             pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+//             heightLeft -= pageHeight;
+//         }
+//     var blob = pdf.output('blob');
+//     zip.file(file_name, blob, { binary: true })
+//     small_count += 1;
+//     if(small_count == big_count){
+//         zip.generateAsync({ type: "blob" }).then(function callback(content) {
+//           // see FileSaver.js
+//         //   console.log(content)
+//           saveAs(content, data_file_name+".zip");});
+//       }
+
+//   }
+//   image.src = imageDataURL;
+    
+    var image = new Image();
     image.onload = function () {
+        var imgData = imageDataURL;
         imageWidth = image.naturalWidth;
         imageHeight = image.naturalHeight;
         let orientation = ""
-        let pageWidth = 0
-        let pageHeight = 0
-        var position = 10;
-        if (imageWidth > imageHeight) {
+        let imgWidth = 0;
+        let pageHeight = 0;
+
+        if (imageWidth >= 1582) {
+            console.log("landscape")
             orientation = "landscape"
-            pageWidth = 792
-            pageHeight = 612
+            imgWidth = 270;
+            pageHeight = 236;
         }
         else {
+            console.log("portrait")
             orientation = "portrait"
-            pageWidth = 612
-            pageHeight = 792
+            imgWidth = 210;
+            pageHeight = 279;
         }
-    // let pageWidth = image.naturalWidth;
-    //   let pageHeight = image.naturalHeight;
-      let heightLeft = imageHeight;
+        
+        
+        var imgHeight = imageHeight * imgWidth / imageWidth;
+        var heightLeft = imgHeight;
 
-    const pdf = new jsPDF({
-        orientation: orientation,
-        unit: "px",
-        format: [pageHeight, pageWidth]
-    });
+        var pdf = new jsPDF({
+            orientation: orientation,
+            unit: "mm",
+            format: "letter"
+        });
+        var position = 10; // give some top padding to first page
 
-        pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-        // console.log(heightLeft);
+
         while (heightLeft >= 0) {
-            position += heightLeft;
+            position = heightLeft - imgHeight + 10; // top padding for other pages
             pdf.addPage();
-            pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
         }
-    var blob = pdf.output('blob');
-    zip.file(file_name, blob, { binary: true })
-    small_count += 1;
-    if(small_count == big_count){
-        zip.generateAsync({ type: "blob" }).then(function callback(content) {
-          // see FileSaver.js
-        //   console.log(content)
-          saveAs(content, data_file_name+".zip");});
-      }
-
-  }
-  image.src = imageDataURL;
+        var blob = pdf.output('blob');
+        zip.file(file_name, blob, { binary: true })
+        small_count += 1;
+        if(small_count == big_count){
+            zip.generateAsync({ type: "blob" }).then(function callback(content) {
+            saveAs(content, data_file_name+".zip");});
+        }
+    }
+    image.src = imageDataURL;
 }
 
 
