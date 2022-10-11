@@ -91,6 +91,7 @@ class S3Helper(object):
             "email": "",
             "user_string": "",
             "harvest_data_type": "",
+            "is_official_record": "",
             "end_use_loss_factor" : 0,
             "simulation_date": "",
             "start_year": 0,
