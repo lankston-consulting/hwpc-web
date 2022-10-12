@@ -25,7 +25,6 @@ class StorageHelper(ABC):
 
         return cls._instance
 
-
     @abstractmethod
     def check_file_exists_on_cloud(self, bucket, filename):
         """
@@ -38,7 +37,7 @@ class StorageHelper(ABC):
         pass
 
     @abstractmethod
-    def list_blobs(self, bucket_name, p=''):
+    def list_blobs(self, bucket_name, p=""):
         """
         Return a list of all object blobs in the given bucket matching the optional prefix p
         :param bucket_name:
@@ -48,7 +47,7 @@ class StorageHelper(ABC):
         pass
 
     @abstractmethod
-    def list_blobs_names(self, bucket_name, p=''):
+    def list_blobs_names(self, bucket_name, p=""):
         """
         Return a list of all blob names in the given bucket matching the optional prefix p
         :param bucket_name:
@@ -108,7 +107,7 @@ class StorageHelper(ABC):
         :return:
         """
         pass
-    
+
     @abstractmethod
     def upload_input_group(self, bucket_name, source_file_name, data, data_type):
         """[summary]
@@ -119,5 +118,5 @@ class StorageHelper(ABC):
             data ([type]): [description]
             data_type ([type]): [description]
         """
-        
+
         pass
