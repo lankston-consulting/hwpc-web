@@ -1466,57 +1466,6 @@ function export_tables() {
 
 
 function savePDF(imageDataURL, file_name) {
-
-//   var image = new Image();
-//     image.onload = function () {
-//         imageWidth = image.naturalWidth;
-//         imageHeight = image.naturalHeight;
-//         let orientation = ""
-//         let pageWidth = 0
-//         let pageHeight = 0
-//         var position = 10;
-//         if (imageWidth > imageHeight) {
-//             orientation = "landscape"
-//             pageWidth = 792
-//             pageHeight = 612
-//         }
-//         else {
-//             orientation = "portrait"
-//             pageWidth = 612
-//             pageHeight = 792
-//         }
-//     // let pageWidth = image.naturalWidth;
-//     //   let pageHeight = image.naturalHeight;
-//       let heightLeft = imageHeight;
-
-//     const pdf = new jsPDF({
-//         orientation: orientation,
-//         unit: "px",
-//         format: [pageHeight, pageWidth]
-//     });
-
-//         pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
-//         heightLeft -= pageHeight;
-//         // console.log(heightLeft);
-//         while (heightLeft >= 0) {
-//             position += heightLeft;
-//             pdf.addPage();
-//             pdf.addImage(imageDataURL, 0, position, imageWidth, imageHeight);
-//             heightLeft -= pageHeight;
-//         }
-//     var blob = pdf.output('blob');
-//     zip.file(file_name, blob, { binary: true })
-//     small_count += 1;
-//     if(small_count == big_count){
-//         zip.generateAsync({ type: "blob" }).then(function callback(content) {
-//           // see FileSaver.js
-//         //   console.log(content)
-//           saveAs(content, data_file_name+".zip");});
-//       }
-
-//   }
-//   image.src = imageDataURL;
-    
     var image = new Image();
     image.onload = function () {
         var imgData = imageDataURL;
@@ -1562,7 +1511,17 @@ function savePDF(imageDataURL, file_name) {
         var blob = pdf.output('blob');
         zip.file(file_name, blob, { binary: true })
         small_count += 1;
-        if(small_count == big_count){
+        if (small_count == big_count) {
+            if (document.getElementById("official_check").checked == true) { 
+                fetch(`/set-official?p=`+data_bucket)
+                    .then(function (response) {
+                        return response.text();
+                    }).then(function (text) {
+                        console.log('GET response text:');
+                        console.log(text); 
+                    });
+
+            }
             zip.generateAsync({ type: "blob" }).then(function callback(content) {
             saveAs(content, data_file_name+".zip");});
         }
@@ -1604,7 +1563,8 @@ async function generate_image(div, options,file_name) {
 function export_csv() {
     for (let i in data_dict) {
         if(i.includes("hidden") == false && i.includes("2") == false){
-            zip.file(i+".csv", data_dict[i][0], { binary: true })
+            zip.file(i + ".csv", data_dict[i][0], { binary: true })
+            
         }
     }
     }
@@ -1630,6 +1590,9 @@ function urlToPromise(url) {
         export_tables();
         export_csv();
         export_plots();
+
+
+
     });
 
 

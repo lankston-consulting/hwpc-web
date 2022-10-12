@@ -5,6 +5,7 @@ import zipfile
 from datetime import datetime
 import pandas as pd
 import numpy as np
+import tempfile
 from io import StringIO
 from flask import Flask, redirect, render_template, request, jsonify
 # from config import gch
@@ -162,6 +163,23 @@ def upload():
 @app.route('/submit')
 def submit():
     return render_template("pages/submit.html")
+
+@app.route("/set-official", methods=['GET'])
+def set_official():
+    p = request.args.get("p")
+    data_json = S3Helper.download_file("hwpc","hwpc-user-inputs/" + p + "/user_input.json")
+    deliver_json = {}
+    with open(data_json.name,"r+") as f:
+        data = json.load(f)
+        data["is_official_record"] = "true"
+        deliver_json = json.dumps(data)
+    deliver_json = deliver_json.encode()
+    user_file = tempfile.TemporaryFile()
+    user_file.write(deliver_json)
+    user_file.seek(0)
+    S3Helper.upload_file(user_file, "hwpc", "hwpc-user-inputs/" + p + "/user_input.json")
+    user_file.close()
+    return
 
 @app.route('/output', methods=['GET'])
 def output():
