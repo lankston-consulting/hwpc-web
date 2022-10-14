@@ -2154,7 +2154,7 @@ function savePDF(imageDataURL, file_name) {
       console.log("landscape");
       orientation = "landscape";
       imgWidth = 270;
-      pageHeight = 236;
+      pageHeight = 213;
     } else {
       console.log("portrait");
       orientation = "portrait";
