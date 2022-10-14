@@ -32,7 +32,7 @@
 } */
 
 html, body {
-  height: 100%;
+  height: fit-content;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
@@ -335,7 +335,9 @@ li {
 
 /* Calculator/Accordion */
 
-
+#calc-page {
+ display: block;
+}
 
 .calc-config-container {
 
