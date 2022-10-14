@@ -184,7 +184,7 @@ def upload():
         "end_year": stop_year,
         "user_string": new_id,
     }
-
+    
     # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
 
     # print(new_id)
