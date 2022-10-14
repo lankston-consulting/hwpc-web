@@ -118,7 +118,8 @@ class S3Helper(object):
         for key, value in data.items():
             # If the code was potentially converted from a pandas dataframe for wide-to-long formatting or is just a string type it pases through here
             print(key)
-            if str(type(value)) == "<class 'str'>" and ".csv" in key:
+
+            if str(type(value)) == "<class 'str'>" and ".csv" in key and "primary_product_ratios" not in key:
 
                 path = source_file_name + key
                 temp_file = tempfile.TemporaryFile()
@@ -148,15 +149,7 @@ class S3Helper(object):
             ):
                 data_json["region"]["name"] = value
                 if (
-                    value != "North Central"
-                    and value != "Northeast"
-                    and value != "Pacific Northwest, East"
-                    and value != "Pacific Northwest, West"
-                    and value != "Pacific Southwest"
-                    and value != "Rocky Mountain"
-                    and value != "South Central"
-                    and value != "Southeast"
-                    and value != "West"
+                    value == "Custom"
                 ):
                     data_json["region"]["custom"] = "true"
 
@@ -179,6 +172,15 @@ class S3Helper(object):
         if data_json["region"]["custom"] == "false":
             data_json["inputs"]["primary_product_ratios.csv"] = ""
 
+        else:
+            path = source_file_name + "primary_product_ratios.csv"
+            temp_file = tempfile.TemporaryFile()
+            temp_file.write(data["primary_product_ratios.csv"].encode())
+            temp_file.seek(0)
+            data_json["inputs"]["primary_product_ratios.csv"] = path
+            S3Helper.upload_file(temp_file, bucket_name, path)
+            temp_file.close()
+            
         for i in data_json["inputs"]:
             if data_json["inputs"][i] == "":
                 data_json["inputs"][i] = "Default Data"
