@@ -30,7 +30,6 @@
             </fieldset>
             <br>
             <br>
-            <button style="display:none;" type="submit"></button>
             <div>
                 <div style="margin-bottom: 1em;">
                     <a id="yearfilter" class="link-1 custom-btn custom-btn-output">Filter</a>
@@ -138,5 +137,6 @@
 <script async>
     output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}');
 </script>
+
 
 {% endblock content %}
