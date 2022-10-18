@@ -65,7 +65,7 @@ def upload():
     yearly_harvest_input = request.files["yearlyharvestinput"]
     if yearly_harvest_input.filename != "":
         yearly_harvest_input = pd.read_csv(yearly_harvest_input)
-
+        yearly_harvest_input.columns = yearly_harvest_input.columns.str.replace(' ', '')
         if (
             yearly_harvest_input.keys()[0] != "Year"
             or yearly_harvest_input.keys()[1] != "ccf"
@@ -86,7 +86,6 @@ def upload():
                 yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) - 1]
             )
             stop_year = str(yearly_harvest_input["Year"][0])
-            print(start_year)
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
 
     harvest_data_type = request.form["harvestdatatype"]
@@ -94,6 +93,7 @@ def upload():
 
     if timber_product_ratios.filename != "":
         timber_product_ratios = pd.read_csv(timber_product_ratios)
+        timber_product_ratios.columns = timber_product_ratios.columns.str.replace(' ', '')
         if (
             timber_product_ratios.keys()[0] != "TimberProductID"
             or timber_product_ratios.keys()[1] != "Year"
@@ -116,6 +116,7 @@ def upload():
         custom_region_file = request.files["customregion"]
         if custom_region_file.filename != "":
             custom_region_file = pd.read_csv(custom_region_file)
+            custom_region_file.columns = custom_region_file.columns.str.replace(' ', '')
             if (
                 custom_region_file.keys()[0] != "PrimaryProductID"
                 or custom_region_file.keys()[1] != "Year"
@@ -133,6 +134,7 @@ def upload():
     end_use_product_ratios = request.files["EndUseRatiosFilename"]
     if end_use_product_ratios.filename != "":
         end_use_product_ratios = pd.read_csv(end_use_product_ratios)
+        end_use_product_ratios.columns = end_use_product_ratios.columns.str.replace(' ', '')
         if (
             end_use_product_ratios.keys()[0] != "EndUseID"
             or end_use_product_ratios.keys()[1] != "Year"
