@@ -1971,6 +1971,20 @@ $("#singleYear").on("change", function (e) {
   );
 });
 
+$("#singleYear").on('keypress', function (e) {
+  if (e.keyCode === 13) {
+      e.preventDefault();
+    console.log(document.getElementById('yearfilter').href);
+    document.getElementById('yearfilter').href = "/output?p=" +
+    data_bucket +
+    "&q=" +
+    data_file_name +
+      "&y=" +
+      $("#singleYear").val();
+      document.getElementById('yearfilter').click();
+  };
+});
+
 $(document).ready(function () {
   $("#yearfilter").attr(
     "href",
