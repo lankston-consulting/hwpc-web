@@ -28,12 +28,6 @@ def home():
 def calculator():
     return render_template("pages/calculator.html")
 
-
-# @app.route('/output', methods=['GET'])
-# def output():
-#     return render_template('pages/output.html')
-
-
 @app.route("/reference", methods=["GET"])
 def test():
     return render_template("pages/reference.html")
@@ -67,25 +61,37 @@ def upload():
         yearly_harvest_input = pd.read_csv(yearly_harvest_input)
         yearly_harvest_input.columns = yearly_harvest_input.columns.str.replace(' ', '')
         if (
-            yearly_harvest_input.keys()[0] != "Year"
-            or yearly_harvest_input.keys()[1] != "ccf"
+            len(yearly_harvest_input.columns) > 2
         ):
+            # Ensures that any long formatted data will start with YearID to begin the melt process
+            yearly_harvest_input.rename(columns={ yearly_harvest_input.columns[0]: "YearID"}, inplace = True)
             yearly_harvest_input = yearly_harvest_input.melt(
                 id_vars="YearID", var_name="Year", value_name="ccf"
             )
+            
             yearly_harvest_input = yearly_harvest_input[
                 yearly_harvest_input["ccf"] != 0
             ]
+            yearly_harvest_input = yearly_harvest_input.drop(['YearID'], axis=1)
             start_year = str(
-                yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) - 1]
+                yearly_harvest_input["Year"].min()
             )
-            stop_year = str(yearly_harvest_input["Year"][0])
+            stop_year = str(yearly_harvest_input["Year"].max())
+            for i in yearly_harvest_input.columns:
+                if(yearly_harvest_input[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Harvest Data Column: " + i)
+
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         else:
+            yearly_harvest_input.rename(columns={ yearly_harvest_input.columns[0]: "Year", yearly_harvest_input.columns[1]: "ccf" }, inplace = True)
+            for i in yearly_harvest_input.columns:
+                if(yearly_harvest_input[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Harvest Data Column: " + i)
+
             start_year = str(
-                yearly_harvest_input["Year"][len(yearly_harvest_input["Year"]) - 1]
+                yearly_harvest_input["Year"].min()
             )
-            stop_year = str(yearly_harvest_input["Year"][0])
+            stop_year = str(yearly_harvest_input["Year"].max())
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
 
     harvest_data_type = request.form["harvestdatatype"]
@@ -95,21 +101,25 @@ def upload():
         timber_product_ratios = pd.read_csv(timber_product_ratios)
         timber_product_ratios.columns = timber_product_ratios.columns.str.replace(' ', '')
         if (
-            timber_product_ratios.keys()[0] != "TimberProductID"
-            or timber_product_ratios.keys()[1] != "Year"
-            or (
-                timber_product_ratios.keys()[2] != "Ratio"
-                and timber_product_ratios.keys()[2] != "TimberProductRatio"
-            )
+            len(timber_product_ratios.columns) > 3
         ):
+            # Ensures that any long formatted data will start with TimberProductID to begin the melt process
+            timber_product_ratios.rename(columns={ timber_product_ratios.columns[0]: "TimberProductID"}, inplace = True)
             timber_product_ratios = timber_product_ratios.melt(
                 id_vars="TimberProductID", var_name="Year", value_name="Ratio"
             )
+            timber_product_ratios.rename(columns={ timber_product_ratios.columns[0]: "TimberProductID", timber_product_ratios.columns[1]: "Year", timber_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in timber_product_ratios.columns:
+                if(timber_product_ratios[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Timber Product Ratios Column: " + i)
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
-            print(timber_product_ratios)
+            
         else:
+            timber_product_ratios.rename(columns={ timber_product_ratios.columns[0]: "TimberProductID", timber_product_ratios.columns[1]: "Year", timber_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in timber_product_ratios.columns:
+                if(timber_product_ratios[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Timber Product Ratios Column: " + i)
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
-            print(timber_product_ratios)
 
     region_selection = request.form["regionselection"]
     if region_selection == "Custom":
@@ -118,17 +128,23 @@ def upload():
             custom_region_file = pd.read_csv(custom_region_file)
             custom_region_file.columns = custom_region_file.columns.str.replace(' ', '')
             if (
-                custom_region_file.keys()[0] != "PrimaryProductID"
-                or custom_region_file.keys()[1] != "Year"
-                or custom_region_file.keys()[2] != "Ratio"
+                len(custom_region_file.columns) > 3
             ):
+                # Ensures that any long formatted data will start with PrimaryProductID to begin the melt process
+                custom_region_file.rename(columns={ custom_region_file.columns[0]: "PrimaryProductID"}, inplace = True)
                 custom_region_file = custom_region_file.melt(
                     id_vars="PrimaryProductID", var_name="Year", value_name="Ratio"
                 )
+                for i in custom_region_file.columns:
+                    if(custom_region_file[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: Primary Product Ratios Column: " + i)
                 custom_region_file = custom_region_file.to_csv(index=False)
             else:
+                custom_region_file.rename(columns={ custom_region_file.columns[0]: "PrimaryProductID", custom_region_file.columns[1]: "Year", custom_region_file.columns[2]: "Ratio" }, inplace = True)
+                for i in custom_region_file.columns:
+                    if(custom_region_file[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: Primary Product Ratios Column: " + i)
                 custom_region_file = custom_region_file.to_csv(index=False)
-
     else:
         custom_region_file = ""
     end_use_product_ratios = request.files["EndUseRatiosFilename"]
@@ -136,15 +152,22 @@ def upload():
         end_use_product_ratios = pd.read_csv(end_use_product_ratios)
         end_use_product_ratios.columns = end_use_product_ratios.columns.str.replace(' ', '')
         if (
-            end_use_product_ratios.keys()[0] != "EndUseID"
-            or end_use_product_ratios.keys()[1] != "Year"
-            or end_use_product_ratios.keys()[2] != "Ratio"
+            len(end_use_product_ratios.columns) > 3
         ):
+            # Ensures that any long formatted data will start with EndUseID to begin the melt process
+            end_use_product_ratios.rename(columns={ end_use_product_ratios.columns[0]: "EndUseID"}, inplace = True)
             end_use_product_ratios = end_use_product_ratios.melt(
                 id_vars="EndUseID", var_name="Year", value_name="Ratio"
             )
+            for i in end_use_product_ratios.columns:
+                    if(end_use_product_ratios[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: End Use Product Ratios Column: " + i)
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
         else:
+            end_use_product_ratios.rename(columns={ end_use_product_ratios.columns[0]: "EndUseID", end_use_product_ratios.columns[1]: "Year", end_use_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in end_use_product_ratios.columns:
+                    if(end_use_product_ratios[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: End Use Product Ratios Column: " + i)
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
 
     if request.form.get("enduseproductrates"):
@@ -163,7 +186,7 @@ def upload():
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
     new_id = str(uuid.uuid4())
-    # The data is compiled to a dictionary to be processed with the GcsHelper class
+    # The data is compiled to a dictionary to be processed with the S3Helper class
     data = {
         "harvest_data.csv": yearly_harvest_input,
         "harvest_data_type": harvest_data_type,
@@ -187,12 +210,7 @@ def upload():
         "user_string": new_id,
     }
     
-    # The file type is recorded to check between different data types in the GcsHelper.upload_input_group() method.
-
-    # print(new_id)
     S3Helper.upload_input_group("hwpc", user_data_folder + new_id + "/", data)
-    # return "This is a test to view the submitted data"
-    # return render_template('pages/submit.html', file_path=user_data_folder + new_id + '/', run_name=run_name, run_path = 'https://hwpc-calculator-3d43jw4gpa-uw.a.run.app' + '/?p=' + user_data_folder + new_id + '&q=' + run_name)
     return render_template("pages/submit.html")
 
 
