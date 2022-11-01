@@ -28,12 +28,6 @@ def home():
 def calculator():
     return render_template("pages/calculator.html")
 
-
-# @app.route('/output', methods=['GET'])
-# def output():
-#     return render_template('pages/output.html')
-
-
 @app.route("/reference", methods=["GET"])
 def test():
     return render_template("pages/reference.html")
@@ -83,9 +77,17 @@ def upload():
                 yearly_harvest_input["Year"].min()
             )
             stop_year = str(yearly_harvest_input["Year"].max())
+            for i in yearly_harvest_input.columns:
+                if(yearly_harvest_input[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Harvest Data Column: " + i)
+
             yearly_harvest_input = yearly_harvest_input.to_csv(index=False)
         else:
             yearly_harvest_input.rename(columns={ yearly_harvest_input.columns[0]: "Year", yearly_harvest_input.columns[1]: "ccf" }, inplace = True)
+            for i in yearly_harvest_input.columns:
+                if(yearly_harvest_input[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Harvest Data Column: " + i)
+
             start_year = str(
                 yearly_harvest_input["Year"].min()
             )
@@ -107,10 +109,16 @@ def upload():
                 id_vars="TimberProductID", var_name="Year", value_name="Ratio"
             )
             timber_product_ratios.rename(columns={ timber_product_ratios.columns[0]: "TimberProductID", timber_product_ratios.columns[1]: "Year", timber_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in timber_product_ratios.columns:
+                if(timber_product_ratios[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Timber Product Ratios Column: " + i)
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
             
         else:
             timber_product_ratios.rename(columns={ timber_product_ratios.columns[0]: "TimberProductID", timber_product_ratios.columns[1]: "Year", timber_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in timber_product_ratios.columns:
+                if(timber_product_ratios[i].dropna().empty):
+                    return render_template("pages/calculator.html",error="Missing Column Data in File: Timber Product Ratios Column: " + i)
             timber_product_ratios = timber_product_ratios.to_csv(index=False)
 
     region_selection = request.form["regionselection"]
@@ -127,9 +135,15 @@ def upload():
                 custom_region_file = custom_region_file.melt(
                     id_vars="PrimaryProductID", var_name="Year", value_name="Ratio"
                 )
+                for i in custom_region_file.columns:
+                    if(custom_region_file[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: Primary Product Ratios Column: " + i)
                 custom_region_file = custom_region_file.to_csv(index=False)
             else:
                 custom_region_file.rename(columns={ custom_region_file.columns[0]: "PrimaryProductID", custom_region_file.columns[1]: "Year", custom_region_file.columns[2]: "Ratio" }, inplace = True)
+                for i in custom_region_file.columns:
+                    if(custom_region_file[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: Primary Product Ratios Column: " + i)
                 custom_region_file = custom_region_file.to_csv(index=False)
     else:
         custom_region_file = ""
@@ -145,9 +159,15 @@ def upload():
             end_use_product_ratios = end_use_product_ratios.melt(
                 id_vars="EndUseID", var_name="Year", value_name="Ratio"
             )
+            for i in end_use_product_ratios.columns:
+                    if(end_use_product_ratios[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: End Use Product Ratios Column: " + i)
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
         else:
             end_use_product_ratios.rename(columns={ end_use_product_ratios.columns[0]: "EndUseID", end_use_product_ratios.columns[1]: "Year", end_use_product_ratios.columns[2]: "Ratio" }, inplace = True)
+            for i in end_use_product_ratios.columns:
+                    if(end_use_product_ratios[i].dropna().empty):
+                        return render_template("pages/calculator.html",error="Missing Column Data in File: End Use Product Ratios Column: " + i)
             end_use_product_ratios = end_use_product_ratios.to_csv(index=False)
 
     if request.form.get("enduseproductrates"):
