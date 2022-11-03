@@ -140,7 +140,7 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
   const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output);
   harvestminDateYear = data[0].Year;
   harvestmaxDateYear = data[data.length - 1].Year;
-  console.log(is_single);
+  // console.log(is_single);
   if (is_single == "true") {
     $("#singleYearBtn").attr("checked", "true");
     $("#yearInput-1").show("fast");
@@ -373,6 +373,7 @@ $("#defaultOpen").click(function (e) {
       ]
     );
   }
+  console.log(active_id)
   generate_graph(
     data_dict[active_id][0],
     active_id,
@@ -426,7 +427,7 @@ $("#solidCarbon").click(function (e) {
     captions_dict[active_id]
   );
   for (let i = 0; i < inactive_ids.length; i++) {
-    console.log(data_dict[inactive_ids[i]]);
+    // console.log(data_dict[inactive_ids[i]]);
     generate_graph(
       data_dict[inactive_ids[i]][0],
       inactive_ids[i],
@@ -445,7 +446,7 @@ $("#emissions").click(function (e) {
       $("#emissionsContent").children()[0].classList.length - 1
     ];
   inactive = $("#emissionsContent").children()[1].children;
-  console.log(inactive);
+  // console.log(inactive);
   inactive_ids = [];
   for (
     let i = 0;
@@ -470,7 +471,7 @@ $("#emissions").click(function (e) {
     captions_dict[active_id]
   );
   for (let i = 0; i < inactive_ids.length; i++) {
-    console.log(inactive_ids[i]);
+    // console.log(inactive_ids[i]);
     generate_graph(
       data_dict[inactive_ids[i]][0],
       inactive_ids[i],
@@ -600,7 +601,7 @@ $("#solidCarbon").keydown(function (e) {
       captions_dict[active_id]
     );
     for (let i = 0; i < inactive_ids.length; i++) {
-      console.log(data_dict[inactive_ids[i]]);
+      // console.log(data_dict[inactive_ids[i]]);
       generate_graph(
         data_dict[inactive_ids[i]][0],
         inactive_ids[i],
@@ -622,7 +623,7 @@ $("#emissions").keydown(function (e) {
         $("#emissionsContent").children()[0].classList.length - 1
       ];
     inactive = $("#emissionsContent").children()[1].children;
-    console.log(inactive);
+    // console.log(inactive);
     inactive_ids = [];
     for (
       let i = 0;
@@ -647,7 +648,7 @@ $("#emissions").keydown(function (e) {
       captions_dict[active_id]
     );
     for (let i = 0; i < inactive_ids.length; i++) {
-      console.log(inactive_ids[i]);
+      // console.log(inactive_ids[i]);
       generate_graph(
         data_dict[inactive_ids[i]][0],
         inactive_ids[i],
@@ -795,7 +796,7 @@ generate_graph = function (
       Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
     } else if (graph_type == "stack") {
       tester = document.getElementsByClassName("non-active " + graph_class)[0];
-      console.log(tester);
+      // console.log(tester);
       const data = d3.csvParse(json_data);
       stackedData = [];
       year_data = [];
@@ -867,6 +868,24 @@ generate_graph = function (
           }
           if (column == "Landfills_present_mgc") {
             y_name = "Carbon in Landfills";
+          }
+          if (column == "new_products_in_use") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use") {
+            y_name = "Recycled Products in Use";
+          }
+          if (column == "new_products_in_use_co2e") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use_co2e") {
+            y_name = "Recycled Products in Use";
+          }
+          if (column == "new_products_in_use_mgc") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use_mgc") {
+            y_name = "Recycled Products in Use";
           }
           if (emissions_present == true && solid_present == false) {
             var temp_trace = {
@@ -1035,6 +1054,7 @@ generate_graph = function (
           value2: d[Object.keys(d)[2]],
         };
       });
+      console.log(data)
 
       minDateYear = data[0].year;
       maxDateYear = data[data.length - 1].year;
@@ -1121,6 +1141,7 @@ generate_graph = function (
           for (j in data) {
             temp.push(data[j][column]);
           }
+          console.log(column)
           if (column == "products_in_use") {
             y_name = "Products in Use";
           }
@@ -1171,6 +1192,30 @@ generate_graph = function (
           }
           if (column == "Landfills_present_mgc") {
             y_name = "Carbon in Landfills";
+          }
+          if (column == "new_products_in_use") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use") {
+            y_name = "Recycled Products in Use";
+          }
+          if (column == "new_products_in_use_co2e") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use_co2e") {
+            y_name = "Recycled Products in Use";
+          }
+          if (column == "new_products_in_use_present_co2e") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use_present_co2e") {
+            y_name = "Recycled Products in Use";
+          }
+          if (column == "new_products_in_use_mgc") {
+            y_name = "New Products in Use";
+          }
+          if (column == "reused_products_in_use_mgc") {
+            y_name = "Recycled Products in Use";
           }
           if (emissions_present == true && solid_present == false) {
             var temp_trace = {
@@ -1498,6 +1543,7 @@ generate_hidden_graph = function (
         for (j in data) {
           temp.push(data[j][column]);
         }
+        console.log(column)
         if (column == "products_in_use") {
           y_name = "Products in Use";
         }
@@ -1506,6 +1552,18 @@ generate_hidden_graph = function (
         }
         if (column == "products_in_use_present_co2e") {
           y_name = "Products in Use";
+        }
+        if (column == "new_products_in_use_present_co2e") {
+          y_name = "New Products in Use";
+        }
+        if (column == "reused_products_in_use_present_co2e") {
+          y_name = "Recycled Products in Use";
+        }
+        if (column == "new_products_in_use_present_mgc") {
+          y_name = "New Products in Use";
+        }
+        if (column == "reused_products_in_use_present_mgc") {
+          y_name = "Recycled Products in Use";
         }
         if (column == "SWDS") {
           y_name = "SWDS";
