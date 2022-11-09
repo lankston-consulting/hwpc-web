@@ -4,8 +4,8 @@
 <div id="calc-page">
     <div style="padding-top: 10rem; margin-bottom: 15rem; padding-bottom: 15rem;">
         <div tabindex="0" class="calc-config-container">
-            
-            <h1>Configure a Simulation</h1>
+
+            <h2 style="font-Size: 2.4rem;">Configure a Simulation</h2>
             <p><b>Download an Excel macro-enabled workbook that will help create the input data files here. Use the HWP
                     Ribbon to export data in the correct format for this tool or to add a new year. Do NOT change the
                     basic
@@ -20,8 +20,8 @@
 
     </div>
     {% if error %}
-        <script>
-            alert("{{ error }}");
-        </script>
+    <script>
+        alert("{{ error }}");
+    </script>
     {% endif %}
     {% endblock content %}

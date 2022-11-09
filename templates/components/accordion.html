@@ -23,7 +23,8 @@
                     <label for="filename" class="hide">
                         uploaded file
                     </label>
-                    <input type="text" id="filename1" autocomplete="off" readonly placeholder="no file uploaded">
+                    <input name="filename" type="text" id="filename1" autocomplete="off" readonly
+                        placeholder="no file uploaded">
                     <br>
                     <br>
                     <p>Select the units for calculated results</p>
@@ -45,11 +46,12 @@
                         <label for="filename" class="hide">
                             uploaded file
                         </label>
-                        <input type="text" id="filename2" autocomplete="off" readonly placeholder="no file uploaded">
+                        <input name="filename" type="text" id="filename2" autocomplete="off" readonly
+                            placeholder="no file uploaded">
                     </span>
                 </span>
-                <a class="info-circle"><i tabindex="0" id="modal1" class="fa-solid fa-circle-info" role="button"
-                        type="button"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal1"
+                        class="fa-solid fa-circle-info" type="button"></i></a>
             </span>
             <span class="nextbackbtn-container"><button type="button" style="height: 46px;" class="nextbtn acc-01"
                     tabindex="0">Next</button></span>
@@ -66,17 +68,19 @@
                             Upload File
                         </span>
                     </label>
-                    <input name='yearlytimberproductratios' type="file" class="fileupload filename3"
-                        id="yearlytimberproductratios" accept=".csv" required>
+                    <input name="yearlytimberproductratios" type="file" class="fileupload filename3"
+                        id="yearlytimberproductratios" accept=".csv" required aria-required="true">
                     <label for="filename" class="hide">
                         uploaded file
                     </label>
-                    <input type="text" id="filename3" autocomplete="off" readonly placeholder="no file uploaded">
+                    <input name="filename" type="text" id="filename3" autocomplete="off" readonly
+                        placeholder="no file uploaded">
                     <!-- <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i> -->
                     <br>
                     <br>
                 </span>
-                <a tabindex="0" class="info-circle"><i tabindex="0" id="modal2" class="fa-solid fa-circle-info"></i></a>
+                <a tabindex="0" class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal2"
+                        class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-02">Back</button><button type="button"
@@ -121,7 +125,8 @@
                         </span>
 
                     </span>
-                    <a class="info-circle"><i tabindex="0" id="modal3" class="fa-solid fa-circle-info"></i></a>
+                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal3"
+                            class="fa-solid fa-circle-info"></i></a>
                 </span>
                 <br>
                 <p> Or Upload Custom Region</p>
@@ -136,34 +141,13 @@
                     <label for="filename" class="hide">
                         uploaded file
                     </label>
-                    <input type="text" id="filename4" autocomplete="off" readonly placeholder="no file uploaded">
+                    <input name="filename" type="text" id="filename4" autocomplete="off" readonly
+                        placeholder="no file uploaded">
                     <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
             </div>
             <h2 id="acc-03b" class="acc-h2" role="button" tabindex="0">Select end use in use discard method</h2>
 
             <div>
-                <!-- <span style="display: flex;">
-                    <span class="file-input-container">
-                        <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                        <span style="display: flex;">
-                            <label for="EndUseRatiosFilename" id="buttonlabel">
-                                <span role="button" aria-controls="filename" tabindex="0">
-                                    Upload File
-                                </span>
-                            </label>
-                            <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
-                                id="EndUseRatiosFilename" accept=".csv" />
-                            <label for="filename" class="hide">
-                                uploaded file
-                            </label>
-                            <input type="text" id="filename5" autocomplete="off" readonly
-                                placeholder="no file uploaded">
-                            <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
-                        </span>
-
-                    </span>
-                    <a class="info-circle"><i tabindex="0" id="modal4" class="fa-solid fa-circle-info"></i></a>a
-                </span> -->
                 <span style="display: flex;">
                     <input type="radio" id="halflife" name="enduseproductrates" value="halflife"
                         class="custom-radio-btn" checked>
@@ -174,7 +158,8 @@
                     <label tabindex="0" id="chi-label" for="chi" style="transform: translateY(-5px);">Chi
                         squared</label>
 
-                    <a class="info-circle"><i tabindex="0" id="modal4" class="fa-solid fa-circle-info"></i></a>
+                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal4"
+                            class="fa-solid fa-circle-info"></i></a>
                 </span>
             </div>
 
@@ -199,7 +184,8 @@
                     </span>
 
                 </span>
-                <a class="info-circle"><i tabindex="0" id="modal5" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal5"
+                        class="fa-solid fa-circle-info"></i></a>
             </div>
 
 
@@ -220,11 +206,13 @@
                         <label for="filename" class="hide">
                             uploaded file
                         </label>
-                        <input type="text" id="filename7" autocomplete="off" readonly placeholder="no file uploaded">
+                        <input name="filename" type="text" id="filename7" autocomplete="off" readonly
+                            placeholder="no file uploaded">
                         <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i tabindex="0" id="modal6" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal6"
+                        class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 id="acc-03e" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
                 and land fill
@@ -244,11 +232,13 @@
                         <label for="filename" class="hide">
                             uploaded file
                         </label>
-                        <input type="text" id="filename8" autocomplete="off" readonly placeholder="no file uploaded">
+                        <input name="filename" type="text" id="filename8" autocomplete="off" readonly
+                            placeholder="no file uploaded">
                         <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i tabindex="0" id="modal7" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal7"
+                        class="fa-solid fa-circle-info"></i></a>
             </div>
 
             <h2 id="acc-03f" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
@@ -267,11 +257,13 @@
                         <label for="filename" class="hide">
                             uploaded file
                         </label>
-                        <input type="text" id="filename10" autocomplete="off" readonly placeholder="no file uploaded">
+                        <input name="filename" type="text" id="filename10" autocomplete="off" readonly
+                            placeholder="no file uploaded">
                         <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
-                <a class="info-circle"><i tabindex="0" id="modal8" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal8"
+                        class="fa-solid fa-circle-info"></i></a>
             </div>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-03">Back</button><button type="button"
@@ -285,9 +277,10 @@
                 <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
                 <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08"
-                    required />
+                    required aria-required="true" />
             </span>
-            <a class="info-circle"><i tabindex="0" id="modal9" class="fa-solid fa-circle-info"></i></a>
+            <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal9"
+                    class="fa-solid fa-circle-info"></i></a>
 
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-04">Back</button><button type="button"
@@ -325,7 +318,8 @@
                     Monte Carlo Simulation
                 </label>
                 <input id="monte-carlo-sim" type="number" name='iterations' step="1" min="1" max="100" value="1" />
-                <a class="info-circle"><i tabindex="0" id="modal10" class="fa-solid fa-circle-info"></i></a>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal10"
+                        class="fa-solid fa-circle-info"></i></a>
             </span>
             <br>
             <br>
@@ -345,7 +339,8 @@
                         <label for="filename" class="hide">
                             uploaded file
                         </label>
-                        <input type="text" id="filename9" autocomplete="off" readonly placeholder="no file uploaded">
+                        <input name="filename" type="text" id="filename9" autocomplete="off" readonly
+                            placeholder="no file uploaded">
                         <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
                     </span>
                 </span>
@@ -364,8 +359,9 @@
                 <label style="margin-right: 0.5em;" for="email-address">
                     Email
                 </label>
-                <input name='email' id="email-address" type="email" required>
-                <a class="info-circle"><i tabindex="0" id="modal11" class="fa-solid fa-circle-info"></i></a>
+                <input name='email' id="email-address" type="email" required aria-required="true">
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal11"
+                        class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-06">Back</button><button type="button"
@@ -380,8 +376,9 @@
                 <label style="margin-right: 0.5em;" for="run-name">
                     Name
                 </label>
-                <input name='runname' id="run-name" type="text" required>
-                <a class="info-circle"><i tabindex="0" id="modal12" class="fa-solid fa-circle-info"></i></a>
+                <input name='runname' id="run-name" type="text" required aria-required="true">
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal12"
+                        class="fa-solid fa-circle-info"></i></a>
             </span>
             <span class="nextbackbtn-container">
                 <button type="button" class="backbtn acc-07">Back</button>
