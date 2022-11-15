@@ -47,15 +47,6 @@ $(".acc-h1, .acc-h2").click(function (e) {
 
   console.log($("#" + e.target.id).offset().top);
   toggleAccordion(e);
-  if (e.target.id == "acc-07") {
-    toggleAccordion($("#acc-01")[0], true);
-    toggleAccordion($("#acc-02")[0], true);
-    toggleAccordion($("#acc-04")[0], true);
-    toggleAccordion($("#acc-05")[0], true);
-    toggleAccordion($("#acc-06")[0], true);
-
-    // $(".required-alert").show();
-  }
 });
 
 $(".acc-h1, .acc-h2").keydown(function (event) {
@@ -536,6 +527,11 @@ var modal_dict = {
 };
 
 $("#getdata").click(function (e) {
+    toggleAccordion($("#acc-01")[0], true);
+    toggleAccordion($("#acc-02")[0], true);
+    toggleAccordion($("#acc-04")[0], true);
+    toggleAccordion($("#acc-05")[0], true);
+    toggleAccordion($("#acc-06")[0], true);
   $(".required-alert").each(function () {
     temp_alert = $(this);
     $(this)
