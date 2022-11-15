@@ -1031,7 +1031,7 @@ generate_graph = function (
 
       var layout = {
         title: data_dict[graph_class][1],
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: data_dict[graph_class][3] },
         automargin: true,
         height: 700,
@@ -1087,7 +1087,7 @@ generate_graph = function (
 
       var layout = {
         title: "Annual Harvest and Timber Product Outputs",
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Hundred Cubic Feet (CCF)" },
         yaxis2: {
           title: "Megagrams Carbon (Mg C)",
@@ -1258,7 +1258,7 @@ generate_graph = function (
       if (emissions_present == true && solid_present == false) {
         var layout = {
           title: title,
-          xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
           yaxis: { title: "Carbon Emissions (CO2e)" },
           automargin: true,
           height: 700,
@@ -1270,7 +1270,7 @@ generate_graph = function (
         var layout = {
           title: title,
           autosize: true,
-          xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
           yaxis: { title: "Megagrams Carbon (Mg C)" },
           yaxis2: {
             title: "Carbon Emissions (CO2e)",
@@ -1289,7 +1289,7 @@ generate_graph = function (
       if (emissions_present == false && solid_present == true) {
         var layout = {
           title: title,
-          xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
           yaxis: { title: "Megagrams Carbon (Mg C)" },
           automargin: true,
           height: 700,
@@ -1300,7 +1300,7 @@ generate_graph = function (
 
       // var layout = {
       //     title: title,
-      //     xaxis: { title: "Years<br><sup>" + caption[0].text + "</sup>" },
+      //     xaxis: { title: "Year<br><sup>" + caption[0].text + "</sup>" },
       //     yaxis: {}
       // }
       Plotly.newPlot(tester, stackedData, layout);
@@ -1368,7 +1368,7 @@ generate_graph = function (
 
       var layout = {
         barmode: "relative",
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Megagrams C (Mg C)" },
         title: "Annual Net Change Carbon Stocks",
         automargin: true,
@@ -1426,7 +1426,7 @@ generate_hidden_graph = function (
 
     var layout = {
       title: data_dict[graph_class][1],
-      xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
       yaxis: { title: data_dict[graph_class][3] },
       automargin: true,
       height: 700,
@@ -1483,7 +1483,7 @@ generate_hidden_graph = function (
 
     var layout = {
       title: "Annual Harvest and Timber Product Outputs",
-      xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
       yaxis: { title: "Hundred Cubic Feet (CCF)" },
       yaxis2: {
         title: "Megagrams Carbon (Mg C)",
@@ -1648,7 +1648,7 @@ generate_hidden_graph = function (
     if (emissions_present == true && solid_present == false) {
       var layout = {
         title: title,
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Carbon Emissions (CO2e)" },
         automargin: true,
         height: 700,
@@ -1660,7 +1660,7 @@ generate_hidden_graph = function (
       var layout = {
         title: title,
         autosize: true,
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Megagrams Carbon (Mg C)" },
         yaxis2: {
           title: "Carbon Emissions (CO2e)",
@@ -1679,7 +1679,7 @@ generate_hidden_graph = function (
     if (emissions_present == false && solid_present == true) {
       var layout = {
         title: title,
-        xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Megagrams Carbon (Mg C)" },
         automargin: true,
         height: 700,
@@ -1735,7 +1735,7 @@ generate_hidden_graph = function (
 
     var layout = {
       barmode: "relative",
-      xaxis: { title: "Years<br><br><sup>" + caption[0].text + "</sup>" },
+      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
       yaxis: { title: "Megagrams C (Mg C)" },
       title: "Annual Net Change Carbon Stocks",
       automargin: true,
