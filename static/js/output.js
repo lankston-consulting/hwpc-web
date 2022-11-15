@@ -159,117 +159,117 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.annual_net_change_carbon_stocks,
     "Annual Net Change Carbon Stocks",
     "bar",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["all_results_final"] = [
     final_json.big_four,
     "Final Results",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   // data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
   data_dict["burned_with_energy_capture_emissions"] = [
     final_json.burned_w_energy_capture_emit,
     "Total Carbon Burned With Energy Capture",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["burned_without_energy_capture_emissions"] = [
     final_json.burned_wo_energy_capture_emit,
     "Total Carbon Burned Without Energy Capture",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
 
   data_dict["end_use"] = [
     final_json.total_end_use_products,
     "Total End Use Products",
     "line",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["swds"] = [
     final_json.swds,
     "Total SWDS",
     "line",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_composted_carbon_emitted"] = [
     final_json.total_composted_carbon_emitted,
     "Total Carbon in Compost Emitted",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_cumulative_carbon_stocks"] = [
     final_json.total_cumulative_carbon_stocks,
     "Total Cumulative Carbon Stocks",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_dumps_carbon"] = [
     final_json.total_dumps_carbon,
     "Total Carbon in Dumps",
     "line",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_dumps_carbon_emitted"] = [
     final_json.total_dumps_carbon_emitted,
     "Total Carbon in Dumps Emitted",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_fuelwood_carbon_emitted"] = [
     final_json.total_fuelwood_carbon_emitted,
     "Total Emitted Fuelwood Carbon",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_in_use"] = [
     final_json.total_in_use,
     "Total Carbon in Use",
     "line",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_landfills_carbon"] = [
     final_json.total_landfills_carbon,
     "Total Landfills Carbon",
     "line",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_landfills_carbon_emitted"] = [
     final_json.total_landfills_carbon_emitted,
     "Total Landfills Carbon Emitted",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_solid_carbon_dispositions"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_solid_carbon_dispositions2"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["swds_emissions"] = [
     final_json.carbon_emitted_distinct_swds,
     "Total SWDS Emissions",
     "stack",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_emissions_dispositions"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["total_emissions_dispositions2"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
 
   //Data_dict for Tables
@@ -309,25 +309,25 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.big_four,
     "Final Results",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_solid_carbon_dispositions_hidden"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["total_emissions_dispositions_hidden"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["annual_net_change_carbon_stocks_hidden"] = [
     final_json.annual_net_change_carbon_stocks,
     "Annual Net Change Carbon Stocks",
     "bar",
-    "Megagrams Carbon (Mg C)",
+    "metric tons carbon",
   ];
   data_dict["annual_harvest_and_timber_product_output_hidden"] = [
     final_json.annual_harvest_and_timber_product_output,
@@ -339,19 +339,19 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.burned_w_energy_capture_emit,
     "Total Carbon Burned With Energy Capture",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["burned_without_energy_capture_emissions_hidden"] = [
     final_json.burned_wo_energy_capture_emit,
     "Total Carbon Burned Without Energy Capture",
     "line",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
   data_dict["swds_emissions_hidden"] = [
     final_json.carbon_emitted_distinct_swds,
     "Total Emissions Dispositions",
     "stack",
-    "Carbon Emissions (CO2e)",
+    "metric tons CO2e",
   ];
 };
 
@@ -1090,7 +1090,7 @@ generate_graph = function (
         xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
         yaxis: { title: "Hundred Cubic Feet (CCF)" },
         yaxis2: {
-          title: "Megagrams Carbon (Mg C)",
+          title: "metric tons carbon",
           titlefont: { color: "rgb(148, 103, 189)" },
           tickfont: { color: "rgb(148, 103, 189)" },
           overlaying: "y",
@@ -1259,7 +1259,7 @@ generate_graph = function (
         var layout = {
           title: title,
           xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "Carbon Emissions (CO2e)" },
+          yaxis: { title: "metric tons CO2e" },
           automargin: true,
           height: 700,
           margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
@@ -1271,9 +1271,9 @@ generate_graph = function (
           title: title,
           autosize: true,
           xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "Megagrams Carbon (Mg C)" },
+          yaxis: { title: "metric tons carbon" },
           yaxis2: {
-            title: "Carbon Emissions (CO2e)",
+            title: "metric tons CO2e",
             // titlefont: {color: 'rgb(148, 103, 189)'},
             // tickfont: {color: 'rgb(148, 103, 189)'},
             overlaying: "y",
@@ -1290,7 +1290,7 @@ generate_graph = function (
         var layout = {
           title: title,
           xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "Megagrams Carbon (Mg C)" },
+          yaxis: { title: "metric tons carbon" },
           automargin: true,
           height: 700,
           margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
@@ -1369,7 +1369,7 @@ generate_graph = function (
       var layout = {
         barmode: "relative",
         xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "Megagrams C (Mg C)" },
+        yaxis: { title: "metric tons carbon" },
         title: "Annual Net Change Carbon Stocks",
         automargin: true,
         height: 700,
@@ -1486,7 +1486,7 @@ generate_hidden_graph = function (
       xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
       yaxis: { title: "Hundred Cubic Feet (CCF)" },
       yaxis2: {
-        title: "Megagrams Carbon (Mg C)",
+        title: "metric tons carbon",
         titlefont: { color: "rgb(148, 103, 189)" },
         tickfont: { color: "rgb(148, 103, 189)" },
         overlaying: "y",
@@ -1649,7 +1649,7 @@ generate_hidden_graph = function (
       var layout = {
         title: title,
         xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "Carbon Emissions (CO2e)" },
+        yaxis: { title: "metric tons CO2e" },
         automargin: true,
         height: 700,
         margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
@@ -1661,9 +1661,9 @@ generate_hidden_graph = function (
         title: title,
         autosize: true,
         xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "Megagrams Carbon (Mg C)" },
+        yaxis: { title: "metric tons carbon" },
         yaxis2: {
-          title: "Carbon Emissions (CO2e)",
+          title: "metric tons CO2e",
           // titlefont: {color: 'rgb(148, 103, 189)'},
           // tickfont: {color: 'rgb(148, 103, 189)'},
           overlaying: "y",
@@ -1680,7 +1680,7 @@ generate_hidden_graph = function (
       var layout = {
         title: title,
         xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "Megagrams Carbon (Mg C)" },
+        yaxis: { title: "metric tons carbon" },
         automargin: true,
         height: 700,
         margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
@@ -1736,7 +1736,7 @@ generate_hidden_graph = function (
     var layout = {
       barmode: "relative",
       xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-      yaxis: { title: "Megagrams C (Mg C)" },
+      yaxis: { title: "metric tons carbon" },
       title: "Annual Net Change Carbon Stocks",
       automargin: true,
       height: 700,
