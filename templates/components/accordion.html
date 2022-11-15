@@ -295,18 +295,13 @@
         <div>
             <span tabindex="0" class="acc-monte-carlo-disclaimer">
                 <p>Monte Carlo Disclaimer:</p>
-                <p>Unless you are extremely familiar with the HWPC model, you do not need this feature. Please ignore
-                    this option.
+                <p>
+                    PCC suggests several ways to measure uncertainty in HWP including Monte Carlo simulation.
+                    HWPC model's algorithm is deterministic, but requires recursion to simulate recycled materials re-entering use.
+                    This makes HWPC computationally <b>expensive</b> and <b>time-consuming</b>.
+                    If activated, a Monte Carlo simulation of HWPC will exponentially increase the number of iterations that must be run and will take an extremely long time to run.
                 </p>
-                <p>IPCC suggests several ways to measure uncertainty in HWP including Monte Carlo simulation. HWPC
-                    model's algorithm
-                    is deterministic, but requires recursion to simulate recycled materials re-entering use. This makes
-                    HWPC
-                    computationally expensive. If activated, a Monte Carlo simulation of HWPC will exponentially
-                    increase the number
-                    of iterations that must be run and will take an extremely long time to run.
-                </p>
-                <p>Again, you do not need this. HWPC's base algorithm is sufficient for all reporting needs.</p>
+                <p>Unless your reporting requires measurement of uncertainty, Monte Carlo simulations of HWPC are not necessary.</p>
                 <br>
                 <button id="mc-disclaimer">I Understand and Accept.</button>
             </span>
