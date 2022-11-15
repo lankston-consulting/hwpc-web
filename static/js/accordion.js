@@ -40,6 +40,9 @@ function toggleAccordion(e, edit_mode = false) {
 
 $("#mc-disclaimer").click(function () {
   $(".accordion").find(".disabled").removeClass("disabled");
+  $("#monte-carlo-sim").attr({
+    "max" : 2000})
+  $("#monte-carlo-sim").val(1000);
 });
 
 $(".acc-h1, .acc-h2").click(function (e) {
