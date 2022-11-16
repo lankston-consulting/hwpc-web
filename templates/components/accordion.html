@@ -100,7 +100,8 @@
         <div>
             <figure>
                 <img src="../../static/images/region_map.png" width="100%" alt="Region Map">
-                <figcaption>Definitions of Regions: Pacific Northwest, West (PWW); Pacific Northwest, East (PWE);
+                <figcaption style="font-size: 1.6rem;">Definitions of Regions: Pacific Northwest, West (PWW); Pacific
+                    Northwest, East (PWE);
                     Pacific Southwest (PSW); Rocky Mountain, North (RMN); Rocky Mountain, South (RMS); Northern
                     Prairie States (NPS); Northern Lake States (NLS); Northeast (NE); SOuth Central (SC); and
                     Southeast (SE). Note that regions are merged for some tables, these combinations include: NLS
@@ -139,8 +140,7 @@
                         Upload File
                     </span>
                 </label>
-                <input name='customregion' type="file" class="fileupload filename4" id="customregion"
-                    accept=".csv" />
+                <input name='customregion' type="file" class="fileupload filename4" id="customregion" accept=".csv" />
                 <label for="filename" class="hide">
                     uploaded file
                 </label>
@@ -155,9 +155,12 @@
 
         <h1 id="acc-04" class="acc-h2" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
         <div>
-            <h2 id="acc-04b" class="acc-h2" role="button" tabindex="0">Select end use in use discard method</h2>
+            <h2 id="acc-04b" class="acc-h2" role="button" tabindex="0">Select end use in use (products in use) survival
+                function</h2>
 
             <div>
+                <p>The survival function dictates the lifecycle or harvested wood products in use.</p>
+                <br><br>
                 <span style="display: flex;">
                     <input type="radio" id="halflife" name="enduseproductrates" value="halflife"
                         class="custom-radio-btn" checked>
@@ -175,76 +178,91 @@
 
             <h2 id="acc-04c" class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
-            <div style="display: flex;">
-                <span class="file-input-container">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <span style="display: flex;">
-                        <label for="EndUseRatiosFilename" id="buttonlabel">
-                            <span role="button" aria-controls="filename" tabindex="0">
-                                Upload File
-                            </span>
-                        </label>
-                        <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
-                            id="EndUseRatiosFilename" accept=".csv" />
-                        <label for="filename" class="hide">
-                            uploaded file
-                        </label>
-                        <input type="text" id="filename5" autocomplete="off" readonly placeholder="no file uploaded">
-                        <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
-                    </span>
+            <div>
+                <p>These ratios distribute primary products into their final end uses.</p>
+                <br><br>
+                <span style="display: flex;">
+                    <span class="file-input-container">
+                        <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                        <span style="display: flex;">
+                            <label for="EndUseRatiosFilename" id="buttonlabel">
+                                <span role="button" aria-controls="filename" tabindex="0">
+                                    Upload File
+                                </span>
+                            </label>
+                            <input name='EndUseRatiosFilename' type="file" class="fileupload filename5"
+                                id="EndUseRatiosFilename" accept=".csv" />
+                            <label for="filename" class="hide">
+                                uploaded file
+                            </label>
+                            <input type="text" id="filename5" autocomplete="off" readonly
+                                placeholder="no file uploaded">
+                            <i class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        </span>
 
+                    </span>
+                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal5"
+                            class="fa-solid fa-circle-info"></i></a>
                 </span>
-                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal5"
-                        class="fa-solid fa-circle-info"></i></a>
             </div>
             <h2 id="acc-04d" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
-            <div style="display: flex;">
-                <span class="file-input-container">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <span style="display: flex;">
-                        <label for="DispositionsFilename" id="buttonlabel">
-                            <span role="button" aria-controls="filename" tabindex="0">
-                                Upload File
-                            </span>
-                        </label>
-                        <input name='DispositionsFilename' type="file" class="fileupload filename7"
-                            id="DispositionsFilename" accept=".csv" />
-                        <label for="filename" class="hide">
-                            uploaded file
-                        </label>
-                        <input name="filename" type="text" id="filename7" autocomplete="off" readonly
-                            placeholder="no file uploaded">
-                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+            <div>
+                <p>These ratios distribute products discarded from use into discard destinations.</p>
+                <br>
+                <br>
+                <span style="display: flex;">
+                    <span class="file-input-container">
+                        <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                        <span style="display: flex;">
+                            <label for="DispositionsFilename" id="buttonlabel">
+                                <span role="button" aria-controls="filename" tabindex="0">
+                                    Upload File
+                                </span>
+                            </label>
+                            <input name='DispositionsFilename' type="file" class="fileupload filename7"
+                                id="DispositionsFilename" accept=".csv" />
+                            <label for="filename" class="hide">
+                                uploaded file
+                            </label>
+                            <input name="filename" type="text" id="filename7" autocomplete="off" readonly
+                                placeholder="no file uploaded">
+                            <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        </span>
                     </span>
+                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal6"
+                            class="fa-solid fa-circle-info"></i></a>
                 </span>
-                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal6"
-                        class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 id="acc-04e" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
-                and land fill
-                fixed ratios
+            <h2 id="acc-04e" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition decay rates
             </h2>
-            <div style="display: flex;">
-                <span class="file-input-container">
-                    <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
-                    <span style="display: flex;">
-                        <label for="DispositionHalfLivesFilename" id="buttonlabel">
-                            <span role="button" aria-controls="filename" tabindex="0">
-                                Upload File
-                            </span>
-                        </label>
-                        <input name='DispositionHalfLivesFilename' type="file" class="fileupload filename8"
-                            id="DispositionHalfLivesFilename" accept=".csv" />
-                        <label for="filename" class="hide">
-                            uploaded file
-                        </label>
-                        <input name="filename" type="text" id="filename8" autocomplete="off" readonly
-                            placeholder="no file uploaded">
-                        <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+            <div>
+                <p>Landfills can have a “fixed” rate at which discarded products are permanently sequestered. All
+                    destinations have a first order decay rate that removes carbon from the discarded destination and
+                    emits it to the atmosphere.</p>
+                <br>
+                <br>
+                <span style="display: flex;">
+                    <span class="file-input-container">
+                        <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
+                        <span style="display: flex;">
+                            <label for="DispositionHalfLivesFilename" id="buttonlabel">
+                                <span role="button" aria-controls="filename" tabindex="0">
+                                    Upload File
+                                </span>
+                            </label>
+                            <input name='DispositionHalfLivesFilename' type="file" class="fileupload filename8"
+                                id="DispositionHalfLivesFilename" accept=".csv" />
+                            <label for="filename" class="hide">
+                                uploaded file
+                            </label>
+                            <input name="filename" type="text" id="filename8" autocomplete="off" readonly
+                                placeholder="no file uploaded">
+                            <i tabindex="0" class="h2-cancel cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        </span>
                     </span>
+                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal7"
+                            class="fa-solid fa-circle-info"></i></a>
                 </span>
-                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal7"
-                        class="fa-solid fa-circle-info"></i></a>
             </div>
 
             <h2 id="acc-04f" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
@@ -307,11 +325,14 @@
                 <p>Monte Carlo Disclaimer:</p>
                 <p>
                     PCC suggests several ways to measure uncertainty in HWP including Monte Carlo simulation.
-                    HWPC model's algorithm is deterministic, but requires recursion to simulate recycled materials re-entering use.
+                    HWPC model's algorithm is deterministic, but requires recursion to simulate recycled materials
+                    re-entering use.
                     This makes HWPC computationally <b>expensive</b> and <b>time-consuming</b>.
-                    If activated, a Monte Carlo simulation of HWPC will exponentially increase the number of iterations that must be run and will take an extremely long time to run.
+                    If activated, a Monte Carlo simulation of HWPC will exponentially increase the number of iterations
+                    that must be run and will take an extremely long time to run.
                 </p>
-                <p>Unless your reporting requires measurement of uncertainty, Monte Carlo simulations of HWPC are not necessary.</p>
+                <p>Unless your reporting requires measurement of uncertainty, Monte Carlo simulations of HWPC are not
+                    necessary.</p>
                 <br>
                 <button id="mc-disclaimer">I Understand and Accept.</button>
             </span>
@@ -359,6 +380,10 @@
         <h1 id="acc-07" class="acc-h1" role="button" tabindex="0"><span>07</span>Enter email address to send results
         </h1>
         <div>
+            <p>Once Calculations are complete an email will be sent to you from Amazon SES with the url link of outputs
+                where you can
+                download graphs, .cvs, and pdfs. Please make sure to check your Spam folder. </p>
+            <br><br>
             <span style="width: 100%;">
                 <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label style="margin-right: 0.5em;" for="email-address">
