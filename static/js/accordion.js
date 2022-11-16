@@ -485,18 +485,7 @@ $("#previewbtn").click(function (e) {
       toggleAccordion($("#" + class_list[1])[0]);
       toggleAccordion($("#" + class_list[1])[0]);
     }
-    if (
-      class_list[1] == "acc-01" ||
-      class_list[1] == "acc-02" ||
-      class_list[1] == "acc-04" ||
-      class_list[1] == "acc-05" ||
-      class_list[1] == "acc-06" ||
-      class_list[1] == "acc-07"
-    ) {
-      console.log("2");
-      toggleAccordion($("#" + class_list[1])[0]);
-      toggleAccordion($("#" + class_list[1])[0]);
-    } else {
+    else {
       console.log("3");
       toggleAccordion($("#" + class_list[1])[0]);
     }
@@ -525,7 +514,7 @@ var modal_dict = {
   modal10:
     "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
   modal11:
-    "Email is required to send you the zip file and link of simulation once complete.",
+    "Email is required to send you link of the completed simulation outputs.",
   modal12: "Name of Run to label zip file.",
 };
 
