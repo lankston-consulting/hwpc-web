@@ -27,7 +27,8 @@
                         placeholder="no file uploaded">
                     <br>
                     <br>
-                    <p>Select the units for calculated results</p>
+                    <p>Select the units of your harvest data, either million board feet (MBF) or 100 cubic board feet
+                        (CCF). Final model results will be in units of metric tons carbon and metric tons CO2e.</p>
                     <input type="radio" id="ccf" name="harvestdatatype" value="ccf" class="custom-radio-btn" checked>
                     <label tabindex="0" id="ccf-label" for="ccf">CCF</label>
                     <input type="radio" id="mbf" name="harvestdatatype" value="mbf" class="custom-radio-btn">
@@ -62,6 +63,11 @@
         <div>
             <span style="display: flex;">
                 <span style="width: 100%;">
+                    <p>Timber product ratios show the proportion of harvested wood going to timber product classes. This
+                        data is available for USFS Cut/Sold reports but may need to be derived by working with timber
+                        product output specialists.</p>
+                    <br>
+                    <br>
                     <i class="required-alert fa-solid fa-circle-exclamation"></i>
                     <label for="yearlytimberproductratios" id="buttonlabel">
                         <span role="button" aria-controls="filename" tabindex="0">
@@ -274,6 +280,10 @@
             factor</h1>
         <div>
             <span style=" width: 100%;">
+                <p>Some wood products are lost before being put into use. This loss factor represents how much product
+                    is lost from wood end use products.</p>
+                <br>
+                <br>
                 <i class="required-alert fa-solid fa-circle-exclamation"></i>
                 <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
                 <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08"
