@@ -1313,7 +1313,7 @@ input[type="radio"]:after{
 }
 
 .output {
-  height: 65px;
+  min-height: 65px;
   min-width: fit-content;
   background-color: #FAE0B1;  
   margin: 10px;
@@ -1376,8 +1376,7 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
 }
 
 .recycled-card {
-  margin: 0 !important;
-  transform: translateX(75px);
+  transform: translate(60px, -5px);
 }
 
 .lower-results-cards {
