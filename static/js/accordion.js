@@ -387,12 +387,12 @@ $("#previewbtn").click(function (e) {
     input_loss_factor = input_loss_factor.split("\\");
     input_loss_factor = input_loss_factor[input_loss_factor.length - 1];
     loss_factor =
-      '<p class="modal-input-data acc-04">Loss Factor: ' +
+      '<p class="modal-input-data acc-05">Loss Factor: ' +
       input_loss_factor +
       "</p><br>";
   } else {
     loss_factor =
-      '<p class="modal-input-data acc-04">Loss Factor: MISSING REQUIRED DATA</p><br>';
+      '<p class="modal-input-data acc-05">Loss Factor: MISSING REQUIRED DATA</p><br>';
   }
 
   input_iterations = $("[name='iterations']").val();
@@ -400,12 +400,12 @@ $("#previewbtn").click(function (e) {
     input_iterations = input_iterations.split("\\");
     input_iterations = input_iterations[input_iterations.length - 1];
     iterations =
-      '<p class="modal-input-data acc-05">Number of Monte Carlo Iterations: ' +
+      '<p class="modal-input-data acc-06">Number of Monte Carlo Iterations: ' +
       input_iterations +
       "</p><br>";
   } else {
     iterations =
-      '<p class="modal-input-data acc-05">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>';
+      '<p class="modal-input-data acc-06">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>';
   }
 
   input_distribution = $("[name='DistributionDataFilename']").val();
@@ -413,12 +413,12 @@ $("#previewbtn").click(function (e) {
     input_distribution = input_distribution.split("\\");
     input_distribution = input_distribution[input_distribution.length - 1];
     distribution =
-      '<p class="modal-input-data acc-05">Distribution Data: ' +
+      '<p class="modal-input-data acc-06">Distribution Data: ' +
       input_distribution +
       "</p><br>";
   } else {
     distribution =
-      '<p class="modal-input-data acc-05">Distribution Data: Using Default</p><br>';
+      '<p class="modal-input-data acc-06">Distribution Data: Using Default</p><br>';
   }
 
   input_email = $("[name='email']").val();
@@ -426,10 +426,10 @@ $("#previewbtn").click(function (e) {
     input_email = input_email.split("\\");
     input_email = input_email[input_email.length - 1];
     email =
-      '<p class="modal-input-data acc-06">Email: ' + input_email + "</p><br>";
+      '<p class="modal-input-data acc-07">Email: ' + input_email + "</p><br>";
   } else {
     email =
-      '<p class="modal-input-data acc-06">Email: MISSING REQUIRED DATA</p><br>';
+      '<p class="modal-input-data acc-07">Email: MISSING REQUIRED DATA</p><br>';
   }
 
   input_runname = $("[name='runname']").val();
@@ -437,12 +437,12 @@ $("#previewbtn").click(function (e) {
     input_runname = input_runname.split("\\");
     input_runname = input_runname[input_runname.length - 1];
     runname =
-      '<p class="modal-input-data acc-07">Run Name: ' +
+      '<p class="modal-input-data acc-08">Run Name: ' +
       input_runname +
       "</p><br>";
   } else {
     runname =
-      '<p class="modal-input-data acc-07">Run Name: MISSING REQUIRED DATA</p><br>';
+      '<p class="modal-input-data acc-08">Run Name: MISSING REQUIRED DATA</p><br>';
   }
 
   $("#preview-modal").css("display", "block");
@@ -470,7 +470,6 @@ $("#previewbtn").click(function (e) {
       .scrollIntoView({ behavior: "smooth", block: "center" });
     console.log(class_list);
     if (
-      class_list[1] == "acc-04" ||
       class_list[1] == "acc-04b" ||
       class_list[1] == "acc-04c" ||
       class_list[1] == "acc-04d" ||
