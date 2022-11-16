@@ -280,7 +280,7 @@ $("#previewbtn").click(function (e) {
     // region_input = region_input.split("\\")
     // region_input = region_input[region_input.length-1]
     region =
-      '<p class="modal-input-data acc-03a">Primary Products Region Selected: ' +
+      '<p class="modal-input-data acc-03">Primary Products Region Selected: ' +
       region_input +
       "</p><br>";
   } else {
@@ -289,12 +289,12 @@ $("#previewbtn").click(function (e) {
       custom_region_input = custom_region_input.split("\\");
       custom_region_input = custom_region_input[custom_region_input.length - 1];
       region =
-        '<p class="modal-input-data acc-03a">Primary Products Custom Region Selected: ' +
+        '<p class="modal-input-data acc-03">Primary Products Custom Region Selected: ' +
         custom_region_input +
         "</p><br>";
     } else {
       region =
-        '<p class="modal-input-data acc-03a">Primary Products Custom Region Selected: MISSING REQUIRED DATA</p><br>';
+        '<p class="modal-input-data acc-03">Primary Products Custom Region Selected: MISSING REQUIRED DATA</p><br>';
     }
   }
 
@@ -304,12 +304,12 @@ $("#previewbtn").click(function (e) {
     input_end_use_rates = input_end_use_rates.split("\\");
     input_end_use_rates = input_end_use_rates[input_end_use_rates.length - 1];
     end_use_rates =
-      '<p class="modal-input-data acc-03b">End Use Ratios: ' +
+      '<p class="modal-input-data acc-04b">End Use Ratios: ' +
       input_end_use_rates +
       "</p><br>";
   } else {
     end_use_rates =
-      '<p class="modal-input-data acc-03b">End Use Ratios: Using Default</p><br>';
+      '<p class="modal-input-data acc-04b">End Use Ratios: Using Default</p><br>';
   }
 
   input_end_use_ratios = $("[name='EndUseRatiosFilename']").val();
@@ -318,12 +318,12 @@ $("#previewbtn").click(function (e) {
     input_end_use_ratios =
       input_end_use_ratios[input_end_use_ratios.length - 1];
     end_use_ratios =
-      '<p class="modal-input-data acc-03c">End Use Ratios: ' +
+      '<p class="modal-input-data acc-04c">End Use Ratios: ' +
       input_end_use_ratios +
       "</p><br>";
   } else {
     end_use_ratios =
-      '<p class="modal-input-data acc-03c">End Use Ratios: Using Default</p><br>';
+      '<p class="modal-input-data acc-04c">End Use Ratios: Using Default</p><br>';
   }
 
   input_discard_dispostions = $("[name='DispositionsFilename']").val();
@@ -332,12 +332,12 @@ $("#previewbtn").click(function (e) {
     input_discard_dispostions =
       input_discard_dispostions[input_discard_dispostions.length - 1];
     discard_dispostions =
-      '<p class="modal-input-data acc-03d">Discard Dispositions: ' +
+      '<p class="modal-input-data acc-04d">Discard Dispositions: ' +
       input_discard_dispostions +
       "</p><br>";
   } else {
     discard_dispostions =
-      '<p class="modal-input-data acc-03d">Discard Dispositions: Using Default</p><br>';
+      '<p class="modal-input-data acc-04d">Discard Dispositions: Using Default</p><br>';
   }
 
   input_discard_dispostions_half_lives = $(
@@ -351,12 +351,12 @@ $("#previewbtn").click(function (e) {
         input_discard_dispostions_half_lives.length - 1
       ];
     discard_dispostions_half_lives =
-      '<p class="modal-input-data acc-03e">Discard Dispositions Half-lives Ratios: ' +
+      '<p class="modal-input-data acc-04e">Discard Dispositions Half-lives Ratios: ' +
       input_discard_dispostions_half_lives +
       "</p><br>";
   } else {
     discard_dispostions_half_lives =
-      '<p class="modal-input-data acc-03e">Discard Dispositions Half-lives Ratios: Using Default</p><br>';
+      '<p class="modal-input-data acc-04e">Discard Dispositions Half-lives Ratios: Using Default</p><br>';
   }
 
   input_burned = $("[name='BurnedRatiosFilename']").val();
@@ -364,12 +364,12 @@ $("#previewbtn").click(function (e) {
     input_burned = input_burned.split("\\");
     input_burned = input_burned[input_burned.length - 1];
     burned =
-      '<p class="modal-input-data acc-03f">Burned Ratios: ' +
+      '<p class="modal-input-data acc-04f">Burned Ratios: ' +
       input_burned +
       "</p><br>";
   } else {
     burned =
-      '<p class="modal-input-data acc-03f">Burned Ratios: Using Default</p><br>';
+      '<p class="modal-input-data acc-04f">Burned Ratios: Using Default</p><br>';
   }
 
   // input_ccf_to_mgc = $("[name='CcfToMgcFilename']").val()
@@ -470,12 +470,12 @@ $("#previewbtn").click(function (e) {
       .scrollIntoView({ behavior: "smooth", block: "center" });
     console.log(class_list);
     if (
-      class_list[1] == "acc-03a" ||
-      class_list[1] == "acc-03b" ||
-      class_list[1] == "acc-03c" ||
-      class_list[1] == "acc-03d" ||
-      class_list[1] == "acc-03e" ||
-      class_list[1] == "acc-03f"
+      class_list[1] == "acc-04" ||
+      class_list[1] == "acc-04b" ||
+      class_list[1] == "acc-04c" ||
+      class_list[1] == "acc-04d" ||
+      class_list[1] == "acc-04e" ||
+      class_list[1] == "acc-04f"
     ) {
       console.log(class_list[1]);
       console.log(class_list[1].slice(0, -1));
