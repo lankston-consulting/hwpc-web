@@ -87,65 +87,65 @@
                     class="nextbtn acc-02">Next</button>
             </span>
         </div>
-
-        <h1 id="acc-03" class="acc-h2" role="button" tabindex="0"><span>03</span>Upload custom ratios (optional)</h1>
+        <h1 id="acc-03" class="acc-h1" role="button" tabindex="0"><span>03</span>Upload yearly primary product
+            ratios or
+            choose region for default
+            ratios</h1>
         <div>
-            <h2 id="acc-03a" class="acc-h2" role="button" tabindex="0">Upload yearly primary product
-                ratios or
-                choose region for default
-                ratios</h2>
-            <div>
-                <figure>
-                    <img src="../../static/images/region_map.png" width="100%" alt="Region Map">
-                    <figcaption>Definitions of Regions: Pacific Northwest, West (PWW); Pacific Northwest, East (PWE);
-                        Pacific Southwest (PSW); Rocky Mountain, North (RMN); Rocky Mountain, South (RMS); Northern
-                        Prairie States (NPS); Northern Lake States (NLS); Northeast (NE); SOuth Central (SC); and
-                        Southeast (SE). Note that regions are merged for some tables, these combinations include: NLS
-                        and NPS as North Central; PWW, PWE, and PSW as Pacific Coast; RMN and RMS as Rocky Mountain; SC
-                        and SE as South and RMN, RMS, PWE, and PSW as West (except where stated otherwise).</figcaption>
-                </figure>
-                <br>
-                <br>
-                <span style="width: 100%" class="region-select">
-                    <label for="regionselection">Select a Region</label>
-                    <span style="display: flex;">
-                        <span class="select-dropdown">
-                            <select name="regionselection" id="regionselection">
-                                <option value="North Central">North Central</option>
-                                <option value="Northeast">Northeast</option>
-                                <option value="Pacific Northwest, East">Pacific Northwest, East</option>
-                                <option value="Pacific Northwest, West">Pacific Northwest, West</option>
-                                <option value="Pacific Southwest">Pacific Southwest</option>
-                                <option value="Rocky Mountain">Rocky Mountain</option>
-                                <option value="South Central">South Central</option>
-                                <option value="Southeast">South East</option>
-                                <option value="West">West</option>
-                                <option value="Custom">Custom</option>
-                            </select>
-                        </span>
-
+            <figure>
+                <img src="../../static/images/region_map.png" width="100%" alt="Region Map">
+                <figcaption>Definitions of Regions: Pacific Northwest, West (PWW); Pacific Northwest, East (PWE);
+                    Pacific Southwest (PSW); Rocky Mountain, North (RMN); Rocky Mountain, South (RMS); Northern
+                    Prairie States (NPS); Northern Lake States (NLS); Northeast (NE); SOuth Central (SC); and
+                    Southeast (SE). Note that regions are merged for some tables, these combinations include: NLS
+                    and NPS as North Central; PWW, PWE, and PSW as Pacific Coast; RMN and RMS as Rocky Mountain; SC
+                    and SE as South and RMN, RMS, PWE, and PSW as West (except where stated otherwise).</figcaption>
+            </figure>
+            <br>
+            <br>
+            <span style="width: 100%" class="region-select">
+                <label for="regionselection">Select a Region</label>
+                <span style="display: flex;">
+                    <span class="select-dropdown">
+                        <select name="regionselection" id="regionselection">
+                            <option value="North Central">North Central</option>
+                            <option value="Northeast">Northeast</option>
+                            <option value="Pacific Northwest, East">Pacific Northwest, East</option>
+                            <option value="Pacific Northwest, West">Pacific Northwest, West</option>
+                            <option value="Pacific Southwest">Pacific Southwest</option>
+                            <option value="Rocky Mountain">Rocky Mountain</option>
+                            <option value="South Central">South Central</option>
+                            <option value="Southeast">South East</option>
+                            <option value="West">West</option>
+                            <option value="Custom">Custom</option>
+                        </select>
                     </span>
-                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal3"
-                            class="fa-solid fa-circle-info"></i></a>
+
                 </span>
-                <br>
-                <p> Or Upload Custom Region</p>
-                <span style="width: 100%">
-                    <label for="customregion" id="buttonlabel">
-                        <span role="button" aria-controls="filename" tabindex="0">
-                            Upload File
-                        </span>
-                    </label>
-                    <input name='customregion' type="file" class="fileupload filename4" id="customregion"
-                        accept=".csv" />
-                    <label for="filename" class="hide">
-                        uploaded file
-                    </label>
-                    <input name="filename" type="text" id="filename4" autocomplete="off" readonly
-                        placeholder="no file uploaded">
-                    <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
-            </div>
-            <h2 id="acc-03b" class="acc-h2" role="button" tabindex="0">Select end use in use discard method</h2>
+                <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal3"
+                        class="fa-solid fa-circle-info"></i></a>
+            </span>
+            <br>
+            <p> Or Upload Custom Region</p>
+            <span style="width: 100%">
+                <label for="customregion" id="buttonlabel">
+                    <span role="button" aria-controls="filename" tabindex="0">
+                        Upload File
+                    </span>
+                </label>
+                <input name='customregion' type="file" class="fileupload filename4" id="customregion"
+                    accept=".csv" />
+                <label for="filename" class="hide">
+                    uploaded file
+                </label>
+                <input name="filename" type="text" id="filename4" autocomplete="off" readonly
+                    placeholder="no file uploaded">
+                <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
+        </div>
+
+        <h1 id="acc-04" class="acc-h2" role="button" tabindex="0"><span>04</span>Upload custom ratios (optional)</h1>
+        <div>
+            <h2 id="acc-04b" class="acc-h2" role="button" tabindex="0">Select end use in use discard method</h2>
 
             <div>
                 <span style="display: flex;">
@@ -163,7 +163,7 @@
                 </span>
             </div>
 
-            <h2 id="acc-03c" class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
+            <h2 id="acc-04c" class="acc-h2" role="button" tabindex="0">Upload yearly end use product ratios</h2>
 
             <div style="display: flex;">
                 <span class="file-input-container">
@@ -191,7 +191,7 @@
 
 
 
-            <h2 id="acc-03d" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
+            <h2 id="acc-04d" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition ratios</h2>
             <div style="display: flex;">
                 <span class="file-input-container">
                     <p class="h2defaultlabel" style="margin-right: 0.3em;">Use Default or</p>
@@ -214,7 +214,7 @@
                 <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal6"
                         class="fa-solid fa-circle-info"></i></a>
             </div>
-            <h2 id="acc-03e" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
+            <h2 id="acc-04e" class="acc-h2" role="button" tabindex="0">Upload discarded products disposition half lives
                 and land fill
                 fixed ratios
             </h2>
@@ -241,7 +241,7 @@
                         class="fa-solid fa-circle-info"></i></a>
             </div>
 
-            <h2 id="acc-03f" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
+            <h2 id="acc-04f" class="acc-h2" role="button" tabindex="0">Upload proportions for burned with energy capture
             </h2>
             <div style="display: flex;">
                 <span class="file-input-container">
@@ -266,8 +266,8 @@
                         class="fa-solid fa-circle-info"></i></a>
             </div>
             <span class="nextbackbtn-container">
-                <button type="button" class="backbtn acc-03">Back</button><button type="button"
-                    class="nextbtn acc-03">Next</button>
+                <button type="button" class="backbtn acc-04">Back</button><button type="button"
+                    class="nextbtn acc-04">Next</button>
             </span>
         </div>
         <h1 id="acc-04" class="acc-h1" role="button" tabindex="0"><span>04</span>Enter a wood product end use loss
