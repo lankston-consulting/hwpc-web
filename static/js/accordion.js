@@ -476,16 +476,10 @@ $("#previewbtn").click(function (e) {
       class_list[1] == "acc-04e" ||
       class_list[1] == "acc-04f"
     ) {
-      console.log(class_list[1]);
-      console.log(class_list[1].slice(0, -1));
-      console.log($("#" + class_list[1])[0]);
-      console.log("1");
       toggleAccordion($("#" + class_list[1].slice(0, -1))[0]);
-      toggleAccordion($("#" + class_list[1])[0]);
       toggleAccordion($("#" + class_list[1])[0]);
     }
     else {
-      console.log("3");
       toggleAccordion($("#" + class_list[1])[0]);
     }
   });
