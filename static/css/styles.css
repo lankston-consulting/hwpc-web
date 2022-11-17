@@ -1104,8 +1104,8 @@ input[type="radio"]:after{
 .flowchart-container {
   display:flex; 
   width:fit-content; 
-  margin: 0 auto; 
-  transform: translateX(-100px);
+  /* margin: 0 auto;  */
+  transform: translateX(50px);
 }
 
 #systemFlow .tabcontent {
@@ -1124,12 +1124,11 @@ input[type="radio"]:after{
   margin-bottom: 120px;
 }
 
-.graphic-container h1, h2, h3, h4, h5 {
+.graphic-container h1, h3, h4, h5 {
   font-family: var(--montserrat);
   font-weight: 600;
   text-align: center;
 }
-
 
 
 .container-inputs{
@@ -1180,7 +1179,6 @@ input[type="radio"]:after{
   display: flex;
   flex-direction: row;
   margin-top: 120px;
-  transform: translate(250px,-50px);
 }
 
 @media only screen and (max-width: 600px) {
@@ -1314,6 +1312,7 @@ input[type="radio"]:after{
 
 .output {
   min-height: 65px;
+  height: fit-content;
   min-width: fit-content;
   background-color: #FAE0B1;  
   margin: 10px;
@@ -1406,24 +1405,24 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
 }
 
 .arrow1 {
- /* transform: rotate(-10deg) translateY(30px); */
+  transform: rotate(0deg) translateX(-130px) translateY(-45px);
 }
 
 .arrow2 {
-  /* transform: rotate(30deg) translateX(30px) translateY(-15px); */
+  transform: rotate(0deg) translateX(-50px) translateY(-45px);
 }
 
 .arrow3 {
-  transform: rotate(0deg) translateX(200px) translateY(-35px);
+  transform: rotate(0deg) translateX(240px) translateY(-45px);
 }
 
 .arrow4 {
-  transform: rotate(20deg) translateX(280px) translateY(-145px);
+  transform: rotate(20deg) translateX(250px) translateY(-140px);
 }
 
 .arrow5 {
 
-  transform: rotate(-10deg) translateX(380px) translateY(30px);
+  transform: rotate(-10deg) translateX(350px) translateY(15px);
 }
 
 @media only screen and (max-width: 600px) {
