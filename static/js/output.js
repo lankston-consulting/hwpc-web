@@ -12,12 +12,12 @@ captions_dict["annual_harvest_and_timber_product_output"] = [
 ];
 captions_dict["annual_net_change_carbon_stocks"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. <br> Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed <br> in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that <br> are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed in units of carbon <br> dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["all_results_final"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture, and assumes emissions are CO2e. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e tons) and do not include other carbon-based greenhouse gases such as methane."},
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon <br> emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid <br> waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture, <br> and assumes emissions are CO2e. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e tons) and do not <br> include other carbon-based greenhouse gases such as methane."},
 ];
 captions_dict["end_use"] = [
   {
