@@ -186,7 +186,7 @@ $(".cancel-upload-btn").click(function (e) {
   )[0].previousElementSibling.previousElementSibling.previousElementSibling.value =
     null;
   $(e.target)[0].previousElementSibling.value = null;
-  $(e.target)[0].previousElementSibling.placeholder = "no file uploaded";
+  $(e.target)[0].previousElementSibling.placeholder = "Currently using default";
   $("#regionselection").val("North Central").change();
 });
 
