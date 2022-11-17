@@ -17,12 +17,11 @@ captions_dict["annual_net_change_carbon_stocks"] = [
 ];
 captions_dict["all_results_final"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and <br> Total cumulative metric tons carbon emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites. Carbon emitted from discarded <br> wood and paper products in landfills is decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not included. <br> Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other carbon-based greenhouse gases such as methane.",
-  },
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture, and assumes emissions are CO2e. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e tons) and do not include other carbon-based greenhouse gases such as methane."},
 ];
 captions_dict["end_use"] = [
   {
-    text: "Total cumulative metric tons carbon stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year].",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year].",
   },
 ];
 captions_dict["burned_with_energy_capture_emissions"] = [
@@ -32,7 +31,7 @@ captions_dict["burned_with_energy_capture_emissions"] = [
 ];
 captions_dict["burned_without_energy_capture_emissions"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. <br> Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. <br> Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_cumulative_carbon_stocks"] = [
@@ -42,54 +41,70 @@ captions_dict["total_cumulative_carbon_stocks"] = [
 ];
 captions_dict["total_dumps_carbon"] = [
   {
-    text: "Total cumulative metric tons carbon stored in dumps from discarded products manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon in dumps include discarded wood and paper products and comprise a portion of <br> the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other <br> carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e stored in dumps from discarded products manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon in dumps include discarded wood and paper products and comprise a portion of <br> the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not include other <br> carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_landfills_carbon"] = [
   {
-    text: "Total cumulative metric tons carbon stored in landfills from discarded products manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon in landfills are discarded wood and paper products and comprise a portion <br>  of the solid waste disposal site pool. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e stored in landfills from discarded products manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon in landfills are discarded wood and paper products and comprise a portion <br>  of the solid waste disposal site pool. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_dumps_carbon_emitted"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from discarded products in dumps manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in dumps is decay without <br> energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br> rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from discarded products in dumps manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in dumps is decay without <br> energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br> rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_composted_carbon_emitted"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from composted discarded harvested wood products manufactured from total <br>  timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded <br> products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of <br> carbon dioxide equivalent (CO2e) and do not include other greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from composted discarded harvested wood products manufactured from total <br>  timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded <br> products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of <br> carbon dioxide equivalent (CO2e) and do not include other greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_landfills_carbon_emitted"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from discarded products in landfills manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is <br> decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with <br> energy capture is not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not <br> include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from discarded products in landfills manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is <br> decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with <br> energy capture is not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) and do not <br> include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_solid_carbon_dispositions"] = [
   {
-    text: "Total cumulative metric tons carbon stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. <br> The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products in use pool in a <br> given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. <br> Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. <br> The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products in use pool in a <br> given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. <br> Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills.",
   },
 ];
 captions_dict["total_solid_carbon_dispositions2"] = [
   {
-    text: "Total cumulative metric tons carbon stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. <br> The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products in use pool in a <br> given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. <br> Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e stored in end-use products in use, in landfills from discarded products, and in dumps from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. <br> The recalcitrance of carbon in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products in use pool in a <br> given inventory year includes products in use and recovered products. Carbon in landfills and dumps are discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. <br> Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to modern landfills.",
   },
 ];
 captions_dict["total_emissions_dispositions"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded products with and without energy capture, composted discarded harvested wood products, <br> and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during <br> the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 <br> wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded products with and without energy capture, composted discarded harvested wood products, <br> and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during <br> the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 <br> wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_emissions_dispositions2"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded products with and without energy capture, composted discarded harvested wood products, <br> and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during <br> the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 <br> wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded products with and without energy capture, composted discarded harvested wood products, <br> and discarded products in dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood and wood waste with energy capture occurs during <br> the year of harvest and is not assumed to substitute for an equivalent amount of fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage is associated with <br> composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 <br> wood and paper waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["swds_emissions"] = [
   {
-    text: "Total cumulative metric tons carbon emitted from discarded products in landfills and dumps manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products <br> in landfills and dumps is decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not included. Prior to 1970 wood and paper waste <br> was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative Metric Tons CO<sup>2</sup>e emitted from discarded products in landfills and dumps manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products <br> in landfills and dumps is decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is not included. Prior to 1970 wood and paper waste <br> was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO2e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
+// COLORS
+
+var colors = {
+  darkBlue: "#1344D6",
+  lightBlue: "#80C9D8",
+  green: "#00A300",
+  darkRed: "#950000",
+  lightRed: "#DFA9A9",
+
+  landfill_emissions: "#007500",
+  dump_emissions: "#94C973",
+  compost_emissions: "#F28A80",
+  fuelwood_emissions: "#B43930",
+
+
+}
 
 header_dict = [];
 
@@ -159,117 +174,117 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.annual_net_change_carbon_stocks,
     "Annual Net Change Carbon Stocks",
     "bar",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["all_results_final"] = [
     final_json.big_four,
     "Final Results",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   // data_dict["annual_harvests_output"] = [final_json.harvest_data,"Annual Total Harvest","line"]
   data_dict["burned_with_energy_capture_emissions"] = [
     final_json.burned_w_energy_capture_emit,
     "Total Carbon Burned With Energy Capture",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["burned_without_energy_capture_emissions"] = [
     final_json.burned_wo_energy_capture_emit,
     "Total Carbon Burned Without Energy Capture",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
 
   data_dict["end_use"] = [
     final_json.total_end_use_products,
     "Total End Use Products",
     "line",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["swds"] = [
     final_json.swds,
     "Total SWDS",
     "line",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_composted_carbon_emitted"] = [
     final_json.total_composted_carbon_emitted,
     "Total Carbon in Compost Emitted",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_cumulative_carbon_stocks"] = [
     final_json.total_cumulative_carbon_stocks,
     "Total Cumulative Carbon Stocks",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_dumps_carbon"] = [
     final_json.total_dumps_carbon,
     "Total Carbon in Dumps",
     "line",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_dumps_carbon_emitted"] = [
     final_json.total_dumps_carbon_emitted,
     "Total Carbon in Dumps Emitted",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_fuelwood_carbon_emitted"] = [
     final_json.total_fuelwood_carbon_emitted,
     "Total Emitted Fuelwood Carbon",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_in_use"] = [
     final_json.total_in_use,
     "Total Carbon in Use",
     "line",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_landfills_carbon"] = [
     final_json.total_landfills_carbon,
     "Total Landfills Carbon",
     "line",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_landfills_carbon_emitted"] = [
     final_json.total_landfills_carbon_emitted,
     "Total Landfills Carbon Emitted",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_solid_carbon_dispositions"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_solid_carbon_dispositions2"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["swds_emissions"] = [
     final_json.carbon_emitted_distinct_swds,
     "Total SWDS Emissions",
     "stack",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_emissions_dispositions"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_emissions_dispositions2"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
 
   //Data_dict for Tables
@@ -309,25 +324,25 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.big_four,
     "Final Results",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_solid_carbon_dispositions_hidden"] = [
     final_json.carbon_present_distinct_swds,
     "Total Solid Carbon Dispositions",
     "stack",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["total_emissions_dispositions_hidden"] = [
     final_json.emitted_all,
     "Total Emissions",
     "stack",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["annual_net_change_carbon_stocks_hidden"] = [
     final_json.annual_net_change_carbon_stocks,
     "Annual Net Change Carbon Stocks",
     "bar",
-    "metric tons carbon",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["annual_harvest_and_timber_product_output_hidden"] = [
     final_json.annual_harvest_and_timber_product_output,
@@ -339,19 +354,19 @@ output.initialize = function (input_json, bucket, file_name, is_single) {
     final_json.burned_w_energy_capture_emit,
     "Total Carbon Burned With Energy Capture",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["burned_without_energy_capture_emissions_hidden"] = [
     final_json.burned_wo_energy_capture_emit,
     "Total Carbon Burned Without Energy Capture",
     "line",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
   data_dict["swds_emissions_hidden"] = [
     final_json.carbon_emitted_distinct_swds,
     "Total Emissions Dispositions",
     "stack",
-    "metric tons CO2e",
+    "Metric Tons CO<sup>2</sup>e",
   ];
 };
 
@@ -708,6 +723,7 @@ $("#reused").keydown(function (e) {
   }
 });
 
+
 generate_graph = function (
   json_data,
   graph_class,
@@ -824,75 +840,107 @@ generate_graph = function (
           for (j in data) {
             temp.push(data[j][column]);
           }
+          colorHex = "#333";
           if (column == "products_in_use") {
             y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
           }
           if (column == "products_in_use_present_co2e") {
             y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
           }
           if (column == "SWDS") {
             y_name = "SWDS";
+            colorHex = colors["green"];
           }
           if (column == "SWDS_present_co2e") {
             y_name = "SWDS";
+            colorHex = colors["green"];
           }
           if (column == "emitted_w_energy_capture_emitted_co2e") {
-            y_name = "Emitted with <br>Energy Capture";
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
           }
           if (column == "emitted_w_energy_capture") {
-            y_name = "Emitted with <br>Energy Capture";
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
           }
           if (column == "emitted_wo_energy_capture") {
-            y_name = "Emitted without <br>Energy Capture";
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
           }
           if (column == "emitted_wo_energy_capture_emitted_co2e") {
-            y_name = "Emitted without <br>Energy Capture";
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
           }
           if (column == "Fuel_emitted_co2e") {
             y_name = "Fuelwood Emissions";
+            colorHex = colors["fuelwood_emissions"];
           }
           if (column == "Composted_emitted_co2e") {
             y_name = "Compost Emissions";
+            colorHex = colors["compost_emissions"];
           }
           if (column == "Dumps_emitted_mgc") {
             y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Dumps_emitted_co2e") {
             y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Landfills_emitted_co2e") {
             y_name = "Landfill Emissions";
+            colorHex = colors["landfill_emissions"];
           }
           if (column == "Dumps_present_mgc") {
             y_name = "Carbon in Dumps";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Landfills_present_mgc") {
             y_name = "Carbon in Landfills";
+            colorHex = colors["landfill_emissions"];
           }
           if (column == "new_products_in_use") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled ";
+            colorHex = colors["lightBlue"];
           }
           if (column == "new_products_in_use_co2e") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use_co2e") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled";
+            colorHex = colors["lightBlue"];
           }
           if (column == "new_products_in_use_mgc") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use_mgc") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled ";
+            colorHex = colors["lightBlue"];
           }
+          if (column == "new_products_in_use_present_co2e") {
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "reused_products_in_use_present_co2e") {
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
+          }
+          
           if (emissions_present == true && solid_present == false) {
             var temp_trace = {
               x: year_data,
               y: temp,
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           }
           if (emissions_present == true && solid_present == true) {
@@ -903,6 +951,9 @@ generate_graph = function (
                 yaxis: "y2",
                 name: y_name,
                 stackgroup: "one",
+                line: { color: colorHex },
+                fill: { color: colorHex }
+
               };
             } else {
               var temp_trace = {
@@ -910,6 +961,7 @@ generate_graph = function (
                 y: temp,
                 name: y_name,
                 stackgroup: "one",
+                line: { color: colorHex }
               };
             }
           }
@@ -919,6 +971,7 @@ generate_graph = function (
               y: temp,
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           }
           stackedData.push(temp_trace);
@@ -979,6 +1032,7 @@ generate_graph = function (
         x: year_array,
         y: prod_array,
         name: "Change in Products in Use",
+        marker: { color: colors["darkBlue"] },
         type: "bar",
       };
 
@@ -986,6 +1040,7 @@ generate_graph = function (
         x: year_array,
         y: swds_array,
         name: "Change in SWDS",
+        marker: { color: colors["green"] },
         type: "bar",
       };
 
@@ -998,6 +1053,7 @@ generate_graph = function (
         responsive: true,
         title: "Annual Net Change Carbon Stocks",
         showlegend: false,
+        
       };
 
       Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
@@ -1031,11 +1087,11 @@ generate_graph = function (
 
       var layout = {
         title: data_dict[graph_class][1],
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br>" + caption[0].text},
         yaxis: { title: data_dict[graph_class][3] },
         automargin: true,
         height: 700,
-        margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+        margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
         responsive: true,
       };
 
@@ -1087,10 +1143,10 @@ generate_graph = function (
 
       var layout = {
         title: "Annual Harvest and Timber Product Outputs",
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
+        xaxis: { title: "Year<br><br>"},
         yaxis: { title: "Hundred Cubic Feet (CCF)" },
         yaxis2: {
-          title: "metric tons carbon",
+          title: "Metric Tons CO<sup>2</sup>e",
           titlefont: { color: "rgb(148, 103, 189)" },
           tickfont: { color: "rgb(148, 103, 189)" },
           overlaying: "y",
@@ -1100,6 +1156,23 @@ generate_graph = function (
         height: 700,
         margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
         responsive: true,
+
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.4,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
+      
       };
 
       var stackedData = [trace1, trace2];
@@ -1142,80 +1215,107 @@ generate_graph = function (
             temp.push(data[j][column]);
           }
           console.log(column)
+          colorHex = "#333";
+
           if (column == "products_in_use") {
             y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
           }
           if (column == "products_in_use_mgc") {
             y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
           }
           if (column == "products_in_use_present_co2e") {
             y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
           }
           if (column == "SWDS") {
             y_name = "SWDS";
+            colorHex = colors["green"];
           }
           if (column == "SWDS_mgc") {
             y_name = "SWDS";
+            colorHex = colors["green"];
           }
           if (column == "SWDS_present_co2e") {
             y_name = "SWDS";
+            colorHex = colors["green"];
           }
           if (column == "emitted_w_energy_capture_emitted_co2e") {
-            y_name = "Emitted with <br>Energy Capture";
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
           }
           if (column == "emitted_w_energy_capture") {
-            y_name = "Emitted with <br>Energy Capture";
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
           }
           if (column == "emitted_wo_energy_capture") {
-            y_name = "Emitted without <br>Energy Capture";
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
           }
           if (column == "emitted_wo_energy_capture_emitted_co2e") {
-            y_name = "Emitted without <br>Energy Capture";
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
           }
           if (column == "Fuel_emitted_co2e") {
             y_name = "Fuelwood Emissions";
+            colorHex = colors["fuelwood_emissions"];
           }
           if (column == "Composted_emitted_co2e") {
             y_name = "Compost Emissions";
+            colorHex = colors["compost_emissions"];
           }
           if (column == "Dumps_emitted_mgc") {
             y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Dumps_emitted_co2e") {
             y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Landfills_emitted_co2e") {
             y_name = "Landfill Emissions";
+            colorHex = colors["landfill_emissions"];
           }
           if (column == "Dumps_present_mgc") {
             y_name = "Carbon in Dumps";
+            colorHex = colors["dump_emissions"];
           }
           if (column == "Landfills_present_mgc") {
             y_name = "Carbon in Landfills";
+            colorHex = colors["landfill_emissions"];
           }
           if (column == "new_products_in_use") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
           }
           if (column == "new_products_in_use_co2e") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use_co2e") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
           }
           if (column == "new_products_in_use_present_co2e") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use_present_co2e") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
           }
           if (column == "new_products_in_use_mgc") {
-            y_name = "New Products in Use";
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
           }
           if (column == "reused_products_in_use_mgc") {
-            y_name = "Recycled Products in Use";
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
           }
           if (emissions_present == true && solid_present == false) {
             var temp_trace = {
@@ -1223,6 +1323,7 @@ generate_graph = function (
               y: temp,
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           }
           if (emissions_present == true && solid_present == true) {
@@ -1233,6 +1334,7 @@ generate_graph = function (
                 yaxis: "y2",
                 name: y_name,
                 stackgroup: "one",
+                line: { color: colorHex }
               };
             } else {
               var temp_trace = {
@@ -1240,6 +1342,7 @@ generate_graph = function (
                 y: temp,
                 name: y_name,
                 stackgroup: "one",
+                line: { color: colorHex }
               };
             }
           }
@@ -1249,6 +1352,7 @@ generate_graph = function (
               y: temp,
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           }
           stackedData.push(temp_trace);
@@ -1258,22 +1362,38 @@ generate_graph = function (
       if (emissions_present == true && solid_present == false) {
         var layout = {
           title: title,
-          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "metric tons CO2e" },
+          xaxis: { title: "Year<br><br>"},
+          yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
           automargin: true,
           height: 700,
           margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
           responsive: true,
+          //adding caption as an annotation under graph
+          annotations: [
+            {
+              xref: "paper",  
+              yref: "paper",
+              x: 0.5,
+              xanchor: "center",
+              y: -0.4,
+              yanchor: "bottom",
+              text: caption[0].text,
+              showarrow: false,
+              font: { size: 16 },
+              width: 1000
+            }
+          ]
+        
         };
       }
       if (emissions_present == true && solid_present == true) {
         var layout = {
           title: title,
           autosize: true,
-          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "metric tons carbon" },
+          xaxis: { title: "Year<br><br>:"},
+          yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
           yaxis2: {
-            title: "metric tons CO2e",
+            title: "Metric Tons CO<sup>2</sup>e",
             // titlefont: {color: 'rgb(148, 103, 189)'},
             // tickfont: {color: 'rgb(148, 103, 189)'},
             overlaying: "y",
@@ -1284,17 +1404,48 @@ generate_graph = function (
           margin: { l: 100, r: 55, b: 200, t: 100, pad: 4 },
           responsive: true,
           legend: { x: 1.05, y: 1 },
+     
+          annotations: [
+            {
+              xref: "paper",  
+              yref: "paper",
+              x: 0.5,
+              xanchor: "center",
+              y: -0.4,
+              yanchor: "bottom",
+              text: caption[0].text,
+              showarrow: false,
+              font: { size: 16 },
+              width: 1000
+            }
+          ]
+        
         };
       }
       if (emissions_present == false && solid_present == true) {
         var layout = {
           title: title,
-          xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-          yaxis: { title: "metric tons carbon" },
+          xaxis: { title: "Year<br><br>"},
+          yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
           automargin: true,
           height: 700,
           margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
           responsive: true,
+          annotations: [
+            {
+              xref: "paper",  
+              yref: "paper",
+              x: 0.5,
+              xanchor: "center",
+              y: -0.4,
+              yanchor: "bottom",
+              text: caption[0].text,
+              showarrow: false,
+              font: { size: 16 },
+              width: 1000
+            }
+          ]
+        
         };
       }
 
@@ -1347,6 +1498,7 @@ generate_graph = function (
         x: year_array,
         y: prod_array,
         name: "Change in Products in Use",
+        marker: {color: colors["darkBlue"]},
         type: "bar",
       };
 
@@ -1354,6 +1506,7 @@ generate_graph = function (
         x: year_array,
         y: swds_array,
         name: "Change in SWDS",
+        marker: {color: colors["green"]},
         type: "bar",
       };
 
@@ -1361,6 +1514,7 @@ generate_graph = function (
         x: year_array,
         y: net_change_array,
         name: "Net Change",
+        line: {color: "black"},
         type: "scatter",
       };
 
@@ -1368,13 +1522,28 @@ generate_graph = function (
 
       var layout = {
         barmode: "relative",
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "metric tons carbon" },
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
         title: "Annual Net Change Carbon Stocks",
         automargin: true,
         height: 700,
         margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
         responsive: true,
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.4,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
       };
       plot = Plotly.newPlot(tester, stackedData, layout);
     }
@@ -1426,12 +1595,27 @@ generate_hidden_graph = function (
 
     var layout = {
       title: data_dict[graph_class][1],
-      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
+      xaxis: { title: "Year<br><br>"},
       yaxis: { title: data_dict[graph_class][3] },
       automargin: true,
       height: 700,
       margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
       responsive: true,
+      annotations: [
+        {
+          xref: "paper",  
+          yref: "paper",
+          x: 0.5,
+          xanchor: "center",
+          y: -0.4,
+          yanchor: "bottom",
+          text: caption[0].text,
+          showarrow: false,
+          font: { size: 16 },
+          width: 1000
+        }
+      ]
+    
     };
 
     var stackedData = [trace1];
@@ -1483,10 +1667,10 @@ generate_hidden_graph = function (
 
     var layout = {
       title: "Annual Harvest and Timber Product Outputs",
-      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
+      xaxis: { title: "Year<br><br>"},
       yaxis: { title: "Hundred Cubic Feet (CCF)" },
       yaxis2: {
-        title: "metric tons carbon",
+        title: "Metric Tons CO<sup>2</sup>e",
         titlefont: { color: "rgb(148, 103, 189)" },
         tickfont: { color: "rgb(148, 103, 189)" },
         overlaying: "y",
@@ -1496,6 +1680,21 @@ generate_hidden_graph = function (
       height: 700,
       margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
       responsive: true,
+      annotations: [
+        {
+          xref: "paper",  
+          yref: "paper",
+          x: 0.5,
+          xanchor: "center",
+          y: -0.4,
+          yanchor: "bottom",
+          text: caption[0].text,
+          showarrow: false,
+          font: { size: 16 },
+          width: 1000
+        }
+      ]
+    
     };
 
     var stackedData = [trace1, trace2];
@@ -1544,68 +1743,91 @@ generate_hidden_graph = function (
           temp.push(data[j][column]);
         }
         console.log(column)
+        colorHex = "#333";
         if (column == "products_in_use") {
           y_name = "Products in Use";
+          colorHex = colors["darkBlue"];
         }
         if (column == "products_in_use_mgc") {
           y_name = "Products in Use";
+          colorHex = colors["darkBlue"];
         }
         if (column == "products_in_use_present_co2e") {
           y_name = "Products in Use";
+          colorHex = colors["darkBlue"];
         }
         if (column == "new_products_in_use_present_co2e") {
-          y_name = "New Products in Use";
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
         }
         if (column == "reused_products_in_use_present_co2e") {
-          y_name = "Recycled Products in Use";
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
         }
         if (column == "new_products_in_use_present_mgc") {
-          y_name = "New Products in Use";
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
         }
         if (column == "reused_products_in_use_present_mgc") {
-          y_name = "Recycled Products in Use";
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
         }
+        
         if (column == "SWDS") {
           y_name = "SWDS";
+          colorHex = colors["green"];
         }
         if (column == "SWDS_mgc") {
           y_name = "SWDS";
+          colorHex = colors["green"];
         }
         if (column == "SWDS_present_co2e") {
           y_name = "SWDS";
+          colorHex = colors["green"];
         }
         if (column == "emitted_w_energy_capture_emitted_co2e") {
-          y_name = "Emitted with <br>Energy Capture";
+          y_name = "Emitted with Energy Capture";
+          colorHex = colors["lightRed"];
         }
         if (column == "emitted_w_energy_capture") {
-          y_name = "Emitted with <br>Energy Capture";
+          y_name = "Emitted with Energy Capture";
+          colorHex = colors["lightRed"];
         }
         if (column == "emitted_wo_energy_capture") {
-          y_name = "Emitted without <br>Energy Capture";
+          y_name = "Emitted without Energy Capture";
+          colorHex = colors["darkRed"];
         }
         if (column == "emitted_wo_energy_capture_emitted_co2e") {
-          y_name = "Emitted without <br>Energy Capture";
+          y_name = "Emitted without Energy Capture";
+          colorHex = colors["darkRed"];
         }
         if (column == "Fuel_emitted_co2e") {
           y_name = "Fuelwood Emissions";
+          colorHex = colors["fuelwood_emissions"];
         }
         if (column == "Composted_emitted_co2e") {
           y_name = "Compost Emissions";
+          colorHex = colors["compost_emissions"];
         }
         if (column == "Dumps_emitted_mgc") {
           y_name = "Dump Emissions";
+          colorHex = colors["dump_emissions"];
         }
         if (column == "Dumps_emitted_co2e") {
           y_name = "Dump Emissions";
+          colorHex = colors["dump_emissions"];
         }
         if (column == "Landfills_emitted_co2e") {
           y_name = "Landfill Emissions";
+          colorHex = colors["landfill_emissions"];
         }
         if (column == "Dumps_present_mgc") {
           y_name = "Carbon in Dumps";
+          colorHex = colors["dump_emissions"];
         }
         if (column == "Landfills_present_mgc") {
           y_name = "Carbon in Landfills";
+          colorHex = colors["landfill_emissions"];
         }
         if (emissions_present == true && solid_present == false) {
           var temp_trace = {
@@ -1613,6 +1835,7 @@ generate_hidden_graph = function (
             y: temp,
             name: y_name,
             stackgroup: "one",
+            line: { color: colorHex }
           };
         }
         if (emissions_present == true && solid_present == true) {
@@ -1623,6 +1846,7 @@ generate_hidden_graph = function (
               yaxis: "y2",
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           } else {
             var temp_trace = {
@@ -1630,6 +1854,7 @@ generate_hidden_graph = function (
               y: temp,
               name: y_name,
               stackgroup: "one",
+              line: { color: colorHex }
             };
           }
         }
@@ -1639,6 +1864,7 @@ generate_hidden_graph = function (
             y: temp,
             name: y_name,
             stackgroup: "one",
+            line: { color: colorHex }
           };
         }
         stackedData.push(temp_trace);
@@ -1648,22 +1874,37 @@ generate_hidden_graph = function (
     if (emissions_present == true && solid_present == false) {
       var layout = {
         title: title,
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "metric tons CO2e" },
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
         automargin: true,
         height: 700,
         margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
         responsive: true,
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.4,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
       };
     }
     if (emissions_present == true && solid_present == true) {
       var layout = {
         title: title,
         autosize: true,
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "metric tons carbon" },
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
         yaxis2: {
-          title: "metric tons CO2e",
+          title: "Metric Tons CO<sup>2</sup>e",
           // titlefont: {color: 'rgb(148, 103, 189)'},
           // tickfont: {color: 'rgb(148, 103, 189)'},
           overlaying: "y",
@@ -1674,17 +1915,47 @@ generate_hidden_graph = function (
         margin: { l: 100, r: 55, b: 200, t: 100, pad: 4 },
         responsive: true,
         legend: { x: 1.05, y: 1 },
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.4,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
       };
     }
     if (emissions_present == false && solid_present == true) {
       var layout = {
         title: title,
-        xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-        yaxis: { title: "metric tons carbon" },
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
         automargin: true,
         height: 700,
         margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
         responsive: true,
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.4,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
       };
     }
 
@@ -1721,6 +1992,7 @@ generate_hidden_graph = function (
       x: year_array,
       y: prod_array,
       name: "Change in Products in Use",
+      marker: { color: colors["darkBlue"]},
       type: "bar",
     };
 
@@ -1728,6 +2000,7 @@ generate_hidden_graph = function (
       x: year_array,
       y: swds_array,
       name: "Change in SWDS",
+      marker: { color: colors["green"]},
       type: "bar",
     };
 
@@ -1735,13 +2008,28 @@ generate_hidden_graph = function (
 
     var layout = {
       barmode: "relative",
-      xaxis: { title: "Year<br><br><sup>" + caption[0].text + "</sup>" },
-      yaxis: { title: "metric tons carbon" },
+      xaxis: { title: "Year<br><br>"},
+      yaxis: { title: "Metric Tons CO<sup>2</sup>e" },
       title: "Annual Net Change Carbon Stocks",
       automargin: true,
       height: 700,
       margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
       responsive: true,
+      annotations: [
+        {
+          xref: "paper",  
+          yref: "paper",
+          x: 0.5,
+          xanchor: "center",
+          y: -0.4,
+          yanchor: "bottom",
+          text: caption[0].text,
+          showarrow: false,
+          font: { size: 16 },
+          width: 1000
+        }
+      ]
+    
     };
 
     plot = Plotly.newPlot(tester, stackedData, layout);
