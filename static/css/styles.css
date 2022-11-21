@@ -1124,12 +1124,17 @@ input[type="radio"]:after{
   margin-bottom: 120px;
 }
 
-.graphic-container h1, h2, h3, h4, h5 {
+.graphic-container h1, h3, h4, h5 {
   font-family: var(--montserrat);
   font-weight: 600;
   text-align: center;
 }
 
+.flowchart-container h2 {
+  font-family: var(--montserrat);
+  font-weight: 600;
+  text-align: center;
+}
 
 .container-inputs{
   background-color: #C5DDC5;
@@ -1979,8 +1984,15 @@ font-weight: 400;
   }
 }
 
+/* Reference */
 
-
+.reference-container {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  width: 100%;
+  padding-top: 10rem;
+}
 
 /* Footer */
 
