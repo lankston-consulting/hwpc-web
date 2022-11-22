@@ -186,7 +186,7 @@ $(".cancel-upload-btn").click(function (e) {
   )[0].previousElementSibling.previousElementSibling.previousElementSibling.value =
     null;
   $(e.target)[0].previousElementSibling.value = null;
-  $(e.target)[0].previousElementSibling.placeholder = "no file uploaded";
+  $(e.target)[0].previousElementSibling.placeholder = "Currently using default";
   $("#regionselection").val("North Central").change();
 });
 
@@ -476,16 +476,10 @@ $("#previewbtn").click(function (e) {
       class_list[1] == "acc-04e" ||
       class_list[1] == "acc-04f"
     ) {
-      console.log(class_list[1]);
-      console.log(class_list[1].slice(0, -1));
-      console.log($("#" + class_list[1])[0]);
-      console.log("1");
       toggleAccordion($("#" + class_list[1].slice(0, -1))[0]);
-      toggleAccordion($("#" + class_list[1])[0]);
       toggleAccordion($("#" + class_list[1])[0]);
     }
     else {
-      console.log("3");
       toggleAccordion($("#" + class_list[1])[0]);
     }
   });
