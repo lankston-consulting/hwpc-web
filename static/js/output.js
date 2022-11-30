@@ -1908,8 +1908,8 @@ generate_hidden_graph = function (
         xaxis: { title: "Year<br><br>"},
         yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
         automargin: true,
-        height: 700,
-        margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
+        height: 800,
+        margin: { l: 100, r: 50, b: 250, t: 100, pad: 4 },
         responsive: true,
         annotations: [
           {
