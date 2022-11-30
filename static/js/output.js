@@ -1390,8 +1390,8 @@ generate_graph = function (
           xaxis: { title: "Year<br><br>"},
           yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
           automargin: true,
-          height: 700,
-          margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
+          height: 800,
+          margin: { l: 100, r: 50, b: 275, t: 100, pad: 4 },
           responsive: true,
           //adding caption as an annotation under graph
           annotations: [
@@ -1558,7 +1558,7 @@ generate_graph = function (
         title: "Annual Net Change Carbon Stocks",
         automargin: true,
         height: 700,
-        margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
+        margin: { l: 100, r: 50, b: 135, t: 100, pad: 4 },
         responsive: true,
         annotations: [
           {
