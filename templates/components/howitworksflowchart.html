@@ -1,34 +1,21 @@
-<section id="how-it-works" style="overflow-x:auto; margin-top: 100px;">
-    <!-- <h1>How it Works</h1> -->
+        <!-- <h1>How it Works</h1> -->
 
-    <div class="flowchart-container">
-        <div class="flowchart-legend">
-            <ul>
-                <li>
-                    <div class="legend-circle dark-grn"></div>
-                    <p>Required Inputs</p>
-                </li>
-                <li>
-                    <div class="legend-circle light-grn"></div>
-                    <p>Optional Overrides</p>
-                </li>
-                <li>
-                    <div class="legend-circle yellow"></div>
-                    <p>Intermediate Steps</p>
-                </li>
-                <li>
-                    <div class="legend-circle red"></div>
-                    <p>Results</p>
-                </li>
-            </ul>
-        </div>
+        {% include "components/legend.html" %}
+
         <div style="transform: translateX(-100px);">
+
             <div style="position: relative;" class="container-bg graphic-card container-inputs">
                 <h2 style=" text-align: center; margin-bottom: 2em;">For each user-provided harvest year</h2>
                 <div tabindex="0" class="graphic-card inputs harvest center">
                     <h3>
-                        Annual harvest (mbf | ccf)
+                        Annual harvest (MBF | CCF)
                     </h3>
+                </div>
+                <div tabindex="0" class="center">
+                    {% include "components/arrow.html" %}
+                </div>
+                <div tabindex="0" class="graphic-card inputs harvest center">
+                    <h3>Converted to CCF for model operations</h3>
                 </div>
                 <div class="center">
                     <div tabindex="0" class="center">
@@ -37,7 +24,7 @@
                 </div>
                 <div tabindex="0" class="graphic-card inputs harvest">
                     <h3>
-                        Allocate to timber products (ccf)
+                        Allocate to timber products (CCF)
                     </h3>
                 </div>
                 <div class="center">
@@ -47,7 +34,7 @@
                 </div>
                 <div tabindex="0" class="graphic-card inputs">
                     <h3>
-                        Allocate to primary products (ccf)
+                        Allocate to primary products (CCF)
                     </h3>
                 </div>
                 <div class="center">
@@ -57,7 +44,7 @@
                 </div>
                 <div tabindex="0" class="graphic-card inputs">
                     <h3>
-                        Allocate to end use products (ccf)
+                        Allocate to end use products (CCF)
                     </h3>
                 </div>
                 <div class="center">
@@ -67,7 +54,7 @@
                 </div>
                 <div tabindex="0" class="graphic-card inputs">
                     <h3>
-                        Convert end use ccf to metric tons carbon
+                        Convert end use CCF to metric tons carbon
                     </h3>
                 </div>
                 <div>
@@ -75,21 +62,20 @@
                         {% include "components/arrow.html" %}
                     </div>
                 </div>
-                <div>
+                <div style="display: flex;">
                     <div tabindex="0" class="graphic-card inputs" style="max-width: 300px;">
                         <h3>
                             Remove end use loss amount from wood products <br> (not paper)
                         </h3>
                     </div>
-
+                    <div tabindex="0" style="position: absolute; transform: translate(375px, -55px);">
+                        <img role="presentation" width="30px" src="../../static/images/SVG/extra_long.svg"
+                            alt="Long Arrow Pointing Down and Left">
+                        <!-- <h3>Paper</h3> -->
+                    </div>
                 </div>
             </div>
-            <div tabindex="0"
-                style="position: relative; z-index: 1000; float: right; transform:translate(-335px, -210px);">
-                <img role="presentation" width="30px" src="../../static/images/SVG/extra_long.svg"
-                    alt="Long Arrow Pointing Down and Left">
-                <!-- <h3>Paper</h3> -->
-            </div>
+
 
 
             <div class="container-bg">
@@ -138,7 +124,7 @@
                     <h2 style="text-align:center;">Dispositions</h2>
                     <span style="display: flex; align-items: center;">
                         <div tabindex="0" class="graphic-card results" style="margin-right:150px;">
-                            <h2 style="text-align:center;">Products in SWDS (MgC)</h2>
+                            <h2 style="text-align:center;">Products in SWDS <br> (metric tons CO<sub>2</sub>e)</h2>
                             <div style="display:flex;">
                                 <div tabindex="0" class="graphic-card output">
                                     <h3>Landfills</h3>
@@ -191,7 +177,7 @@
                 <span class=" results-content">
                     <div tabindex="0" style="transform:translateY(10px);" class="graphic-card output">
                         <h3>
-                            Emitted from Decay <br> (metric tons CO<sup>2</sup>e)
+                            Emitted from Decay <br> (metric tons CO<sub>2</sub>e)
                         </h3>
                     </div>
                     <div tabindex="0" class="center right-arrow" style="margin-right: 45px;">
@@ -199,16 +185,16 @@
                     </div>
                     <div id="productsInUse" tabindex="0" class="graphic-card results lower-results-cards">
                         <h3>
-                            Emitted without energy capture (metric tons CO<sup>2</sup>e)
+                            Emitted without energy capture (metric tons CO<sub>2</sub>e)
                         </h3>
                     </div>
                     <div tabindex="0" class="graphic-card results lower-results-cards">
                         <h3>
-                            Emitted with energy capture (metric tons CO<sup>2</sup>e)
+                            Emitted with energy capture (metric tons CO<sub>2</sub>e)
                         </h3>
                     </div>
                 </span>
             </div>
         </div>
-    </div>
-</section>
+        </div>
+        </section>

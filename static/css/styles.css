@@ -722,10 +722,9 @@ input[type="email"] {
 
 input[type="number"] {
   min-width: 2rem;
-  width: 150px;
-
+  width: 100px;
+  text-align: right;
 }
-
 
 input[type=text]:focus {
   box-shadow: 0 0 5px #595959;
@@ -1075,7 +1074,8 @@ input[type="radio"]:after{
 #systemFlow {
   background-color: rgb(241, 241, 241, 90%);
   width: var(--content-width);
-  margin: 0 auto 200px auto;
+  /* margin: 0 auto 200px auto; */
+  margin: 0 auto;
   border-radius: 5px;
 
 }
@@ -1106,6 +1106,7 @@ input[type="radio"]:after{
   width:fit-content; 
   /* margin: 0 auto;  */
   transform: translateX(50px);
+
 }
 
 #systemFlow .tabcontent {
@@ -1205,9 +1206,13 @@ input[type="radio"]:after{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 100px;
   margin-bottom: 20px;
-
+  height: fit-content;
+  top: 0;
+  position: sticky;
+  z-index: 9999;
+ 
   /* background-color: #888; */
 }
 
@@ -1498,9 +1503,8 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
 /* Output Page */
 
 .output-page {
-  padding-top: 10rem; 
+  padding: 10rem 1rem 15rem 1rem;
   margin-bottom: 15rem; 
-  padding-bottom: 15rem;
   display: flex;
   min-width: fit-content;
   width: 1600px;

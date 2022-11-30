@@ -179,9 +179,11 @@ def upload():
     burned_ratios = request.files["BurnedRatiosFilename"]
     mbf_to_ccf = request.files["MbfToCcfFilename"]
     loss_factor = request.form["lossfactor"]
+    loss_factor = float(int(loss_factor)/100)
     iterations = request.form["iterations"]
     email = request.form["email"]
     run_name = request.form["runname"]
+    run_name = run_name.replace(" ", "_")
 
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
@@ -318,6 +320,8 @@ def output():
         file_name=q,
         is_single=is_single,
     )
+
+    
 
 
 # @app.route('/download', methods=['GET','POST'])

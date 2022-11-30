@@ -538,3 +538,18 @@ $("#getdata").click(function (e) {
       });
   });
 });
+
+//Jquery function for drag and drop on file inputs
+$(function () {
+  var fileInputs = $(".file-input");
+  fileInputs.each(function () {
+    ondragover = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).addClass("dragover");
+    };
+    ondrop = function (e) {
+      fileInput.files = evt.dataTransfer.files;
+    }
+  });
+})

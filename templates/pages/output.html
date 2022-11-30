@@ -4,6 +4,9 @@
 
 <div class="output-page">
     <aside>
+        <h2 id="name-of-run"></h2>
+        <hr>
+        <br>
         <h1 style="margin-bottom: 1em; font-size: 1.8rem;">Controls</h1>
         <form action="">
             <fieldset>
@@ -58,6 +61,7 @@
         </div>
 
         <!-- Tab content -->
+
         <div id="cumulativeResultsContent" class="tabcontent">
             <div tabindex="0" aria-label=" All Final Results" class="graph active-graph all_results_final"></div>
             <div class="add-graph-container">
@@ -136,6 +140,9 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
     output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}');
+</script>
+<script>
+    document.getElementById("name-of-run").innerHTML = "{{ file_name }}";
 </script>
 
 

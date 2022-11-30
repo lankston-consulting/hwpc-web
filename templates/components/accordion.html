@@ -28,7 +28,8 @@
                     <br>
                     <br>
                     <p>Select the units of your harvest data, either million board feet (MBF) or 100 cubic board feet
-                        (CCF). Final model results will be in units of metric tons carbon and metric tons CO2e.</p>
+                        (CCF). Final model results will be in units of metric tons carbon and metric tons
+                        CO<sub>2</sub>e.</p>
                     <input type="radio" id="ccf" name="harvestdatatype" value="ccf" class="custom-radio-btn" checked>
                     <label tabindex="0" id="ccf-label" for="ccf">CCF</label>
                     <input type="radio" id="mbf" name="harvestdatatype" value="mbf" class="custom-radio-btn">
@@ -162,16 +163,17 @@
                 <p>The survival function dictates the lifecycle or harvested wood products in use.</p>
                 <br><br>
                 <span style="display: flex;">
-                    <input type="radio" id="halflife" name="enduseproductrates" value="halflife"
-                        class="custom-radio-btn" checked>
-                    <label tabindex="0" id="halflife-label" for="halflife"
-                        style="margin-right: 0.5em; transform: translateY(-5px);">Exponential
-                    </label>
-                    <input type="radio" id="chi" name="enduseproductrates" value="Chi" class="custom-radio-btn">
-                    <label tabindex="0" id="chi-label" for="chi" style="transform: translateY(-5px);">Chi
+                    <input type="radio" id="chi" name="enduseproductrates" value="Chi" class="custom-radio-btn" checked>
+                    <label tabindex="0" id="chi-label" for="chi"
+                        style="transform: translateY(-5px); margin-right:0.5em;">Chi
                         squared</label>
+                    <input type="radio" id="halflife" name="enduseproductrates" value="halflife"
+                        class="custom-radio-btn">
+                    <label tabindex="0" id="halflife-label" for="halflife"
+                        style="transform: translateY(-5px);">Exponential
+                    </label>
 
-                    <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal4"
+                    <a class=" info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal4"
                             class="fa-solid fa-circle-info"></i></a>
                 </span>
             </div>
@@ -299,13 +301,15 @@
         <div>
             <span style=" width: 100%;">
                 <p>Some wood products are lost before being put into use. This loss factor represents how much product
+                    as a percentage
                     is lost from wood end use products.</p>
                 <br>
                 <br>
                 <i class="required-alert fa-solid fa-circle-exclamation"></i>
-                <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 1</label>
-                <input id="loss-factor" type="number" name="lossfactor" step="0.01" min="0" max="1" value="0.08"
-                    required aria-required="true" />
+                <label for="loss-factor" style="margin-right: 0.5em;">Enter number between 0 and 100%</label>
+                <input id="loss-factor" type="number" name="lossfactor" step="1" min="0" max="100" value="8" required
+                    aria-required="true" /> <span style="font-family: var(--montserrat);
+                    font-size: 1.8rem;">%</span>
             </span>
             <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal9"
                     class="fa-solid fa-circle-info"></i></a>
@@ -324,7 +328,8 @@
             <span tabindex="0" class="acc-monte-carlo-disclaimer">
                 <p>Monte Carlo Disclaimer:</p>
                 <p>
-                    PCC suggests several ways to measure uncertainty in HWP including Monte Carlo simulation.
+                    IPCC provides information on potential sources of uncertainty associated with the estimates of CO2
+                    emissions and removals arising from HWP.
                     HWPC model's algorithm is deterministic, but requires recursion to simulate recycled materials
                     re-entering use.
                     This makes HWPC computationally <b>expensive</b> and <b>time-consuming</b>.
