@@ -259,14 +259,19 @@ def output():
     if y == None:
         print("no year range")
 
+        user_json = S3Helper.download_file(
+            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        )
+        user_json = json.dumps(user_json.read().decode("utf-8"))
+
         user_zip = S3Helper.read_zipfile(
             "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + q + ".zip"
         )
         # print(user_zip)
         for file in user_zip:
             if ".csv" in file and "results" not in file:
-                print(file[:-4])
-                print(user_zip[file])
+                # print(file[:-4])
+                # print(user_zip[file])
                 csvStringIO = StringIO(user_zip[file])
                 test = pd.read_csv(csvStringIO, sep=",", header=0)
                 try:
@@ -277,17 +282,25 @@ def output():
                 # test = test.replace(0, np.nan)
                 # test.dropna(inplace = True)
 
-                print(test)
+                # print(test)
                 test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
                 data_dict[file[:-4]] = test.to_csv(index=False)
+        
 
-        print(data_dict.keys())
+
+        # print(data_dict.keys())
         data_json = json.dumps(data_dict)
 
         data_json = data_json.replace('\\"', " ")
     if y != None:
         print("years: " + y)
         is_single = "true"
+
+        user_json = S3Helper.download_file(
+            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        )
+        user_json = json.dumps(user_json.read().decode("utf-8"))
+
         user_zip = S3Helper.read_zipfile(
             "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + y + "_" + q + ".zip"
         )
@@ -312,13 +325,14 @@ def output():
 
         data_json = data_json.replace('\\"', " ")
     # print(y)
-
+    user_json = user_json.replace('\\"', " ")
     return render_template(
         "pages/output.html",
         data_json=data_json,
         bucket=p,
         file_name=q,
         is_single=is_single,
+        scenario_json = user_json
     )
 
     

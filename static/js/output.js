@@ -144,12 +144,14 @@ header_dict["total_selected_dispositions"] = [
   "Total Change MgC",
 ];
 
-output.initialize = function (input_json, bucket, file_name, is_single) {
+output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
   data_bucket = bucket;
   data_file_name = file_name;
   data_json = input_json;
   data_json = data_json.replace(/\n/g, "\\n");
   final_json = JSON.parse(data_json);
+  scenario_json = scenario_json.replace(/\n/g, "\\n");
+  user_scenario_json = JSON.parse(scenario_json)
 
   data_dict = [];
   const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output);
@@ -2648,6 +2650,7 @@ function urlToPromise(url) {
 
 d3.select("#download").on("click", function () {
   export_tables();
+  zip.file("user_input.json", user_scenario_json, { binary: true });
   export_csv();
   export_plots();
 });

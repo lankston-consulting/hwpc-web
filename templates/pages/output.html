@@ -139,7 +139,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/jszip.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
-    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}');
+    output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}', '{{ scenario_json | safe }}');
 </script>
 <script>
     document.getElementById("name-of-run").innerHTML = "{{ file_name }}";
