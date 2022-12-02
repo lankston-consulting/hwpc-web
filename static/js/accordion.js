@@ -545,7 +545,7 @@ $(function () {
   fileInputs.each(function () {
     ondragover = function (e) {
       e.preventDefault();
-      e.stopPropagation();
+      // e.stopPropagation();
       $(this).addClass("dragover");
     };
     ondrop = function (e) {

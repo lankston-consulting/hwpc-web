@@ -1562,6 +1562,10 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
     margin-bottom: 2em;
   }
 }
+
+.data-inputs li h3 {
+  text-align: justify !important;
+}
   
 
 

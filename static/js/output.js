@@ -153,6 +153,8 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   scenario_json = scenario_json.replace(/\n/g, "\\n");
   user_scenario_json = JSON.parse(scenario_json)
 
+  display_user_data(user_scenario_json);
+
   data_dict = [];
   const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output);
   harvestminDateYear = data[0].Year;
@@ -2654,3 +2656,15 @@ d3.select("#download").on("click", function () {
   export_csv();
   export_plots();
 });
+
+
+// function to display user data from scenario_json on output page
+
+function display_user_data(temp_scenario_json) {
+  // console.log(scenario_json);
+  jQuery.each(temp_scenario_json, function(i, val) {
+    // $("#" + i).append(document.createTextNode(" - " + val));
+    console.log(i)
+  });
+
+}
