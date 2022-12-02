@@ -325,7 +325,7 @@ def output():
 
         data_json = data_json.replace('\\"', " ")
     # print(y)
-    user_json = user_json.replace('\\"', " ")
+    
     return render_template(
         "pages/output.html",
         data_json=data_json,

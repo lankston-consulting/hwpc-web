@@ -1563,10 +1563,17 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
   }
 }
 
-.data-inputs li h3 {
-  text-align: justify !important;
+.data-inputs li {
+  margin-bottom: .5rem;
 }
-  
+
+.data-inputs li h3 {
+  text-align: left !important;
+}
+
+.data-inputs li h3 span {
+  font-weight: 700;
+}
 
 
 /* Style the tab */

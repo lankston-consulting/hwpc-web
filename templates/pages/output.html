@@ -57,19 +57,19 @@
                     <h3>Email: <span id="email"></span></h3>
                 </li>
                 <li>
-                    <h3>Harvest Data: <span id="harvest_data.csv"></span></h3>
+                    <h3>Harvest Data: <span id="harvest_data"></span></h3>
                 </li>
                 <li>
                     <h3>Harvest Data Type: <span id="harvest_data_type"></span></h3>
                 </li>
                 <li>
-                    <h3>MBF to CCF Conversion: <span id="mbf_to_ccf_conversion.csv"></span></h3>
+                    <h3>MBF to CCF Conversion: <span id="mbf_to_ccf_conversion"></span></h3>
                 </li>
                 <li>
                     <h3>Official Record: <span id="is_official_record">No</span></h3>
                 </li>
                 <li>
-                    <h3>End Use Loss Factor: <span id="end_loss_factor"></span></h3>
+                    <h3>End Use Loss Factor: <span id="end_use_loss_factor"></span></h3>
                 </li>
                 <li>
                     <h3>Simulation Date: <span id="simulation_date"></span></h3>
@@ -78,7 +78,7 @@
                     <h3>Region: <span id="region"></span></h3>
                 </li>
                 <li>
-                    <h3>Regions: <span id="regions.csv"></span></h3>
+                    <h3>Regions Data: <span id="regions"></span></h3>
                 </li>
                 <li>
                     <h3>Decay Function: <span id="decay_function"></span></h3>
@@ -88,34 +88,34 @@
                 </li>
 
                 <li>
-                    <h3>Timber Products Ratio: <span id="timber_product_ratios.csv"></span></h3>
+                    <h3>Timber Products Ratio: <span id="timber_product_ratios"></span></h3>
                 </li>
                 <li>
-                    <h3>Primary Products: <span id="primary_products.csv"></span></h3>
+                    <h3>Primary Products: <span id="primary_products"></span></h3>
                 </li>
                 <li>
-                    <h3>Primary Product Ratio: <span id="primary_product_ratios.csv"></span></h3>
+                    <h3>Primary Product Ratio: <span id="primary_product_ratios"></span></h3>
                 </li>
                 <li>
-                    <h3>Parameters: <span id="parameters.csv"></span></h3>
+                    <h3>Parameters: <span id="parameters"></span></h3>
                 </li>
                 <li>
-                    <h3>End Use Product Ratios: <span id="end_use_product_ratios.csv"></span></h3>
+                    <h3>End Use Product Ratios: <span id="end_use_product_ratios"></span></h3>
                 </li>
                 <li>
-                    <h3>End Use Products: <span id="end_use_products.csv"></span></h3>
+                    <h3>End Use Products: <span id="end_use_products"></span></h3>
                 </li>
                 <li>
-                    <h3>Discard Destinations: <span id="discard_destinations.csv"></span></h3>
+                    <h3>Discard Destinations: <span id="discard_destinations"></span></h3>
                 </li>
                 <li>
-                    <h3>Discard Destination Ratios: <span id="discard_destination_ratios.csv"></span></h3>
+                    <h3>Discard Destination Ratios: <span id="discard_destination_ratios"></span></h3>
                 </li>
                 <li>
-                    <h3>Discard Burned with Energy Capture: <span id="discard_burned_w_energy_capture.csv"></span></h3>
+                    <h3>Discard Burned with Energy Capture: <span id="discard_burned_w_energy_capture"></span></h3>
                 </li>
                 <li>
-                    <h3>Distribution Parameters: <span id="distribution_parameters.csv"></span></h3>
+                    <h3>Distribution Parameters: <span id="distribution_parameters"></span></h3>
                 </li>
 
             </ul>
@@ -214,7 +214,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
 <script async>
     output.initialize('{{data_json | safe}}', '{{ bucket }}', '{{ file_name }}', '{{ is_single }}',
-        '{{ scenario_json | safe }}');
+        '{{ scenario_json | tojson }}');
 </script>
 <script>
     document.getElementById("name-of-run").innerHTML = "{{ file_name }}";

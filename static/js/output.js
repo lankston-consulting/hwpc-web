@@ -151,9 +151,10 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   data_json = data_json.replace(/\n/g, "\\n");
   final_json = JSON.parse(data_json);
   scenario_json = scenario_json.replace(/\n/g, "\\n");
-  user_scenario_json = JSON.parse(scenario_json)
+  // scenario_json = scenario_json.replace("\\","")
+  // user_scenario_json = JSON.parse(scenario_json)
 
-  display_user_data(user_scenario_json);
+  display_user_data(scenario_json);
 
   data_dict = [];
   const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output);
@@ -2661,10 +2662,25 @@ d3.select("#download").on("click", function () {
 // function to display user data from scenario_json on output page
 
 function display_user_data(temp_scenario_json) {
-  // console.log(scenario_json);
+  temp_scenario_json = JSON.parse(temp_scenario_json.substring(1,temp_scenario_json.length-1))
+  temp_scenario_json = temp_scenario_json.replace("\"\"","\"No\"")
+  temp_scenario_json = JSON.parse(temp_scenario_json)
   jQuery.each(temp_scenario_json, function(i, val) {
     // $("#" + i).append(document.createTextNode(" - " + val));
-    console.log(i)
+    if(i == "region" ){
+      $("#"+i).html(val.name)
+    }
+    else if(i == "inputs"){
+      jQuery.each(val, function(j, j_val) {
+        $("#"+j.slice(0,-4)).html(j_val)
+      });
+    }
+    else if(i == "monte_carlo"){
+      $("#"+i).html(val.iterations)
+    }
+    else{
+      $("#"+i).html(val)
+    }
   });
 
 }
