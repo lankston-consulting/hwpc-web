@@ -12,11 +12,13 @@
     </div>
 
     <!-- Tab Content -->
-    <div id="flowChartContent" class="tabcontent">
-        <div tabindex="0" aria-label="Flowchart" class="flowchart">
+    <div id="flowChartContent" class="tabcontent" style="display: flex;">
+        <div tabindex="0" aria-label="Flowchart" class="flowchart" style="display:flex;">
+            {% include "components/legend.html" %}
             {% include "components/howitworksflowchart.html" %}
         </div>
     </div>
+
     <!-- <div id="requiredInputsContent" class="tabcontent">
         <div tabindex="0" aria-label="Required Inputs" class="required_inputs"></div>
     </div>

@@ -1117,6 +1117,12 @@ input[type="radio"]:after{
 /* How it works Graphic */
 
 
+.flowchart-div {
+  transform: translate(200px, 50px);
+  /* margin-top: 350px; */
+  /* transform: translateY(-200px); */
+  
+}
 
 .graphic-container {
   max-width: var(--content-width);
@@ -1131,7 +1137,7 @@ input[type="radio"]:after{
   text-align: center;
 }
 
-.flowchart-container h2 {
+.flowchart-div h2 {
   font-family: var(--montserrat);
   font-weight: 600;
   text-align: center;
@@ -1200,6 +1206,14 @@ input[type="radio"]:after{
   box-shadow: var(--card-shadow);
   padding: 20px !important;
 
+}
+
+.fixedElement {
+  /* background-color: #c0c0c0; */
+  position:fixed;
+  top:800;
+  width:fit-content;
+  z-index:9999;
 }
 
 .flowchart-legend {
