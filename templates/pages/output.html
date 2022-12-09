@@ -129,6 +129,7 @@
             <button class="tablinks" onclick="openTab(event, 'solidCarbonContent')" id="solidCarbon">Solid
                 Carbon</button>
             <button class="tablinks" onclick="openTab(event, 'emissionsContent')" id="emissions">Emissions</button>
+            <button class="tablinks" onclick="openTab(event, 'tableContent')" id="table">Final Results Table</button>
             <!-- <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button> -->
 
 
@@ -176,9 +177,13 @@
                 <div class="graph non-active"></div>
                 <div class="graph non-active annual_net_change_carbon_stocks_recycled"></div>
                 <div class="graph non-active"></div>
-
             </div>
+        </div>
+        <div id="tableContent" class="tabcontent">
+            <!-- <div> -->
 
+            <div class="graph table active-graph all_final_results_table"></div>
+            <!-- </div> -->
         </div>
 
 
@@ -189,7 +194,7 @@
     </div> -->
 </div>
 <div id="hidden-graphs" style="display:none;">
-
+    <!-- <div class="graph table hidden all_final_results_table2"></div> -->
     <div class="graph table hidden annual_timber_harvest_table"></div>
     <div class="graph table hidden total_yearly_net_change"></div>
     <div class="graph table hidden total_selected_net_change"></div>

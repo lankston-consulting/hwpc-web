@@ -162,6 +162,16 @@ header_dict["total_selected_dispositions"] = [
   "Present MgC",
   "Present Change MgC",
 ];
+header_dict["all_final_results_table"] = [
+
+  "Year",
+  "New Products in Use CO2e",
+  "Reused Products in Use CO2e",
+  "SWDS Present C02e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
+
+]
 
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
   data_bucket = bucket;
@@ -393,6 +403,14 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
+
+  //Data Dict for table tab
+  data_dict["all_final_results_table"] = [
+    final_json.big_four,
+    "Final Results",
+    "table",
+    "",
+  ];
 };
 
 $("#defaultOpen").click(function (e) {
@@ -563,6 +581,23 @@ $("#reused").click(function (e) {
     );
   }
 });
+
+$("#table").click(function (e) {
+  active_id =
+    $("#tableContent").children()[0].classList[
+    $("#tableContent").children()[0].classList.length - 1
+    ];
+ 
+  console.log(active_id)
+
+  generate_table(
+    data_dict[active_id][0],
+    active_id,
+    data_dict[active_id][1],
+    true
+  )
+});
+
 
 // Keydown event listener
 $("#defaultOpen").keydown(function (e) {
@@ -2092,9 +2127,14 @@ generate_hidden_graph = function (
   }
 };
 
-generate_table = function (json_data, table_class, title) {
-  tester = document.getElementsByClassName("hidden " + table_class)[0];
-
+generate_table = function (json_data, table_class, title, is_big_four = false) {
+  if (is_big_four == true) {
+   
+    tester = document.getElementsByClassName(table_class)[0];
+  } else {
+    tester = document.getElementsByClassName("hidden " + table_class)[0];
+  }
+  console.log(tester)
   // var data = d3.csvParse(json_data, function (d) { return process_data(d) } );
   var data = d3.csvParse(json_data);
   process_data(data);
@@ -2131,7 +2171,11 @@ generate_table = function (json_data, table_class, title) {
       if (i >= 1) {
         temp = [];
         for (j = 0; j < cellValue.length; j++) {
-          temp.push(parseFloat(cellValue[j]).toFixed(2));
+          if (is_big_four == true) {
+            temp.push(parseInt(cellValue[j]).toLocaleString());
+          } else {
+            temp.push(parseFloat(cellValue[j]).toFixed(2).toLocaleString());
+          }
         }
         cellValues[i] = temp;
       } else {
