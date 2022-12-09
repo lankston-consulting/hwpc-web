@@ -179,7 +179,9 @@ def upload():
     burned_ratios = request.files["BurnedRatiosFilename"]
     mbf_to_ccf = request.files["MbfToCcfFilename"]
     loss_factor = request.form["lossfactor"]
-    loss_factor = float(int(loss_factor)/100)
+    temp_loss_factor = float(loss_factor)
+    temp_loss_factor = temp_loss_factor / 100.0
+    loss_factor = str(temp_loss_factor)
     iterations = request.form["iterations"]
     email = request.form["email"]
     run_name = request.form["runname"]
@@ -187,7 +189,7 @@ def upload():
 
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
-    new_id = str(uuid.uuid4())
+    new_id = str(run_name+"-"+dt_string)
     # The data is compiled to a dictionary to be processed with the S3Helper class
     data = {
         "harvest_data.csv": yearly_harvest_input,
