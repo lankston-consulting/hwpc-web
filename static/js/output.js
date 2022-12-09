@@ -12,16 +12,16 @@ captions_dict["annual_harvest_and_timber_product_output"] = [
 ];
 captions_dict["annual_net_change_carbon_stocks"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that <br> are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions are displayed in units of carbon <br> dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach. Carbon in HWP includes both products that <br> are still in use and carbon stored at solid waste disposal sites (SWDS). Carbon emissions <br> are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["all_results_final"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon <br> emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid <br> waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture, <br> and assumes emissions are CO<sub>2</sub>e. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e tons) and do not <br> include other carbon-based greenhouse gases such as methane."},
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon <br> emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid <br> waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture. Storage is converted into CO2e and Carbon emissions <br> are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e tons) and do not include other carbon-based greenhouse gases such as methane."},
 ];
 captions_dict["end_use"] = [
   {
-    text: "Total cumulative Metric Tons Carbon stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year].",
+    text: "Total cumulative metric tons Carbon stored in End Use Products in Use manufactured from total timber harvested from [minimum year] to [maximum year].",
   },
 ];
 captions_dict["burned_with_energy_capture_emissions"] = [
@@ -31,7 +31,7 @@ captions_dict["burned_with_energy_capture_emissions"] = [
 ];
 captions_dict["burned_without_energy_capture_emissions"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. <br> Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from burning discarded products without energy capture manufactured from total timber harvested from [minimum year] to [maximum year]. <br> Carbon emitted from burned discarded products is assumed to be emitted without energy capture. Carbon emissions <br> are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_cumulative_carbon_stocks"] = [
@@ -41,52 +41,52 @@ captions_dict["total_cumulative_carbon_stocks"] = [
 ];
 captions_dict["total_dumps_carbon"] = [
   {
-    text: "Total cumulative Metric Tons Carbon stored in dumps from discarded products manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon in dumps include discarded wood and paper products and comprise a portion of <br> the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other <br> carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons Carbon stored in dumps from discarded products manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon in dumps include discarded wood and paper products and comprise a portion of <br> the solid waste disposal site pool. Prior to 1970, wood and paper waste was generally discarded to dumps, as opposed to <br> modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other <br> carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_landfills_carbon"] = [
   {
-    text: "Total cumulative Metric Tons Carbon stored in landfills from discarded products manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon in landfills are discarded wood and paper products and comprise a<br> portion of the solid waste disposal site pool. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e)<br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons Carbon stored in landfills from discarded products manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon in landfills are discarded wood and paper products and comprise a<br> portion of the solid waste disposal site pool. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e)<br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_dumps_carbon_emitted"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from discarded products in dumps manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in dumps is decay<br> without energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br> rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) <br> and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from discarded products in dumps manufactured from total timber harvested from <br> [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in dumps is decay<br> without energy capture. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br> rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) <br> and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_composted_carbon_emitted"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from composted discarded harvested wood products manufactured from total <br>  timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded <br> products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of <br> carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from composted discarded harvested wood products manufactured from total <br>  timber harvested from [minimum year] to [maximum year]. No carbon storage is associated with composted discarded <br> products and all composted carbon is decay emitted without energy capture. Carbon emissions are displayed in units of <br> carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_landfills_carbon_emitted"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from discarded products in landfills manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is decay without<br> energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is <br>not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based<br> greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from discarded products in landfills manufactured from total timber harvested <br> from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills is decay without<br> energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with energy capture is <br>not included. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based<br> greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_solid_carbon_dispositions"] = [
   {
-    text: "Total cumulative Metric Tons Carbon stored in end-use products in use, in landfills from discarded products, and in dumps <br>from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon<br> in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products<br> in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are <br>discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper<br> waste was generally discarded to dumps, as opposed to modern landfills.",
+    text: "Total cumulative metric tons Carbon stored in end-use products in use, in landfills from discarded products, and in dumps <br>from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon<br> in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products<br> in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are <br>discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper<br> waste was generally discarded to dumps, as opposed to modern landfills. Stocks are converted into CO2e units.",
   },
 ];
 captions_dict["total_solid_carbon_dispositions2"] = [
   {
-    text: "Total cumulative Metric Tons Carbon stored in end-use products in use, in landfills from discarded products, and in dumps <br>from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon<br> in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products<br> in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are <br>discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper<br> waste was generally discarded to dumps, as opposed to modern landfills.",
+    text: "Total cumulative metric tons Carbon stored in end-use products in use, in landfills from discarded products, and in dumps <br>from discarded products manufactured from total timber harvested from [minimum year] to [maximum year]. The recalcitrance of carbon<br> in harvested wood products is highly dependent upon the end use of those products. The carbon remaining in the end-use products<br> in use pool in a given inventory year includes products in use and recovered products. Carbon in landfills and dumps are <br>discarded wood and paper products, and comprise a portion of the solid waste disposal site pool. Prior to 1970, wood and paper<br> waste was generally discarded to dumps, as opposed to modern landfills. Stocks are converted into CO2e units.",
   },
 ];
 captions_dict["total_emissions_dispositions"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded<br> products with and without energy capture, composted discarded harvested wood products, and discarded products in <br>dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood<br> and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of<br> fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage<br> is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted<br> from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper <br>waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are<br> displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded<br> products with and without energy capture, composted discarded harvested wood products, and discarded products in <br>dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood<br> and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of<br> fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage<br> is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted<br> from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper <br>waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are<br> displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["total_emissions_dispositions2"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded<br> products with and without energy capture, composted discarded harvested wood products, and discarded products in <br>dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood<br> and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of<br> fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage<br> is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted<br> from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper <br>waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are<br> displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from fuelwood and wood waste used for fuel with energy capture, burned discarded<br> products with and without energy capture, composted discarded harvested wood products, and discarded products in <br>dumps and landfills manufactured from total timber harvested from [minimum year] to [maximum year]. Carbon emitted from burning fuelwood<br> and wood waste with energy capture occurs during the year of harvest and is not assumed to substitute for an equivalent amount of<br> fossil fuel carbon. Discarded burned products are assumed to be burned in an incinerator with energy capture. No carbon storage<br> is associated with composted discarded products and all composted carbon is decay emitted without energy capture. Carbon emitted<br> from discarded wood and paper products in dumps and landfills is decay without energy capture. Prior to 1970 wood and paper <br>waste was generally discarded to dumps, where it was subject to higher rates of decay than in modern landfills. Carbon emissions are<br> displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane.",
   },
 ];
 captions_dict["swds_emissions"] = [
   {
-    text: "Total cumulative Metric Tons CO<sub>2</sub>e emitted from discarded products in landfills and dumps manufactured from total<br> timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills and dumps is <br>decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with <br>energy capture is not included. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br>rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not <br>include other carbon-based greenhouse gases such as methane.",
+    text: "Total cumulative metric tons CO<sub>2</sub>e emitted from discarded products in landfills and dumps manufactured from total<br> timber harvested from [minimum year] to [maximum year]. Carbon emitted from discarded wood and paper products in landfills and dumps is <br>decay without energy capture. Methane remediation from landfills that includes combustion and subsequent emissions with <br>energy capture is not included. Prior to 1970 wood and paper waste was generally discarded to dumps, where it was subject to higher <br>rates of decay than in modern landfills. Carbon emissions are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e) and do not <br>include other carbon-based greenhouse gases such as methane.",
   },
 ];
 // COLORS
@@ -112,36 +112,55 @@ header_dict["annual_timber_harvest_table"] = ["Year", "CCF MgC", "End Use MgC"];
 header_dict["total_yearly_net_change"] = ["Year", "SWDS Present Change MgC"];
 header_dict["total_selected_net_change"] = [
   "Year",
-  "Products in Use MgC",
+  "New Products in Use MgC",
+  "Reused Products in Use MgC",
   "SWDS MgC",
-  "Products in Use Change MgC",
+  "New Products in Use Change MgC",
+  "Reused Products in Use Change MgC",
   "SWDS Change MgC",
 ];
 header_dict["total_yearly_dispositions"] = [
+  // "Year",
+  // "SWDS Present Change MgC",
+  // "Emitted with Energy Capture CO2e",
+  // "Emitted with Energy Capture Change CO2e",
+  // "Emitted without Energy Capture CO2e",
+  // "Emitted without Energy Capture Change CO2e",
+  // "Products in Use Change Mgc",
+  // "SWDS MgC",
+  // "SWDS Change MgC",
+  // "Total Remaining MgC",
+  // "Total Change MgC",
+  // "Present Change MgC"
+
   "Year",
-  "SWDS Present Change MgC",
-  "Emitted with Energy Capture co2e",
-  "Emitted with Energy Capture Change co2e",
-  "Emitted without Energy Capture co2e",
-  "Emitted without Energy Capture Change co2e",
-  "Products in Use Change Mgc",
+  "Emitted with Energy Capture CO2e",
+  "Emitted with Energy Capture Change CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Emitted without Energy Capture Change CO2e",
+  "Reused Products in Use MgC",
+  "Reused Products in Use Change MgC",
+  "New Products in Use MgC",
+  "New Products in Use Change MgC",
   "SWDS MgC",
   "SWDS Change MgC",
-  "Total Remaining MgC",
-  "Total Change MgC",
+  "Present MgC",
+  "Present Change MgC",
 ];
 header_dict["total_selected_dispositions"] = [
   "Year",
-  "SWDS Present Change MgC",
-  "Emitted with Energy Capture co2e",
-  "Emitted with Energy Capture Change co2e",
-  "Emitted without Energy Capture co2e",
-  "Emitted without Energy Capture Change co2e",
-  "Products in Use Change Mgc",
+  "Emitted with Energy Capture CO2e",
+  "Emitted with Energy Capture Change CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Emitted without Energy Capture Change CO2e",
+  "Reused Products in Use MgC",
+  "Reused Products in Use Change MgC",
+  "New Products in Use MgC",
+  "New Products in Use Change MgC",
   "SWDS MgC",
   "SWDS Change MgC",
-  "Total Remaining MgC",
-  "Total Change MgC",
+  "Present MgC",
+  "Present Change MgC",
 ];
 
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
@@ -151,6 +170,7 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   data_json = data_json.replace(/\n/g, "\\n");
   final_json = JSON.parse(data_json);
   scenario_json = scenario_json.replace(/\n/g, "\\n");
+  deliver_scenario_json = scenario_json;
   // scenario_json = scenario_json.replace("\\","")
   // user_scenario_json = JSON.parse(scenario_json)
 
@@ -263,13 +283,13 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   ];
   data_dict["total_solid_carbon_dispositions"] = [
     final_json.carbon_present_distinct_swds,
-    "Total Solid Carbon Dispositions",
+    "Total Cumulative Solid Carbon Dispositions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
   data_dict["total_solid_carbon_dispositions2"] = [
     final_json.carbon_present_distinct_swds,
-    "Total Solid Carbon Dispositions",
+    "Total Cumulative Solid Carbon Dispositions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
@@ -281,13 +301,13 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   ];
   data_dict["total_emissions_dispositions"] = [
     final_json.emitted_all,
-    "Total Emissions",
+    "Total Cumulative Emissions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
   data_dict["total_emissions_dispositions2"] = [
     final_json.emitted_all,
-    "Total Emissions",
+    "Total Cumulative Emissions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
@@ -333,13 +353,13 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   ];
   data_dict["total_solid_carbon_dispositions_hidden"] = [
     final_json.carbon_present_distinct_swds,
-    "Total Solid Carbon Dispositions",
+    "Total Cumulative Solid Carbon Dispositions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
   data_dict["total_emissions_dispositions_hidden"] = [
     final_json.emitted_all,
-    "Total Emissions",
+    "Total Cumulative Emissions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
@@ -369,7 +389,7 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
   ];
   data_dict["swds_emissions_hidden"] = [
     final_json.carbon_emitted_distinct_swds,
-    "Total Emissions Dispositions",
+    "Total Cumulative Emissions Dispositions",
     "stack",
     "Metric Tons CO<sub>2</sub>e",
   ];
@@ -1453,7 +1473,7 @@ generate_graph = function (
         };
       }
       if (emissions_present == false && solid_present == true) {
-        if(title == "Total Solid Carbon Dispositions"){
+        if(title == "Total Cumulative Solid Carbon Dispositions"){
           y_buffer = -0.5
         }
         else{
@@ -2652,10 +2672,11 @@ function urlToPromise(url) {
 }
 
 d3.select("#download").on("click", function () {
-  export_tables();
-  zip.file("user_input.json", user_scenario_json, { binary: true });
-  export_csv();
   export_plots();
+  export_csv();
+  export_tables();
+  zip.file("user_input.json", deliver_scenario_json, { binary: true });
+
 });
 
 
