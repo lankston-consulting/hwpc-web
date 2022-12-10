@@ -186,8 +186,17 @@ $(".cancel-upload-btn").click(function (e) {
   )[0].previousElementSibling.previousElementSibling.previousElementSibling.value =
     null;
   $(e.target)[0].previousElementSibling.value = null;
-  $(e.target)[0].previousElementSibling.placeholder = "Currently using default";
-  $("#regionselection").val("North Central").change();
+  if($(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.id == "fu-yearly-harvest" 
+  || $(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.id == "yearlytimberproductratios"){
+    $(e.target)[0].previousElementSibling.placeholder = "No file uploaded";
+  }
+  else if($(e.target)[0].previousElementSibling.previousElementSibling.previousElementSibling.id == "customregion" ){
+    $("#regionselection").val("North Central").change();
+    $(e.target)[0].previousElementSibling.placeholder = "Using default";
+  }
+  else{
+    $(e.target)[0].previousElementSibling.placeholder = "Using default";
+  }
 });
 
 $("#email-address").on("input", function () {
