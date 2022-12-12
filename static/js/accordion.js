@@ -227,6 +227,22 @@ $(".info-circle").keydown(function (event) {
   }
 });
 
+$(".info-link").click(function (e) {
+  $("#modal").css("display", "block");
+  $(".close").focus();
+  $("#modal-content").html(modal_dict[e.target.id]);
+});
+
+$(".info-link").keydown(function (event) {
+  console.log(event.target);
+  if (event.which === 32 || event.which === 13) {
+    //32 is Space and 13 is Enter
+    $("#modal").css("display", "block");
+    $(".close").focus();
+    $("#modal-content").html(modal_dict[event.target.lastChild.id]);
+  }
+});
+
 $(".close").click(function (e) {
   $(".modal").css("display", "none");
 });
@@ -496,28 +512,30 @@ $("#previewbtn").click(function (e) {
 
 var modal_dict = {
   modal1:
-    "A .csv file containing the yearly harvest amount per year in units of ccf (hundred cubic feet).<br />Should be formatted as follows:<br /><table><tr><th>Year,</th><th>ccf</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
+    "A .csv file containing the yearly harvest amount per year in units of ccf (hundred cubic feet). Also see <i>Harvest Data</i> section from the workbook. <br />Should be formatted as follows:<br /><table><tr><th>Year, </th><th>Total</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
   modal2:
-    "A .csv file containing the ratios which harvested wood is converted into timber products.<br />Should be formatted as follows:<br /><table><tr><th>TimberProductID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
+    "A .csv file containing the ratios which harvested wood is converted into timber products. Also see <i>Timber Product Ratios</i> section from the workbook.<br />Should be formatted as follows:<br /><table><tr><th>Timber Product ID,</th><th>TPO Code,</th><th>Timber Description, </th><th>Year 1, </th><th>Year N</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
   modal3:
-    "A .csv file containing the ratios which a region converts timber products into primary products. Either select a defined region in the drop down, or define a custom region by selecting Custom and inputing a .csv file.<br />Should be formatted as follows:<br /><table><tr><th>PrimaryProductID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
+    "A .csv file containing the ratios which a region converts timber products into primary products. Either select a defined region in the drop down, or define a custom region by selecting Custom and inputing a .csv file. Also see <i>Primary Product Ratios</i> section from the workbook. <br />Should be formatted as follows:<br /><table><tr><th>Primary Product ID,</th><th>Timber Product,</th><th>Primary Product, </th><th>Year 1, </th><th>Year N</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
   modal4:
-    "A .csv file for each end use, this gives the rate at which material is discarded. Default rate is in half-life but can alsoo use the Chi parameter.",
+    "A .csv file for each end use, this gives the rate at which material is discarded. Default rate is in half-life but can also use the Chi parameter.",
   modal5:
-    "A .csv file containing the ratios which primary products are converted to end use products.<br />Should be formatted as follows:<br /><table><tr><th>EndUseID,</th><th>Year,</th><th>Ratio</th></tr><tr><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th></tr></table>",
+    "A .csv file containing the ratios which primary products are converted to end use products. Also see <i>End Use Product Ratios</i> section from the workbook. <br />Should be formatted as follows:<br /><table><tr><th>End Use Id, </th><th>Primary Product,</th><th> End Use Product, </th><th>Year 1, </th><th>Year N</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
   modal6:
-    "A .csv file containing the ratios in which products are discarded into their destination dispositions.<br />Should be formatted as follows:<br /><table><tr><th>DiscardTypeID,</th><th>DiscardDestinationID,</th><th>Year,</th><th>DiscardDestinationRatio</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
+    "A .csv file containing the ratios in which products are discarded into their destination dispositions. All years for modeling need ratios, where the “wood” ratios must sum to 1, and the ratios for “paper” must also sum to 1. <br> Also see <i>End Use Product Ratios</i> section from the workbook.<br />Should be formatted as follows:<br /><table><tr><th>Disposition ID, </th><th>Discard Type, </th><th>Discard Destination, </th><th>Year</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th><th>X</th><th>X</th></tr></table>",
   modal7:
-    "A .csv file containing the half-life decay ratios of the discarded disposition destinations. ",
+    "A .csv file containing the half-life decay ratios of the discarded disposition destinations. Also see <i>Discard Half Lives</i> section from the workbook. <br/> Should be formatted as follows: <br/><table><tr><th>Type Id, </th><th>Discard Type, </th><th>Landfill Fixed Ratio, </th><th>Landfill Half Life, </th><th>Dump Half Life, </th><th>Recycled Half Life</th></tr><tr><th>0</th><th>paper</th><th>X</th><th>X</th><th>X</th><th>X</th></tr><th>1</th><th>wood</th><th>X</th><th>X</th><th>X</th><th>X</th><tr></tr></table> ",
   modal8:
-    "A .csv file containing the proportions for burned with energy capture.",
+    "A .csv file containing the proportions for burned with energy capture. Also see <i>Discard Burned w Energy Capture</i> section from the workbook. <br/> Should be formatted as follows: <br/><table><tr><th>Year, </th><th>Percent</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
   modal9:
-    "Enter a number between 0 and 1 of how much wood product end-use loss.",
+    "Enter a percentage between 0 and 100 of how much wood product is end-use loss.",
   modal10:
     "Enter a number of Monte Carlo Simulations between 1000 and 5000 runs.<br /> A .csv file containing the distribution parameters.",
   modal11:
     "Email is required to send you link of the completed simulation outputs.",
   modal12: "Name of Run to label zip file.",
+  modal13: "If havest data is in MBF and you would like to upload a custom MBF to CCF ratio here to the modal, otherwise the Calculator will use the default MBF to CCF ratios. Also see <i>MBF to CCF</i> section from the workbook.<br /> Should be formatted as follows:<br /> <table><tr><th>Start Year, </th><th>Conversion Factor</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
+  modal14: "<b>Temporary Image</b> <br> <img src='static/images/image007.png' width='100%'>"
 };
 
 $("#getdata").click(function (e) {

@@ -52,6 +52,8 @@
                         <input name="filename" type="text" id="filename2" autocomplete="off" readonly
                             placeholder="No file uploaded">
                         <i tabindex="0" class="cancel-upload-btn fa-solid fa-circle-xmark"></i>
+                        <a style="transform:translate(25px, 10px);" class="info-circle" role="button"
+                            aria-label="More Info"><i tabindex="0" id="modal13" class="fa-solid fa-circle-info"></i></a>
                     </span>
                 </span>
                 <a class="info-circle" role="button" aria-label="More Info"><i tabindex="0" id="modal1"
@@ -103,13 +105,11 @@
         <div>
             <figure>
                 <img src="../../static/images/region_map.png" width="100%" alt="Region Map">
-                <figcaption style="font-size: 1.6rem;">Definitions of Regions: Pacific Northwest, West (PWW); Pacific
-                    Northwest, East (PWE);
-                    Pacific Southwest (PSW); Rocky Mountain, North (RMN); Rocky Mountain, South (RMS); Northern
-                    Prairie States (NPS); Northern Lake States (NLS); Northeast (NE); SOuth Central (SC); and
-                    Southeast (SE). Note that regions are merged for some tables, these combinations include: NLS
-                    and NPS as North Central; PWW, PWE, and PSW as Pacific Coast; RMN and RMS as Rocky Mountain; SC
-                    and SE as South and RMN, RMS, PWE, and PSW as West (except where stated otherwise).</figcaption>
+                <figcaption style="font-size: 1.6rem;">
+                    Note that region West is a combination of regions: Pacific Northwest East, Rocky Mountain, and
+                    Pacific Southwest. See <a style="color: blue; cursor:pointer;" class="info-link" role="button"
+                        aria-label="Region Table" id="modal14" tabindex="0">table</a> for more details on all regions.
+                </figcaption>
             </figure>
             <br>
             <br>
