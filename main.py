@@ -391,6 +391,9 @@ def output():
         scenario_json=user_json,
     )
 
+@app.errorhandler(404)
+def page_not_found(error):
+   return render_template('pages/404.html', title = '404'), 404
 
 if __name__ == "__main__":
     # This is used when running locally only. When deploying to Google App
