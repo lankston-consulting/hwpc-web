@@ -546,25 +546,58 @@ $("#getdata").click(function (e) {
     toggleAccordion($("#acc-06")[0], true);
   $(".required-alert").each(function () {
     temp_alert = $(this);
+    console.log(temp_alert)
     $(this)
       .siblings()
       .each(function () {
+        // console.log($(this)[0].id)
         if ($(this).is("input") == true) {
           if (
             $(this)[0].validity.valid == false &&
             $(this)[0].required == true
           ) {
+            console.log("here")
             temp_alert.show();
-          } else if (
+            e.preventDefault();
+          }
+          else if ($(this)[0].id == "run-name") {
+            if (validate_runname($(this)[0].value) == false) {
+              temp_alert.show();
+              e.preventDefault();
+            } else {
+              temp_alert.hide();
+            }
+          }
+          else if (
             $(this)[0].validity.valid == true &&
             $(this)[0].required == true
           ) {
+            console.log("good")
             temp_alert.hide();
           }
+          
         }
       });
   });
+
+
 });
+
+function validate_runname(name) {
+  console.log(name)
+  // Regex alpha, numeric, underscore, dash, no special characters
+  var nameRGEX = new RegExp(/^([a-zA-Z0-9 _-]+)$/);
+  var nameResult = nameRGEX.test(name);
+  console.log(nameResult)
+  if (nameResult == false) {
+    window.alert("Please enter a valid name for the run. No special characters allowed.");
+    valid = false;
+  }
+  else {
+    valid = true;
+  }
+  return valid
+}
 
 //Jquery function for drag and drop on file inputs
 $(function () {
@@ -580,3 +613,4 @@ $(function () {
     }
   });
 })
+
