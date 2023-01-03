@@ -541,9 +541,9 @@ var modal_dict = {
 $("#getdata").click(function (e) {
     toggleAccordion($("#acc-01")[0], true);
     toggleAccordion($("#acc-02")[0], true);
-    toggleAccordion($("#acc-04")[0], true);
     toggleAccordion($("#acc-05")[0], true);
     toggleAccordion($("#acc-06")[0], true);
+    toggleAccordion($("#acc-07")[0], true);
   $(".required-alert").each(function () {
     temp_alert = $(this);
     console.log(temp_alert)
