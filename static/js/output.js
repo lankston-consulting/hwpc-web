@@ -17,7 +17,7 @@ captions_dict["annual_net_change_carbon_stocks"] = [
 ];
 captions_dict["all_results_final"] = [
   {
-    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon <br> emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid <br> waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture. Storage is converted into CO2e and Carbon emissions <br> are displayed in units of carbon dioxide equivalent (CO<sub>2</sub>e tons) and do not include other carbon-based greenhouse gases such as methane."},
+    text: "Total cumulative metric tons of carbon stocks in harvested wood products (HWP) manufactured from total timber harvested <br> from [minimum year] to [maximum year] using the IPCC Tier 3 Production Approach and Total cumulative metric tons carbon <br> emitted with and without energy capture. Carbon in HWP includes both products that are still in use and carbon stored at solid <br> waste disposal sites. Carbon emitted from discarded wood and paper products from landfills is emitted without energy capture. Storage is converted into CO2e and Carbon emissions <br> are displayed in units of carbon dioxide equivalent (t CO<sub>2</sub>e) and do not include other carbon-based greenhouse gases such as methane."},
 ];
 captions_dict["end_use"] = [
   {
