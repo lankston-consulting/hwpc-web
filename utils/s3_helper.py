@@ -11,7 +11,6 @@ import zipfile
 class S3Helper(object):
     service_id = os.getenv("AWS_ACCESS_KEY_ID")
     secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-
     # We use s3_client to upload data to the bucket with our service account
     s3_client = boto3.client(
         "s3", aws_access_key_id=service_id, aws_secret_access_key=secret_key

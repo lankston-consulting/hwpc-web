@@ -5,6 +5,7 @@ data_bucket = "";
 data_file_name = "";
 harvestmaxDateYear = "";
 harvestminDateYear = "";
+needs_single_year_title = false
 captions_dict["annual_harvest_and_timber_product_output"] = [
   {
     text: "Annual total timber harvest and product output converted to metric tons of carbon, from [minimum year] to [maximum year].",
@@ -198,6 +199,7 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
       "display",
       "none"
     );
+    needs_single_year_title = true
   }
   data_dict["annual_harvest_and_timber_product_output"] = [
     final_json.annual_harvest_and_timber_product_output,
@@ -2591,11 +2593,17 @@ function export_tables() {
   for (var i = 0; i < tables.length; i++) {
     // Plotly.toImage(tables[i], { format: 'png' });
     console.log(tables[i]);
+    if(needs_single_year_title == true){
+      title = harvestminDateYear + "_" + tables[i].classList[3]
+    }
+    else{
+      title = tables[i].classList[3]
+    }
     big_count += 1;
     generate_tables(
       tables[i],
       { format: "png" },
-      tables[i].classList[3] + ".pdf"
+      title + ".pdf"
     );
   }
 }
@@ -2678,12 +2686,18 @@ function export_plots() {
       tempChk = $(this).children()[0];
       // console.log(tempChk.checked)
       if (tempChk.checked == true) {
+        if(needs_single_year_title == true){
+          title = harvestminDateYear + "_" + tempChk.value.slice(0, -7)
+        }
+        else{
+          title = tempChk.value.slice(0, -7)
+        }
         png_options = { format: "png", width: 1300, height: 700 };
         console.log(document.getElementsByClassName(tempChk.value)[0]);
         gen = generate_image(
           document.getElementsByClassName(tempChk.value)[0],
           png_options,
-          tempChk.value.slice(0, -7) + ".png"
+          title + ".png"
         );
       }
     });
@@ -2697,7 +2711,13 @@ async function generate_image(div, options, file_name) {
 function export_csv() {
   for (let i in data_dict) {
     if (i.includes("hidden") == false && i.includes("2") == false) {
-      zip.file(i + ".csv", data_dict[i][0], { binary: true });
+      if(needs_single_year_title == true){
+        title = harvestminDateYear + "_" + i
+      }
+      else{
+        title = i
+      }
+      zip.file(title + ".csv", data_dict[i][0], { binary: true });
     }
   }
 }
