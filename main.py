@@ -395,6 +395,10 @@ def output():
 def page_not_found(error):
    return render_template('pages/404.html', title = '404'), 404
 
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('pages/500.html', title= '500'), 500
+
 if __name__ == "__main__":
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
@@ -404,4 +408,4 @@ if __name__ == "__main__":
     # the "static" directory. See:
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=False)
