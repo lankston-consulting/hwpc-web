@@ -6,7 +6,8 @@ from datetime import datetime
 import pandas as pd
 import tempfile
 from io import StringIO
-from flask import Flask, redirect, render_template, request, jsonify
+from werkzeug.exceptions import HTTPException
+from flask import Flask, redirect, render_template, request, jsonify, abort
 
 # from config import gch
 from utils.s3_helper import S3Helper
@@ -391,15 +392,22 @@ def output():
         scenario_json=user_json,
     )
 
+
 @app.errorhandler(404)
 def page_not_found(error):
    return render_template('pages/404.html', title = '404'), 404
 
-@app.errorhandler(500)
-def internal_server_error(error):
-    return render_template('pages/500.html', title= '500'), 500
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # pass through HTTP errors
+    if isinstance(e, HTTPException):
+        return e
+
+    # now you're handling non-HTTP exceptions only
+    return render_template("pages/500.html", e=e), 500
 
 if __name__ == "__main__":
+
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
