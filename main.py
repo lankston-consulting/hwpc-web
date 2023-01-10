@@ -38,37 +38,38 @@ oauth.register(
 @app.route("/index")
 @app.route("/home", methods=["GET"])
 def home():
-    return render_template("pages/home.html")
+    # return render_template("pages/home.html")
+    return render_template("pages/home.html", session=session.get('user'))
 
 
 @app.route("/calculator", methods=["GET"])
 def calculator():
-    return render_template("pages/calculator.html")
+    return render_template("pages/calculator.html", session=session.get('user'))
 
 
 @app.route("/reference", methods=["GET"])
 def test():
-    return render_template("pages/reference.html")
+    return render_template("pages/reference.html", session=session.get('user'))
 
 
 @app.route("/privacy", methods=["GET"])
 def advanced():
-    return render_template("pages/privacy.html")
+    return render_template("pages/privacy.html", session=session.get('user'))
 
 
 @app.route("/terms", methods=["GET"])
 def references():
-    return render_template("pages/terms.html")
+    return render_template("pages/terms.html", session=session.get('user'))
 
 
 @app.route("/contact", methods=["GET"])
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", session=session.get('user'))
 
 
 @app.route("/files", methods=["GET"])
 def files():
-    return render_template("files.html")
+    return render_template("files.html", session=session.get('user'))
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -304,7 +305,7 @@ def upload():
 
 @app.route("/submit")
 def submit():
-    return render_template("pages/submit.html")
+    return render_template("pages/submit.html", session=session.get('user'))
 
 
 @app.route("/set-official", methods=["GET"])
@@ -407,6 +408,9 @@ def output():
         file_name=q,
         is_single=is_single,
         scenario_json=user_json,
+        session=session.get('user'), 
+        pretty=json.dumps(session.get('user'), 
+        indent=4)
     )
 
 
@@ -466,4 +470,4 @@ if __name__ == "__main__":
     # the "static" directory. See:
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)
