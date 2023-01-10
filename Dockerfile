@@ -1,4 +1,4 @@
-FROM python:3.9.14
+FROM python:3.10.4
 
 ENV PYTHONUNBUFFERED True
 
@@ -14,10 +14,11 @@ RUN pip install -r requirements.txt
 COPY . ./
 ENV PORT ${PORT}
 
+# EXPOSE ${PORT} 
 EXPOSE 80
 EXPOSE 443
 
 # Run a WSGI server to serve the application. gunicorn must be declared as
 # a dependency in requirements.txt.
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:80", "--workers", "1", "--threads", "8", "--timeout", "0"]
+ENTRYPOINT ["gunicorn", "-b", ":80", "--workers", "1", "--threads", "8", "--timeout", "0"]
 CMD ["main:app"]
