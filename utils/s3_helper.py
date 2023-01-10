@@ -38,7 +38,9 @@ class S3Helper(object):
         # Upload the file
 
         try:
-            response = S3Helper.s3_client.upload_fileobj(file_name, bucket, object_name, ExtraArgs={'ACL':'public-read'})
+            response = S3Helper.s3_client.upload_fileobj(
+                file_name, bucket, object_name, ExtraArgs={"ACL": "public-read"}
+            )
         except ClientError as e:
             logging.error(e)
             return False
