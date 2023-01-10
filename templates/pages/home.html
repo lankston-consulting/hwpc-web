@@ -1,6 +1,9 @@
+{% if session %}
+
 {% extends "components/base.html" %}
 
 {% block content %}
+
 <div id="home-page" class="bg">
     <div style="padding-bottom: 15rem;">
         <div class="home-container">
@@ -76,3 +79,8 @@
 
 </div>
 {% endblock content %}
+
+{% else %}
+    <h1>Welcome Guest</h1>
+    <p><a href="/login">Login</a></p>
+{% endif %}
