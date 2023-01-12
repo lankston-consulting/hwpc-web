@@ -1,57 +1,75 @@
 import json
-import uuid
 import os
+import tempfile
+import uuid
 import zipfile
 from datetime import datetime
-import pandas as pd
-import tempfile
 from io import StringIO
-from werkzeug.exceptions import HTTPException
-from flask import Flask, redirect, render_template, request, jsonify, abort
+from os import environ as env
+from urllib.parse import quote_plus, urlencode
 
-# from config import gch
+import pandas as pd
+from authlib.integrations.flask_client import OAuth
+from flask import Flask, redirect, render_template, request, session, url_for
+from werkzeug.exceptions import HTTPException
+
+import config
 from utils.s3_helper import S3Helper
 
 user_data_folder = "hwpc-user-inputs/"
 
 app = Flask(__name__, template_folder="templates")
+app.secret_key = env.get("APP_SECRET_KEY")
+
+oauth = OAuth(app)
+
+oauth.register(
+    "auth0",
+    client_id=env.get("AUTH0_CLIENT_ID"),
+    client_secret=env.get("AUTH0_CLIENT_SECRET"),
+    client_kwargs={
+        "scope": "openid profile email",
+    },
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
+)
 
 # Routing for html template files
 @app.route("/")
 @app.route("/index")
 @app.route("/home", methods=["GET"])
 def home():
-    return render_template("pages/home.html")
+    # return render_template("pages/home.html")
+    return render_template("pages/home.html", session=session.get('user'))
 
 
 @app.route("/calculator", methods=["GET"])
 def calculator():
-    return render_template("pages/calculator.html")
+    return render_template("pages/calculator.html", session=session.get('user'))
 
 
 @app.route("/reference", methods=["GET"])
 def test():
-    return render_template("pages/reference.html")
+    return render_template("pages/reference.html", session=session.get('user'))
 
 
 @app.route("/privacy", methods=["GET"])
 def advanced():
-    return render_template("pages/privacy.html")
+    return render_template("pages/privacy.html", session=session.get('user'))
 
 
 @app.route("/terms", methods=["GET"])
 def references():
-    return render_template("pages/terms.html")
+    return render_template("pages/terms.html", session=session.get('user'))
 
 
 @app.route("/contact", methods=["GET"])
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", session=session.get('user'))
 
 
 @app.route("/files", methods=["GET"])
 def files():
-    return render_template("files.html")
+    return render_template("files.html", session=session.get('user'))
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -256,7 +274,7 @@ def upload():
 
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%YT%H:%M:%S")
-    new_id = str(run_name+"-"+dt_string)
+    new_id = str(run_name + "-" + dt_string)
     # The data is compiled to a dictionary to be processed with the S3Helper class
     data = {
         "harvest_data.csv": yearly_harvest_input,
@@ -287,7 +305,7 @@ def upload():
 
 @app.route("/submit")
 def submit():
-    return render_template("pages/submit.html")
+    return render_template("pages/submit.html", session=session.get('user'))
 
 
 @app.route("/set-official", methods=["GET"])
@@ -390,12 +408,47 @@ def output():
         file_name=q,
         is_single=is_single,
         scenario_json=user_json,
+        session=session.get('user'), 
+        pretty=json.dumps(session.get('user'), 
+        indent=4)
+    )
+
+
+@app.route("/callback", methods=["GET", "POST"])
+def callback():
+    token = oauth.auth0.authorize_access_token()
+    session["user"] = token
+    return redirect("/")
+
+
+@app.route("/login")
+def login():
+    return oauth.auth0.authorize_redirect(
+        redirect_uri=url_for("callback", _external=True)
+    )
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(
+        "https://"
+        + env.get("AUTH0_DOMAIN")
+        + "/v2/logout?"
+        + urlencode(
+            {
+                "returnTo": url_for("home", _external=True),
+                "client_id": env.get("AUTH0_CLIENT_ID"),
+            },
+            quote_via=quote_plus,
+        )
     )
 
 
 @app.errorhandler(404)
 def page_not_found(error):
-   return render_template('pages/404.html', title = '404'), 404
+    return render_template("pages/404.html", title="404"), 404
+
 
 @app.errorhandler(Exception)
 def handle_exception(e):
@@ -405,6 +458,7 @@ def handle_exception(e):
 
     # now you're handling non-HTTP exceptions only
     return render_template("pages/500.html", e=e), 500
+
 
 if __name__ == "__main__":
 
@@ -416,4 +470,4 @@ if __name__ == "__main__":
     # the "static" directory. See:
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)

@@ -1,3 +1,4 @@
+{% if session %}
 {% extends "components/base.html" %}
 
 {% block content %}
@@ -25,3 +26,7 @@
     </script>
     {% endif %}
     {% endblock content %}
+
+    {% else %}
+    {% include  "components/login.html" %}
+    {% endif %}

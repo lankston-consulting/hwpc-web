@@ -85,12 +85,14 @@
 </head>
 
 <body>
+
     <script>
         0
     </script>
     <div id="page-container">
         <a class="skip-link" href='#content'>Skip to content</a>
         <main id="content">
+
             {% include "components/navigation.html" %}
             {% include "components/banner.html" %}
 
@@ -98,6 +100,8 @@
         </main>
     </div>
     <footer id="footer">{% include "components/footer.html" %}</footer>
+
+
 </body>
 {% block scripts %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/accordion.js') }}"></script>

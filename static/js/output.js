@@ -823,6 +823,7 @@ generate_graph = function (
         height: 350,
         responsive: true,
         showlegend: false,
+        
       };
 
       Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
@@ -1015,8 +1016,8 @@ generate_graph = function (
                 stackgroup: "one",
                 line: { color: colorHex },
                 fill: { color: colorHex }
-
               };
+              console.log(temp);
             } else {
               var temp_trace = {
                 x: year_data,
@@ -1490,7 +1491,7 @@ generate_graph = function (
           height: 700,
           margin: { l: 100, r: 55, b: 200, t: 100, pad: 4 },
           responsive: true,
-          legend: { x: 1.05, y: 1 },
+          legend: { x: 1.05, y: 1},
      
           annotations: [
             {
@@ -1524,6 +1525,7 @@ generate_graph = function (
           height: 700,
           margin: { l: 100, r: 50, b: 200, t: 100, pad: 4 },
           responsive: true,
+        
           annotations: [
             {
               xref: "paper",  
@@ -1541,13 +1543,8 @@ generate_graph = function (
         
         };
       }
-
-      // var layout = {
-      //     title: title,
-      //     xaxis: { title: "Year<br><sup>" + caption[0].text + "</sup>" },
-      //     yaxis: {}
-      // }
       Plotly.newPlot(tester, stackedData, layout);
+
     } else {
       console.log("graph type is active bar");
       tester = document.getElementsByClassName(
