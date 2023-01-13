@@ -120,6 +120,15 @@ header_dict["total_selected_net_change"] = [
   "Reused Products in Use Change MgC",
   "SWDS Change MgC",
 ];
+header_dict["total_selected_net_change2"] = [
+  "Year",
+  "Products in Use MgC",
+  // "Reused Products in Use MgC",
+  "SWDS MgC",
+  "Products in Use Change MgC",
+  // "Reused Products in Use Change MgC",
+  "SWDS Change MgC",
+];
 header_dict["total_yearly_dispositions"] = [
   // "Year",
   // "SWDS Present Change MgC",
@@ -148,6 +157,34 @@ header_dict["total_yearly_dispositions"] = [
   "Present MgC",
   "Present Change MgC",
 ];
+header_dict["total_yearly_dispositions2"] = [
+  // "Year",
+  // "SWDS Present Change MgC",
+  // "Emitted with Energy Capture CO2e",
+  // "Emitted with Energy Capture Change CO2e",
+  // "Emitted without Energy Capture CO2e",
+  // "Emitted without Energy Capture Change CO2e",
+  // "Products in Use Change Mgc",
+  // "SWDS MgC",
+  // "SWDS Change MgC",
+  // "Total Remaining MgC",
+  // "Total Change MgC",
+  // "Present Change MgC"
+
+  "Year",
+  "Emitted with Energy Capture CO2e",
+  "Emitted with Energy Capture Change CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Emitted without Energy Capture Change CO2e",
+  // "Reused Products in Use MgC",
+  // "Reused Products in Use Change MgC",
+  "Products in Use MgC",
+  "Products in Use Change MgC",
+  "SWDS MgC",
+  "SWDS Change MgC",
+  "Present MgC",
+  "Present Change MgC",
+];
 header_dict["total_selected_dispositions"] = [
   "Year",
   "Emitted with Energy Capture CO2e",
@@ -163,8 +200,22 @@ header_dict["total_selected_dispositions"] = [
   "Present MgC",
   "Present Change MgC",
 ];
+header_dict["total_selected_dispositions2"] = [
+  "Year",
+  "Emitted with Energy Capture CO2e",
+  "Emitted with Energy Capture Change CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Emitted without Energy Capture Change CO2e",
+  // "Reused Products in Use MgC",
+  // "Reused Products in Use Change MgC",
+  "Products in Use MgC",
+  "Products in Use Change MgC",
+  "SWDS MgC",
+  "SWDS Change MgC",
+  "Present MgC",
+  "Present Change MgC",
+];
 header_dict["all_final_results_table"] = [
-
   "Year",
   "New Products in Use CO2e",
   "Reused Products in Use CO2e",
@@ -172,6 +223,13 @@ header_dict["all_final_results_table"] = [
   "Emitted with Energy Capture CO2e",
   "Emitted without Energy Capture CO2e",
 
+]
+header_dict["all_final_results_table2"] = [
+  "Year",
+  "New Products in Use CO2e",
+  "SWDS Present C02e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
 ]
 
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
@@ -413,6 +471,7 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
     "table",
     "",
   ];
+  console.log(data_dict["all_final_results_table"])
 };
 
 $("#defaultOpen").click(function (e) {
@@ -433,7 +492,7 @@ $("#defaultOpen").click(function (e) {
       ]
     );
   }
-  console.log(active_id)
+  // console.log(active_id)
   generate_graph(
     data_dict[active_id][0],
     active_id,
@@ -590,7 +649,7 @@ $("#table").click(function (e) {
     $("#tableContent").children()[0].classList.length - 1
     ];
  
-  console.log(active_id)
+  // console.log(active_id)
 
   generate_table(
     data_dict[active_id][0],
@@ -1017,7 +1076,7 @@ generate_graph = function (
                 line: { color: colorHex },
                 fill: { color: colorHex }
               };
-              console.log(temp);
+             
             } else {
               var temp_trace = {
                 x: year_data,
@@ -1189,7 +1248,7 @@ generate_graph = function (
           value2: d[Object.keys(d)[2]],
         };
       });
-      console.log(data)
+      
 
       minDateYear = data[0].year;
       maxDateYear = data[data.length - 1].year;
@@ -1265,7 +1324,7 @@ generate_graph = function (
       year_data = [];
       emissions_present = false;
       solid_present = false;
-      console.log(data);
+      
       minDateYear = data[0].Year;
       maxDateYear = data[data.length - 1].Year;
       caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
@@ -1293,7 +1352,7 @@ generate_graph = function (
           for (j in data) {
             temp.push(data[j][column]);
           }
-          console.log(column)
+          
           colorHex = "#333";
 
           if (column == "products_in_use") {
@@ -1578,7 +1637,7 @@ generate_graph = function (
 
         net_change_array.push(temp3);
       }
-      console.log(net_change_array);
+      
       year_array = year_array.slice(0, -2);
       prod_array = prod_array.slice(0, -2);
       swds_array = swds_array.slice(0, -2);
@@ -1652,7 +1711,7 @@ generate_hidden_graph = function (
   y_label = "",
   caption
 ) {
-  console.log(graph_class);
+  
 
   $("." + graph_class).html("");
   if (graph_type == "line") {
@@ -1832,7 +1891,7 @@ generate_hidden_graph = function (
         for (j in data) {
           temp.push(data[j][column]);
         }
-        console.log(column)
+        
         colorHex = "#333";
         if (column == "products_in_use") {
           y_name = "Products in Use";
@@ -2133,10 +2192,15 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
   } else {
     tester = document.getElementsByClassName("hidden " + table_class)[0];
   }
-  console.log(tester)
+  
   // var data = d3.csvParse(json_data, function (d) { return process_data(d) } );
   var data = d3.csvParse(json_data);
-  process_data(data);
+  try{
+    process_data(data);
+  }
+  catch{
+    console.log("error in table generation")
+  }
   function process_data(rows) {
     function unpack(rows, key) {
       return rows.map(function (row) {
@@ -2146,10 +2210,10 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
 
     var headerNames = Object.keys(rows[0]);
 
-    console.log(headerNames);
+
 
     let imageWidth = 0;
-    console.log(headerNames.length);
+
 
     if (headerNames.length <= 5) {
       imageWidth = 1225; // pdf exports at letter mm size, 2551px will give it 144ppi 'resolution'
@@ -2181,20 +2245,32 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
         cellValues[i] = cellValue;
       }
     }
-
+    console.log(cellValues)
     // clean date
     for (i = 0; i < cellValues[1].length; i++) {
       var dateValue = cellValues[1][i].split(" ")[0];
       cellValues[1][i] = dateValue;
     }
-
+    if (needs_single_year_title == true) {
+      console.log("in is single")
+      if($("#singleYear").val()<1970 && table_class != "annual_timber_harvest_table" && table_class != "total_yearly_net_change"){
+        headers_values = header_dict[table_class+"2"]
+      }
+      else{
+        headers_values = header_dict[table_class]
+      }
+    }
+    else{
+      headers_values = header_dict[table_class]
+    }
+    
     var data_layout = [
       {
         type: "table",
-        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
+        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 40],
         columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         header: {
-          values: header_dict[table_class],
+          values: headers_values,
           line: { width: 1, color: "rgb(50, 50, 50)" },
           fill: { color: headerColor },
           font: { family: "Open Sans", size: 14, color: "white" },
@@ -2223,7 +2299,7 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
 $(".non-active").click(function (e) {
   var non_active_div = $(e.target).parent().parent();
   var non_active_div_siblings = $(e.target).parent().parent().siblings();
-  console.log(non_active_div_siblings);
+ 
   var current_tabs_active_graph_sibling = non_active_div
     .parent()
     .closest("div");
@@ -2303,7 +2379,7 @@ $(".non-active").keydown(function (e) {
   if (e.keyCode == 13 || e.keyCode == 32) {
     var non_active_div = $(e.target).parent().parent();
     var non_active_div_siblings = $(e.target).parent().parent().siblings();
-    console.log(non_active_div_siblings);
+   
     var current_tabs_active_graph_sibling = non_active_div
       .parent()
       .closest("div");
@@ -2381,7 +2457,7 @@ $(".non-active").keydown(function (e) {
 });
 
 $("#allYearsBtn").click(function (e) {
-  console.log("all year");
+ 
   $("#yearfilter").attr(
     "href",
     "/output?p=" + data_bucket + "&q=" + data_file_name
@@ -2389,8 +2465,6 @@ $("#allYearsBtn").click(function (e) {
 });
 
 $("#singleYearBtn").click(function (e) {
-  console.log("single year");
-  console.log($("#singleYear").val());
   $("#yearfilter").attr(
     "href",
     "/output?p=" +
@@ -2403,8 +2477,6 @@ $("#singleYearBtn").click(function (e) {
 });
 
 $("#singleYear").on("change", function (e) {
-  console.log("hello");
-  console.log($("#singleYear").val());
   $("#yearfilter").attr(
     "href",
     "/output?p=" +
@@ -2419,7 +2491,6 @@ $("#singleYear").on("change", function (e) {
 $("#singleYear").on('keypress', function (e) {
   if (e.keyCode === 13) {
       e.preventDefault();
-    console.log(document.getElementById('yearfilter').href);
     document.getElementById('yearfilter').href = "/output?p=" +
     data_bucket +
     "&q=" +
@@ -2589,7 +2660,6 @@ function export_tables() {
 
   for (var i = 0; i < tables.length; i++) {
     // Plotly.toImage(tables[i], { format: 'png' });
-    console.log(tables[i]);
     if(needs_single_year_title == true){
       title = harvestminDateYear + "_" + tables[i].classList[3]
     }
