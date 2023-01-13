@@ -391,9 +391,10 @@ def output():
                     test = test.drop(columns="DiscardDestinationID")
                 except:
                     print("no column")
-                test.drop(test.tail(1).index, inplace=True)
-                print(test)
-                test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
+                # print("pre test drop: ", test)
+                # test.drop(test.tail(1).index, inplace=True)
+                # test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
+                print("post test drop: ", test)
                 data_dict[file[5:-4]] = test.to_csv(index=False)
         print(data_dict.keys())
         data_json = json.dumps(data_dict)
