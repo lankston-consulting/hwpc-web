@@ -409,9 +409,9 @@ def output():
         file_name=q,
         is_single=is_single,
         scenario_json=user_json,
-        # session=session.get('user'), 
-        # pretty=json.dumps(session.get('user'), 
-        # indent=4)
+        session=session.get('user'), 
+        pretty=json.dumps(session.get('user'), 
+        indent=4)
     )
 
 

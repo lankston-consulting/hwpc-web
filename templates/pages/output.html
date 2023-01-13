@@ -1,4 +1,4 @@
-{# {% if session %} #}
+{% if session %} 
 {% extends "components/base.html" %}
 
 {% block content %}
@@ -230,6 +230,6 @@
 {% endblock content %}
 
 
-{# {% else %}#}
+{% else %}
 {# {% include  "components/login.html" %}#}
-{# {% endif %}#}
+{% endif %}
