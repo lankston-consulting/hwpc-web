@@ -3,10 +3,12 @@ import os
 import tempfile
 import uuid
 import zipfile
+import requests
 from datetime import datetime
 from io import StringIO
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
+import random, string
 
 import pandas as pd
 from authlib.integrations.flask_client import OAuth
@@ -36,10 +38,12 @@ oauth.register(
 # Routing for html template files
 @app.route("/")
 @app.route("/index")
-@app.route("/home", methods=["GET"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    # return render_template("pages/home.html")
+    # requests.request("POST", "http://localhost:8080/oauth/token")
     return render_template("pages/home.html", session=session.get('user'))
+
+    
 
 
 @app.route("/calculator", methods=["GET"])
@@ -330,6 +334,7 @@ def set_official():
     return
 
 
+
 @app.route("/output", methods=["GET"])
 def output():
     swds_mgc = ""
@@ -427,6 +432,9 @@ def login():
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
+
+
+
 
 
 @app.route("/logout")
