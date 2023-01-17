@@ -2211,7 +2211,7 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
 
     var headerNames = Object.keys(rows[0]);
     if (is_big_four == true) {
-      headerNames.push("Sum")
+      headerNames.push("Sum CO2e")
     }
 
 
