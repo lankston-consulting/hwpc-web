@@ -219,9 +219,10 @@ header_dict["all_final_results_table"] = [
   "Year",
   "New Products in Use CO2e",
   "Reused Products in Use CO2e",
-  "SWDS Present C02e",
+  "SWDS Present CO2e",
   "Emitted with Energy Capture CO2e",
   "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
 
 ]
 header_dict["all_final_results_table2"] = [
@@ -230,6 +231,7 @@ header_dict["all_final_results_table2"] = [
   "SWDS Present C02e",
   "Emitted with Energy Capture CO2e",
   "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
 ]
 
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
@@ -2187,7 +2189,6 @@ generate_hidden_graph = function (
 
 generate_table = function (json_data, table_class, title, is_big_four = false) {
   if (is_big_four == true) {
-   
     tester = document.getElementsByClassName(table_class)[0];
   } else {
     tester = document.getElementsByClassName("hidden " + table_class)[0];
@@ -2209,6 +2210,9 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
     }
 
     var headerNames = Object.keys(rows[0]);
+    if (is_big_four == true) {
+      headerNames.push("Sum CO2e")
+    }
 
 
 
@@ -2227,21 +2231,44 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
 
     var headerValues = [];
     var cellValues = [];
+    var rolling_sum = []
     for (i = 0; i < headerNames.length; i++) {
       headerValue = [headerNames[i]];
       headerValues[i] = headerValue;
       cellValue = unpack(rows, headerNames[i]);
-      if (i >= 1) {
+    
+      if (i >= 1 && i != headerNames.length-1) {
         temp = [];
+        temp2=[]
         for (j = 0; j < cellValue.length; j++) {
+            if (is_big_four == true) {
+              temp.push(parseInt(cellValue[j]).toLocaleString());
+              temp2.push(parseInt(cellValue[j]))
+          }
+            else {
+              temp.push(parseFloat(cellValue[j]).toFixed(2).toLocaleString());
+              temp2.push(parseFloat(cellValue[j]).toFixed(2))
+            }
+          }
+          rolling_sum.push(temp2)
+          cellValues[i] = temp;
+        }
+
+      else if(i == headerNames.length-1){
+          temp = [];
           if (is_big_four == true) {
-            temp.push(parseInt(cellValue[j]).toLocaleString());
-          } else {
-            temp.push(parseFloat(cellValue[j]).toFixed(2).toLocaleString());
+            console.log(rolling_sum)
+            for (j = 0; j < rolling_sum[0].length; j++) {
+              result = 0
+              for (k = 0; k < rolling_sum.length; k++) {
+                result += rolling_sum[k][j]
+              }
+            temp.push(result.toLocaleString());
+          }
+        cellValues[i] = temp;
           }
         }
-        cellValues[i] = temp;
-      } else {
+      else {
         cellValues[i] = cellValue;
       }
     }
@@ -2264,6 +2291,7 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
       headers_values = header_dict[table_class]
     }
     
+    console.log(headers_values)
     var data_layout = [
       {
         type: "table",
