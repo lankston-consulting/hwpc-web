@@ -29,7 +29,6 @@ oauth.register(
     "auth0",
     client_id=env.get("FSAPPS_CLIENT_ID"),
     client_secret=env.get("FSAPPS_CLIENT_SECRET"),
-    response_type="code",
     redirect_uri="http://localhost:8080/login"
 )
 
@@ -38,7 +37,6 @@ oauth.register(
 @app.route("/index")
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    # requests.request("POST", "http://localhost:8080/oauth/token")
     return render_template("pages/home.html", session=session.get('user'))
 
     
@@ -427,10 +425,10 @@ def callback():
 @app.route("/login")
 def login():
     state = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
-    print("https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response-type=code&state=" + state)
+    print("https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response_type=code&state=" + state)
     return render_template (
         "pages/login.html",
-        url = "https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response-type=code&state=" + state
+        url = "https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response_type=code&state=" + state
     )
 
 
