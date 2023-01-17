@@ -219,10 +219,10 @@ header_dict["all_final_results_table"] = [
   "Year",
   "New Products in Use CO2e",
   "Reused Products in Use CO2e",
-  "SWDS Present C02e",
+  "SWDS Present CO2e",
   "Emitted with Energy Capture CO2e",
   "Emitted without Energy Capture CO2e",
-  "Sum"
+  "Sum CO2e"
 
 ]
 header_dict["all_final_results_table2"] = [
@@ -231,7 +231,7 @@ header_dict["all_final_results_table2"] = [
   "SWDS Present C02e",
   "Emitted with Energy Capture CO2e",
   "Emitted without Energy Capture CO2e",
-  "Sum"
+  "Sum CO2e"
 ]
 
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
