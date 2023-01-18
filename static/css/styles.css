@@ -207,7 +207,6 @@ li {
 
 .custom-btn-download {
   width: max-content !important;
-  min-width: fit-content !important;
 }
 
 .btn-calc {
@@ -684,8 +683,6 @@ color: var(--dark-gray);
   margin-top: 2em;
   overflow: hidden;
   text-align: center;
-  /* float: left; */
-  font-weight: normal;
   box-shadow: 0 0 30px rgba(0,0,0,.1);
   border-radius: 3px;
   text-transform: capitalize;
@@ -1079,7 +1076,7 @@ input[type="radio"]:after{
 }
 
 .modal-input-data::before {
-  font-family: "FontAwesome";
+  font-family: "FontAwesome", sans-serif;
   content: "\f044";
   margin-right: 10px;
   cursor: pointer;
@@ -1093,7 +1090,7 @@ input[type="radio"]:after{
 /* Validation flag */
 
 .validation-flag::before {
-  font-family: "FontAwesome";
+  font-family: "FontAwesome", sans-serif;
   content: "\f06a";
   color: red;
   font-size: 2.5rem;
@@ -1114,10 +1111,6 @@ input[type="radio"]:after{
 #systemFlow .tab {
   overflow: hidden;
   background-color: #f1f1f1;
-  /* width: fit-content;
-  text-align: center;
-  margin: 0 auto; */
-
   border-radius: 5px 5px 0 0;
 
 }
@@ -1130,19 +1123,14 @@ input[type="radio"]:after{
 
 #systemFlow .tabcontent {
   transition: background ease 0.2s;
+  min-height: fit-content;
+  height:max-content;
 }
 
 .flowchart-container {
   display:flex; 
   width:fit-content; 
-  /* margin: 0 auto;  */
   transform: translateX(50px);
-
-}
-
-#systemFlow .tabcontent {
-  min-height: fit-content;
-  height:max-content;
 }
 
 /* How it works Graphic */
@@ -1350,10 +1338,6 @@ input[type="radio"]:after{
 
 .results {
   width: 300px;
-}
-
-
-.results {
   background-color: #E9A986;
 }
 
@@ -1549,13 +1533,10 @@ transform: rotate(135deg) translateY(80px) translateX(-70px);
 
 .output-page {
   padding: 10rem 1rem 15rem 1rem;
-  margin-bottom: 15rem; 
   display: flex;
   min-width: fit-content;
   width: 1600px;
   margin: auto;
-
-  
 }
 
 .output-page aside {
