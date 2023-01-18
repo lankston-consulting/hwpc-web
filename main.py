@@ -260,7 +260,6 @@ def upload():
 
     dispositions = request.files["DispositionsFilename"]
     disposition_half_lives = request.files["DispositionHalfLivesFilename"]
-    distribution_data = request.files["DistributionDataFilename"]
     burned_ratios = request.files["BurnedRatiosFilename"]
     mbf_to_ccf = request.files["MbfToCcfFilename"]
     loss_factor = request.form["lossfactor"]
@@ -331,10 +330,6 @@ def set_official():
 
 @app.route("/output", methods=["GET"])
 def output():
-    swds_mgc = ""
-    sdws_co2e = ""
-    products_in_use_mgc = ""
-    products_in_use_co2e = ""
     is_single = "false"
     p = request.args.get("p")
     q = request.args.get("q")
@@ -355,8 +350,8 @@ def output():
         )
         for file in user_zip:
             if ".csv" in file and "results" not in file:
-                csvStringIO = StringIO(user_zip[file])
-                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                csv_string_io = StringIO(user_zip[file])
+                test = pd.read_csv(csv_string_io, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
                 except Exception as e: 
@@ -384,11 +379,12 @@ def output():
         for file in user_zip:
             if ".csv" in file and y in file and "results" not in file:
                 print(file[:-4])
-                csvStringIO = StringIO(user_zip[file])
-                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                csv_string_io = StringIO(user_zip[file])
+                test = pd.read_csv(csv_string_io, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
-                except:
+                except Exception as e: 
+                    print(str(e))
                     data_dict[file[5:-4]] = test.to_csv(index=False)
         data_json = json.dumps(data_dict)
 
