@@ -17,6 +17,7 @@ import config
 from utils.s3_helper import S3Helper
 
 user_data_folder = "hwpc-user-inputs/"
+user_json = "/user_input.json"
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -38,7 +39,6 @@ oauth.register(
 @app.route("/index")
 @app.route("/home", methods=["GET"])
 def home():
-    # return render_template("pages/home.html")
     return render_template("pages/home.html", session=session.get('user'))
 
 
@@ -312,7 +312,7 @@ def submit():
 def set_official():
     p = request.args.get("p")
     data_json = S3Helper.download_file(
-        "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        "hwpc", user_data_folder + p + user_json
     )
     deliver_json = {}
     with open(data_json.name, "r+") as f:
@@ -324,10 +324,9 @@ def set_official():
     user_file.write(deliver_json)
     user_file.seek(0)
     S3Helper.upload_file(
-        user_file, "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        user_file, "hwpc", user_data_folder + p + user_json
     )
     user_file.close()
-    return
 
 
 @app.route("/output", methods=["GET"])
@@ -347,12 +346,12 @@ def output():
         print("no year range")
 
         user_json = S3Helper.download_file(
-            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+            "hwpc", user_data_folder + p + user_json
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
         user_zip = S3Helper.read_zipfile(
-            "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + q + ".zip"
+            "hwpc-output", user_data_folder + p + "/results/" + q + ".zip"
         )
         for file in user_zip:
             if ".csv" in file and "results" not in file:
@@ -360,8 +359,8 @@ def output():
                 test = pd.read_csv(csvStringIO, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
-                except:
-                    print("no column")
+                except Exception as e: 
+                    print('Missing Discard Destination ID: ' + str(e))
                 test.drop(test.tail(1).index, inplace=True)
                 test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
                 data_dict[file[:-4]] = test.to_csv(index=False)
@@ -374,7 +373,7 @@ def output():
         is_single = "true"
 
         user_json = S3Helper.download_file(
-            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+            "hwpc", user_data_folder + p + user_json
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
@@ -390,13 +389,7 @@ def output():
                 try:
                     test = test.drop(columns="DiscardDestinationID")
                 except:
-                    print("no column")
-                # print("pre test drop: ", test)
-                # test.drop(test.tail(1).index, inplace=True)
-                # test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
-                print("post test drop: ", test)
-                data_dict[file[5:-4]] = test.to_csv(index=False)
-        print(data_dict.keys())
+                    data_dict[file[5:-4]] = test.to_csv(index=False)
         data_json = json.dumps(data_dict)
 
         data_json = data_json.replace('\\"', " ")
