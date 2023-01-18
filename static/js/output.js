@@ -236,6 +236,25 @@ header_dict["all_final_results_table2"] = [
   "Sum CO2e"
 ]
 
+header_dict["all_final_results_hidden_table"] = [
+  "Year",
+  "New Products in Use CO2e",
+  "Reused Products in Use CO2e",
+  "SWDS Present CO2e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
+
+]
+header_dict["all_final_results_hidden_table2"] = [
+  "Year",
+  "New Products in Use CO2e",
+  "SWDS Present C02e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
+]
+
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
   data_bucket = bucket;
   data_file_name = file_name;
@@ -475,7 +494,12 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
     "table",
     "",
   ];
-  console.log(data_dict["all_final_results_table"])
+  data_dict["all_final_results_hidden_table"] = [
+    final_json.big_four,
+    "Final Results",
+    "table",
+    "",
+  ];
 };
 
 $("#defaultOpen").click(function (e) {
@@ -2138,7 +2162,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
     }
 
 
-
     let imageWidth = 0;
 
 
@@ -2159,41 +2182,84 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
       headerValue = [headerNames[i]];
       headerValues[i] = headerValue;
       cellValue = unpack(rows, headerNames[i]);
-    
-      if (i >= 1 && i != headerNames.length-1) {
-        let temp = [];
-        let temp2=[]
-        for (const element of cellValue) {
-            if (is_big_four) {
-              temp.push(parseInt(element).toLocaleString());
-              temp2.push(parseInt(element))
+
+      if(is_big_four){
+        console.log("in big four logic loop")
+        if (i >= 1 && i != headerNames.length-1) {
+          let temp = [];
+          let temp2=[]
+          for (const element of cellValue) {
+              if (is_big_four) {
+                temp.push(parseInt(element).toLocaleString());
+                temp2.push(parseInt(element))
+            }
+              else {
+                temp.push(parseFloat(element).toFixed(2).toLocaleString());
+                temp2.push(parseFloat(element).toFixed(2))
+              }
+            }
+            rolling_sum.push(temp2)
+            cellValues[i] = temp;
           }
-            else {
-              temp.push(parseFloat(element).toFixed(2).toLocaleString());
-              temp2.push(parseFloat(element).toFixed(2))
+  
+        else if(i == headerNames.length-1){
+            let temp = [];
+            if (is_big_four) {
+              console.log(rolling_sum)
+              for (let j = 0; j < rolling_sum[0].length; j++) {
+                let result = 0
+                for (const element of rolling_sum) {
+                  result += element[j]
+                }
+              temp.push(result.toLocaleString());
+            }
+          cellValues[i] = temp;
             }
           }
-          rolling_sum.push(temp2)
-          cellValues[i] = temp;
+        else {
+          console.log(cellValue)
+          cellValues[i] = cellValue;
         }
-
-      else if(i == headerNames.length-1){
-          let temp = [];
-          if (is_big_four) {
-            console.log(rolling_sum)
-            for (j = 0; j < rolling_sum[0].length; j++) {
-              let result = 0
-              for (const element of rolling_sum) {
-                result += element[j]
-              }
-            temp.push(result.toLocaleString());
-          }
-        cellValues[i] = temp;
-          }
-        }
-      else {
-        cellValues[i] = cellValue;
       }
+      else{
+        if (i >= 1) {
+          let temp = [];
+          let temp2=[]
+          for (const element of cellValue) {
+              if (is_big_four) {
+                temp.push(parseInt(element).toLocaleString());
+                temp2.push(parseInt(element))
+            }
+              else {
+                temp.push(parseFloat(element).toFixed(2).toLocaleString());
+                temp2.push(parseFloat(element).toFixed(2))
+              }
+            }
+            rolling_sum.push(temp2)
+            cellValues[i] = temp;
+          }
+  
+        else if(i == headerNames.length-1){
+            let temp = [];
+            if (is_big_four) {
+              console.log(rolling_sum)
+              for (let j = 0; j < rolling_sum[0].length; j++) {
+                let result = 0
+                for (const element of rolling_sum) {
+                  result += element[j]
+                }
+              temp.push(result.toLocaleString());
+            }
+          cellValues[i] = temp;
+            }
+          }
+        else {
+          console.log(cellValue)
+          cellValues[i] = cellValue;
+        }
+      }
+      
+      
     }
     // clean date
     for (let i = 0; i < cellValues[1].length; i++) {
@@ -2217,7 +2283,7 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
     let data_layout = [
       {
         type: "table",
-        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 40],
+        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
         columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         header: {
           values: headers_values,
@@ -2235,7 +2301,10 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
         },
       },
     ];
-
+    console.log(title)
+    console.log("read in data: " ,data)
+    console.log("Table Values: ",cellValues)
+    console.log("header names: ", headers_values)
     let layout = {
       title: title,
       height: (cellValues[0].length + 5) * 30 + 100,
@@ -2465,6 +2534,12 @@ $(function () {
 
 d3.select("#dl-closed").on("click", function () {
   generate_table(
+    data_dict["all_final_results_hidden_table"][0],
+    "all_final_results_hidden_table",
+    data_dict["all_final_results_hidden_table"][1],
+    true
+  );
+  generate_table(
     data_dict["annual_timber_harvest_table"][0],
     "annual_timber_harvest_table",
     data_dict["annual_timber_harvest_table"][1]
@@ -2560,7 +2635,7 @@ let small_count = 0;
 function export_tables() {
   //export plotly tables as pngs
   let title
-  let tables = document.getElementsByClassName("graph table");
+  let tables = document.getElementsByClassName("graph hidden table");
 
   for (const element of tables) {
     if(needs_single_year_title){
