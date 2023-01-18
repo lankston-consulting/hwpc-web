@@ -515,8 +515,6 @@ $("#defaultOpen").click(function (e) {
       ]
     );
   }
-  // console.log(active_id)
-  console.log(data_dict)
   generate_graph(
     data_dict[active_id][0],
     active_id,
@@ -635,7 +633,6 @@ $("#table").click(function (e) {
     $("#tableContent").children()[0].classList.length - 1
     ];
  
-  // console.log(active_id)
 
   generate_table(
     data_dict[active_id][0],
@@ -2205,7 +2202,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
         else if(i == headerNames.length-1){
             let temp = [];
             if (is_big_four) {
-              console.log(rolling_sum)
               for (let j = 0; j < rolling_sum[0].length; j++) {
                 let result = 0
                 for (const element of rolling_sum) {
@@ -2217,7 +2213,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
             }
           }
         else {
-          console.log(cellValue)
           cellValues[i] = cellValue;
         }
       }
@@ -2242,7 +2237,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
         else if(i == headerNames.length-1){
             let temp = [];
             if (is_big_four) {
-              console.log(rolling_sum)
               for (let j = 0; j < rolling_sum[0].length; j++) {
                 let result = 0
                 for (const element of rolling_sum) {
@@ -2254,7 +2248,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
             }
           }
         else {
-          console.log(cellValue)
           cellValues[i] = cellValue;
         }
       }
@@ -2268,7 +2261,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
     }
     let headers_values = ""
     if (needs_single_year_title) {
-      console.log("in is single")
       if($("#singleYear").val()<1970 && table_class != "annual_timber_harvest_table" && table_class != "total_yearly_net_change"){
         headers_values = header_dict[table_class+"2"]
       }
@@ -2301,10 +2293,6 @@ function generate_table(json_data, table_class, title, is_big_four = false) {
         },
       },
     ];
-    console.log(title)
-    console.log("read in data: " ,data)
-    console.log("Table Values: ",cellValues)
-    console.log("header names: ", headers_values)
     let layout = {
       title: title,
       height: (cellValues[0].length + 5) * 30 + 100,
@@ -2664,12 +2652,10 @@ function savePDF(imageDataURL, file_name) {
     let pageHeight = 0;
 
     if (imageWidth >= 1582) {
-      console.log("landscape");
       orientation = "landscape";
       imgWidth = 270;
       pageHeight = 213;
     } else {
-      console.log("portrait");
       orientation = "portrait";
       imgWidth = 210;
       pageHeight = 279;
@@ -2718,7 +2704,6 @@ function savePDF(imageDataURL, file_name) {
 
 async function generate_tables(div, options, file_name) {
   let url = await Plotly.toImage(div, options);
-  // console.log(url)
   savePDF(url, file_name);
 }
 
