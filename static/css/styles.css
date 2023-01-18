@@ -742,8 +742,8 @@ input[type="email"] {
   font-family: var(--montserrat);
   font-size: 1.6rem;
   padding: 9.75px 9px;
-  border-radius: 3px;;
-  border: 2px solid var(--dark-gray);;  
+  border-radius: 3px;
+  border: 2px solid var(--dark-gray);
   color: var(--stone-black);
   background-color: #ffffff;
 }
@@ -756,7 +756,7 @@ input[type="number"] {
 
 input[type=text]:focus {
   box-shadow: 0 0 5px #595959;
-  border-color: var(--dark-green);;
+  border-color: var(--dark-green);
   outline: 2px solid transparent;
 }
 
