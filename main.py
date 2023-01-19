@@ -19,7 +19,8 @@ import config
 from utils.s3_helper import S3Helper
 
 user_data_folder = "hwpc-user-inputs/"
-user_json = "/user_input.json"
+user_data_output_folder = "hwpc-user-outputs/"
+user_json_path = "/user_input.json"
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -314,7 +315,7 @@ def submit():
 def set_official():
     p = request.args.get("p")
     data_json = S3Helper.download_file(
-        "hwpc", user_data_folder + p + user_json
+        "hwpc", user_data_folder + p + user_json_path
     )
     deliver_json = {}
     with open(data_json.name, "r+") as f:
@@ -326,7 +327,7 @@ def set_official():
     user_file.write(deliver_json)
     user_file.seek(0)
     S3Helper.upload_file(
-        user_file, "hwpc", user_data_folder + p + user_json
+        user_file, "hwpc", user_data_folder + p + user_json_path
     )
     user_file.close()
 
@@ -342,15 +343,13 @@ def output():
     print(q)
     data_dict = {}
     if y == None:
-        print("no year range")
-
         user_json = S3Helper.download_file(
-            "hwpc", user_data_folder + p + user_json
+            "hwpc", user_data_folder + p + user_json_path
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
         user_zip = S3Helper.read_zipfile(
-            "hwpc-output", user_data_folder + p + "/results/" + q + ".zip"
+            "hwpc-output", user_data_output_folder + p + "/results/" + q + ".zip"
         )
         for file in user_zip:
             if ".csv" in file and "results" not in file:
@@ -372,12 +371,12 @@ def output():
         is_single = "true"
 
         user_json = S3Helper.download_file(
-            "hwpc", user_data_folder + p + user_json
+            "hwpc", user_data_folder + p + user_json_path
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
         user_zip = S3Helper.read_zipfile(
-            "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + y + "_" + q + ".zip"
+            "hwpc-output", user_data_output_folder + p + "/results/" + y + "_" + q + ".zip"
         )
 
         for file in user_zip:
@@ -386,6 +385,7 @@ def output():
                 csv_string_io = StringIO(user_zip[file])
                 test = pd.read_csv(csv_string_io, sep=",", header=0)
                 try:
+                    print('Missing Discard Destination ID: ' + str(e))
                     test = test.drop(columns="DiscardDestinationID")
                 except Exception as e: 
                     print(str(e))
@@ -393,7 +393,6 @@ def output():
         data_json = json.dumps(data_dict)
 
         data_json = data_json.replace('\\"', " ")
-    # print(y)
 
     return render_template(
         "pages/output.html",
@@ -402,7 +401,7 @@ def output():
         file_name=q,
         is_single=is_single,
         scenario_json=user_json,
-        session="test", 
+        session=session.get('user'), 
         pretty=json.dumps(session.get('user'), 
         indent=4)
     )
