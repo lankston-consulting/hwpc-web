@@ -1,26 +1,25 @@
-var headers = ["H1", "H2", "H3", "H4", "H5", "H6"]; //We only use h1 and h2
-
-// $(".required-alert").hide();
+const headers = ["H1", "H2", "H3", "H4", "H5", "H6"]; //We only use h1 and h2
 
 function toggleAccordion(e, edit_mode = false) {
-  console.log(e);
+  let target;
+  let name;
   if (e.type != undefined) {
-    var target = e.target,
-      name = target.nodeName.toUpperCase();
+    target = e.target;
+     name = target.nodeName.toUpperCase();
   } else {
-    var target = e;
-    name = target.nodeName.toUpperCase();
+     target = e;
+     name = target.nodeName.toUpperCase();
   }
 
   //only select target if target does not have acc-disabled class
   if (!target.classList.contains("acc-disabled")) {
     if ($.inArray(name, headers) > -1) {
-      var subItem = $(target).next();
+      let subItem = $(target).next();
 
       //slideUp all elements (except target) at current depth or greater
-      if (edit_mode == false) {
-        var depth = $(subItem).parents().length;
-        var allAtDepth = $(".accordion div").filter(function () {
+      if (!edit_mode) {
+        let depth = $(subItem).parents().length;
+        let allAtDepth = $(".accordion div").filter(function () {
           if ($(this).parents().length >= depth && this !== subItem.get(0)) {
             return true;
           }
@@ -31,7 +30,6 @@ function toggleAccordion(e, edit_mode = false) {
       subItem.slideToggle("fast", function () {
         $(".accordion :visible:last");
       });
-      // $(target).css({"border-bottom-right-radius":"0", "border-bottom-left-radius":"0"});
     }
   }
 }
@@ -47,8 +45,6 @@ $("#mc-disclaimer").click(function () {
 
 $(".acc-h1, .acc-h2").click(function (e) {
   $("#default-mode").prop("checked", true);
-
-  console.log($("#" + e.target.id).offset().top);
   toggleAccordion(e);
 });
 
@@ -60,8 +56,8 @@ $(".acc-h1, .acc-h2").keydown(function (event) {
 });
 
 $(".nextbtn").click(function (e) {
-  class_list = $(e.target).attr("class").split(/\s+/);
-  id_split = class_list[1].split("-");
+  let class_list = $(e.target).attr("class").split(/\s+/);
+  let id_split = class_list[1].split("-");
   toggleAccordion($("#" + class_list[1])[0]);
   toggleAccordion(
     $("#" + id_split[0] + "-0" + (parseInt(id_split[1]) + 1))[0],
@@ -70,8 +66,8 @@ $(".nextbtn").click(function (e) {
 });
 
 $(".backbtn").click(function (e) {
-  class_list = $(e.target).attr("class").split(/\s+/);
-  id_split = class_list[1].split("-");
+  let class_list = $(e.target).attr("class").split(/\s+/);
+  let id_split = class_list[1].split("-");
   toggleAccordion($("#" + class_list[1])[0]);
   toggleAccordion(
     $("#" + id_split[0] + "-0" + (parseInt(id_split[1]) - 1))[0],
@@ -80,17 +76,17 @@ $(".backbtn").click(function (e) {
 });
 
 $("#edit-mode").change(function (e) {
-  for (i = 0; i < $(".acc-h1").length; i++) {
-    if ($(".acc-h1")[i].nextSibling.nextSibling.style.display != "block") {
-      toggleAccordion($(".acc-h1")[i], true);
+  for (const element of $(".acc-h1")) {
+    if (element.nextSibling.nextSibling.style.display != "block") {
+      toggleAccordion(element, true);
     }
   }
 });
 
 $("#default-mode").change(function (e) {
-  for (i = 0; i < $(".acc-h1").length; i++) {
-    if ($(".acc-h1")[i].nextSibling.nextSibling.style.display == "block") {
-      toggleAccordion($(".acc-h1")[i], true);
+  for (const element of $(".acc-h1")) {
+    if (element.nextSibling.nextSibling.style.display == "block") {
+      toggleAccordion(element, true);
     }
   }
 });
@@ -99,9 +95,9 @@ $(".edit-mode").keydown(function (event) {
   if (event.which === 32 || event.which === 13) {
     //32 is Space and 13 is Enter
     $("#edit-mode").prop("checked", true);
-    for (i = 0; i < $(".acc-h1").length; i++) {
-      if ($(".acc-h1")[i].nextSibling.nextSibling.style.display != "block") {
-        toggleAccordion($(".acc-h1")[i], true);
+    for (const element of $(".acc-h1")) {
+      if (element.nextSibling.nextSibling.style.display != "block") {
+        toggleAccordion(element, true);
       }
     }
   }
@@ -110,9 +106,9 @@ $(".default-mode").keydown(function (event) {
   if (event.which === 32 || event.which === 13) {
     //32 is Space and 13 is Enter
     $("#default-mode").prop("checked", true);
-    for (i = 0; i < $(".acc-h1").length; i++) {
-      if ($(".acc-h1")[i].nextSibling.nextSibling.style.display == "block") {
-        toggleAccordion($(".acc-h1")[i], true);
+    for (const element of $(".acc-h1")) {
+      if (element.nextSibling.nextSibling.style.display == "block") {
+        toggleAccordion(element, true);
       }
     }
   }
@@ -163,9 +159,9 @@ $("#buttonlabel span[role=button]").bind("keypress keyup", function (e) {
 
 // return chosen filename to additional input
 $(".fileupload").change(function (e) {
-  class_list = $(e.target).attr("class").split(/\s+/);
-  id = class_list[1];
-  var filename = $("." + id)
+  let class_list = $(e.target).attr("class").split(/\s+/);
+  let id = class_list[1];
+  let filename = $("." + id)
     .val()
     .split("\\")
     .pop();
@@ -178,8 +174,6 @@ $(".fileupload").change(function (e) {
 });
 
 // Set upload file input to null if user clicks on the delete btn
-
-// document.getElementById("myInputFileID").value=null;
 $(".cancel-upload-btn").click(function (e) {
   $(
     e.target
@@ -200,10 +194,10 @@ $(".cancel-upload-btn").click(function (e) {
 });
 
 $("#email-address").on("input", function () {
-  var input = $(this);
-  var re =
+  let input = $(this);
+  let re =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  var is_email = re.test(input.val());
+  let is_email = re.test(input.val());
   if (is_email) {
     input.removeClass("invalid").addClass("valid");
   } else {
@@ -218,7 +212,6 @@ $(".info-circle").click(function (e) {
 });
 
 $(".info-circle").keydown(function (event) {
-  console.log(event.target);
   if (event.which === 32 || event.which === 13) {
     //32 is Space and 13 is Enter
     $("#modal").css("display", "block");
@@ -234,7 +227,6 @@ $(".info-link").click(function (e) {
 });
 
 $(".info-link").keydown(function (event) {
-  console.log(event.target);
   if (event.which === 32 || event.which === 13) {
     //32 is Space and 13 is Enter
     $("#modal").css("display", "block");
@@ -255,12 +247,9 @@ $(".close").keydown(function (event) {
   }
 });
 
-// $(".modal").click(function (e){
-//   $(".modal").css("display","none")
-// });
-
 $("#previewbtn").click(function (e) {
-  input_harvest = $("[name='yearlyharvestinput']").val();
+  let input_harvest = $("[name='yearlyharvestinput']").val();
+  let harvest;
   if (input_harvest != "") {
     input_harvest = input_harvest.split("\\");
     input_harvest = input_harvest[input_harvest.length - 1];
@@ -273,7 +262,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-01">Annual Harvest Data: MISSING REQUIRED DATA</p><br>';
   }
 
-  input_mbf_to_ccf = $("[name='MbfToCcfFilename']").val();
+  let input_mbf_to_ccf = $("[name='MbfToCcfFilename']").val();
+  let mbf_to_ccf;
   if (input_mbf_to_ccf != "") {
     input_mbf_to_ccf = input_mbf_to_ccf.split("\\");
     input_mbf_to_ccf = input_mbf_to_ccf[input_mbf_to_ccf.length - 1];
@@ -286,7 +276,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-01">MBF to CCF Ratios: Using Default</p><br>';
   }
 
-  input_timber_product_ratios = $("[name='yearlytimberproductratios']").val();
+  let input_timber_product_ratios = $("[name='yearlytimberproductratios']").val();
+  let timber_product_ratios;
   if (input_timber_product_ratios != "") {
     input_timber_product_ratios = input_timber_product_ratios.split("\\");
     input_timber_product_ratios =
@@ -300,10 +291,10 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-02">Timber Product Ratios: Using Default</p><br>';
   }
 
-  region_input = $("[name='regionselection']").val();
+  let region_input = $("[name='regionselection']").val();
+  let region;
+  let custom_region_input;
   if (region_input != "Custom") {
-    // region_input = region_input.split("\\")
-    // region_input = region_input[region_input.length-1]
     region =
       '<p class="modal-input-data acc-03">Primary Products Region Selected: ' +
       region_input +
@@ -323,8 +314,8 @@ $("#previewbtn").click(function (e) {
     }
   }
 
-  input_end_use_rates = $("[name='enduseproductrates']").val();
-  console.log(input_end_use_rates);
+  let input_end_use_rates = $("[name='enduseproductrates']").val();
+  let end_use_rates;
   if (input_end_use_rates != "") {
     input_end_use_rates = input_end_use_rates.split("\\");
     input_end_use_rates = input_end_use_rates[input_end_use_rates.length - 1];
@@ -337,7 +328,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-04b">End Use Ratios: Using Default</p><br>';
   }
 
-  input_end_use_ratios = $("[name='EndUseRatiosFilename']").val();
+  let input_end_use_ratios = $("[name='EndUseRatiosFilename']").val();
+  let end_use_ratios;
   if (input_end_use_ratios != "") {
     input_end_use_ratios = input_end_use_ratios.split("\\");
     input_end_use_ratios =
@@ -351,7 +343,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-04c">End Use Ratios: Using Default</p><br>';
   }
 
-  input_discard_dispostions = $("[name='DispositionsFilename']").val();
+  let input_discard_dispostions = $("[name='DispositionsFilename']").val();
+  let discard_dispostions;
   if (input_discard_dispostions != "") {
     input_discard_dispostions = input_discard_dispostions.split("\\");
     input_discard_dispostions =
@@ -365,9 +358,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-04d">Discard Dispositions: Using Default</p><br>';
   }
 
-  input_discard_dispostions_half_lives = $(
-    "[name='DispositionHalfLivesFilename']"
-  ).val();
+  let input_discard_dispostions_half_lives = $("[name='DispositionHalfLivesFilename']").val();
+  let discard_dispostions_half_lives;
   if (input_discard_dispostions_half_lives != "") {
     input_discard_dispostions_half_lives =
       input_discard_dispostions_half_lives.split("\\");
@@ -384,7 +376,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-04e">Discard Dispositions Half-lives Ratios: Using Default</p><br>';
   }
 
-  input_burned = $("[name='BurnedRatiosFilename']").val();
+  let input_burned = $("[name='BurnedRatiosFilename']").val();
+  let burned;
   if (input_burned != "") {
     input_burned = input_burned.split("\\");
     input_burned = input_burned[input_burned.length - 1];
@@ -397,17 +390,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-04f">Burned Ratios: Using Default</p><br>';
   }
 
-  // input_ccf_to_mgc = $("[name='CcfToMgcFilename']").val()
-  // if(input_ccf_to_mgc != ""){
-  //   input_ccf_to_mgc = input_ccf_to_mgc.split("\\")
-  //   input_ccf_to_mgc = input_ccf_to_mgc[input_ccf_to_mgc.length-1]
-  //   ccf_to_mgc = "<p class=\"modal-input-data acc-04\">CCF to MGC Ratios: " + input_ccf_to_mgc + "</p><br>"
-  // }
-  // else{
-  //   ccf_to_mgc = "<p class=\"modal-input-data acc-04\">CCF to MGC Ratios: Using Default</p><br>"
-  // }
-
-  input_loss_factor = $("[name='lossfactor']").val();
+  let input_loss_factor = $("[name='lossfactor']").val();
+  let loss_factor;
   if (input_loss_factor != "") {
     input_loss_factor = input_loss_factor.split("\\");
     input_loss_factor = input_loss_factor[input_loss_factor.length - 1];
@@ -420,7 +404,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-05">Loss Factor: MISSING REQUIRED DATA</p><br>';
   }
 
-  input_iterations = $("[name='iterations']").val();
+  let input_iterations = $("[name='iterations']").val();
+  let iterations;
   if (input_iterations != "") {
     input_iterations = input_iterations.split("\\");
     input_iterations = input_iterations[input_iterations.length - 1];
@@ -433,7 +418,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-06">Number of Monte Carlo Iterations: MISSING REQUIRED DATA</p><br>';
   }
 
-  input_distribution = $("[name='DistributionDataFilename']").val();
+  let input_distribution = $("[name='DistributionDataFilename']").val();
+  let distribution;
   if (input_distribution != "") {
     input_distribution = input_distribution.split("\\");
     input_distribution = input_distribution[input_distribution.length - 1];
@@ -446,7 +432,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-06">Distribution Data: Using Default</p><br>';
   }
 
-  input_email = $("[name='email']").val();
+  let input_email = $("[name='email']").val();
+  let email;
   if (input_email != "") {
     input_email = input_email.split("\\");
     input_email = input_email[input_email.length - 1];
@@ -457,7 +444,8 @@ $("#previewbtn").click(function (e) {
       '<p class="modal-input-data acc-07">Email: MISSING REQUIRED DATA</p><br>';
   }
 
-  input_runname = $("[name='runname']").val();
+  let input_runname = $("[name='runname']").val();
+  let runname;
   if (input_runname != "") {
     input_runname = input_runname.split("\\");
     input_runname = input_runname[input_runname.length - 1];
@@ -488,12 +476,12 @@ $("#previewbtn").click(function (e) {
       runname
   );
   $(".modal-input-data").click(function (e) {
-    class_list = $(e.target).attr("class").split(/\s+/);
+    let class_list = $(e.target).attr("class").split(/\s+/);
     $("#preview-modal").css("display", "none");
     $("#" + class_list[1])
       .get(0)
       .scrollIntoView({ behavior: "smooth", block: "center" });
-    console.log(class_list);
+  
     if (
       class_list[1] == "acc-04b" ||
       class_list[1] == "acc-04c" ||
@@ -510,7 +498,7 @@ $("#previewbtn").click(function (e) {
   });
 });
 
-var modal_dict = {
+const modal_dict = {
   modal1:
     "A .csv file containing the yearly harvest amount per year in units of CCF (hundred cubic feet). Also see <i>Harvest Data</i> section from the workbook. <br />Should be formatted as follows:<br /><table><tr><th>Year, </th><th>Total</th></tr><tr><th>X</th><th>X</th></tr><tr><th>X</th><th>X</th></tr></table>",
   modal2:
@@ -545,18 +533,15 @@ $("#getdata").click(function (e) {
     toggleAccordion($("#acc-06")[0], true);
     toggleAccordion($("#acc-07")[0], true);
   $(".required-alert").each(function () {
-    temp_alert = $(this);
-    console.log(temp_alert)
+    let temp_alert = $(this);
     $(this)
       .siblings()
       .each(function () {
-        // console.log($(this)[0].id)
-        if ($(this).is("input") == true) {
+        if ($(this).is("input")) {
           if (
-            $(this)[0].validity.valid == false &&
-            $(this)[0].required == true
+            !$(this)[0].validity.valid &&
+            $(this)[0].required
           ) {
-            console.log("here")
             temp_alert.show();
             e.preventDefault();
           }
@@ -569,27 +554,24 @@ $("#getdata").click(function (e) {
             }
           }
           else if (
-            $(this)[0].validity.valid == true &&
-            $(this)[0].required == true
+            $(this)[0].validity.valid &&
+            $(this)[0].required
           ) {
-            console.log("good")
             temp_alert.hide();
           }
           
         }
       });
   });
-
-
 });
 
+
 function validate_runname(name) {
-  console.log(name)
+  let valid;
   // Regex alpha, numeric, underscore, dash, no special characters
-  var nameRGEX = new RegExp(/^([a-zA-Z0-9 _-]+)$/);
-  var nameResult = nameRGEX.test(name);
-  console.log(nameResult)
-  if (nameResult == false) {
+  let nameRGEX = new RegExp(/^([a-zA-Z0-9 _-]+)$/);
+  let nameResult = nameRGEX.test(name);
+  if (!nameResult) {
     window.alert("Please enter a valid name for the run. No special characters allowed.");
     valid = false;
   }
@@ -601,11 +583,10 @@ function validate_runname(name) {
 
 //Jquery function for drag and drop on file inputs
 $(function () {
-  var fileInputs = $(".file-input");
+  let fileInputs = $(".file-input");
   fileInputs.each(function () {
     ondragover = function (e) {
       e.preventDefault();
-      // e.stopPropagation();
       $(this).addClass("dragover");
     };
     ondrop = function (e) {

@@ -2428,6 +2428,7 @@ $(".non-active").keydown(function (e) {
       data_dict[current_tabs_active_id][1],
       data_dict[current_tabs_active_id][2]
     );
+    let non_active_div_sibling_id;
     if (non_active_div_siblings.length != 0) {
       for (let i = 0; i < non_active_div_siblings.length; i++) {
         for (const element of non_active_div_siblings[i].classList) {
@@ -2436,7 +2437,7 @@ $(".non-active").keydown(function (e) {
             element != "js-plotly-plot" &&
             element != "non-active"
           ) {
-            non_active_div_sibling_id = element;
+             non_active_div_sibling_id = element;
           }
         }
 

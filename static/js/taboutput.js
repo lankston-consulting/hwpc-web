@@ -2,7 +2,6 @@ document.getElementById("defaultOpen").click();
 
 function openTab(evt, tabName) {
   let i, tabcontent, tablinks;
-
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";

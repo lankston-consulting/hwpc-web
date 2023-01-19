@@ -1,12 +1,12 @@
 // Tab variables for hero banner
-home = document.getElementById("home");
-about = document.getElementById("about");
-advanced = document.getElementById("advanced");
-references = document.getElementById("references");
-contact = document.getElementById("contact");
-files = document.getElementById("files");
-pagecontainer = document.getElementById("pagecontent");
-calculator = document.getElementById("calculator");
+let home = document.getElementById("home");
+let about = document.getElementById("about");
+let advanced = document.getElementById("advanced");
+let references = document.getElementById("references");
+let contact = document.getElementById("contact");
+let files = document.getElementById("files");
+let pagecontainer = document.getElementById("pagecontent");
+let calculator = document.getElementById("calculator");
 //resizer for page content
 pagecontainer.onload = function () {
   pagecontainer.style.height =
@@ -16,9 +16,10 @@ pagecontainer.onload = function () {
 
 // Event listeners for tab variables
 
+let temp;
 home.addEventListener("click", (e) => {
   if (
-    home.classList.contains("herotab") == false ||
+    !home.classList.contains("herotab") ||
     document.getElementById("pagecontent").src != "/homecontent"
   ) {
     temp = document.getElementsByClassName("herotab");
@@ -33,7 +34,7 @@ home.addEventListener("click", (e) => {
   }
 });
 about.addEventListener("click", (e) => {
-  if (about.classList.contains("herotab") == false) {
+  if (!about.classList.contains("herotab")) {
     temp = document.getElementsByClassName("herotab");
     temp[0].setAttribute("aria-selected", false);
     temp[0].classList.remove("has-text-black-bis");
@@ -46,7 +47,7 @@ about.addEventListener("click", (e) => {
   }
 });
 advanced.addEventListener("click", (e) => {
-  if (advanced.classList.contains("herotab") == false) {
+  if (!advanced.classList.contains("herotab")) {
     temp = document.getElementsByClassName("herotab");
     temp[0].setAttribute("aria-selected", false);
     temp[0].classList.remove("has-text-black-bis");
@@ -59,7 +60,7 @@ advanced.addEventListener("click", (e) => {
   }
 });
 references.addEventListener("click", (e) => {
-  if (references.classList.contains("herotab") == false) {
+  if (!references.classList.contains("herotab")) {
     temp = document.getElementsByClassName("herotab");
     temp[0].setAttribute("aria-selected", false);
     temp[0].classList.remove("has-text-black-bis");
@@ -72,7 +73,7 @@ references.addEventListener("click", (e) => {
   }
 });
 contact.addEventListener("click", (e) => {
-  if (contact.classList.contains("herotab") == false) {
+  if (!contact.classList.contains("herotab")) {
     temp = document.getElementsByClassName("herotab");
     temp[0].setAttribute("aria-selected", false);
     temp[0].classList.remove("has-text-black-bis");
@@ -85,7 +86,7 @@ contact.addEventListener("click", (e) => {
   }
 });
 files.addEventListener("click", (e) => {
-  if (files.classList.contains("herotab") == false) {
+  if (!files.classList.contains("herotab")) {
     temp = document.getElementsByClassName("herotab");
     temp[0].setAttribute("aria-selected", false);
     temp[0].classList.remove("has-text-black-bis");
@@ -99,9 +100,9 @@ files.addEventListener("click", (e) => {
 });
 
 // Here "addEventListener" is for standards-compliant web browsers and "attachEvent" is for IE Browsers.
-var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-var eventer = window[eventMethod];
-var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+let eventer = window[eventMethod];
+let messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
 // Listen to message from child IFrame window
 eventer(

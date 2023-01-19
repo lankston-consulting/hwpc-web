@@ -40,7 +40,6 @@ oauth.register(
 @app.route("/index")
 @app.route("/home", methods=["GET", "POST"])
 def home():
-    # requests.request("POST", "http://localhost:8080/oauth/token")
     return render_template("pages/home.html", session=session.get('user'))
 
     
