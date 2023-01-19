@@ -3,10 +3,12 @@ import os
 import tempfile
 import uuid
 import zipfile
+import requests
 from datetime import datetime
 from io import StringIO
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
+import random, string
 
 import pandas as pd
 from authlib.integrations.flask_client import OAuth
@@ -17,6 +19,8 @@ import config
 from utils.s3_helper import S3Helper
 
 user_data_folder = "hwpc-user-inputs/"
+user_data_output_folder = "hwpc-user-outputs/"
+user_json_path = "/user_input.json"
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -25,21 +29,21 @@ oauth = OAuth(app)
 
 oauth.register(
     "auth0",
-    client_id=env.get("AUTH0_CLIENT_ID"),
-    client_secret=env.get("AUTH0_CLIENT_SECRET"),
-    client_kwargs={
-        "scope": "openid profile email",
-    },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
+    client_id=env.get("FSAPPS_CLIENT_ID"),
+    client_secret=env.get("FSAPPS_CLIENT_SECRET"),
+    response_type="code",
+    redirect_uri="http://localhost:8080/login"
 )
 
 # Routing for html template files
 @app.route("/")
 @app.route("/index")
-@app.route("/home", methods=["GET"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    # return render_template("pages/home.html")
+    # requests.request("POST", "http://localhost:8080/oauth/token")
     return render_template("pages/home.html", session=session.get('user'))
+
+    
 
 
 @app.route("/calculator", methods=["GET"])
@@ -260,7 +264,6 @@ def upload():
 
     dispositions = request.files["DispositionsFilename"]
     disposition_half_lives = request.files["DispositionHalfLivesFilename"]
-    distribution_data = request.files["DistributionDataFilename"]
     burned_ratios = request.files["BurnedRatiosFilename"]
     mbf_to_ccf = request.files["MbfToCcfFilename"]
     loss_factor = request.form["lossfactor"]
@@ -312,7 +315,7 @@ def submit():
 def set_official():
     p = request.args.get("p")
     data_json = S3Helper.download_file(
-        "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        "hwpc", user_data_folder + p + user_json_path
     )
     deliver_json = {}
     with open(data_json.name, "r+") as f:
@@ -324,18 +327,14 @@ def set_official():
     user_file.write(deliver_json)
     user_file.seek(0)
     S3Helper.upload_file(
-        user_file, "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+        user_file, "hwpc", user_data_folder + p + user_json_path
     )
     user_file.close()
-    return
+
 
 
 @app.route("/output", methods=["GET"])
 def output():
-    swds_mgc = ""
-    sdws_co2e = ""
-    products_in_use_mgc = ""
-    products_in_use_co2e = ""
     is_single = "false"
     p = request.args.get("p")
     q = request.args.get("q")
@@ -344,24 +343,22 @@ def output():
     print(q)
     data_dict = {}
     if y == None:
-        print("no year range")
-
         user_json = S3Helper.download_file(
-            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+            "hwpc", user_data_folder + p + user_json_path
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
         user_zip = S3Helper.read_zipfile(
-            "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + q + ".zip"
+            "hwpc-output", user_data_output_folder + p + "/results/" + q + ".zip"
         )
         for file in user_zip:
             if ".csv" in file and "results" not in file:
-                csvStringIO = StringIO(user_zip[file])
-                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                csv_string_io = StringIO(user_zip[file])
+                test = pd.read_csv(csv_string_io, sep=",", header=0)
                 try:
                     test = test.drop(columns="DiscardDestinationID")
-                except:
-                    print("no column")
+                except Exception as e: 
+                    print('Missing Discard Destination ID: ' + str(e))
                 test.drop(test.tail(1).index, inplace=True)
                 test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
                 data_dict[file[:-4]] = test.to_csv(index=False)
@@ -374,33 +371,28 @@ def output():
         is_single = "true"
 
         user_json = S3Helper.download_file(
-            "hwpc", "hwpc-user-inputs/" + p + "/user_input.json"
+            "hwpc", user_data_folder + p + user_json_path
         )
         user_json = json.dumps(user_json.read().decode("utf-8"))
 
         user_zip = S3Helper.read_zipfile(
-            "hwpc-output", "hwpc-user-outputs/" + p + "/results/" + y + "_" + q + ".zip"
+            "hwpc-output", user_data_output_folder + p + "/results/" + y + "_" + q + ".zip"
         )
 
         for file in user_zip:
             if ".csv" in file and y in file and "results" not in file:
                 print(file[:-4])
-                csvStringIO = StringIO(user_zip[file])
-                test = pd.read_csv(csvStringIO, sep=",", header=0)
+                csv_string_io = StringIO(user_zip[file])
+                test = pd.read_csv(csv_string_io, sep=",", header=0)
                 try:
+                    print('Missing Discard Destination ID: ' + str(e))
                     test = test.drop(columns="DiscardDestinationID")
-                except:
-                    print("no column")
-                # print("pre test drop: ", test)
-                # test.drop(test.tail(1).index, inplace=True)
-                # test = test.loc[:, ~test.columns.str.contains("^Unnamed")]
-                print("post test drop: ", test)
-                data_dict[file[5:-4]] = test.to_csv(index=False)
-        print(data_dict.keys())
+                except Exception as e: 
+                    print(str(e))
+                    data_dict[file[5:-4]] = test.to_csv(index=False)
         data_json = json.dumps(data_dict)
 
         data_json = data_json.replace('\\"', " ")
-    # print(y)
 
     return render_template(
         "pages/output.html",
@@ -417,16 +409,20 @@ def output():
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
-    token = oauth.auth0.authorize_access_token()
-    session["user"] = token
     return redirect("/")
 
 
 @app.route("/login")
 def login():
-    return oauth.auth0.authorize_redirect(
-        redirect_uri=url_for("callback", _external=True)
+    state = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+    print("https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response-type=code&state=" + state)
+    return render_template (
+        "pages/login.html",
+        url = "https://fsapps-stg.fs2c.usda.gov/oauth/authorize?client_id=HWPCLOCAL&redirect_uri=http://localhost:8080/login&response-type=code&state=" + state
     )
+
+
+
 
 
 @app.route("/logout")

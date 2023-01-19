@@ -1,11 +1,13 @@
-output = {};
+let output = {};
 
-captions_dict = [];
-data_bucket = "";
-data_file_name = "";
-harvestmaxDateYear = "";
-harvestminDateYear = "";
-needs_single_year_title = false
+let captions_dict = [];
+let data_dict = [];
+let data_bucket = "";
+let data_file_name = "";
+let harvestmaxDateYear = "";
+let harvestminDateYear = "";
+let needs_single_year_title = false
+let deliver_scenario_json = ""
 captions_dict["annual_harvest_and_timber_product_output"] = [
   {
     text: "Annual total timber harvest and product output converted to metric tons of carbon, from [minimum year] to [maximum year].",
@@ -92,7 +94,7 @@ captions_dict["swds_emissions"] = [
 ];
 // COLORS
 
-var colors = {
+const colors = {
   darkBlue: "#1344D6",
   lightBlue: "#80C9D8",
   green: "#00A300",
@@ -107,7 +109,7 @@ var colors = {
 
 }
 
-header_dict = [];
+let header_dict = [];
 
 header_dict["annual_timber_harvest_table"] = ["Year", "CCF MgC", "End Use MgC"];
 header_dict["total_yearly_net_change"] = ["Year", "SWDS Present Change MgC"];
@@ -234,12 +236,31 @@ header_dict["all_final_results_table2"] = [
   "Sum CO2e"
 ]
 
+header_dict["all_final_results_hidden_table"] = [
+  "Year",
+  "New Products in Use CO2e",
+  "Reused Products in Use CO2e",
+  "SWDS Present CO2e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
+
+]
+header_dict["all_final_results_hidden_table2"] = [
+  "Year",
+  "New Products in Use CO2e",
+  "SWDS Present C02e",
+  "Emitted with Energy Capture CO2e",
+  "Emitted without Energy Capture CO2e",
+  "Sum CO2e"
+]
+
 output.initialize = function (input_json, bucket, file_name, is_single, scenario_json) {
   data_bucket = bucket;
   data_file_name = file_name;
-  data_json = input_json;
+  let data_json = input_json;
   data_json = data_json.replace(/\n/g, "\\n");
-  final_json = JSON.parse(data_json);
+  let final_json = JSON.parse(data_json);
   scenario_json = scenario_json.replace(/\n/g, "\\n");
   deliver_scenario_json = scenario_json;
   // scenario_json = scenario_json.replace("\\","")
@@ -247,11 +268,11 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
 
   display_user_data(scenario_json);
 
-  data_dict = [];
+  
   const data = d3.csvParse(final_json.annual_harvest_and_timber_product_output);
   harvestminDateYear = data[0].Year;
   harvestmaxDateYear = data[data.length - 1].Year;
-  // console.log(is_single);
+  
   if (is_single == "true") {
     $("#singleYearBtn").attr("checked", "true");
     $("#yearInput-1").show("fast");
@@ -473,66 +494,54 @@ output.initialize = function (input_json, bucket, file_name, is_single, scenario
     "table",
     "",
   ];
-  console.log(data_dict["all_final_results_table"])
+  data_dict["all_final_results_hidden_table"] = [
+    final_json.big_four,
+    "Final Results",
+    "table",
+    "",
+  ];
 };
 
 $("#defaultOpen").click(function (e) {
-  active_id = $("#cumulativeResultsContent").children()[0].classList[
+  let active_id = $("#cumulativeResultsContent").children()[0].classList[
     $("#cumulativeResultsContent").children()[0].classList.length - 1
   ];
-  inactive = $("#cumulativeResultsContent").children()[1].children;
-  inactive_ids = [];
-  for (
-    let i = 0;
-    i < $("#cumulativeResultsContent").children()[1].children.length;
-    i++
-  ) {
+  let inactive_ids = [];
+  for (const element of $("#cumulativeResultsContent").children()[1].children) {
     inactive_ids.push(
-      $("#cumulativeResultsContent").children()[1].children[i].classList[
-        $("#cumulativeResultsContent").children()[1].children[i].classList
+      element.classList[
+        element.classList
           .length - 1
       ]
     );
   }
-  // console.log(active_id)
   generate_graph(
     data_dict[active_id][0],
     active_id,
     "active",
     data_dict[active_id][1],
-    1300,
-    700,
     data_dict[active_id][2],
-    data_dict[active_id][3],
     captions_dict[active_id]
   );
-  for (let i = 0; i < inactive_ids.length; i++) {
+  for (const element of inactive_ids) {
     generate_graph(
-      data_dict[inactive_ids[i]][0],
-      inactive_ids[i],
+      data_dict[element][0],
+      element,
       "inactive",
-      data_dict[inactive_ids[i]][1],
-      400,
-      250,
-      data_dict[inactive_ids[i]][2],
-      data_dict[inactive_ids[i]][3]
+      data_dict[element][1],
+      data_dict[element][2]
     );
   }
 });
 $("#solidCarbon").click(function (e) {
-  active_id = $("#solidCarbonContent").children()[0].classList[
+  let active_id = $("#solidCarbonContent").children()[0].classList[
     $("#solidCarbonContent").children()[0].classList.length - 1
   ];
-  inactive = $("#solidCarbonContent").children()[1].children;
-  inactive_ids = [];
-  for (
-    let i = 0;
-    i < $("#solidCarbonContent").children()[1].children.length;
-    i++
-  ) {
+  let inactive_ids = [];
+  for (const element of $("#solidCarbonContent").children()[1].children) {
     inactive_ids.push(
-      $("#solidCarbonContent").children()[1].children[i].classList[
-        $("#solidCarbonContent").children()[1].children[i].classList.length - 1
+      element.classList[
+        element.classList.length - 1
       ]
     );
   }
@@ -541,42 +550,29 @@ $("#solidCarbon").click(function (e) {
     active_id,
     "active",
     data_dict[active_id][1],
-    1300,
-    700,
     data_dict[active_id][2],
-    data_dict[active_id][3],
     captions_dict[active_id]
   );
-  for (let i = 0; i < inactive_ids.length; i++) {
-    // console.log(data_dict[inactive_ids[i]]);
+  for (const element of inactive_ids) {
     generate_graph(
-      data_dict[inactive_ids[i]][0],
-      inactive_ids[i],
+      data_dict[element][0],
+      element,
       "inactive",
-      data_dict[inactive_ids[i]][1],
-      400,
-      250,
-      data_dict[inactive_ids[i]][2],
-      data_dict[inactive_ids[i]][3]
+      data_dict[element][1],
+      data_dict[element][2],
     );
   }
 });
 $("#emissions").click(function (e) {
-  active_id =
+ let active_id =
     $("#emissionsContent").children()[0].classList[
       $("#emissionsContent").children()[0].classList.length - 1
     ];
-  inactive = $("#emissionsContent").children()[1].children;
-  // console.log(inactive);
-  inactive_ids = [];
-  for (
-    let i = 0;
-    i < $("#emissionsContent").children()[1].children.length;
-    i++
-  ) {
+  let inactive_ids = [];
+  for (const element of $("#emissionsContent").children()[1].children) {
     inactive_ids.push(
-      $("#emissionsContent").children()[1].children[i].classList[
-        $("#emissionsContent").children()[1].children[i].classList.length - 1
+      element.classList[
+        element.classList.length - 1
       ]
     );
   }
@@ -585,38 +581,30 @@ $("#emissions").click(function (e) {
     active_id,
     "active",
     data_dict[active_id][1],
-    1300,
-    700,
     data_dict[active_id][2],
-    data_dict[active_id][3],
     captions_dict[active_id]
   );
-  for (let i = 0; i < inactive_ids.length; i++) {
-    // console.log(inactive_ids[i]);
+  for (const element of inactive_ids) {
     generate_graph(
-      data_dict[inactive_ids[i]][0],
-      inactive_ids[i],
+      data_dict[element][0],
+      element,
       "inactive",
-      data_dict[inactive_ids[i]][1],
-      400,
-      250,
-      data_dict[inactive_ids[i]][2],
-      data_dict[inactive_ids[i]][3]
+      data_dict[element][1],
+      data_dict[element][2]
     );
   }
 });
 
 $("#reused").click(function (e) {
-  active_id =
+  let active_id =
     $("#reusedContent").children()[0].classList[
       $("#reusedContent").children()[0].classList.length - 1
     ];
-  inactive = $("#reusedContent").children()[1].children;
-  inactive_ids = [];
-  for (let i = 0; i < $("#reusedContent").children()[1].children.length; i++) {
+  let inactive_ids = [];
+  for (const element of $("#reusedContent").children()[1].children) {
     inactive_ids.push(
-      $("#reusedContent").children()[1].children[i].classList[
-        $("#reusedContent").children()[1].children[i].classList.length - 1
+      element.classList[
+        element.classList.length - 1
       ]
     );
   }
@@ -625,33 +613,26 @@ $("#reused").click(function (e) {
     active_id,
     "active",
     data_dict[active_id][1],
-    1300,
-    700,
     data_dict[active_id][2],
-    data_dict[active_id][3],
     captions_dict[active_id]
   );
-  for (let i = 0; i < inactive_ids.length; i++) {
+  for (const element of inactive_ids) {
     generate_graph(
-      data_dict[inactive_ids[i]][0],
-      inactive_ids[i],
+      data_dict[element][0],
+      element,
       "inactive",
-      data_dict[inactive_ids[i]][1],
-      400,
-      250,
-      data_dict[inactive_ids[i]][2],
-      data_dict[inactive_ids[i]][3]
+      data_dict[element][1],
+      data_dict[element][2],
     );
   }
 });
 
 $("#table").click(function (e) {
-  active_id =
+ let active_id =
     $("#tableContent").children()[0].classList[
     $("#tableContent").children()[0].classList.length - 1
     ];
  
-  // console.log(active_id)
 
   generate_table(
     data_dict[active_id][0],
@@ -665,19 +646,15 @@ $("#table").click(function (e) {
 // Keydown event listener
 $("#defaultOpen").keydown(function (e) {
   if (e.which === 32 || e.which === 13) {
-    active_id = $("#cumulativeResultsContent").children()[0].classList[
+    let active_id = $("#cumulativeResultsContent").children()[0].classList[
       $("#cumulativeResultsContent").children()[0].classList.length - 1
     ];
-    inactive = $("#cumulativeResultsContent").children()[1].children;
-    inactive_ids = [];
-    for (
-      let i = 0;
-      i < $("#cumulativeResultsContent").children()[1].children.length;
-      i++
-    ) {
+    
+    let inactive_ids = [];
+    for (const element of $("#cumulativeResultsContent").children()[1].children) {
       inactive_ids.push(
-        $("#cumulativeResultsContent").children()[1].children[i].classList[
-          $("#cumulativeResultsContent").children()[1].children[i].classList
+        element.classList[
+          element.classList
             .length - 1
         ]
       );
@@ -687,22 +664,16 @@ $("#defaultOpen").keydown(function (e) {
       active_id,
       "active",
       data_dict[active_id][1],
-      1300,
-      700,
       data_dict[active_id][2],
-      data_dict[active_id][3],
       captions_dict[active_id]
     );
-    for (let i = 0; i < inactive_ids.length; i++) {
+    for (const element of inactive_ids) {
       generate_graph(
-        data_dict[inactive_ids[i]][0],
-        inactive_ids[i],
+        data_dict[element][0],
+        element,
         "inactive",
-        data_dict[inactive_ids[i]][1],
-        400,
-        250,
-        data_dict[inactive_ids[i]][2],
-        data_dict[inactive_ids[i]][3]
+        data_dict[element][1],
+        data_dict[element][2]
       );
     }
   }
@@ -710,19 +681,15 @@ $("#defaultOpen").keydown(function (e) {
 
 $("#solidCarbon").keydown(function (e) {
   if (e.which === 32 || e.which === 13) {
-    active_id = $("#solidCarbonContent").children()[0].classList[
+    let active_id = $("#solidCarbonContent").children()[0].classList[
       $("#solidCarbonContent").children()[0].classList.length - 1
     ];
-    inactive = $("#solidCarbonContent").children()[1].children;
-    inactive_ids = [];
-    for (
-      let i = 0;
-      i < $("#solidCarbonContent").children()[1].children.length;
-      i++
-    ) {
+    
+    let inactive_ids = [];
+    for (const element of $("#solidCarbonContent").children()[1].children) {
       inactive_ids.push(
-        $("#solidCarbonContent").children()[1].children[i].classList[
-          $("#solidCarbonContent").children()[1].children[i].classList.length -
+        element.classList[
+          element.classList.length -
             1
         ]
       );
@@ -732,23 +699,16 @@ $("#solidCarbon").keydown(function (e) {
       active_id,
       "active",
       data_dict[active_id][1],
-      1300,
-      700,
       data_dict[active_id][2],
-      data_dict[active_id][3],
       captions_dict[active_id]
     );
-    for (let i = 0; i < inactive_ids.length; i++) {
-      // console.log(data_dict[inactive_ids[i]]);
+    for (const element of inactive_ids) {
       generate_graph(
-        data_dict[inactive_ids[i]][0],
-        inactive_ids[i],
+        data_dict[element][0],
+        element,
         "inactive",
-        data_dict[inactive_ids[i]][1],
-        400,
-        250,
-        data_dict[inactive_ids[i]][2],
-        data_dict[inactive_ids[i]][3]
+        data_dict[element][1],
+        data_dict[element][2],
       );
     }
   }
@@ -756,21 +716,16 @@ $("#solidCarbon").keydown(function (e) {
 
 $("#emissions").keydown(function (e) {
   if (e.which === 32 || e.which === 13) {
-    active_id =
+    let active_id =
       $("#emissionsContent").children()[0].classList[
         $("#emissionsContent").children()[0].classList.length - 1
       ];
-    inactive = $("#emissionsContent").children()[1].children;
-    // console.log(inactive);
-    inactive_ids = [];
-    for (
-      let i = 0;
-      i < $("#emissionsContent").children()[1].children.length;
-      i++
-    ) {
+    
+    let inactive_ids = [];
+    for (const element of $("#emissionsContent").children()[1].children) {
       inactive_ids.push(
-        $("#emissionsContent").children()[1].children[i].classList[
-          $("#emissionsContent").children()[1].children[i].classList.length - 1
+        element.classList[
+          element.classList.length - 1
         ]
       );
     }
@@ -779,23 +734,16 @@ $("#emissions").keydown(function (e) {
       active_id,
       "active",
       data_dict[active_id][1],
-      1300,
-      700,
       data_dict[active_id][2],
-      data_dict[active_id][3],
       captions_dict[active_id]
     );
-    for (let i = 0; i < inactive_ids.length; i++) {
-      // console.log(inactive_ids[i]);
+    for (const element of inactive_ids) {
       generate_graph(
-        data_dict[inactive_ids[i]][0],
-        inactive_ids[i],
+        data_dict[element][0],
+        element,
         "inactive",
-        data_dict[inactive_ids[i]][1],
-        400,
-        250,
-        data_dict[inactive_ids[i]][2],
-        data_dict[inactive_ids[i]][3]
+        data_dict[element][1],
+        data_dict[element][2],
       );
     }
   }
@@ -803,20 +751,16 @@ $("#emissions").keydown(function (e) {
 
 $("#reused").keydown(function (e) {
   if (e.which === 32 || e.which === 13) {
-    active_id =
+    let active_id =
       $("#reusedContent").children()[0].classList[
         $("#reusedContent").children()[0].classList.length - 1
       ];
-    inactive = $("#reusedContent").children()[1].children;
-    inactive_ids = [];
-    for (
-      let i = 0;
-      i < $("#reusedContent").children()[1].children.length;
-      i++
-    ) {
+    
+    let inactive_ids = [];
+    for (const element of $("#reusedContent").children()[1].children) {
       inactive_ids.push(
-        $("#reusedContent").children()[1].children[i].classList[
-          $("#reusedContent").children()[1].children[i].classList.length - 1
+        element.classList[
+          element.classList.length - 1
         ]
       );
     }
@@ -825,61 +769,52 @@ $("#reused").keydown(function (e) {
       active_id,
       "active",
       data_dict[active_id][1],
-      1300,
-      700,
       data_dict[active_id][2],
-      data_dict[active_id][3],
       captions_dict[active_id]
     );
-    for (let i = 0; i < inactive_ids.length; i++) {
+    for (const element of inactive_ids) {
       generate_graph(
-        data_dict[inactive_ids[i]][0],
-        inactive_ids[i],
+        data_dict[element][0],
+        element,
         "inactive",
-        data_dict[inactive_ids[i]][1],
-        400,
-        250,
-        data_dict[inactive_ids[i]][2],
-        data_dict[inactive_ids[i]][3]
+        data_dict[element][1],
+        data_dict[element][2],
       );
     }
   }
 });
 
 
-generate_graph = function (
+function generate_graph(
   json_data,
   graph_class,
   is_active,
   title,
-  w,
-  h,
   graph_type,
-  y_label = "",
   caption
 ) {
-  // var parseDate = d3.timeFormat("%Y");
+  let stackedData = [];
   if (is_active == "inactive") {
     if (graph_type == "line") {
-      tester = document.getElementsByClassName("non-active " + graph_class)[0];
+      let tester = document.getElementsByClassName("non-active " + graph_class)[0];
       const data = d3.csvParse(json_data);
 
-      year_array = [];
-      value_array = [];
+      let year_array = [];
+      let value_array = [];
 
-      for (i in data) {
+      for (let i in data) {
         year_array.push(data[i][data.columns[0]]);
         value_array.push(data[i][data.columns[1]]);
       }
 
-      var trace1 = {
+      let trace1 = {
         x: year_array,
         y: value_array,
         name: data_dict[graph_class][1],
         type: "scatter",
       };
-      var stackedData = [trace1];
-      var layout = {
+      let stackedData = [trace1];
+      let layout = {
         title: title,
         height: 350,
         responsive: true,
@@ -890,7 +825,7 @@ generate_graph = function (
       Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
     } else if (graph_type == "multiline") {
       console.log("graph type is active multiline");
-      tester = document.getElementsByClassName("non-active " + graph_class)[0];
+      let tester = document.getElementsByClassName("non-active " + graph_class)[0];
       const data = d3.csvParse(json_data, function (d) {
         return {
           year: d[Object.keys(d)[0]],
@@ -898,33 +833,31 @@ generate_graph = function (
           value2: d[Object.keys(d)[2]],
         };
       });
-      minDateYear = data[0].year;
-      maxDateYear = data[data.length - 1].year;
 
-      year_array = [];
-      value1_array = [];
-      value2_array = [];
-      for (i in data) {
+      let year_array = [];
+      let value1_array = [];
+      let value2_array = [];
+      for (let i in data) {
         year_array.push(data[i].year);
         value1_array.push(data[i].value1);
         value2_array.push(data[i].value2);
       }
 
-      var trace1 = {
+      let trace1 = {
         x: year_array,
         y: value1_array,
         name: "Annual Harvest",
         type: "scatter",
       };
 
-      var trace2 = {
+      let trace2 = {
         x: year_array,
         y: value2_array,
         name: "Annual Timber Harvest",
         type: "scatter",
       };
 
-      var layout = {
+      let layout = {
         title: "Annual Harvest and Timber Product Outputs",
         height: 350,
         width: 420,
@@ -932,17 +865,16 @@ generate_graph = function (
         showlegend: false,
       };
 
-      var stackedData = [trace1, trace2];
+      let stackedData = [trace1, trace2];
       Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
     } else if (graph_type == "stack") {
-      tester = document.getElementsByClassName("non-active " + graph_class)[0];
-      // console.log(tester);
+      let tester = document.getElementsByClassName("non-active " + graph_class)[0];
       const data = d3.csvParse(json_data);
-      stackedData = [];
-      year_data = [];
-      emissions_present = false;
-      solid_present = false;
-      for (i in data.columns) {
+      
+      let year_data = [];
+      let emissions_present = false;
+      let solid_present = false;
+      for (let i in data.columns) {
         if (data.columns[i].includes("co2e")) {
           emissions_present = true;
         }
@@ -953,410 +885,20 @@ generate_graph = function (
           solid_present = true;
         }
       }
-      for (i in data.columns) {
-        column = data.columns[i];
+      for (let i in data.columns) {
+        let column = data.columns[i];
         if (i == 0) {
-          for (j in data) {
+          for (let j in data) {
             year_data.push(data[j][column]);
           }
         } else {
-          temp = [];
-          for (j in data) {
+          let temp = [];
+          let y_name = ''
+          let temp_trace = ''
+          for (let j in data) {
             temp.push(data[j][column]);
           }
-          colorHex = "#333";
-          if (column == "products_in_use") {
-            y_name = "Products in Use";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "products_in_use_present_co2e") {
-            y_name = "Products in Use";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "SWDS") {
-            y_name = "SWDS";
-            colorHex = colors["green"];
-          }
-          if (column == "SWDS_present_co2e") {
-            y_name = "SWDS";
-            colorHex = colors["green"];
-          }
-          if (column == "emitted_w_energy_capture_emitted_co2e") {
-            y_name = "Emitted with Energy Capture";
-            colorHex = colors["lightRed"];
-          }
-          if (column == "emitted_w_energy_capture") {
-            y_name = "Emitted with Energy Capture";
-            colorHex = colors["lightRed"];
-          }
-          if (column == "emitted_wo_energy_capture") {
-            y_name = "Emitted without Energy Capture";
-            colorHex = colors["darkRed"];
-          }
-          if (column == "emitted_wo_energy_capture_emitted_co2e") {
-            y_name = "Emitted without Energy Capture";
-            colorHex = colors["darkRed"];
-          }
-          if (column == "Fuel_emitted_co2e") {
-            y_name = "Fuelwood Emissions";
-            colorHex = colors["fuelwood_emissions"];
-          }
-          if (column == "Composted_emitted_co2e") {
-            y_name = "Compost Emissions";
-            colorHex = colors["compost_emissions"];
-          }
-          if (column == "Dumps_emitted_mgc") {
-            y_name = "Dump Emissions";
-            colorHex = colors["dump_emissions"];
-          }
-          if (column == "Dumps_emitted_co2e") {
-            y_name = "Dump Emissions";
-            colorHex = colors["dump_emissions"];
-          }
-          if (column == "Landfills_emitted_co2e") {
-            y_name = "Landfill Emissions";
-            colorHex = colors["landfill_emissions"];
-          }
-          if (column == "Dumps_present_mgc") {
-            y_name = "Carbon in Dumps";
-            colorHex = colors["dump_emissions"];
-          }
-          if (column == "Landfills_present_mgc") {
-            y_name = "Carbon in Landfills";
-            colorHex = colors["landfill_emissions"];
-          }
-          if (column == "new_products_in_use") {
-            y_name = "Products in Use, original";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "reused_products_in_use") {
-            y_name = "Products in Use, recycled ";
-            colorHex = colors["lightBlue"];
-          }
-          if (column == "new_products_in_use_co2e") {
-            y_name = "Products in Use, original";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "reused_products_in_use_co2e") {
-            y_name = "Products in Use, recycled";
-            colorHex = colors["lightBlue"];
-          }
-          if (column == "new_products_in_use_mgc") {
-            y_name = "Products in Use, original";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "reused_products_in_use_mgc") {
-            y_name = "Products in Use, recycled ";
-            colorHex = colors["lightBlue"];
-          }
-          if (column == "new_products_in_use_present_co2e") {
-            y_name = "Products in Use, original";
-            colorHex = colors["darkBlue"];
-          }
-          if (column == "reused_products_in_use_present_co2e") {
-            y_name = "Products in Use, recycled  ";
-            colorHex = colors["lightBlue"];
-          }
-          
-          if (emissions_present == true && solid_present == false) {
-            var temp_trace = {
-              x: year_data,
-              y: temp,
-              name: y_name,
-              stackgroup: "one",
-              line: { color: colorHex }
-            };
-          }
-          if (emissions_present == true && solid_present == true) {
-            if (column.includes("emit")) {
-              var temp_trace = {
-                x: year_data,
-                y: temp,
-                yaxis: "y2",
-                name: y_name,
-                stackgroup: "one",
-                line: { color: colorHex },
-                fill: { color: colorHex }
-              };
-             
-            } else {
-              var temp_trace = {
-                x: year_data,
-                y: temp,
-                name: y_name,
-                stackgroup: "one",
-                line: { color: colorHex }
-              };
-            }
-          }
-          if (emissions_present == false && solid_present == true) {
-            var temp_trace = {
-              x: year_data,
-              y: temp,
-              name: y_name,
-              stackgroup: "one",
-              line: { color: colorHex }
-            };
-          }
-          stackedData.push(temp_trace);
-        }
-      }
-
-      if (emissions_present == true && solid_present == false) {
-        var layout = {
-          title: title,
-          responsive: true,
-          showlegend: false,
-          height: 350,
-          width: 420,
-        };
-      }
-      if (emissions_present == true && solid_present == true) {
-        var layout = {
-          title: title,
-          responsive: true,
-          showlegend: false,
-          height: 350,
-          width: 420,
-        };
-      }
-      if (emissions_present == false && solid_present == true) {
-        var layout = {
-          title: title,
-          responsive: true,
-          showlegend: false,
-          height: 350,
-          width: 420,
-        };
-      }
-
-      Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
-    } else {
-      tester = document.getElementsByClassName("non-active " + graph_class)[0];
-      const data = d3.csvParse(json_data, function (d) {
-        return {
-          year: d[Object.keys(d)[0]],
-          products_in_use_change: d[Object.keys(d)[1]],
-          SWDS_change: d[Object.keys(d)[2]],
-        };
-      });
-
-      year_array = [];
-      prod_array = [];
-      swds_array = [];
-      for (i in data) {
-        year_array.push(data[i].year);
-        prod_array.push(data[i].products_in_use_change);
-        swds_array.push(data[i].SWDS_change);
-      }
-      year_array = year_array.slice(0, -2);
-      prod_array = prod_array.slice(0, -2);
-      swds_array = swds_array.slice(0, -2);
-      var trace1 = {
-        x: year_array,
-        y: prod_array,
-        name: "Change in Products in Use",
-        marker: { color: colors["darkBlue"] },
-        type: "bar",
-      };
-
-      var trace2 = {
-        x: year_array,
-        y: swds_array,
-        name: "Change in SWDS",
-        marker: { color: colors["green"] },
-        type: "bar",
-      };
-
-      stackedData = [trace1, trace2];
-
-      var layout = {
-        barmode: "relative",
-        height: 350,
-        width: 420,
-        responsive: true,
-        title: "Annual Net Change Carbon Stocks",
-        showlegend: false,
-        
-      };
-
-      Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
-    }
-  } else if (is_active == "active") {
-    $("." + graph_class).html("");
-    if (graph_type == "line") {
-      tester = document.getElementsByClassName(
-        "active-graph " + graph_class
-      )[0];
-      const data = d3.csvParse(json_data);
-
-      minDateYear = data[0].year;
-      maxDateYear = data[data.length - 1].year;
-      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
-      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
-      year_array = [];
-      value_array = [];
-
-      for (i in data) {
-        year_array.push(data[i][data.columns[0]]);
-        value_array.push(data[i][data.columns[1]]);
-      }
-
-      var trace1 = {
-        x: year_array,
-        y: value_array,
-        name: data_dict[graph_class][1],
-        type: "scatter",
-      };
-
-      
-
-      var layout = {
-        title: data_dict[graph_class][1],
-        xaxis: { title: "Year<br><br>"},
-        yaxis: { title: data_dict[graph_class][3] },
-        automargin: true,
-        height: 700,
-        margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
-        responsive: true,
-        annotations: [
-          {
-            xref: "paper",  
-            yref: "paper",
-            x: 0.5,
-            xanchor: "center",
-            y: -0.3,
-            yanchor: "bottom",
-            text: caption[0].text,
-            showarrow: false,
-            font: { size: 16 },
-            width: 1000
-          }
-        ]
-      };
-
-      var stackedData = [trace1];
-
-      Plotly.newPlot(tester, stackedData, layout);
-    } else if (graph_type == "multiline") {
-      console.log("graph type is active multiline");
-      tester = document.getElementsByClassName(
-        "active-graph " + graph_class
-      )[0];
-      const data = d3.csvParse(json_data, function (d) {
-        return {
-          year: d[Object.keys(d)[0]],
-          value1: d[Object.keys(d)[1]],
-          value2: d[Object.keys(d)[2]],
-        };
-      });
-      
-
-      minDateYear = data[0].year;
-      maxDateYear = data[data.length - 1].year;
-      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
-      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
-
-      year_array = [];
-      value1_array = [];
-      value2_array = [];
-      for (i in data) {
-        year_array.push(data[i].year);
-        value1_array.push(data[i].value1);
-        value2_array.push(data[i].value2);
-      }
-
-      var trace1 = {
-        x: year_array,
-        y: value1_array,
-        name: "Annual Harvest",
-        type: "scatter",
-      };
-
-      var trace2 = {
-        x: year_array,
-        y: value2_array,
-        yaxis: "y2",
-        name: "Annual Timber Harvest",
-        type: "scatter",
-      };
-
-      var layout = {
-        title: "Annual Harvest and Timber Product Outputs",
-        xaxis: { title: "Year<br><br>"},
-        yaxis: { title: "Hundred Cubic Feet (CCF)" },
-        yaxis2: {
-          title: "Metric Tons CO<sub>2</sub>e",
-          titlefont: { color: "rgb(148, 103, 189)" },
-          tickfont: { color: "rgb(148, 103, 189)" },
-          overlaying: "y",
-          side: "right",
-        },
-        automargin: true,
-        height: 700,
-        margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
-        responsive: true,
-
-        annotations: [
-          {
-            xref: "paper",  
-            yref: "paper",
-            x: 0.5,
-            xanchor: "center",
-            y: -0.2,
-            yanchor: "bottom",
-            text: caption[0].text,
-            showarrow: false,
-            font: { size: 16 },
-            width: 1000
-          }
-        ]
-      
-      
-      };
-
-      var stackedData = [trace1, trace2];
-      Plotly.newPlot(tester, stackedData, layout);
-    } else if (graph_type == "stack") {
-      tester = document.getElementsByClassName(
-        "active-graph " + graph_class
-      )[0];
-      const data = d3.csvParse(json_data);
-      stackedData = [];
-      year_data = [];
-      emissions_present = false;
-      solid_present = false;
-      
-      minDateYear = data[0].Year;
-      maxDateYear = data[data.length - 1].Year;
-      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
-      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
-
-      for (i in data.columns) {
-        if (data.columns[i].includes("co2e")) {
-          emissions_present = true;
-        }
-        if (
-          !data.columns[i].includes("co2e") &&
-          !data.columns[i].includes("Year")
-        ) {
-          solid_present = true;
-        }
-      }
-      for (i in data.columns) {
-        column = data.columns[i];
-        if (i == 0) {
-          for (j in data) {
-            year_data.push(data[j][column]);
-          }
-        } else {
-          temp = [];
-          for (j in data) {
-            temp.push(data[j][column]);
-          }
-          
-          colorHex = "#333";
-
+          let colorHex = "#333";
           if (column == "products_in_use") {
             y_name = "Products in Use";
             colorHex = colors["darkBlue"];
@@ -1457,8 +999,9 @@ generate_graph = function (
             y_name = "Products in Use, recycled  ";
             colorHex = colors["lightBlue"];
           }
-          if (emissions_present == true && solid_present == false) {
-            var temp_trace = {
+          
+          if (emissions_present && !solid_present) {
+            temp_trace = {
               x: year_data,
               y: temp,
               name: y_name,
@@ -1466,18 +1009,20 @@ generate_graph = function (
               line: { color: colorHex }
             };
           }
-          if (emissions_present == true && solid_present == true) {
+          if (emissions_present && solid_present) {
             if (column.includes("emit")) {
-              var temp_trace = {
+              temp_trace = {
                 x: year_data,
                 y: temp,
                 yaxis: "y2",
                 name: y_name,
                 stackgroup: "one",
-                line: { color: colorHex }
+                line: { color: colorHex },
+                fill: { color: colorHex }
               };
+             
             } else {
-              var temp_trace = {
+              temp_trace = {
                 x: year_data,
                 y: temp,
                 name: y_name,
@@ -1486,8 +1031,407 @@ generate_graph = function (
               };
             }
           }
-          if (emissions_present == false && solid_present == true) {
-            var temp_trace = {
+          if (!emissions_present && solid_present) {
+            temp_trace = {
+              x: year_data,
+              y: temp,
+              name: y_name,
+              stackgroup: "one",
+              line: { color: colorHex }
+            };
+          }
+          stackedData.push(temp_trace);
+        }
+      }
+      let layout = ""
+      if (emissions_present && !solid_present) {
+        layout = {
+          title: title,
+          responsive: true,
+          showlegend: false,
+          height: 350,
+          width: 420,
+        };
+      }
+      if (emissions_present && solid_present) {
+        layout = {
+          title: title,
+          responsive: true,
+          showlegend: false,
+          height: 350,
+          width: 420,
+        };
+      }
+      if (!emissions_present && solid_present) {
+        layout = {
+          title: title,
+          responsive: true,
+          showlegend: false,
+          height: 350,
+          width: 420,
+        };
+      }
+
+      Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
+    } else {
+      let tester = document.getElementsByClassName("non-active " + graph_class)[0];
+      const data = d3.csvParse(json_data, function (d) {
+        return {
+          year: d[Object.keys(d)[0]],
+          products_in_use_change: d[Object.keys(d)[1]],
+          SWDS_change: d[Object.keys(d)[2]],
+        };
+      });
+
+      let year_array = [];
+      let prod_array = [];
+      let swds_array = [];
+      for (let i in data) {
+        year_array.push(data[i].year);
+        prod_array.push(data[i].products_in_use_change);
+        swds_array.push(data[i].SWDS_change);
+      }
+      year_array = year_array.slice(0, -2);
+      prod_array = prod_array.slice(0, -2);
+      swds_array = swds_array.slice(0, -2);
+      let trace1 = {
+        x: year_array,
+        y: prod_array,
+        name: "Change in Products in Use",
+        marker: { color: colors["darkBlue"] },
+        type: "bar",
+      };
+
+      let trace2 = {
+        x: year_array,
+        y: swds_array,
+        name: "Change in SWDS",
+        marker: { color: colors["green"] },
+        type: "bar",
+      };
+
+      stackedData = [trace1, trace2];
+
+      let layout = {
+        barmode: "relative",
+        height: 350,
+        width: 420,
+        responsive: true,
+        title: "Annual Net Change Carbon Stocks",
+        showlegend: false,
+        
+      };
+
+      Plotly.newPlot(tester, stackedData, layout, { staticPlot: true });
+    }
+  } else if (is_active == "active") {
+    $("." + graph_class).html("");
+    if (graph_type == "line") {
+      let tester = document.getElementsByClassName(
+        "active-graph " + graph_class
+      )[0];
+      const data = d3.csvParse(json_data);
+
+      let minDateYear = data[0].year;
+      let maxDateYear = data[data.length - 1].year;
+      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
+      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
+      let year_array = [];
+      let value_array = [];
+
+      for (let i in data) {
+        year_array.push(data[i][data.columns[0]]);
+        value_array.push(data[i][data.columns[1]]);
+      }
+
+      let trace1 = {
+        x: year_array,
+        y: value_array,
+        name: data_dict[graph_class][1],
+        type: "scatter",
+      };
+
+      
+
+      let layout = {
+        title: data_dict[graph_class][1],
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: data_dict[graph_class][3] },
+        automargin: true,
+        height: 700,
+        margin: { l: 100, r: 50, b: 150, t: 100, pad: 4 },
+        responsive: true,
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.3,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      };
+
+      let stackedData = [trace1];
+
+      Plotly.newPlot(tester, stackedData, layout);
+    } else if (graph_type == "multiline") {
+      console.log("graph type is active multiline");
+      let tester = document.getElementsByClassName(
+        "active-graph " + graph_class
+      )[0];
+      const data = d3.csvParse(json_data, function (d) {
+        return {
+          year: d[Object.keys(d)[0]],
+          value1: d[Object.keys(d)[1]],
+          value2: d[Object.keys(d)[2]],
+        };
+      });
+      
+
+      let minDateYear = data[0].year;
+      let maxDateYear = data[data.length - 1].year;
+      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
+      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
+
+      let year_array = [];
+      let value1_array = [];
+      let value2_array = [];
+      for (let i in data) {
+        year_array.push(data[i].year);
+        value1_array.push(data[i].value1);
+        value2_array.push(data[i].value2);
+      }
+
+      let trace1 = {
+        x: year_array,
+        y: value1_array,
+        name: "Annual Harvest",
+        type: "scatter",
+      };
+
+      let trace2 = {
+        x: year_array,
+        y: value2_array,
+        yaxis: "y2",
+        name: "Annual Timber Harvest",
+        type: "scatter",
+      };
+
+      let layout = {
+        title: "Annual Harvest and Timber Product Outputs",
+        xaxis: { title: "Year<br><br>"},
+        yaxis: { title: "Hundred Cubic Feet (CCF)" },
+        yaxis2: {
+          title: "Metric Tons CO<sub>2</sub>e",
+          titlefont: { color: "rgb(148, 103, 189)" },
+          tickfont: { color: "rgb(148, 103, 189)" },
+          overlaying: "y",
+          side: "right",
+        },
+        automargin: true,
+        height: 700,
+        margin: { l: 100, r: 50, b: 100, t: 100, pad: 4 },
+        responsive: true,
+
+        annotations: [
+          {
+            xref: "paper",  
+            yref: "paper",
+            x: 0.5,
+            xanchor: "center",
+            y: -0.2,
+            yanchor: "bottom",
+            text: caption[0].text,
+            showarrow: false,
+            font: { size: 16 },
+            width: 1000
+          }
+        ]
+      
+      
+      };
+
+      let stackedData = [trace1, trace2];
+      Plotly.newPlot(tester, stackedData, layout);
+    } else if (graph_type == "stack") {
+      let tester = document.getElementsByClassName(
+        "active-graph " + graph_class
+      )[0];
+      const data = d3.csvParse(json_data);
+      stackedData = [];
+      let year_data = [];
+      let emissions_present = false;
+      let solid_present = false;
+      
+      let minDateYear = data[0].Year;
+      let maxDateYear = data[data.length - 1].Year;
+      caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
+      caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
+
+      for (let i in data.columns) {
+        if (data.columns[i].includes("co2e")) {
+          emissions_present = true;
+        }
+        if (
+          !data.columns[i].includes("co2e") &&
+          !data.columns[i].includes("Year")
+        ) {
+          solid_present = true;
+        }
+      }
+      for (let i in data.columns) {
+        let column = data.columns[i];
+        if (i == 0) {
+          for (let j in data) {
+            year_data.push(data[j][column]);
+          }
+        } else {
+          let temp = [];
+          for (let j in data) {
+            temp.push(data[j][column]);
+          }
+          
+          let colorHex = "#333";
+          let y_name = ""
+          let temp_trace = ""
+          
+          if (column == "products_in_use") {
+            y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "products_in_use_mgc") {
+            y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "products_in_use_present_co2e") {
+            y_name = "Products in Use";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "SWDS") {
+            y_name = "SWDS";
+            colorHex = colors["green"];
+          }
+          if (column == "SWDS_mgc") {
+            y_name = "SWDS";
+            colorHex = colors["green"];
+          }
+          if (column == "SWDS_present_co2e") {
+            y_name = "SWDS";
+            colorHex = colors["green"];
+          }
+          if (column == "emitted_w_energy_capture_emitted_co2e") {
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
+          }
+          if (column == "emitted_w_energy_capture") {
+            y_name = "Emitted with Energy Capture";
+            colorHex = colors["lightRed"];
+          }
+          if (column == "emitted_wo_energy_capture") {
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
+          }
+          if (column == "emitted_wo_energy_capture_emitted_co2e") {
+            y_name = "Emitted without Energy Capture";
+            colorHex = colors["darkRed"];
+          }
+          if (column == "Fuel_emitted_co2e") {
+            y_name = "Fuelwood Emissions";
+            colorHex = colors["fuelwood_emissions"];
+          }
+          if (column == "Composted_emitted_co2e") {
+            y_name = "Compost Emissions";
+            colorHex = colors["compost_emissions"];
+          }
+          if (column == "Dumps_emitted_mgc") {
+            y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
+          }
+          if (column == "Dumps_emitted_co2e") {
+            y_name = "Dump Emissions";
+            colorHex = colors["dump_emissions"];
+          }
+          if (column == "Landfills_emitted_co2e") {
+            y_name = "Landfill Emissions";
+            colorHex = colors["landfill_emissions"];
+          }
+          if (column == "Dumps_present_mgc") {
+            y_name = "Carbon in Dumps";
+            colorHex = colors["dump_emissions"];
+          }
+          if (column == "Landfills_present_mgc") {
+            y_name = "Carbon in Landfills";
+            colorHex = colors["landfill_emissions"];
+          }
+          if (column == "new_products_in_use") {
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "reused_products_in_use") {
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
+          }
+          if (column == "new_products_in_use_co2e") {
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "reused_products_in_use_co2e") {
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
+          }
+          if (column == "new_products_in_use_present_co2e") {
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "reused_products_in_use_present_co2e") {
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
+          }
+          if (column == "new_products_in_use_mgc") {
+            y_name = "Products in Use, original";
+            colorHex = colors["darkBlue"];
+          }
+          if (column == "reused_products_in_use_mgc") {
+            y_name = "Products in Use, recycled  ";
+            colorHex = colors["lightBlue"];
+          }
+          if (emissions_present && !solid_present) {
+            temp_trace = {
+              x: year_data,
+              y: temp,
+              name: y_name,
+              stackgroup: "one",
+              line: { color: colorHex }
+            };
+          }
+          if (emissions_present && solid_present) {
+            if (column.includes("emit")) {
+              temp_trace = {
+                x: year_data,
+                y: temp,
+                yaxis: "y2",
+                name: y_name,
+                stackgroup: "one",
+                line: { color: colorHex }
+              };
+            } else {
+              temp_trace = {
+                x: year_data,
+                y: temp,
+                name: y_name,
+                stackgroup: "one",
+                line: { color: colorHex }
+              };
+            }
+          }
+          if (!emissions_present && solid_present) {
+            temp_trace = {
               x: year_data,
               y: temp,
               name: y_name,
@@ -1499,7 +1443,9 @@ generate_graph = function (
         }
       }
 
-      if (emissions_present == true && solid_present == false) {
+      let y_buffer = 0.0
+      let layout = ""
+      if (emissions_present && !solid_present) {
         if(title == "Final Results"){
           y_buffer = -0.45
         }
@@ -1509,7 +1455,7 @@ generate_graph = function (
         else{
           y_buffer = -0.6
         }
-        var layout = {
+        layout = {
           title: title,
           xaxis: { title: "Year<br><br>"},
           yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
@@ -1535,8 +1481,8 @@ generate_graph = function (
         
         };
       }
-      if (emissions_present == true && solid_present == true) {
-        var layout = {
+      if (emissions_present && solid_present) {
+        layout = {
           title: title,
           autosize: true,
           xaxis: { title: "Year<br><br>:"},
@@ -1571,14 +1517,14 @@ generate_graph = function (
         
         };
       }
-      if (emissions_present == false && solid_present == true) {
+      if (!emissions_present && solid_present) {
         if(title == "Total Cumulative Solid Carbon Dispositions"){
           y_buffer = -0.5
         }
         else{
           y_buffer = -0.4
         }
-        var layout = {
+        layout = {
           title: title,
           xaxis: { title: "Year<br><br>"},
           yaxis: { title: "Metric Tons Carbon" },
@@ -1608,7 +1554,7 @@ generate_graph = function (
 
     } else {
       console.log("graph type is active bar");
-      tester = document.getElementsByClassName(
+      let tester = document.getElementsByClassName(
         "active-graph " + graph_class
       )[0];
       const data = d3.csvParse(json_data, function (d) {
@@ -1618,24 +1564,24 @@ generate_graph = function (
           SWDS_change: d[Object.keys(d)[2]],
         };
       });
-      minDateYear = data[0].year;
-      maxDateYear = data[data.length - 1].year;
+      let minDateYear = data[0].year;
+      let maxDateYear = data[data.length - 1].year;
       caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
       caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
 
-      year_array = [];
-      prod_array = [];
-      swds_array = [];
-      net_change_array = [];
+      let year_array = [];
+      let prod_array = [];
+      let swds_array = [];
+      let net_change_array = [];
 
-      for (i in data) {
+      for (let i in data) {
         year_array.push(data[i].year);
         prod_array.push(data[i].products_in_use_change);
         swds_array.push(data[i].SWDS_change);
 
-        temp1 = parseInt(data[i].products_in_use_change);
-        temp2 = parseInt(data[i].SWDS_change);
-        temp3 = temp1 + temp2;
+        let temp1 = parseInt(data[i].products_in_use_change);
+        let temp2 = parseInt(data[i].SWDS_change);
+        let temp3 = temp1 + temp2;
 
         net_change_array.push(temp3);
       }
@@ -1645,7 +1591,7 @@ generate_graph = function (
       swds_array = swds_array.slice(0, -2);
       net_change_array = net_change_array.slice(0, -2);
 
-      var trace1 = {
+      let trace1 = {
         x: year_array,
         y: prod_array,
         name: "Change in Products in Use",
@@ -1653,7 +1599,7 @@ generate_graph = function (
         type: "bar",
       };
 
-      var trace2 = {
+      let trace2 = {
         x: year_array,
         y: swds_array,
         name: "Change in SWDS",
@@ -1661,7 +1607,7 @@ generate_graph = function (
         type: "bar",
       };
 
-      var trace3 = {
+      let trace3 = {
         x: year_array,
         y: net_change_array,
         name: "Net Change",
@@ -1671,7 +1617,7 @@ generate_graph = function (
 
       stackedData = [trace1, trace2, trace3];
 
-      var layout = {
+      let layout = {
         barmode: "relative",
         xaxis: { title: "Year<br><br>"},
         yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
@@ -1696,55 +1642,48 @@ generate_graph = function (
         ]
       
       };
-      plot = Plotly.newPlot(tester, stackedData, layout);
+      Plotly.newPlot(tester, stackedData, layout);
     }
   } else {
     console.log("I broke add error logic here");
   }
 };
 
-generate_hidden_graph = function (
+function generate_hidden_graph (
   json_data,
   graph_class,
   title,
-  w,
-  h,
   graph_type,
-  y_label = "",
   caption
 ) {
   
-
+  let stackedData = [];
   $("." + graph_class).html("");
   if (graph_type == "line") {
-    tester = document.getElementsByClassName("hidden " + graph_class)[0];
+    let tester = document.getElementsByClassName("hidden " + graph_class)[0];
     const data = d3.csvParse(json_data);
 
-    minDateYear = data[0].Year;
-    maxDateYear = data[data.length - 1].Year;
+    let minDateYear = data[0].Year;
+    let maxDateYear = data[data.length - 1].Year;
     caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
     caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
-    // svg
-    //     .append("g")
-    //     .attr("class", graph_class + "caption")
-    //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
 
-    year_array = [];
-    value_array = [];
+    let year_array = [];
+    let value_array = [];
 
-    for (i in data) {
+    for (let i in data) {
       year_array.push(data[i][data.columns[0]]);
       value_array.push(data[i][data.columns[1]]);
     }
 
-    var trace1 = {
+    let trace1 = {
       x: year_array,
       y: value_array,
       name: data_dict[graph_class][1],
       type: "scatter",
     };
 
-    var layout = {
+    let layout = {
       title: data_dict[graph_class][1],
       xaxis: { title: "Year<br><br>"},
       yaxis: { title: data_dict[graph_class][3] },
@@ -1769,12 +1708,12 @@ generate_hidden_graph = function (
     
     };
 
-    var stackedData = [trace1];
+    let stackedData = [trace1];
 
     Plotly.newPlot(tester, stackedData, layout);
   } else if (graph_type == "multiline") {
     console.log("graph type is active multiline");
-    tester = document.getElementsByClassName("hidden " + graph_class)[0];
+    let tester = document.getElementsByClassName("hidden " + graph_class)[0];
     const data = d3.csvParse(json_data, function (d) {
       return {
         year: d[Object.keys(d)[0]],
@@ -1782,33 +1721,29 @@ generate_hidden_graph = function (
         value2: d[Object.keys(d)[2]],
       };
     });
-    // const data2 = d3.csvParse(json_data,
-    //     function (d) {
-    //         return { date: d3.timeParse("%Y")(d[Object.keys(d)[0]]), value: d[Object.keys(d)[2]] }
-    //     })
-
-    minDateYear = data[0].year;
-    maxDateYear = data[data.length - 1].year;
+    
+    let minDateYear = data[0].year;
+    let maxDateYear = data[data.length - 1].year;
     caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
     caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
 
-    year_array = [];
-    value1_array = [];
-    value2_array = [];
-    for (i in data) {
+    let year_array = [];
+    let value1_array = [];
+    let value2_array = [];
+    for (let i in data) {
       year_array.push(data[i].year);
       value1_array.push(data[i].value1);
       value2_array.push(data[i].value2);
     }
 
-    var trace1 = {
+    let trace1 = {
       x: year_array,
       y: value1_array,
       name: "Annual Harvest",
       type: "scatter",
     };
 
-    var trace2 = {
+    let trace2 = {
       x: year_array,
       y: value2_array,
       yaxis: "y2",
@@ -1816,7 +1751,7 @@ generate_hidden_graph = function (
       type: "scatter",
     };
 
-    var layout = {
+    let layout = {
       title: "Annual Harvest and Timber Product Outputs",
       xaxis: { title: "Year<br><br>"},
       yaxis: { title: "Hundred Cubic Feet (CCF)" },
@@ -1848,30 +1783,24 @@ generate_hidden_graph = function (
     
     };
 
-    var stackedData = [trace1, trace2];
+    let stackedData = [trace1, trace2];
 
     Plotly.newPlot(tester, stackedData, layout);
 
-    // caption[0].text = caption[0].text.replace("[minimum year]", minDateYear)
-    // caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear)
-    // svg
-    //     .append("g")
-    //     .attr("class", graph_class + "caption")
-    //     .attr("transform", "translate( 0 ," + (height + margin.top + 30) + ")")
   } else if (graph_type == "stack") {
-    tester = document.getElementsByClassName("hidden " + graph_class)[0];
+    let tester = document.getElementsByClassName("hidden " + graph_class)[0];
     const data = d3.csvParse(json_data);
     // keys = Object.keys(data[0])
-    minDateYear = data[0].Year;
-    maxDateYear = data[data.length - 1].Year;
+    let minDateYear = data[0].Year;
+    let maxDateYear = data[data.length - 1].Year;
     caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
     caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
 
-    stackedData = [];
-    year_data = [];
-    emissions_present = false;
-    solid_present = false;
-    for (i in data.columns) {
+    
+    let year_data = [];
+    let emissions_present = false;
+    let solid_present = false;
+    for (let i in data.columns) {
       if (data.columns[i].includes("co2e")) {
         emissions_present = true;
       }
@@ -1882,19 +1811,21 @@ generate_hidden_graph = function (
         solid_present = true;
       }
     }
-    for (i in data.columns) {
-      column = data.columns[i];
+    for (let i in data.columns) {
+      let column = data.columns[i];
       if (i == 0) {
-        for (j in data) {
+        for (let j in data) {
           year_data.push(data[j][column]);
         }
       } else {
-        temp = [];
-        for (j in data) {
+        let temp = [];
+        for (let j in data) {
           temp.push(data[j][column]);
         }
         
-        colorHex = "#333";
+        let colorHex = "#333";
+        let y_name = ''
+        let temp_trace = ''
         if (column == "products_in_use") {
           y_name = "Products in Use";
           colorHex = colors["darkBlue"];
@@ -1907,23 +1838,6 @@ generate_hidden_graph = function (
           y_name = "Products in Use";
           colorHex = colors["darkBlue"];
         }
-        if (column == "new_products_in_use_present_co2e") {
-          y_name = "Products in Use, original";
-          colorHex = colors["darkBlue"];
-        }
-        if (column == "reused_products_in_use_present_co2e") {
-          y_name = "Products in Use, recycled  ";
-          colorHex = colors["lightBlue"];
-        }
-        if (column == "new_products_in_use_present_mgc") {
-          y_name = "Products in Use, original";
-          colorHex = colors["darkBlue"];
-        }
-        if (column == "reused_products_in_use_present_mgc") {
-          y_name = "Products in Use, recycled  ";
-          colorHex = colors["lightBlue"];
-        }
-        
         if (column == "SWDS") {
           y_name = "SWDS";
           colorHex = colors["green"];
@@ -1980,8 +1894,40 @@ generate_hidden_graph = function (
           y_name = "Carbon in Landfills";
           colorHex = colors["landfill_emissions"];
         }
-        if (emissions_present == true && solid_present == false) {
-          var temp_trace = {
+        if (column == "new_products_in_use") {
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
+        }
+        if (column == "reused_products_in_use") {
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
+        }
+        if (column == "new_products_in_use_co2e") {
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
+        }
+        if (column == "reused_products_in_use_co2e") {
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
+        }
+        if (column == "new_products_in_use_present_co2e") {
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
+        }
+        if (column == "reused_products_in_use_present_co2e") {
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
+        }
+        if (column == "new_products_in_use_mgc") {
+          y_name = "Products in Use, original";
+          colorHex = colors["darkBlue"];
+        }
+        if (column == "reused_products_in_use_mgc") {
+          y_name = "Products in Use, recycled  ";
+          colorHex = colors["lightBlue"];
+        }
+        if (emissions_present && !solid_present) {
+          temp_trace = {
             x: year_data,
             y: temp,
             name: y_name,
@@ -1989,9 +1935,9 @@ generate_hidden_graph = function (
             line: { color: colorHex }
           };
         }
-        if (emissions_present == true && solid_present == true) {
+        if (emissions_present && solid_present) {
           if (column.includes("emit")) {
-            var temp_trace = {
+            temp_trace = {
               x: year_data,
               y: temp,
               yaxis: "y2",
@@ -2000,7 +1946,7 @@ generate_hidden_graph = function (
               line: { color: colorHex }
             };
           } else {
-            var temp_trace = {
+            temp_trace = {
               x: year_data,
               y: temp,
               name: y_name,
@@ -2009,8 +1955,8 @@ generate_hidden_graph = function (
             };
           }
         }
-        if (emissions_present == false && solid_present == true) {
-          var temp_trace = {
+        if (!emissions_present && solid_present) {
+          temp_trace = {
             x: year_data,
             y: temp,
             name: y_name,
@@ -2021,9 +1967,9 @@ generate_hidden_graph = function (
         stackedData.push(temp_trace);
       }
     }
-
-    if (emissions_present == true && solid_present == false) {
-      var layout = {
+    let layout
+    if (emissions_present && !solid_present) {
+      layout = {
         title: title,
         xaxis: { title: "Year<br><br>"},
         yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
@@ -2049,7 +1995,7 @@ generate_hidden_graph = function (
       };
     }
     if (emissions_present == true && solid_present == true) {
-      var layout = {
+      layout = {
         title: title,
         autosize: true,
         xaxis: { title: "Year<br><br>"},
@@ -2083,8 +2029,8 @@ generate_hidden_graph = function (
       
       };
     }
-    if (emissions_present == false && solid_present == true) {
-      var layout = {
+    if (!emissions_present && solid_present) {
+      layout = {
         title: title,
         xaxis: { title: "Year<br><br>"},
         yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
@@ -2110,11 +2056,10 @@ generate_hidden_graph = function (
       };
     }
 
-    // var stackedData = [trace1, trace2];
     Plotly.newPlot(tester, stackedData, layout);
   } else {
     console.log("graph type is active bar");
-    tester = document.getElementsByClassName("hidden " + graph_class)[0];
+    let tester = document.getElementsByClassName("hidden " + graph_class)[0];
     const data = d3.csvParse(json_data, function (d) {
       return {
         year: d[Object.keys(d)[0]],
@@ -2122,16 +2067,15 @@ generate_hidden_graph = function (
         SWDS_change: d[Object.keys(d)[2]],
       };
     });
-
-    minDateYear = data[0].Year;
-    maxDateYear = data[data.length - 1].Year;
+    let minDateYear = data[0].Year;
+    let maxDateYear = data[data.length - 1].Year;
     caption[0].text = caption[0].text.replace("[minimum year]", minDateYear);
     caption[0].text = caption[0].text.replace("[maximum year]", maxDateYear);
 
-    year_array = [];
-    prod_array = [];
-    swds_array = [];
-    for (i in data) {
+    let year_array = [];
+    let prod_array = [];
+    let swds_array = [];
+    for (let i in data) {
       year_array.push(data[i].year);
       prod_array.push(data[i].products_in_use_change);
       swds_array.push(data[i].SWDS_change);
@@ -2139,7 +2083,7 @@ generate_hidden_graph = function (
     year_array = year_array.slice(0, -2);
     prod_array = prod_array.slice(0, -2);
     swds_array = swds_array.slice(0, -2);
-    var trace1 = {
+    let trace1 = {
       x: year_array,
       y: prod_array,
       name: "Change in Products in Use",
@@ -2147,7 +2091,7 @@ generate_hidden_graph = function (
       type: "bar",
     };
 
-    var trace2 = {
+    let trace2 = {
       x: year_array,
       y: swds_array,
       name: "Change in SWDS",
@@ -2157,7 +2101,7 @@ generate_hidden_graph = function (
 
     stackedData = [trace1, trace2];
 
-    var layout = {
+    let layout = {
       barmode: "relative",
       xaxis: { title: "Year<br><br>"},
       yaxis: { title: "Metric Tons CO<sub>2</sub>e" },
@@ -2183,19 +2127,19 @@ generate_hidden_graph = function (
     
     };
 
-    plot = Plotly.newPlot(tester, stackedData, layout);
+    Plotly.newPlot(tester, stackedData, layout);
   }
 };
 
-generate_table = function (json_data, table_class, title, is_big_four = false) {
-  if (is_big_four == true) {
+function generate_table(json_data, table_class, title, is_big_four = false) {
+  let tester
+  if (is_big_four) {
     tester = document.getElementsByClassName(table_class)[0];
   } else {
     tester = document.getElementsByClassName("hidden " + table_class)[0];
   }
   
-  // var data = d3.csvParse(json_data, function (d) { return process_data(d) } );
-  var data = d3.csvParse(json_data);
+  const data = d3.csvParse(json_data);
   try{
     process_data(data);
   }
@@ -2209,11 +2153,10 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
       });
     }
 
-    var headerNames = Object.keys(rows[0]);
-    if (is_big_four == true) {
+    let headerNames = Object.keys(rows[0]);
+    if (is_big_four) {
       headerNames.push("Sum CO2e")
     }
-
 
 
     let imageWidth = 0;
@@ -2225,61 +2168,99 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
       imageWidth = 1582;
     }
 
-    var headerColor = "grey";
-    var rowEvenColor = "lightgrey";
-    var rowOddColor = "white";
+    let headerColor = "grey";
 
-    var headerValues = [];
-    var cellValues = [];
-    var rolling_sum = []
-    for (i = 0; i < headerNames.length; i++) {
+    let headerValues = [];
+    let cellValues = [];
+    let cellValue
+    let headerValue
+    let rolling_sum = []
+    for (let i = 0; i < headerNames.length; i++) {
       headerValue = [headerNames[i]];
       headerValues[i] = headerValue;
       cellValue = unpack(rows, headerNames[i]);
-    
-      if (i >= 1 && i != headerNames.length-1) {
-        temp = [];
-        temp2=[]
-        for (j = 0; j < cellValue.length; j++) {
-            if (is_big_four == true) {
-              temp.push(parseInt(cellValue[j]).toLocaleString());
-              temp2.push(parseInt(cellValue[j]))
+
+      if(is_big_four){
+        console.log("in big four logic loop")
+        if (i >= 1 && i != headerNames.length-1) {
+          let temp = [];
+          let temp2=[]
+          for (const element of cellValue) {
+              if (is_big_four) {
+                temp.push(parseInt(element).toLocaleString());
+                temp2.push(parseInt(element))
+            }
+              else {
+                temp.push(parseFloat(element).toFixed(2).toLocaleString());
+                temp2.push(parseFloat(element).toFixed(2))
+              }
+            }
+            rolling_sum.push(temp2)
+            cellValues[i] = temp;
           }
-            else {
-              temp.push(parseFloat(cellValue[j]).toFixed(2).toLocaleString());
-              temp2.push(parseFloat(cellValue[j]).toFixed(2))
+  
+        else if(i == headerNames.length-1){
+            let temp = [];
+            if (is_big_four) {
+              for (let j = 0; j < rolling_sum[0].length; j++) {
+                let result = 0
+                for (const element of rolling_sum) {
+                  result += element[j]
+                }
+              temp.push(result.toLocaleString());
+            }
+          cellValues[i] = temp;
             }
           }
-          rolling_sum.push(temp2)
-          cellValues[i] = temp;
+        else {
+          cellValues[i] = cellValue;
         }
-
-      else if(i == headerNames.length-1){
-          temp = [];
-          if (is_big_four == true) {
-            console.log(rolling_sum)
-            for (j = 0; j < rolling_sum[0].length; j++) {
-              result = 0
-              for (k = 0; k < rolling_sum.length; k++) {
-                result += rolling_sum[k][j]
-              }
-            temp.push(result.toLocaleString());
-          }
-        cellValues[i] = temp;
-          }
-        }
-      else {
-        cellValues[i] = cellValue;
       }
+      else{
+        if (i >= 1) {
+          let temp = [];
+          let temp2=[]
+          for (const element of cellValue) {
+              if (is_big_four) {
+                temp.push(parseInt(element).toLocaleString());
+                temp2.push(parseInt(element))
+            }
+              else {
+                temp.push(parseFloat(element).toFixed(2).toLocaleString());
+                temp2.push(parseFloat(element).toFixed(2))
+              }
+            }
+            rolling_sum.push(temp2)
+            cellValues[i] = temp;
+          }
+  
+        else if(i == headerNames.length-1){
+            let temp = [];
+            if (is_big_four) {
+              for (let j = 0; j < rolling_sum[0].length; j++) {
+                let result = 0
+                for (const element of rolling_sum) {
+                  result += element[j]
+                }
+              temp.push(result.toLocaleString());
+            }
+          cellValues[i] = temp;
+            }
+          }
+        else {
+          cellValues[i] = cellValue;
+        }
+      }
+      
+      
     }
-    console.log(cellValues)
     // clean date
-    for (i = 0; i < cellValues[1].length; i++) {
-      var dateValue = cellValues[1][i].split(" ")[0];
+    for (let i = 0; i < cellValues[1].length; i++) {
+      let dateValue = cellValues[1][i].split(" ")[0];
       cellValues[1][i] = dateValue;
     }
-    if (needs_single_year_title == true) {
-      console.log("in is single")
+    let headers_values = ""
+    if (needs_single_year_title) {
       if($("#singleYear").val()<1970 && table_class != "annual_timber_harvest_table" && table_class != "total_yearly_net_change"){
         headers_values = header_dict[table_class+"2"]
       }
@@ -2291,11 +2272,10 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
       headers_values = header_dict[table_class]
     }
     
-    console.log(headers_values)
-    var data_layout = [
+    let data_layout = [
       {
         type: "table",
-        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 40],
+        columnwidth: [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
         columnorder: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         header: {
           values: headers_values,
@@ -2313,8 +2293,7 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
         },
       },
     ];
-
-    var layout = {
+    let layout = {
       title: title,
       height: (cellValues[0].length + 5) * 30 + 100,
       width: imageWidth,
@@ -2325,33 +2304,35 @@ generate_table = function (json_data, table_class, title, is_big_four = false) {
 };
 
 $(".non-active").click(function (e) {
-  var non_active_div = $(e.target).parent().parent();
-  var non_active_div_siblings = $(e.target).parent().parent().siblings();
- 
-  var current_tabs_active_graph_sibling = non_active_div
+  let non_active_div = $(e.target).parent().parent();
+  let non_active_div_siblings = $(e.target).parent().parent().siblings();
+  let non_active_id
+  let current_tabs_active_id
+  let non_active_div_sibling_id
+  let current_tabs_active_graph_sibling = non_active_div
     .parent()
     .closest("div");
 
-  var current_tabs_active_graph = current_tabs_active_graph_sibling
+  let current_tabs_active_graph = current_tabs_active_graph_sibling
     .siblings()
     .closest("div");
-  for (let i = 0; i < non_active_div[0].classList.length; i++) {
+  for (const element of non_active_div[0].classList) {
     if (
-      non_active_div[0].classList[i] != "graph" &&
-      non_active_div[0].classList[i] != "js-plotly-plot" &&
-      non_active_div[0].classList[i] != "non-active"
+      element != "graph" &&
+      element != "js-plotly-plot" &&
+      element != "non-active"
     ) {
-      non_active_id = non_active_div[0].classList[i];
+      non_active_id = element;
     }
   }
 
-  for (let i = 0; i < current_tabs_active_graph[0].classList.length; i++) {
+  for (const element of current_tabs_active_graph[0].classList) {
     if (
-      current_tabs_active_graph[0].classList[i] != "graph" &&
-      current_tabs_active_graph[0].classList[i] != "active-graph" &&
-      current_tabs_active_graph[0].classList[i] != "js-plotly-plot"
+      element != "graph" &&
+      element != "active-graph" &&
+      element != "js-plotly-plot"
     ) {
-      current_tabs_active_id = current_tabs_active_graph[0].classList[i];
+      current_tabs_active_id = element;
     }
   }
   current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
@@ -2363,10 +2344,7 @@ $(".non-active").click(function (e) {
     non_active_id,
     "active",
     data_dict[non_active_id][1],
-    1300,
-    700,
     data_dict[non_active_id][2],
-    data_dict[non_active_id][3],
     captions_dict[non_active_id]
   );
   generate_graph(
@@ -2374,19 +2352,17 @@ $(".non-active").click(function (e) {
     current_tabs_active_id,
     "inactive",
     data_dict[current_tabs_active_id][1],
-    400,
-    250,
     data_dict[current_tabs_active_id][2]
   );
   if (non_active_div_siblings.length != 0) {
-    for (i = 0; i < non_active_div_siblings.length; i++) {
-      for (let j = 0; j < non_active_div_siblings[i].classList.length; j++) {
+    for (let i = 0; i < non_active_div_siblings.length; i++) {
+      for (const element of non_active_div_siblings[i].classList) {
         if (
-          non_active_div_siblings[i].classList[j] != "graph" &&
-          non_active_div_siblings[i].classList[j] != "js-plotly-plot" &&
-          non_active_div_siblings[i].classList[j] != "non-active"
+          element != "graph" &&
+          element != "js-plotly-plot" &&
+          element != "non-active"
         ) {
-          non_active_div_sibling_id = non_active_div_siblings[i].classList[j];
+          non_active_div_sibling_id = element;
         }
       }
 
@@ -2395,8 +2371,6 @@ $(".non-active").click(function (e) {
         non_active_div_sibling_id,
         "inactive",
         data_dict[non_active_div_sibling_id][1],
-        400,
-        250,
         data_dict[non_active_div_sibling_id][2]
       );
     }
@@ -2405,33 +2379,34 @@ $(".non-active").click(function (e) {
 
 $(".non-active").keydown(function (e) {
   if (e.keyCode == 13 || e.keyCode == 32) {
-    var non_active_div = $(e.target).parent().parent();
-    var non_active_div_siblings = $(e.target).parent().parent().siblings();
-   
-    var current_tabs_active_graph_sibling = non_active_div
+    let non_active_div = $(e.target).parent().parent();
+    let non_active_div_siblings = $(e.target).parent().parent().siblings();
+    let non_active_id
+    let current_tabs_active_id
+    let current_tabs_active_graph_sibling = non_active_div
       .parent()
       .closest("div");
 
-    var current_tabs_active_graph = current_tabs_active_graph_sibling
+    let current_tabs_active_graph = current_tabs_active_graph_sibling
       .siblings()
       .closest("div");
-    for (let i = 0; i < non_active_div[0].classList.length; i++) {
+    for (const element of non_active_div[0].classList) {
       if (
-        non_active_div[0].classList[i] != "graph" &&
-        non_active_div[0].classList[i] != "js-plotly-plot" &&
-        non_active_div[0].classList[i] != "non-active"
+        element != "graph" &&
+        element != "js-plotly-plot" &&
+        element != "non-active"
       ) {
-        non_active_id = non_active_div[0].classList[i];
+        non_active_id = element;
       }
     }
 
-    for (let i = 0; i < current_tabs_active_graph[0].classList.length; i++) {
+    for (const element of current_tabs_active_graph[0].classList) {
       if (
-        current_tabs_active_graph[0].classList[i] != "graph" &&
-        current_tabs_active_graph[0].classList[i] != "active-graph" &&
-        current_tabs_active_graph[0].classList[i] != "js-plotly-plot"
+        element != "graph" &&
+        element != "active-graph" &&
+        element != "js-plotly-plot"
       ) {
-        current_tabs_active_id = current_tabs_active_graph[0].classList[i];
+        current_tabs_active_id = element;
       }
     }
     current_tabs_active_graph[0].classList.remove(current_tabs_active_id);
@@ -2443,10 +2418,7 @@ $(".non-active").keydown(function (e) {
       non_active_id,
       "active",
       data_dict[non_active_id][1],
-      1300,
-      700,
       data_dict[non_active_id][2],
-      data_dict[non_active_id][3],
       captions_dict[non_active_id]
     );
     generate_graph(
@@ -2454,19 +2426,17 @@ $(".non-active").keydown(function (e) {
       current_tabs_active_id,
       "inactive",
       data_dict[current_tabs_active_id][1],
-      400,
-      250,
       data_dict[current_tabs_active_id][2]
     );
     if (non_active_div_siblings.length != 0) {
-      for (i = 0; i < non_active_div_siblings.length; i++) {
-        for (let j = 0; j < non_active_div_siblings[i].classList.length; j++) {
+      for (let i = 0; i < non_active_div_siblings.length; i++) {
+        for (const element of non_active_div_siblings[i].classList) {
           if (
-            non_active_div_siblings[i].classList[j] != "graph" &&
-            non_active_div_siblings[i].classList[j] != "js-plotly-plot" &&
-            non_active_div_siblings[i].classList[j] != "non-active"
+            element != "graph" &&
+            element != "js-plotly-plot" &&
+            element != "non-active"
           ) {
-            non_active_div_sibling_id = non_active_div_siblings[i].classList[j];
+            non_active_div_sibling_id = element;
           }
         }
 
@@ -2475,8 +2445,6 @@ $(".non-active").keydown(function (e) {
           non_active_div_sibling_id,
           "inactive",
           data_dict[non_active_div_sibling_id][1],
-          400,
-          250,
           data_dict[non_active_div_sibling_id][2]
         );
       }
@@ -2540,17 +2508,6 @@ $(document).ready(function () {
     value: harvestminDateYear,
   });
 
-  // $("#startYear").attr({
-  //     "min": harvestminDateYear,
-  //     "max": harvestmaxDateYear,
-  //     "value": harvestminDateYear
-  // })
-
-  // $("#endYear").attr({
-  //     "min": harvestminDateYear,
-  //     "max": harvestmaxDateYear,
-  //     "value": harvestmaxDateYear
-  // })
 });
 
 // Harvest Years Controls
@@ -2564,6 +2521,12 @@ $(function () {
 });
 
 d3.select("#dl-closed").on("click", function () {
+  generate_table(
+    data_dict["all_final_results_hidden_table"][0],
+    "all_final_results_hidden_table",
+    data_dict["all_final_results_hidden_table"][1],
+    true
+  );
   generate_table(
     data_dict["annual_timber_harvest_table"][0],
     "annual_timber_harvest_table",
@@ -2594,80 +2557,56 @@ d3.select("#dl-closed").on("click", function () {
     data_dict["all_results_final_hidden"][0],
     "all_results_final_hidden",
     data_dict["all_results_final_hidden"][1],
-    1300,
-    700,
     data_dict["all_results_final_hidden"][2],
-    data_dict["all_results_final_hidden"][3],
     captions_dict["all_results_final"]
   );
   generate_hidden_graph(
     data_dict["total_solid_carbon_dispositions_hidden"][0],
     "total_solid_carbon_dispositions_hidden",
     data_dict["total_solid_carbon_dispositions_hidden"][1],
-    1300,
-    700,
     data_dict["total_solid_carbon_dispositions_hidden"][2],
-    data_dict["total_solid_carbon_dispositions_hidden"][3],
     captions_dict["total_solid_carbon_dispositions"]
   );
   generate_hidden_graph(
     data_dict["total_emissions_dispositions_hidden"][0],
     "total_emissions_dispositions_hidden",
     data_dict["total_emissions_dispositions_hidden"][1],
-    1300,
-    700,
     data_dict["total_emissions_dispositions_hidden"][2],
-    data_dict["total_emissions_dispositions_hidden"][3],
     captions_dict["total_emissions_dispositions"]
   );
   generate_hidden_graph(
     data_dict["annual_net_change_carbon_stocks_hidden"][0],
     "annual_net_change_carbon_stocks_hidden",
     data_dict["annual_net_change_carbon_stocks_hidden"][1],
-    1300,
-    700,
     data_dict["annual_net_change_carbon_stocks_hidden"][2],
-    data_dict["annual_net_change_carbon_stocks_hidden"][3],
     captions_dict["annual_net_change_carbon_stocks"]
   );
   generate_hidden_graph(
     data_dict["annual_harvest_and_timber_product_output_hidden"][0],
     "annual_harvest_and_timber_product_output_hidden",
     data_dict["annual_harvest_and_timber_product_output_hidden"][1],
-    1300,
-    700,
     data_dict["annual_harvest_and_timber_product_output_hidden"][2],
-    data_dict["annual_harvest_and_timber_product_output_hidden"][3],
     captions_dict["annual_harvest_and_timber_product_output"]
   );
   generate_hidden_graph(
     data_dict["burned_with_energy_capture_emissions_hidden"][0],
     "burned_with_energy_capture_emissions_hidden",
     data_dict["burned_with_energy_capture_emissions_hidden"][1],
-    1300,
-    700,
     data_dict["burned_with_energy_capture_emissions_hidden"][2],
-    data_dict["burned_with_energy_capture_emissions_hidden"][3],
     captions_dict["burned_with_energy_capture_emissions"]
   );
   generate_hidden_graph(
     data_dict["burned_without_energy_capture_emissions_hidden"][0],
     "burned_without_energy_capture_emissions_hidden",
     data_dict["burned_without_energy_capture_emissions_hidden"][1],
-    1300,
-    700,
     data_dict["burned_without_energy_capture_emissions_hidden"][2],
-    data_dict["burned_without_energy_capture_emissions_hidden"][3],
     captions_dict["burned_without_energy_capture_emissions"]
   );
   generate_hidden_graph(
     data_dict["swds_emissions_hidden"][0],
     "swds_emissions_hidden",
     data_dict["swds_emissions_hidden"][1],
-    1300,
-    700,
     data_dict["swds_emissions_hidden"][2],
-    data_dict["swds_emissions_hidden"][3],
     captions_dict["swds_emissions"]
   );
 });
@@ -2676,27 +2615,26 @@ d3.select("#dl-closed").on("click", function () {
 
 window.jsPDF = window.jspdf.jsPDF;
 
-var img_png = d3.select("#png-export");
+let img_png = d3.select("#png-export");
 let zip = new JSZip();
 
-big_count = 0;
-small_count = 0;
+let big_count = 0;
+let small_count = 0;
 function export_tables() {
   //export plotly tables as pngs
+  let title
+  let tables = document.getElementsByClassName("graph hidden table");
 
-  var tables = document.getElementsByClassName("graph table");
-
-  for (var i = 0; i < tables.length; i++) {
-    // Plotly.toImage(tables[i], { format: 'png' });
-    if(needs_single_year_title == true){
-      title = harvestminDateYear + "_" + tables[i].classList[3]
+  for (const element of tables) {
+    if(needs_single_year_title){
+      title = harvestminDateYear + "_" + element.classList[3]
     }
     else{
-      title = tables[i].classList[3]
+      title = element.classList[3]
     }
     big_count += 1;
     generate_tables(
-      tables[i],
+      element,
       { format: "png" },
       title + ".pdf"
     );
@@ -2704,36 +2642,34 @@ function export_tables() {
 }
 
 function savePDF(imageDataURL, file_name) {
-  var image = new Image();
+  let image = new Image();
   image.onload = function () {
-    var imgData = imageDataURL;
-    imageWidth = image.naturalWidth;
-    imageHeight = image.naturalHeight;
+    let imgData = imageDataURL;
+    let imageWidth = image.naturalWidth;
+    let imageHeight = image.naturalHeight;
     let orientation = "";
     let imgWidth = 0;
     let pageHeight = 0;
 
     if (imageWidth >= 1582) {
-      console.log("landscape");
       orientation = "landscape";
       imgWidth = 270;
       pageHeight = 213;
     } else {
-      console.log("portrait");
       orientation = "portrait";
       imgWidth = 210;
       pageHeight = 279;
     }
 
-    var imgHeight = (imageHeight * imgWidth) / imageWidth;
-    var heightLeft = imgHeight;
+    let imgHeight = (imageHeight * imgWidth) / imageWidth;
+    let heightLeft = imgHeight;
 
-    var pdf = new jsPDF({
+    let pdf = new jsPDF({
       orientation: orientation,
       unit: "mm",
       format: "letter",
     });
-    var position = 10; // give some top padding to first page
+    let position = 10; // give some top padding to first page
 
     pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
     heightLeft -= pageHeight;
@@ -2744,7 +2680,7 @@ function savePDF(imageDataURL, file_name) {
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
     }
-    var blob = pdf.output("blob");
+    let blob = pdf.output("blob");
     zip.file(file_name, blob, { binary: true });
     small_count += 1;
     if (small_count == big_count) {
@@ -2767,28 +2703,25 @@ function savePDF(imageDataURL, file_name) {
 }
 
 async function generate_tables(div, options, file_name) {
-  url = await Plotly.toImage(div, options);
-  // console.log(url)
+  let url = await Plotly.toImage(div, options);
   savePDF(url, file_name);
 }
 
 function export_plots() {
-  var image_array = [];
 
   $(".dl-files")
     .children()
     .each(function () {
-      tempChk = $(this).children()[0];
-      // console.log(tempChk.checked)
-      if (tempChk.checked == true) {
-        if(needs_single_year_title == true){
+      let tempChk = $(this).children()[0];
+      let title
+      if (tempChk.checked) {
+        if(needs_single_year_title){
           title = harvestminDateYear + "_" + tempChk.value.slice(0, -7)
         }
         else{
           title = tempChk.value.slice(0, -7)
         }
-        png_options = { format: "png", width: 1300, height: 700 };
-        console.log(document.getElementsByClassName(tempChk.value)[0]);
+        let png_options = { format: "png", width: 1300, height: 700 };
         gen = generate_image(
           document.getElementsByClassName(tempChk.value)[0],
           png_options,
@@ -2799,14 +2732,15 @@ function export_plots() {
 }
 
 async function generate_image(div, options, file_name) {
-  url = await Plotly.toImage(div, options);
+  let url = await Plotly.toImage(div, options);
   await zip.file(file_name, urlToPromise(url), { binary: true });
 }
 
 function export_csv() {
+  let title
   for (let i in data_dict) {
-    if (i.includes("hidden") == false && i.includes("2") == false) {
-      if(needs_single_year_title == true){
+    if (!i.includes("hidden") && !i.includes("2")) {
+      if(needs_single_year_title){
         title = harvestminDateYear + "_" + i
       }
       else{
@@ -2846,7 +2780,7 @@ function display_user_data(temp_scenario_json) {
   temp_scenario_json = temp_scenario_json.replace("\"\"","\"No\"")
   temp_scenario_json = JSON.parse(temp_scenario_json)
   jQuery.each(temp_scenario_json, function(i, val) {
-    // $("#" + i).append(document.createTextNode(" - " + val));
+    
     if(i == "region" ){
       $("#"+i).html(val.name)
     }

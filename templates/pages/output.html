@@ -1,4 +1,3 @@
-{% if session %} 
 {% extends "components/base.html" %}
 
 {% block content %}
@@ -131,9 +130,6 @@
                 Carbon</button>
             <button class="tablinks" onclick="openTab(event, 'emissionsContent')" id="emissions">Emissions</button>
             <button class="tablinks" onclick="openTab(event, 'tableContent')" id="table">Final Results Table</button>
-            <!-- <button class="tablinks" onclick="openTab(event, 'reusedContent')" id="reused">Reused</button> -->
-
-
         </div>
 
         <!-- Tab content -->
@@ -181,21 +177,14 @@
             </div>
         </div>
         <div id="tableContent" class="tabcontent">
-            <!-- <div> -->
-
             <div class="graph table active-graph all_final_results_table"></div>
-            <!-- </div> -->
         </div>
 
 
     </section>
-    <!-- <div style="margin-left: 2em; width: 400px;">
-        <img src="../../static/images/Asset 2.png" alt="" height="auto" width="250px"
-            style="display: flex; margin:auto; margin-top: 150px;">
-    </div> -->
 </div>
 <div id="hidden-graphs" style="display:none;">
-    <!-- <div class="graph table hidden all_final_results_table2"></div> -->
+    <div class="graph table hidden all_final_results_hidden_table"></div>
     <div class="graph table hidden annual_timber_harvest_table"></div>
     <div class="graph table hidden total_yearly_net_change"></div>
     <div class="graph table hidden total_selected_net_change"></div>
@@ -211,10 +200,6 @@
     <div class="graph hidden burned_with_energy_capture_emissions_hidden"></div>
     <div class="graph hidden burned_without_energy_capture_emissions_hidden"></div>
     <div class="graph hidden swds_emissions_hidden"></div>
-
-
-
-    <!-- <div class="graph active reused"></div> -->
 </div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/jszip.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/output.js') }}"></script>
@@ -228,8 +213,3 @@
 
 
 {% endblock content %}
-
-
-{% else %}
-{% include  "components/login.html" %}
-{% endif %}
